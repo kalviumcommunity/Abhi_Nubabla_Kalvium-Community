@@ -1,0 +1,40 @@
+=== max_tokens Experiment Results ===
+
+Prompt: Explain what Retrieval-Augmented Generation (RAG) is in approximately 100 words. Focus on factual information and explain how retrieval provides context to the language model.
+Fixed Temperature: 0.2
+
+--- max_tokens: 50 ---
+Finish Reason: length (Cut Short: YES (Finish Reason: length))
+Total Tokens: 96 (Prompt: 46, Completion: 50)
+Response:
+<think>
+Here's a thinking process:
+
+1.  **Analyze User Input:**
+   - **Topic:** Retrieval-Augmented Generation (RAG)
+   - **Length:** Approximately 100 words
+   - **Focus:** F
+
+--- max_tokens: 200 ---
+Finish Reason: length (Cut Short: YES (Finish Reason: length))
+Total Tokens: 246 (Prompt: 46, Completion: 200)
+Response:
+<think>
+Here's a thinking process:
+
+1.  **Analyze User Input:**
+   - **Topic:** Retrieval-Augmented Generation (RAG)
+   - **Length:** Approximately 100 words
+   - **Focus:** Factual information
+   - **Key Requirement:** Explain how retrieval provides context to the language model
+
+2.  **Deconstruct RAG (Core Concepts):**
+   - What is it? A technique/framework combining retrieval systems with generative AI (LLMs).
+   - How does it work? 
+     - User query comes in.
+     - System searches an external knowledge base/database for relevant information.
+     - Retrieved documents/chunks are combined with the query.
+     - This combined input is fed to the LLM.
+     - LLM generates a response grounded in the retrieved context.
+   - Why? Reduces hallucinations, provides up-to-date/accurate information, leverages external knowledge without retraining.
+
