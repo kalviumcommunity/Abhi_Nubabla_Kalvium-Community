@@ -1,0 +1,80 @@
+{
+  "tokenizer_encoding": "cl100k_base / o200k_base (gpt-4o)",
+  "sample_counts": [
+    {
+      "sample_name": "Sample 1 (Short User Query)",
+      "char_count": 78,
+      "word_count": 12,
+      "token_count": 15,
+      "chars_per_token": 5.2
+    },
+    {
+      "sample_name": "Sample 2 (Medium Paragraph Context)",
+      "char_count": 612,
+      "word_count": 87,
+      "token_count": 100,
+      "chars_per_token": 6.12
+    },
+    {
+      "sample_name": "Sample 3 (Long RAG Document)",
+      "char_count": 2542,
+      "word_count": 351,
+      "token_count": 476,
+      "chars_per_token": 5.34
+    }
+  ],
+  "cost_estimates_1000_queries": {
+    "gpt-4o-mini": {
+      "model_name": "GPT-4o-mini",
+      "input_tokens": 115000,
+      "output_tokens": 150000,
+      "total_tokens": 265000,
+      "input_cost_usd": 0.01725,
+      "output_cost_usd": 0.09,
+      "total_cost_usd": 0.10725
+    },
+    "gpt-4o": {
+      "model_name": "GPT-4o",
+      "input_tokens": 115000,
+      "output_tokens": 150000,
+      "total_tokens": 265000,
+      "input_cost_usd": 0.2875,
+      "output_cost_usd": 1.5,
+      "total_cost_usd": 1.7875
+    }
+  },
+  "length_token_relationship": [
+    {
+      "category": "Standard English Prose",
+      "char_count": 146,
+      "word_count": 20,
+      "token_count": 22,
+      "chars_per_token": 6.64,
+      "words_per_token": 0.91
+    },
+    {
+      "category": "Python Code Snippet",
+      "char_count": 218,
+      "word_count": 23,
+      "token_count": 60,
+      "chars_per_token": 3.63,
+      "words_per_token": 0.38
+    },
+    {
+      "category": "Dense Technical / Hyphenated Text",
+      "char_count": 179,
+      "word_count": 9,
+      "token_count": 33,
+      "chars_per_token": 5.42,
+      "words_per_token": 0.27
+    },
+    {
+      "category": "Multilingual / Non-ASCII Text",
+      "char_count": 157,
+      "word_count": 21,
+      "token_count": 43,
+      "chars_per_token": 3.65,
+      "words_per_token": 0.49
+    }
+  ]
+}
