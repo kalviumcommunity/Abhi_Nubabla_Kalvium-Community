@@ -281,6 +281,7 @@ def run_interactive(client: OpenAI, config: dict):
 def main():
     parser = argparse.ArgumentParser(description="Multi-turn conversation history RAG chat client.")
     parser.add_argument("--demo", action="store_true", help="Run the overflow demonstration mode.")
+    parser.add_argument("--parameters", action="store_true", help="Run the parameter experiments.")
     args = parser.parse_args()
     
     try:
@@ -292,7 +293,10 @@ def main():
     client = create_client(config)
     
     try:
-        if args.demo:
+        if args.parameters:
+            import experiment_runner
+            experiment_runner.run_parameter_experiments(client, config)
+        elif args.demo:
             run_demo(client, config)
         else:
             run_interactive(client, config)
