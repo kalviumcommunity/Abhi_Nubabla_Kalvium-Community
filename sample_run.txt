@@ -1,0 +1,155 @@
+=== History Management Demo ===
+
+Configured history budget: 1000 tokens
+Trim threshold: 80% (800 tokens)
+
+INFO - --- Turn 1 ---
+INFO - History tokens before management: 64
+INFO - History budget: 1000 (Threshold: 800)
+INFO - No trimming required.
+INFO - Sending chat completion request...
+INFO - Request messages: [{'role': 'system', 'content': 'You are a helpful AI assistant. Answer clearly and in detail.'}, {'role': 'user', 'content': 'Explain what Retrieval-Augmented Generation (RAG) is in detail. Please write a long paragraph of at least 120 words covering search query translation, vector retrieval, and contextual generation.'}]
+INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+INFO - Response received successfully.
+INFO - Response payload: {'id': 'chatcmpl-20e6d806-9fcf-477f-b844-4ec23c4b162f', 'choices': [{'finish_reason': 'length', 'index': 0, 'logprobs': None, 'message': {'content': "\n<think>\nHere's a thinking process:\n\n1.  **Analyze User Input:**\n   - **Topic:** Retrieval-Augmented Generation (RAG)\n   - **Requirement:** Explain in detail\n   - **Format:** Long paragraph\n   - **Length:** At least 120 words\n   - **Key Components to Cover:** Search query translation, vector retrieval, and contextual generation\n\n2.  **Deconstruct Key Components:**\n   - *Search query translation:* How user prompts are transformed into formats suitable for retrieval (e.g., embedding generation, query rewriting, multi-query expansion)\n   - *Vector retrieval:* How embeddings are used to search a vector database for relevant documents/chunks using similarity metrics (cosine, dot product)\n   - *Contextual generation:* How the retrieved context is combined with the original prompt and fed to an LLM to generate accurate, grounded responses\n\n3.  **Draft - Mental Refinement (Paragraph Structure):**\n   Start", 'refusal': None, 'role': 'assistant', 'annotations': None, 'audio': None, 'function_call': None, 'tool_calls': None}}], 'created': 1787651692, 'model': 'qwen/qwen3.6-27b', 'object': 'chat.completion', 'metadata': None, 'moderation': None, 'service_tier': 'on_demand', 'system_fingerprint': 'fp_60e0d2f248', 'usage': {'completion_tokens': 200, 'prompt_tokens': 69, 'total_tokens': 269, 'completion_tokens_details': None, 'prompt_tokens_details': None, 'queue_time': 0.047562074, 'prompt_time': 0.005438496, 'completion_time': 0.392534589, 'total_time': 0.397973085}, 'usage_breakdown': None, 'x_groq': {'id': 'req_01m0w5g562eg78jtrn1dp0hcsn', 'seed': 871493827}}
+INFO - API token usage: Prompt/Input: 69, Completion/Output: 200, Total: 269
+Assistant: 
+<think>
+Here's a thinking process:
+
+1.  **Analyze User Input:**
+   - **Topic:** Retrieval-Augmented Generation (RAG)
+   - **Requirement:** Explain in detail
+   - **Format:** Long paragraph
+   - **Length:** At least 120 words
+   - **Key Components to Cover:** Search query translation, vector retrieval, and contextual generation
+
+2.  **Deconstruct Key Components:**
+   - *Search query translation:* How user prompts are transformed into formats suitable for retrieval (e.g., embedding generation, query rewriting, multi-query expansion)
+   - *Vector retrieval:* How embeddings are used to search a vector database for relevant documents/chunks using similarity metrics (cosine, dot product)
+   - *Contextual generation:* How the retrieved context is combined with the original prompt and fed to an LLM to generate accurate, grounded responses
+
+3.  **Draft - Mental Refinement (Paragraph Structure):**
+   Start
+
+INFO - Sleeping for 15 seconds to respect API rate limits...
+INFO - --- Turn 2 ---
+INFO - History tokens before management: 306
+INFO - History budget: 1000 (Threshold: 800)
+INFO - No trimming required.
+INFO - Sending chat completion request...
+INFO - Request messages: [{'role': 'system', 'content': 'You are a helpful AI assistant. Answer clearly and in detail.'}, {'role': 'user', 'content': 'Explain what Retrieval-Augmented Generation (RAG) is in detail. Please write a long paragraph of at least 120 words covering search query translation, vector retrieval, and contextual generation.'}, {'role': 'assistant', 'content': "\n<think>\nHere's a thinking process:\n\n1.  **Analyze User Input:**\n   - **Topic:** Retrieval-Augmented Generation (RAG)\n   - **Requirement:** Explain in detail\n   - **Format:** Long paragraph\n   - **Length:** At least 120 words\n   - **Key Components to Cover:** Search query translation, vector retrieval, and contextual generation\n\n2.  **Deconstruct Key Components:**\n   - *Search query translation:* How user prompts are transformed into formats suitable for retrieval (e.g., embedding generation, query rewriting, multi-query expansion)\n   - *Vector retrieval:* How embeddings are used to search a vector database for relevant documents/chunks using similarity metrics (cosine, dot product)\n   - *Contextual generation:* How the retrieved context is combined with the original prompt and fed to an LLM to generate accurate, grounded responses\n\n3.  **Draft - Mental Refinement (Paragraph Structure):**\n   Start"}, {'role': 'user', 'content': 'Explain why document chunking is critical in RAG pipelines. Provide a comprehensive bulleted list detailing semantic chunk boundaries, overlap ratio, token limits, and retrieve efficiency.'}]
+INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+INFO - Response received successfully.
+INFO - Response payload: {'id': 'chatcmpl-94643fa2-72b4-4347-bcd6-2c74aa99d77a', 'choices': [{'finish_reason': 'length', 'index': 0, 'logprobs': None, 'message': {'content': "\n<think>\nHere's a thinking process:\n\n1.  **Analyze User Input:**\n   - **Topic:** Document chunking in RAG pipelines\n   - **Requirement:** Explain why it's critical\n   - **Format:** Comprehensive bulleted list\n   - **Key Elements to Cover:** Semantic chunk boundaries, overlap ratio, token limits, retrieve efficiency\n   - **Implicit Need:** Clear, detailed, technical but accessible explanation aligned with RAG best practices\n\n2.  **Deconstruct Key Elements:**\n   - *Why chunking is critical:* LLMs have context window limits, relevance filtering, noise reduction, computational efficiency, better alignment between query and context\n   - *Semantic chunk boundaries:* Splitting based on meaning/context rather than arbitrary character/word counts; preserves coherence; uses NLP techniques (sentence boundaries, headers, topic shifts)\n   - *Overlap ratio:* Prevents loss of context at split points; ensures continuity; typical ranges (10-20", 'refusal': None, 'role': 'assistant', 'annotations': None, 'audio': None, 'function_call': None, 'tool_calls': None}}], 'created': 1787651708, 'model': 'qwen/qwen3.6-27b', 'object': 'chat.completion', 'metadata': None, 'moderation': None, 'service_tier': 'on_demand', 'system_fingerprint': 'fp_49d6b1859d', 'usage': {'completion_tokens': 200, 'prompt_tokens': 315, 'total_tokens': 515, 'completion_tokens_details': None, 'prompt_tokens_details': None, 'queue_time': 0.047815505, 'prompt_time': 0.023885894, 'completion_time': 0.379946904, 'total_time': 0.403832798}, 'usage_breakdown': None, 'x_groq': {'id': 'req_01m0w5gmrper3b6aj26thr6ayb', 'seed': 1862557508}}
+INFO - API token usage: Prompt/Input: 315, Completion/Output: 200, Total: 515
+Assistant: 
+<think>
+Here's a thinking process:
+
+1.  **Analyze User Input:**
+   - **Topic:** Document chunking in RAG pipelines
+   - **Requirement:** Explain why it's critical
+   - **Format:** Comprehensive bulleted list
+   - **Key Elements to Cover:** Semantic chunk boundaries, overlap ratio, token limits, retrieve efficiency
+   - **Implicit Need:** Clear, detailed, technical but accessible explanation aligned with RAG best practices
+
+2.  **Deconstruct Key Elements:**
+   - *Why chunking is critical:* LLMs have context window limits, relevance filtering, noise reduction, computational efficiency, better alignment between query and context
+   - *Semantic chunk boundaries:* Splitting based on meaning/context rather than arbitrary character/word counts; preserves coherence; uses NLP techniques (sentence boundaries, headers, topic shifts)
+   - *Overlap ratio:* Prevents loss of context at split points; ensures continuity; typical ranges (10-20
+
+INFO - Sleeping for 15 seconds to respect API rate limits...
+INFO - --- Turn 3 ---
+INFO - History tokens before management: 550
+INFO - History budget: 1000 (Threshold: 800)
+INFO - No trimming required.
+INFO - Sending chat completion request...
+INFO - Request messages: [{'role': 'system', 'content': 'You are a helpful AI assistant. Answer clearly and in detail.'}, {'role': 'user', 'content': 'Explain what Retrieval-Augmented Generation (RAG) is in detail. Please write a long paragraph of at least 120 words covering search query translation, vector retrieval, and contextual generation.'}, {'role': 'assistant', 'content': "\n<think>\nHere's a thinking process:\n\n1.  **Analyze User Input:**\n   - **Topic:** Retrieval-Augmented Generation (RAG)\n   - **Requirement:** Explain in detail\n   - **Format:** Long paragraph\n   - **Length:** At least 120 words\n   - **Key Components to Cover:** Search query translation, vector retrieval, and contextual generation\n\n2.  **Deconstruct Key Components:**\n   - *Search query translation:* How user prompts are transformed into formats suitable for retrieval (e.g., embedding generation, query rewriting, multi-query expansion)\n   - *Vector retrieval:* How embeddings are used to search a vector database for relevant documents/chunks using similarity metrics (cosine, dot product)\n   - *Contextual generation:* How the retrieved context is combined with the original prompt and fed to an LLM to generate accurate, grounded responses\n\n3.  **Draft - Mental Refinement (Paragraph Structure):**\n   Start"}, {'role': 'user', 'content': 'Explain why document chunking is critical in RAG pipelines. Provide a comprehensive bulleted list detailing semantic chunk boundaries, overlap ratio, token limits, and retrieve efficiency.'}, {'role': 'assistant', 'content': "\n<think>\nHere's a thinking process:\n\n1.  **Analyze User Input:**\n   - **Topic:** Document chunking in RAG pipelines\n   - **Requirement:** Explain why it's critical\n   - **Format:** Comprehensive bulleted list\n   - **Key Elements to Cover:** Semantic chunk boundaries, overlap ratio, token limits, retrieve efficiency\n   - **Implicit Need:** Clear, detailed, technical but accessible explanation aligned with RAG best practices\n\n2.  **Deconstruct Key Elements:**\n   - *Why chunking is critical:* LLMs have context window limits, relevance filtering, noise reduction, computational efficiency, better alignment between query and context\n   - *Semantic chunk boundaries:* Splitting based on meaning/context rather than arbitrary character/word counts; preserves coherence; uses NLP techniques (sentence boundaries, headers, topic shifts)\n   - *Overlap ratio:* Prevents loss of context at split points; ensures continuity; typical ranges (10-20"}, {'role': 'user', 'content': 'Compare sparse text retrieval algorithms (like BM25 keyword search) with dense vector retrieval embeddings. Elaborate on hybrid search strategies, re-ranking models, and semantic density.'}]
+INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+INFO - Response received successfully.
+INFO - Response payload: {'id': 'chatcmpl-b2340baf-e918-411f-8b13-d5275645f201', 'choices': [{'finish_reason': 'length', 'index': 0, 'logprobs': None, 'message': {'content': "\n<think>\nHere's a thinking process:\n\n1.  **Analyze User Input:**\n   - **Topic:** Compare sparse text retrieval (BM25/keyword) vs. dense vector retrieval (embeddings)\n   - **Key Elements to Cover:** \n     - Sparse vs. Dense retrieval comparison\n     - Hybrid search strategies\n     - Re-ranking models\n     - Semantic density\n   - **Format/Constraints:** No explicit format constraint, but should be detailed, technical, and well-structured. I'll aim for a comprehensive explanation with clear sections.\n\n2.  **Deconstruct Key Concepts:**\n   - *Sparse Retrieval (BM25/Keyword):* \n     - Based on term frequency-inverse document frequency (TF-IDF) or BM25\n     - Matches exact words/phrases\n     - Fast, interpretable, good for precise/lexical matches\n     - Weak on semantic similarity, synonyms, paraphrasing\n   - *Dense Retrieval (", 'refusal': None, 'role': 'assistant', 'annotations': None, 'audio': None, 'function_call': None, 'tool_calls': None}}], 'created': 1787651724, 'model': 'qwen/qwen3.6-27b', 'object': 'chat.completion', 'metadata': None, 'moderation': None, 'service_tier': 'on_demand', 'system_fingerprint': 'fp_60e0d2f248', 'usage': {'completion_tokens': 200, 'prompt_tokens': 561, 'total_tokens': 761, 'completion_tokens_details': None, 'prompt_tokens_details': None, 'queue_time': 1.103450788, 'prompt_time': 0.049909021, 'completion_time': 0.392653073, 'total_time': 0.442562094}, 'usage_breakdown': None, 'x_groq': {'id': 'req_01m0w5h40xe05s0pw47xcy05a3', 'seed': 404204869}}
+INFO - API token usage: Prompt/Input: 561, Completion/Output: 200, Total: 761
+Assistant: 
+<think>
+Here's a thinking process:
+
+1.  **Analyze User Input:**
+   - **Topic:** Compare sparse text retrieval (BM25/keyword) vs. dense vector retrieval (embeddings)
+   - **Key Elements to Cover:** 
+     - Sparse vs. Dense retrieval comparison
+     - Hybrid search strategies
+     - Re-ranking models
+     - Semantic density
+   - **Format/Constraints:** No explicit format constraint, but should be detailed, technical, and well-structured. I'll aim for a comprehensive explanation with clear sections.
+
+2.  **Deconstruct Key Concepts:**
+   - *Sparse Retrieval (BM25/Keyword):* 
+     - Based on term frequency-inverse document frequency (TF-IDF) or BM25
+     - Matches exact words/phrases
+     - Fast, interpretable, good for precise/lexical matches
+     - Weak on semantic similarity, synonyms, paraphrasing
+   - *Dense Retrieval (
+
+INFO - Sleeping for 15 seconds to respect API rate limits...
+INFO - --- Turn 4 ---
+INFO - History tokens before management: 790
+INFO - History budget: 1000 (Threshold: 800)
+INFO - No trimming required.
+INFO - Sending chat completion request...
+INFO - Request messages: [{'role': 'system', 'content': 'You are a helpful AI assistant. Answer clearly and in detail.'}, {'role': 'user', 'content': 'Explain what Retrieval-Augmented Generation (RAG) is in detail. Please write a long paragraph of at least 120 words covering search query translation, vector retrieval, and contextual generation.'}, {'role': 'assistant', 'content': "\n<think>\nHere's a thinking process:\n\n1.  **Analyze User Input:**\n   - **Topic:** Retrieval-Augmented Generation (RAG)\n   - **Requirement:** Explain in detail\n   - **Format:** Long paragraph\n   - **Length:** At least 120 words\n   - **Key Components to Cover:** Search query translation, vector retrieval, and contextual generation\n\n2.  **Deconstruct Key Components:**\n   - *Search query translation:* How user prompts are transformed into formats suitable for retrieval (e.g., embedding generation, query rewriting, multi-query expansion)\n   - *Vector retrieval:* How embeddings are used to search a vector database for relevant documents/chunks using similarity metrics (cosine, dot product)\n   - *Contextual generation:* How the retrieved context is combined with the original prompt and fed to an LLM to generate accurate, grounded responses\n\n3.  **Draft - Mental Refinement (Paragraph Structure):**\n   Start"}, {'role': 'user', 'content': 'Explain why document chunking is critical in RAG pipelines. Provide a comprehensive bulleted list detailing semantic chunk boundaries, overlap ratio, token limits, and retrieve efficiency.'}, {'role': 'assistant', 'content': "\n<think>\nHere's a thinking process:\n\n1.  **Analyze User Input:**\n   - **Topic:** Document chunking in RAG pipelines\n   - **Requirement:** Explain why it's critical\n   - **Format:** Comprehensive bulleted list\n   - **Key Elements to Cover:** Semantic chunk boundaries, overlap ratio, token limits, retrieve efficiency\n   - **Implicit Need:** Clear, detailed, technical but accessible explanation aligned with RAG best practices\n\n2.  **Deconstruct Key Elements:**\n   - *Why chunking is critical:* LLMs have context window limits, relevance filtering, noise reduction, computational efficiency, better alignment between query and context\n   - *Semantic chunk boundaries:* Splitting based on meaning/context rather than arbitrary character/word counts; preserves coherence; uses NLP techniques (sentence boundaries, headers, topic shifts)\n   - *Overlap ratio:* Prevents loss of context at split points; ensures continuity; typical ranges (10-20"}, {'role': 'user', 'content': 'Compare sparse text retrieval algorithms (like BM25 keyword search) with dense vector retrieval embeddings. Elaborate on hybrid search strategies, re-ranking models, and semantic density.'}, {'role': 'assistant', 'content': "\n<think>\nHere's a thinking process:\n\n1.  **Analyze User Input:**\n   - **Topic:** Compare sparse text retrieval (BM25/keyword) vs. dense vector retrieval (embeddings)\n   - **Key Elements to Cover:** \n     - Sparse vs. Dense retrieval comparison\n     - Hybrid search strategies\n     - Re-ranking models\n     - Semantic density\n   - **Format/Constraints:** No explicit format constraint, but should be detailed, technical, and well-structured. I'll aim for a comprehensive explanation with clear sections.\n\n2.  **Deconstruct Key Concepts:**\n   - *Sparse Retrieval (BM25/Keyword):* \n     - Based on term frequency-inverse document frequency (TF-IDF) or BM25\n     - Matches exact words/phrases\n     - Fast, interpretable, good for precise/lexical matches\n     - Weak on semantic similarity, synonyms, paraphrasing\n   - *Dense Retrieval ("}, {'role': 'user', 'content': 'Describe the typical challenges associated with parsing complex PDF documents in real-world RAG systems, such as handling structured tables, inline images, and multi-column document layouts.'}]
+INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+INFO - Response received successfully.
+INFO - Response payload: {'id': 'chatcmpl-1da37a4e-7d3c-4bd3-a547-57aed0382f0b', 'choices': [{'finish_reason': 'stop', 'index': 0, 'logprobs': None, 'message': {'content': "\n<think>\nHere's a thinking process:\n\n1.  **Analyze User Input:**\n   - **Topic:** Challenges of parsing complex PDF documents in real-world RAG systems\n   - **Specific Challenges Mentioned:** Handling structured tables, inline images, multi-column document layouts\n   - **Context:** Real-world RAG systems (implies practical, production-level concerns, not just theoretical)\n   - **Goal:** Describe these challenges comprehensively\n\n2.  **Deconstruct Key Challenges:**\n   - *PDF Format Nature:* PDFs are layout-focused, not content-structured. They store objects (text, fonts, vectors) with coordinates, not logical document structure.\n   - *Multi-column Layouts:* Linear reading order vs. visual layout. Parsers often read across columns instead of down, minding semantics.\n   - *Tables:* Complex structure, merged cells, headers spanning rows/", 'refusal': None, 'role': 'assistant', 'annotations': None, 'audio': None, 'function_call': None, 'tool_calls': None}}], 'created': 1787651740, 'model': 'qwen/qwen3.6-27b', 'object': 'chat.completion', 'metadata': None, 'moderation': None, 'service_tier': 'on_demand', 'system_fingerprint': 'fp_2f860a3fc2', 'usage': {'completion_tokens': 184, 'prompt_tokens': 805, 'total_tokens': 989, 'completion_tokens_details': None, 'prompt_tokens_details': None, 'queue_time': 0.052481753, 'prompt_time': 0.071017476, 'completion_time': 0.349638546, 'total_time': 0.420656022}, 'usage_breakdown': None, 'x_groq': {'id': 'req_01m0w5hm9te8kth17rzxs94kmv', 'seed': 1744160409}}
+INFO - API token usage: Prompt/Input: 805, Completion/Output: 184, Total: 989
+Assistant: 
+<think>
+Here's a thinking process:
+
+1.  **Analyze User Input:**
+   - **Topic:** Challenges of parsing complex PDF documents in real-world RAG systems
+   - **Specific Challenges Mentioned:** Handling structured tables, inline images, multi-column document layouts
+   - **Context:** Real-world RAG systems (implies practical, production-level concerns, not just theoretical)
+   - **Goal:** Describe these challenges comprehensively
+
+2.  **Deconstruct Key Challenges:**
+   - *PDF Format Nature:* PDFs are layout-focused, not content-structured. They store objects (text, fonts, vectors) with coordinates, not logical document structure.
+   - *Multi-column Layouts:* Linear reading order vs. visual layout. Parsers often read across columns instead of down, minding semantics.
+   - *Tables:* Complex structure, merged cells, headers spanning rows/
+
+INFO - Sleeping for 15 seconds to respect API rate limits...
+INFO - --- Turn 5 ---
+INFO - History tokens before management: 1017
+INFO - History budget: 1000 (Threshold: 800)
+INFO - History token count: 1017 / 1000 (Threshold: 800)
+INFO - History reached/exceeded threshold. Starting trimming...
+INFO - Removed turn: USER (Explain what Retrieval-Augment...) + ASSISTANT (
+<think>
+Here's a thinking pro...)
+INFO - Token count after trimming: 770 / 1000
+INFO - Sending chat completion request...
+INFO - Request messages: [{'role': 'system', 'content': 'You are a helpful AI assistant. Answer clearly and in detail.'}, {'role': 'user', 'content': 'Explain why document chunking is critical in RAG pipelines. Provide a comprehensive bulleted list detailing semantic chunk boundaries, overlap ratio, token limits, and retrieve efficiency.'}, {'role': 'assistant', 'content': "\n<think>\nHere's a thinking process:\n\n1.  **Analyze User Input:**\n   - **Topic:** Document chunking in RAG pipelines\n   - **Requirement:** Explain why it's critical\n   - **Format:** Comprehensive bulleted list\n   - **Key Elements to Cover:** Semantic chunk boundaries, overlap ratio, token limits, retrieve efficiency\n   - **Implicit Need:** Clear, detailed, technical but accessible explanation aligned with RAG best practices\n\n2.  **Deconstruct Key Elements:**\n   - *Why chunking is critical:* LLMs have context window limits, relevance filtering, noise reduction, computational efficiency, better alignment between query and context\n   - *Semantic chunk boundaries:* Splitting based on meaning/context rather than arbitrary character/word counts; preserves coherence; uses NLP techniques (sentence boundaries, headers, topic shifts)\n   - *Overlap ratio:* Prevents loss of context at split points; ensures continuity; typical ranges (10-20"}, {'role': 'user', 'content': 'Compare sparse text retrieval algorithms (like BM25 keyword search) with dense vector retrieval embeddings. Elaborate on hybrid search strategies, re-ranking models, and semantic density.'}, {'role': 'assistant', 'content': "\n<think>\nHere's a thinking process:\n\n1.  **Analyze User Input:**\n   - **Topic:** Compare sparse text retrieval (BM25/keyword) vs. dense vector retrieval (embeddings)\n   - **Key Elements to Cover:** \n     - Sparse vs. Dense retrieval comparison\n     - Hybrid search strategies\n     - Re-ranking models\n     - Semantic density\n   - **Format/Constraints:** No explicit format constraint, but should be detailed, technical, and well-structured. I'll aim for a comprehensive explanation with clear sections.\n\n2.  **Deconstruct Key Concepts:**\n   - *Sparse Retrieval (BM25/Keyword):* \n     - Based on term frequency-inverse document frequency (TF-IDF) or BM25\n     - Matches exact words/phrases\n     - Fast, interpretable, good for precise/lexical matches\n     - Weak on semantic similarity, synonyms, paraphrasing\n   - *Dense Retrieval ("}, {'role': 'user', 'content': 'Describe the typical challenges associated with parsing complex PDF documents in real-world RAG systems, such as handling structured tables, inline images, and multi-column document layouts.'}, {'role': 'assistant', 'content': "\n<think>\nHere's a thinking process:\n\n1.  **Analyze User Input:**\n   - **Topic:** Challenges of parsing complex PDF documents in real-world RAG systems\n   - **Specific Challenges Mentioned:** Handling structured tables, inline images, multi-column document layouts\n   - **Context:** Real-world RAG systems (implies practical, production-level concerns, not just theoretical)\n   - **Goal:** Describe these challenges comprehensively\n\n2.  **Deconstruct Key Challenges:**\n   - *PDF Format Nature:* PDFs are layout-focused, not content-structured. They store objects (text, fonts, vectors) with coordinates, not logical document structure.\n   - *Multi-column Layouts:* Linear reading order vs. visual layout. Parsers often read across columns instead of down, minding semantics.\n   - *Tables:* Complex structure, merged cells, headers spanning rows/"}, {'role': 'user', 'content': 'Explain evaluation frameworks for RAG systems (like Ragas or TruLens). Detail metrics such as faithfulness, answer relevance, context recall, and semantic similarity.'}]
+INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+INFO - Response received successfully.
+INFO - Response payload: {'id': 'chatcmpl-26e6e1eb-f686-463a-b111-d0f4e1433d57', 'choices': [{'finish_reason': 'length', 'index': 0, 'logprobs': None, 'message': {'content': "\n<think>\nHere's a thinking process:\n\n1.  **Deconstruct the Prompt:**\n   - **Topic:** Evaluation frameworks for RAG systems (specifically mentioning Ragas and TruLens)\n   - **Key Metrics to Detail:** Faithfulness, Answer Relevance, Context Recall, Semantic Similarity\n   - **Goal:** Explain these frameworks and metrics clearly and comprehensively\n\n2.  **Analyze Core Concepts:**\n   - **RAG Evaluation Challenge:** Unlike standard classifiers, RAG has multiple failure modes (retrieval fails, generation hallucinates, context is missed/irrelevant). Need structured evaluation.\n   - **Frameworks:**\n     - *Ragas:* LLM-based, open-source, focuses on intrinsic evaluation metrics, uses reference-free or reference-based scoring, heavily relies on LLM-as-a-judge.\n     - *TruLens:* Open-source, integrates with LangChain/LlamaIndex, allows custom rubrics, uses LLM-as-a", 'refusal': None, 'role': 'assistant', 'annotations': None, 'audio': None, 'function_call': None, 'tool_calls': None}}], 'created': 1787651756, 'model': 'qwen/qwen3.6-27b', 'object': 'chat.completion', 'metadata': None, 'moderation': None, 'service_tier': 'on_demand', 'system_fingerprint': 'fp_49d6b1859d', 'usage': {'completion_tokens': 200, 'prompt_tokens': 781, 'total_tokens': 981, 'completion_tokens_details': None, 'prompt_tokens_details': None, 'queue_time': 0.050775428, 'prompt_time': 0.059663181, 'completion_time': 0.380083494, 'total_time': 0.439746675}, 'usage_breakdown': None, 'x_groq': {'id': 'req_01m0w5j3kce2ka0tffd9ktz3nc', 'seed': 961361333}}
+INFO - API token usage: Prompt/Input: 781, Completion/Output: 200, Total: 981
+Assistant: 
+<think>
+Here's a thinking process:
+
+1.  **Deconstruct the Prompt:**
+   - **Topic:** Evaluation frameworks for RAG systems (specifically mentioning Ragas and TruLens)
+   - **Key Metrics to Detail:** Faithfulness, Answer Relevance, Context Recall, Semantic Similarity
+   - **Goal:** Explain these frameworks and metrics clearly and comprehensively
+
+2.  **Analyze Core Concepts:**
+   - **RAG Evaluation Challenge:** Unlike standard classifiers, RAG has multiple failure modes (retrieval fails, generation hallucinates, context is missed/irrelevant). Need structured evaluation.
+   - **Frameworks:**
+     - *Ragas:* LLM-based, open-source, focuses on intrinsic evaluation metrics, uses reference-free or reference-based scoring, heavily relies on LLM-as-a-judge.
+     - *TruLens:* Open-source, integrates with LangChain/LlamaIndex, allows custom rubrics, uses LLM-as-a
+
+
+=== Demo Completed Successfully ===
+System message preserved: YES
+Final managed history tokens: 975 / 1000
+===================================
