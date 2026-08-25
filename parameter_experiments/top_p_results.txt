@@ -1,0 +1,51 @@
+=== top_p Experiment Results ===
+
+Prompt: Explain what Retrieval-Augmented Generation (RAG) is in approximately 100 words. Focus on factual information and explain how retrieval provides context to the language model.
+Fixed Temperature: 0.2
+
+--- top_p: 0.2 ---
+Total Tokens: 296 (Prompt: 46, Completion: 250)
+Response:
+<think>
+Here's a thinking process:
+
+1.  **Analyze User Input:**
+   - **Topic:** Retrieval-Augmented Generation (RAG)
+   - **Length:** Approximately 100 words
+   - **Focus:** Factual information
+   - **Key Requirement:** Explain how retrieval provides context to the language model
+
+2.  **Deconstruct RAG (Key Concepts):**
+   - What is it? A framework/architecture combining retrieval systems with generative AI (LLMs).
+   - How does it work? 
+     - User query comes in
+     - System searches an external knowledge base/database
+     - Retrieves relevant documents/chunks
+     - Feeds these retrieved pieces as context to the LLM
+     - LLM generates a response grounded in that context
+   - Why? Reduces hallucinations, keeps knowledge up-to-date, improves accuracy/factual grounding.
+
+3.  **Draft - Mental Refinement (aiming for ~100 words):**
+   Retrieval-Augmented Generation (RAG) is an AI architecture that enhances large language models by integrating external knowledge retrieval. When a user submits a query, the system first searches a designated database or document repository to locate relevant
+
+--- top_p: 1.0 ---
+Total Tokens: 296 (Prompt: 46, Completion: 250)
+Response:
+<think>
+Here's a thinking process:
+
+1.  **Analyze User Input:**
+   - **Topic:** Retrieval-Augmented Generation (RAG)
+   - **Length:** Approximately 100 words
+   - **Focus:** Factual information
+   - **Key Requirement:** Explain how retrieval provides context to the language model
+
+2.  **Deconstruct RAG (Key Concepts):**
+   - What is it? A framework/architecture combining retrieval and generation.
+   - How does it work? Retrieves relevant external information/documents, then feeds that to an LLM to generate a response.
+   - Why? Reduces hallucinations, grounds responses in factual/up-to-date data, leverages external knowledge bases.
+   - How does retrieval provide context? The retrieved documents/chunks are appended to the prompt, giving the LLM specific, relevant facts to reference during generation.
+
+3.  **Draft - Mental Refinement (aiming for ~100 words):**
+   Retrieval-Augmented Generation (RAG) is an AI architecture that enhances large language models by integrating external knowledge retrieval with text generation. When a user submits a query, RAG first searches a designated database or document corpus to locate relevant
+
