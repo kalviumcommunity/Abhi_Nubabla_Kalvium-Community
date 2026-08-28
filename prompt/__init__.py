@@ -1,0 +1,1 @@
+"""Prompt templates kept separate from application logic."""

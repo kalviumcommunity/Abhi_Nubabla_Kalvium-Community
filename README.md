@@ -34,7 +34,9 @@ This repository implements tools, benchmark reports, and system prompt architect
 │   ├── comparison_report.md   # Side-by-side prompt output comparison report
 │   └── comparison_results.json# Raw LLM benchmark results
 ├── prompt/
-│   └── chosen_prompt.md       # Documentation for chosen system prompt
+│   ├── templates.py            # Shared named-placeholder templates and renderer
+│   ├── example_renders.md      # Example filled prompts for chat and batch paths
+│   └── chosen_prompt.md        # Documentation for chosen system prompt
 ├── .env.example               # Template environment variables
 ├── .gitignore                 # Git ignore configuration
 ├── main.py                    # Application entry point for LLM chat requests
@@ -48,21 +50,38 @@ This repository implements tools, benchmark reports, and system prompt architect
 
 ### 1. Environment Setup
 ```bash
+# macOS/Linux
 source .venv/bin/activate
+# Windows PowerShell
+.venv\Scripts\Activate.ps1
 pip install -r requirements.txt
 ```
 
-### 2. Run Token Counting & Cost Estimation (Tasks 1–5)
+### 2. Reusable Prompt Templates
+```python
+from prompt.templates import render_rag_request
+
+prompt = render_rag_request(
+	context="The remote-work policy permits two remote days per week.",
+	question="How many remote days can I request?",
+)
+```
+
+The interactive chat and parameter-experiment batch feature both use this same
+`{context}`/`{question}` template. See `prompt/example_renders.md` for complete
+rendered examples.
+
+### 3. Run Token Counting & Cost Estimation (Tasks 1–5)
 ```bash
 python src/token_counter.py
 ```
 
-### 3. Run Prompt Benchmark Comparison
+### 4. Run Prompt Benchmark Comparison
 ```bash
 python src/compare_prompts.py
 ```
 
-### 4. Run Main Application
+### 5. Run Main Application
 ```bash
 python main.py
 ```

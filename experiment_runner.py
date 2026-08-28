@@ -4,6 +4,7 @@ import time
 import logging
 import openai
 from openai import OpenAI
+from prompt.templates import render_rag_request
 
 # Configure logging
 logger = logging.getLogger(__name__)
@@ -55,9 +56,12 @@ def run_parameter_experiments(client: OpenAI, config: dict):
     output_dir = "parameter_experiments"
     os.makedirs(output_dir, exist_ok=True)
     
-    prompt = (
+    prompt = render_rag_request(
+        context="RAG retrieves relevant internal documents before generating an answer.",
+        question=(
         "Explain what Retrieval-Augmented Generation (RAG) is in approximately 100 words. "
         "Focus on factual information and explain how retrieval provides context to the language model."
+        ),
     )
     messages = [{"role": "user", "content": prompt}]
     

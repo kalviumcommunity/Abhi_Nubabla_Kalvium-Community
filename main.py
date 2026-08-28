@@ -7,6 +7,7 @@ from openai import OpenAI
 from dotenv import load_dotenv
 
 import history_manager
+from prompt.templates import render_rag_request, STAFF_ASSISTANT_SYSTEM_PROMPT
 
 # Reconfigure stdout/stderr to use UTF-8 to prevent encoding issues on Windows
 if hasattr(sys.stdout, "reconfigure"):
@@ -179,16 +180,16 @@ def run_demo(client: OpenAI, config: dict):
         "Explain evaluation frameworks for RAG systems (like Ragas or TruLens). Detail metrics such as faithfulness, answer relevance, context recall, and semantic similarity."
     ]
     
-    history = [
-        {"role": "system", "content": "You are a helpful AI assistant. Answer clearly and in detail."}
-    ]
+    history = [{"role": "system", "content": STAFF_ASSISTANT_SYSTEM_PROMPT}]
     
     for i, prompt in enumerate(demo_turns, 1):
         try:
             if i > 1:
                 logger.info("Sleeping for 15 seconds to respect API rate limits...")
                 time.sleep(15)
-            history = execute_turn(client, config, history, prompt, i)
+            history = execute_turn(
+                client, config, history, render_rag_request("", prompt), i
+            )
             print()
         except Exception as e:
             logger.error(f"Error in Demo Turn {i}: {e}")
@@ -210,9 +211,7 @@ def run_interactive(client: OpenAI, config: dict):
     """
     print("\nRAG Chat — type 'exit' or 'quit' to quit\n")
     
-    history = [
-        {"role": "system", "content": "You are a helpful AI assistant. Answer clearly and concisely."}
-    ]
+    history = [{"role": "system", "content": STAFF_ASSISTANT_SYSTEM_PROMPT}]
     
     turn_num = 1
     while True:
@@ -224,7 +223,9 @@ def run_interactive(client: OpenAI, config: dict):
                 print("Goodbye!")
                 break
                 
-            history = execute_turn(client, config, history, user_input, turn_num)
+            history = execute_turn(
+                client, config, history, render_rag_request("", user_input), turn_num
+            )
             turn_num += 1
             print()
         except KeyboardInterrupt:

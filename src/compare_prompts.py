@@ -11,6 +11,9 @@ import json
 import os
 import sys
 from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+
 from dotenv import load_dotenv
 from openai import OpenAI
 from prompts import SYSTEM_PROMPT_VAGUE, SYSTEM_PROMPT_CONSTRAINED, USER_TEST_QUESTIONS
