@@ -13,9 +13,9 @@ This report benchmarks and evaluates three distinct document chunking strategies
 
 | Strategy | Total Chunks | Avg Tokens / Chunk | Avg Chars / Chunk | Overlap Overhead (%) |
 | :--- | :---: | :---: | :---: | :---: |
-| **Fixed-Size (Chars)** | 23 | 71.48 | 370.61 | +21.2% |
-| **Sentence-Based** | 20 | 83.2 | 429.0 | +21.8% |
-| **Paragraph / Structure-Aware** | 13 | 115.54 | 587.15 | +10.9% |
+| **Fixed-Size (Chars)** | 25 | 70.44 | 363.84 | +19.6% |
+| **Sentence-Based** | 22 | 81.04 | 416.0 | +20.5% |
+| **Paragraph / Structure-Aware** | 15 | 107.13 | 543.53 | +8.9% |
 
 ### 2. Per-Document Statistical Breakdown
 
@@ -24,6 +24,9 @@ This report benchmarks and evaluates three distinct document chunking strategies
 | `employee_benefits` | Fixed-Size (Chars) | 6 | 72.33 (±14.7) | 44 / 94 | +19.6% |
 | `employee_benefits` | Sentence-Based | 5 | 82.0 (±7.04) | 70 / 90 | +12.9% |
 | `employee_benefits` | Paragraph / Structure-Aware | 4 | 102.5 (±6.06) | 94 / 110 | +12.9% |
+| `guide` | Fixed-Size (Chars) | 2 | 58.5 (±22.5) | 36 / 81 | +14.7% |
+| `guide` | Sentence-Based | 2 | 59.5 (±20.5) | 39 / 80 | +16.7% |
+| `guide` | Paragraph / Structure-Aware | 2 | 52.5 (±33.5) | 19 / 86 | +2.9% |
 | `it_security_policy` | Fixed-Size (Chars) | 8 | 72.88 (±19.29) | 23 / 88 | +24.0% |
 | `it_security_policy` | Sentence-Based | 7 | 83.57 (±26.54) | 20 / 100 | +24.5% |
 | `it_security_policy` | Paragraph / Structure-Aware | 4 | 128.5 (±21.56) | 104 / 160 | +9.4% |

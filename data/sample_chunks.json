@@ -247,6 +247,110 @@
       }
     ]
   },
+  "guide": {
+    "Fixed-Size (Chars)": [
+      {
+        "chunk_id": "guide_fixed_001",
+        "doc_id": "guide",
+        "strategy": "Fixed-Size (Chars)",
+        "content": "# RAG Optimization Guide\n\nThis markdown file serves as a documentation template for testing our document loader.\n\n## Key Principles of RAG\n1. **Accurate Loading**: Retrieve documents from mixed formats and transform them into standard text.\n2. **Semantic Chunking**: Split text into semantically cohesive units.\n3. **Smart Retrieving**: Retrieve top-k chunks matching the query embedding.\n\n###",
+        "char_count": 393,
+        "word_count": 56,
+        "token_count": 81,
+        "start_char": 0,
+        "end_char": 393,
+        "metadata": {
+          "chunk_index": 1,
+          "chunk_size_chars": 400,
+          "overlap_chars": 80
+        }
+      },
+      {
+        "chunk_id": "guide_fixed_002",
+        "doc_id": "guide",
+        "strategy": "Fixed-Size (Chars)",
+        "content": "rt Retrieving**: Retrieve top-k chunks matching the query embedding.\n\n### Additional Notes\n* Make sure metadata is preserved.\n* Citations should point back to the source filename.",
+        "char_count": 179,
+        "word_count": 27,
+        "token_count": 36,
+        "start_char": 320,
+        "end_char": 499,
+        "metadata": {
+          "chunk_index": 2,
+          "chunk_size_chars": 400,
+          "overlap_chars": 80
+        }
+      }
+    ],
+    "Sentence-Based": [
+      {
+        "chunk_id": "guide_sent_001",
+        "doc_id": "guide",
+        "strategy": "Sentence-Based",
+        "content": "# RAG Optimization Guide\nThis markdown file serves as a documentation template for testing our document loader.\n## Key Principles of RAG\n1. **Accurate Loading**: Retrieve documents from mixed formats and transform them into standard text.\n2. **Semantic Chunking**: Split text into semantically cohesive units.\n3. **Smart Retrieving**: Retrieve top-k chunks matching the query embedding.",
+        "char_count": 386,
+        "word_count": 55,
+        "token_count": 80,
+        "start_char": 0,
+        "end_char": 388,
+        "metadata": {
+          "chunk_index": 1,
+          "sentence_count": 5,
+          "sentence_overlap": 1
+        }
+      },
+      {
+        "chunk_id": "guide_sent_002",
+        "doc_id": "guide",
+        "strategy": "Sentence-Based",
+        "content": "3. **Smart Retrieving**: Retrieve top-k chunks matching the query embedding.\n### Additional Notes\n* Make sure metadata is preserved.\n* Citations should point back to the source filename.",
+        "char_count": 186,
+        "word_count": 28,
+        "token_count": 39,
+        "start_char": 312,
+        "end_char": 499,
+        "metadata": {
+          "chunk_index": 2,
+          "sentence_count": 2,
+          "sentence_overlap": 1
+        }
+      }
+    ],
+    "Paragraph / Structure-Aware": [
+      {
+        "chunk_id": "guide_struct_001",
+        "doc_id": "guide",
+        "strategy": "Paragraph / Structure-Aware",
+        "content": "[RAG Optimization Guide]\nThis markdown file serves as a documentation template for testing our document loader.",
+        "char_count": 111,
+        "word_count": 16,
+        "token_count": 19,
+        "start_char": 0,
+        "end_char": 114,
+        "metadata": {
+          "chunk_index": 1,
+          "section_header": "RAG Optimization Guide",
+          "is_complete_section": true
+        }
+      },
+      {
+        "chunk_id": "guide_struct_002",
+        "doc_id": "guide",
+        "strategy": "Paragraph / Structure-Aware",
+        "content": "[RAG Optimization Guide > Key Principles of RAG]\n1. **Accurate Loading**: Retrieve documents from mixed formats and transform them into standard text.\n2. **Semantic Chunking**: Split text into semantically cohesive units.\n3. **Smart Retrieving**: Retrieve top-k chunks matching the query embedding.\n\n### Additional Notes\n* Make sure metadata is preserved.\n* Citations should point back to the source filename.",
+        "char_count": 409,
+        "word_count": 59,
+        "token_count": 86,
+        "start_char": 114,
+        "end_char": 500,
+        "metadata": {
+          "chunk_index": 2,
+          "section_header": "RAG Optimization Guide > Key Principles of RAG",
+          "is_complete_section": true
+        }
+      }
+    ]
+  },
   "it_security_policy": {
     "Fixed-Size (Chars)": [
       {
