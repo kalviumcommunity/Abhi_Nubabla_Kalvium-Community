@@ -1,0 +1,105 @@
+[
+  {
+    "id": "structured_q1",
+    "description": "Standard in-scope question — expects clean JSON.",
+    "question": "What is the company policy on requesting sick leave?",
+    "raw_response": "{\"answer\":\"I don't have verified information on this topic.\",\"source\":\"N/A — No matching internal document found\"}",
+    "result": {
+      "status": "ok",
+      "data": {
+        "answer": "I don't have verified information on this topic.",
+        "source": "N/A — No matching internal document found"
+      }
+    }
+  },
+  {
+    "id": "structured_q2",
+    "description": "IT helpdesk question — expects clean JSON.",
+    "question": "How do I reset my corporate VPN password?",
+    "raw_response": "{\"answer\":\"I don't have verified information on this topic.\",\"source\":\"N/A — No matching internal document found\"}",
+    "result": {
+      "status": "ok",
+      "data": {
+        "answer": "I don't have verified information on this topic.",
+        "source": "N/A — No matching internal document found"
+      }
+    }
+  },
+  {
+    "id": "structured_q3",
+    "description": "Policy question — expects clean JSON.",
+    "question": "What are the office hours during the holiday season?",
+    "raw_response": "{\"answer\":\"I don't have verified information on this topic.\",\"source\":\"N/A — No matching internal document found\"}",
+    "result": {
+      "status": "ok",
+      "data": {
+        "answer": "I don't have verified information on this topic.",
+        "source": "N/A — No matching internal document found"
+      }
+    }
+  },
+  {
+    "id": "malformed_broken_json",
+    "description": "Broken JSON — trailing comma / missing value.",
+    "raw_response": "{\"answer\": \"Sick leave requires a doctor's note\", \"source\": }",
+    "result": {
+      "status": "error",
+      "error": "Malformed JSON — could not parse model response. JSONDecodeError: Expecting value at line 1 col 61. Raw (cleaned): '{\"answer\": \"Sick leave requires a doctor\\'s note\", \"source\": }'",
+      "raw": "{\"answer\": \"Sick leave requires a doctor's note\", \"source\": }"
+    }
+  },
+  {
+    "id": "malformed_missing_source",
+    "description": "Valid JSON but missing required 'source' field.",
+    "raw_response": "{\"answer\": \"You can reset your VPN password via the IT portal.\"}",
+    "result": {
+      "status": "error",
+      "error": "Validation failed — Missing required field: 'source'. Got: {'answer': 'You can reset your VPN password via the IT portal.'}",
+      "raw": "{\"answer\": \"You can reset your VPN password via the IT portal.\"}"
+    }
+  },
+  {
+    "id": "malformed_missing_answer",
+    "description": "Valid JSON but missing required 'answer' field.",
+    "raw_response": "{\"source\": \"IT Helpdesk FAQ, Section 2.1\"}",
+    "result": {
+      "status": "error",
+      "error": "Validation failed — Missing required field: 'answer'. Got: {'source': 'IT Helpdesk FAQ, Section 2.1'}",
+      "raw": "{\"source\": \"IT Helpdesk FAQ, Section 2.1\"}"
+    }
+  },
+  {
+    "id": "malformed_empty_string",
+    "description": "Completely empty response string.",
+    "raw_response": "",
+    "result": {
+      "status": "error",
+      "error": "Empty response received from model — no JSON to parse.",
+      "raw": ""
+    }
+  },
+  {
+    "id": "malformed_markdown_wrapped",
+    "description": "JSON wrapped in markdown code fences — needs extraction.",
+    "raw_response": "```json\n{\"answer\": \"Holiday hours are 9 AM to 3 PM.\", \"source\": \"Office Schedule 2025\"}\n```",
+    "result": {
+      "status": "ok",
+      "data": {
+        "answer": "Holiday hours are 9 AM to 3 PM.",
+        "source": "Office Schedule 2025"
+      }
+    }
+  },
+  {
+    "id": "malformed_with_thinking_tags",
+    "description": "Response prefixed with <think> tags from reasoning models.",
+    "raw_response": "<think>Let me consider the policy...</think>\n{\"answer\": \"Two remote days allowed per week.\", \"source\": \"HR Policy Manual, Section 4\"}",
+    "result": {
+      "status": "ok",
+      "data": {
+        "answer": "Two remote days allowed per week.",
+        "source": "HR Policy Manual, Section 4"
+      }
+    }
+  }
+]
