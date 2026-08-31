@@ -1,0 +1,55 @@
+Home > HR Department > Policies > Remote Work
+
+CONFIDENTIAL & PROPRIETARY — ACME CORP
+Acme Corporation Internal HR Policy Guide 2026
+Page 1 of 4
+
+==================================================
+# Section 4.2: Remote Work & Workplace Flexibility Policy
+==================================================
+
+1. Overview & Scope
+This policy defines the operational guidelines and security protocols for remote
+work arrangements within the organization. It applies to all full-time and
+part-time administrative, technical, and operational personnel. Remote work
+is a privilege designed to support work-life balance while ensuring organizational
+productivity, client conﬁdentiality, and data security remain uncompromised.
+
+Acme Corporation Internal HR Policy Guide 2026
+Page 2 of 4
+
+2. Eligibility Requirements
+To qualify for regular or hybrid remote work:
+- The employee must have completed a minimum of 6 months of continuous
+  full-time employment.
+- The employee's latest performance evaluation rating must meet or exceed
+  'Saﬁsfatory' standards with ofﬁcial HR approval.
+- The employee's role must be classiﬁed as 'Remote-Eligible' by the
+  Department Head. Roles requiring mandatory physical presence (e.g.,
+  facilities maintenance, hardware support, physical security) are excluded.
+
+3. Request & Approval Workflow
+Work-from-home (WFH) requests must be sub-
+mitted through the company's ofﬁcial HR Portal at least two weeks prior to the
+requested start date. All full-time employees with a minimum of six months of
+continuous service are eligible, provided their current job responsi-
+bilities permit remote operations.
+
+Acme Corporation Internal HR Policy Guide 2026
+Page 3 of 4
+
+Department managers will review requests based on team workload, coverage,
+and performance metrics before forwarding the application to the HR Remote Work
+Coordinator for final administrative approval. Approved employees must adhere
+to core business hours and maintain secure network connectivity at all times.
+
+4. Technical Equipment & Security Protocols
+Approved employees will receive corporate-issued laptop hardware pre-conﬁgured
+with encrypted disk storage and mandatory virtual private network (VPN) client
+software. Employees must never connect to unencrypted public Wi-Fi networks
+without activating the corporate VPN tunnel first.
+
+Acme Corporation Internal HR Policy Guide 2026
+Page 4 of 4
+CONFIDENTIAL & PROPRIETARY — ACME CORP
+All rights reserved. DO NOT DISTRIBUTE.
