@@ -1,0 +1,3 @@
+This is a fake PDF file designed to test error handling.
+It has the .pdf extension but is actually plain text, which will cause pypdf to raise an exception.
+The loader should catch this exception and skip it gracefully.
