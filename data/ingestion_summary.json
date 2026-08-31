@@ -1,0 +1,141 @@
+{
+  "timestamp": "2026-08-31T14:10:45.359751",
+  "corpus_directory": "C:/Users/Abhi Vignesh Samala/OneDrive/Desktop/Abhi_Nubabla_Kalvium-Community/data/corpus",
+  "total_source_documents": 8,
+  "successfully_ingested": 7,
+  "failed_documents": 1,
+  "skipped_documents": 0,
+  "total_chunks_created": 25,
+  "total_ingested_tokens": 1470,
+  "total_ingested_chars": 7916,
+  "avg_tokens_per_chunk": 58.8,
+  "avg_chars_per_chunk": 316.64,
+  "reconciliation_valid": true,
+  "reconciliation_formula": "8 Total == 7 Ingested + 1 Failures + 0 Skipped",
+  "file_type_breakdown": {
+    ".pdf": {
+      "discovered": 2,
+      "ingested": 1,
+      "failed": 1,
+      "chunks": 1
+    },
+    ".md": {
+      "discovered": 4,
+      "ingested": 4,
+      "failed": 0,
+      "chunks": 18
+    },
+    ".txt": {
+      "discovered": 1,
+      "ingested": 1,
+      "failed": 0,
+      "chunks": 1
+    },
+    ".html": {
+      "discovered": 1,
+      "ingested": 1,
+      "failed": 0,
+      "chunks": 5
+    }
+  },
+  "failures": [
+    {
+      "source_path": "data/corpus/corrupt.pdf",
+      "file_name": "corrupt.pdf",
+      "file_type": ".pdf",
+      "file_size_bytes": 223,
+      "error_type": "PdfStreamError",
+      "error_message": "Stream has ended unexpectedly"
+    }
+  ],
+  "records": [
+    {
+      "source_path": "data/corpus/corrupt.pdf",
+      "file_name": "corrupt.pdf",
+      "file_type": ".pdf",
+      "file_size_bytes": 223,
+      "status": "FAILED",
+      "chunks_count": 0,
+      "total_chars": 0,
+      "total_tokens": 0,
+      "error_message": "PdfStreamError: Stream has ended unexpectedly"
+    },
+    {
+      "source_path": "data/corpus/document.pdf",
+      "file_name": "document.pdf",
+      "file_type": ".pdf",
+      "file_size_bytes": 1919,
+      "status": "SUCCESS",
+      "chunks_count": 1,
+      "total_chars": 438,
+      "total_tokens": 78,
+      "error_message": null
+    },
+    {
+      "source_path": "data/corpus/employee_benefits.md",
+      "file_name": "employee_benefits.md",
+      "file_type": ".md",
+      "file_size_bytes": 1862,
+      "status": "SUCCESS",
+      "chunks_count": 4,
+      "total_chars": 1846,
+      "total_tokens": 363,
+      "error_message": null
+    },
+    {
+      "source_path": "data/corpus/guide.md",
+      "file_name": "guide.md",
+      "file_type": ".md",
+      "file_size_bytes": 512,
+      "status": "SUCCESS",
+      "chunks_count": 3,
+      "total_chars": 499,
+      "total_tokens": 102,
+      "error_message": null
+    },
+    {
+      "source_path": "data/corpus/hello.txt",
+      "file_name": "hello.txt",
+      "file_type": ".txt",
+      "file_size_bytes": 324,
+      "status": "SUCCESS",
+      "chunks_count": 1,
+      "total_chars": 318,
+      "total_tokens": 61,
+      "error_message": null
+    },
+    {
+      "source_path": "data/corpus/it_security_policy.md",
+      "file_name": "it_security_policy.md",
+      "file_type": ".md",
+      "file_size_bytes": 2390,
+      "status": "SUCCESS",
+      "chunks_count": 5,
+      "total_chars": 2366,
+      "total_tokens": 470,
+      "error_message": null
+    },
+    {
+      "source_path": "data/corpus/page.html",
+      "file_name": "page.html",
+      "file_type": ".html",
+      "file_size_bytes": 926,
+      "status": "SUCCESS",
+      "chunks_count": 5,
+      "total_chars": 292,
+      "total_tokens": 44,
+      "error_message": null
+    },
+    {
+      "source_path": "data/corpus/remote_work_policy.md",
+      "file_name": "remote_work_policy.md",
+      "file_type": ".md",
+      "file_size_bytes": 2851,
+      "status": "SUCCESS",
+      "chunks_count": 6,
+      "total_chars": 2823,
+      "total_tokens": 523,
+      "error_message": null
+    }
+  ]
+}
