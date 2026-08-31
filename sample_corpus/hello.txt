@@ -1,0 +1,5 @@
+Welcome to the RAG Document Loader test.
+This is a plain text file that contains unstructured information.
+It is designed to be loaded by our document loader and parsed into plain text.
+RAG systems need simple text format to compute embeddings and search for matching chunks.
+This concludes the plain text sample file.

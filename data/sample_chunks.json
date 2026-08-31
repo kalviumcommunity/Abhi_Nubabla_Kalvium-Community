@@ -1,0 +1,101 @@
+[
+  {
+    "text": "RAG System Documentation\nThis PDF document contains reference guide for Retrieval-Augmented Generation.\nRetrieval-Augmented Generation (RAG) is a technique that combines retrieval and generation.\nIt leverages external knowledge sources to improve LLM generation accuracy and relevance.\nOur loader module parses this PDF cleanly to feed it to downstream processes.\nVerify that page-by-page text extraction works and is formatted correctly.",
+    "metadata": {
+      "source": "sample_corpus/document.pdf",
+      "section": "RAG System Documentation",
+      "page": 1,
+      "position": 0
+    }
+  },
+  {
+    "text": "This markdown file serves as a documentation template for testing our document loader.",
+    "metadata": {
+      "source": "sample_corpus/guide.md",
+      "section": "# RAG Optimization Guide",
+      "page": null,
+      "position": 26
+    }
+  },
+  {
+    "text": "1. **Accurate Loading**: Retrieve documents from mixed formats and transform them into standard text.\n2. **Semantic Chunking**: Split text into semantically cohesive units.\n3. **Smart Retrieving**: Retrieve top-k chunks matching the query embedding.",
+    "metadata": {
+      "source": "sample_corpus/guide.md",
+      "section": "## Key Principles of RAG",
+      "page": null,
+      "position": 139
+    }
+  },
+  {
+    "text": "* Make sure metadata is preserved.\n* Citations should point back to the source filename.",
+    "metadata": {
+      "source": "sample_corpus/guide.md",
+      "section": "### Additional Notes",
+      "page": null,
+      "position": 411
+    }
+  },
+  {
+    "text": "Welcome to the RAG Document Loader test.\nThis is a plain text file that contains unstructured information.\nIt is designed to be loaded by our document loader and parsed into plain text.\nRAG systems need simple text format to compute embeddings and search for matching chunks.\nThis concludes the plain text sample file.",
+    "metadata": {
+      "source": "sample_corpus/hello.txt",
+      "section": "N/A",
+      "page": null,
+      "position": 0
+    }
+  },
+  {
+    "text": "Community Knowledge Base",
+    "metadata": {
+      "source": "sample_corpus/page.html",
+      "section": "N/A",
+      "page": null,
+      "position": 249
+    }
+  },
+  {
+    "text": "This HTML page contains reference information about our community guidelines.",
+    "metadata": {
+      "source": "sample_corpus/page.html",
+      "section": "N/A",
+      "page": null,
+      "position": 327
+    }
+  },
+  {
+    "text": "Members should follow collaboration standards, review PRs promptly, and participate in discussion threads.",
+    "metadata": {
+      "source": "sample_corpus/page.html",
+      "section": "N/A",
+      "page": null,
+      "position": 420
+    }
+  },
+  {
+    "text": "Be respectful and constructive.",
+    "metadata": {
+      "source": "sample_corpus/page.html",
+      "section": "H2: Rules of Engagement",
+      "page": null,
+      "position": 597
+    }
+  },
+  {
+    "text": "Maintain clear code documentation.",
+    "metadata": {
+      "source": "sample_corpus/page.html",
+      "section": "H2: Rules of Engagement",
+      "page": null,
+      "position": 650
+    }
+  },
+  {
+    "text": "Test changes locally before pushing.",
+    "metadata": {
+      "source": "sample_corpus/page.html",
+      "section": "H2: Rules of Engagement",
+      "page": null,
+      "position": 706
+    }
+  }
+]
