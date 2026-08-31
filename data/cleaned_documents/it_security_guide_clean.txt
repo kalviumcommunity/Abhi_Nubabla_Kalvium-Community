@@ -1,0 +1,13 @@
+# IT Security & System Access Guidelines
+
+1. Password & Authentication Standards
+All corporate user accounts MUST utilize multi-factor authentication (MFA) with mandatory hardware token or push notification verification. Passwords must be at least 16 characters in length, containing a mix of uppercase letters, lowercase letters, numbers, and special characters.
+
+2. Virtual Private Network (VPN) Usage
+Employees accessing corporate resources remotely are required to establish an encrypted VPN session using approved corporate credentials. Split-tunneling is strictly prohibited to ensure all traffic undergoes central security inspection. Zero-width invisible spaces ("\u200b") or hidden characters should never interfere with access tokens.
+
+3. Incident Response & Reporting
+Security incidents—including suspected phishing emails, lost hardware, or unauthorized system access attempts—must be reported immediately to the IT Security Operations Center (SOC) via the urgent hotline or by emailing security@company.com.
+
+4. Data Retention & Device Encryption
+All local endpoint storage media (laptops, workstation NVMe drives) must maintain full-disk BitLocker / FileVault encryption enabled. Data stored locally must be synchronized regularly with corporate cloud drives.

@@ -35,6 +35,13 @@ This repository implements tools, benchmark reports, and system prompt architect
 - **Constrained System Prompt**: Explicit Role definition, In/Out-of-Scope boundaries, length limits (<150 words / max 4 bullet points), and deterministic safety fallback redirecting to `hr@company.com`.
 - **Empirical Prompt Benchmark**: Side-by-side comparison of baseline vague system prompt vs. constrained prompt.
 
+### 3. Text Extraction Cleaning Pipeline (`Text-Extraction-Cleaning-Pipeline` Branch)
+- **Task 1 — Remove Boilerplate**: Automatic stripping of repeated headers, footers, page numbers ("Page X of Y"), breadcrumbs ("Home > HR > Policies"), legal disclaimers, and section dividers.
+- **Task 2 — Normalise Whitespace & Encoding**: Unicode NFKC normalization, ligatures repair (`ﬁ` $\rightarrow$ `fi`), removal of soft hyphens and zero-width spaces, mid-sentence and hyphenated line break unwrapping, horizontal/vertical space collapsing.
+- **Task 3 — Apply Consistently Across Corpus**: Uniform batch processing engine running identical cleaning stages across all documents in `data/raw_documents/`.
+- **Task 4 — Show Before/After Evidence**: Detailed reports (`data/cleaning_report.md`, `data/cleaning_results.json`) featuring side-by-side comparative text snippets and token reduction metrics via `tiktoken`.
+- **Task 5 — Commit with Sample Output**: Exported clean document files saved to `data/cleaned_documents/` ready for vector retrieval.
+
 ---
 
 ## 📁 Repository Structure
@@ -44,6 +51,29 @@ This repository implements tools, benchmark reports, and system prompt architect
 ├── src/
 │   ├── ingestion_pipeline.py  # Tasks 1-5: Full ingestion pipeline & completeness validation
 │   ├── chunker.py             # Modular chunking engine & benchmark runner
+│   ├── token_counter.py          # Token counting & cost estimation engine
+│   ├── prompts.py                # System prompt definitions & test scenarios
+│   ├── compare_prompts.py        # Prompt engineering benchmark runner
+│   ├── structured_output.py     # JSON response format mode & Pydantic validation
+│   └── cleaning_pipeline.py    # Tasks 1-5: Text extraction cleaning pipeline
+├── data/
+│   ├── raw_documents/            # Raw, noisy extracted document corpus
+│   ├── cleaned_documents/        # Cleaned, retrieval-ready document corpus
+│   ├── cleaning_report.md        # Before/after comparative cleaning report
+│   ├── cleaning_results.json     # JSON dataset with metrics & text diffs
+│   ├── token_cost_report.md      # Markdown summary of token counts & cost estimates
+│   ├── token_count_results.json   # JSON dataset of token counts & ratios
+│   ├── comparison_report.md      # Side-by-side prompt output comparison report
+│   └── structured_output_results.json # Sample parsed JSON outputs
+├── prompt/
+│   ├── templates.py               # Shared named-placeholder templates
+│   ├── example_renders.md         # Example filled prompts
+│   └── chosen_prompt.md           # Documentation for chosen system prompt
+├── .env.example                  # Template environment variables
+├── main.py                       # Application entry point for LLM chat requests
+├── requirements.txt              # Project dependencies
+└── README.md                     # Project overview & documentation
+│   ├── chunker.py             # Tasks 1-5: Modular chunking engine, stats calculator & benchmark runner
 │   ├── token_counter.py       # Tiktoken token counting & cost estimation engine
 │   ├── structured_output.py   # Structured JSON parsing and validation module
 │   ├── prompts.py             # System prompt definitions & test scenarios
@@ -103,6 +133,7 @@ python -m unittest discover -s tests -p "*.py" -v
 ### 4. Run Document Chunking Strategies Benchmark
 ```bash
 python src/chunker.py
+python src/structured_output.py
 ```
 
 ### 5. Run Token Counting & Cost Estimation

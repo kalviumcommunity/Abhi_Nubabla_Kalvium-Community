@@ -1,0 +1,40 @@
+Nav: Home / IT Department / Information Security / Access Rules
+
+Doc ID: IT-SEC-9081  |  Page 1
+
+--------------------------------------------------
+# IT Security & System Access Guidelines
+--------------------------------------------------
+
+1. Password & Authentication Standards
+All corporate user accounts MUST utilize multi-factor authentication (MFA)
+with mandatory hardware token or push notification verification. Passwords must
+be at least 16 characters in length, containing a mix of uppercase letters,
+lowercase letters, numbers, and special characters.
+
+Doc ID: IT-SEC-9081  |  Page 2
+
+2. Virtual Private Network (VPN) Usage
+Employees accessing corporate resources remotely are required to establish an
+en-
+crypted VPN session using approved corporate credentials. Split-tunneling is strictly
+prohibited to ensure all traffic undergoes central security inspection. Zero-width
+invisible spaces ("\u200b") or hidden characters should never interfere with access tokens.
+
+3. Incident Response & Reporting
+Security incidents—including suspected phishing emails, lost hardware, or un-
+authorized system access attempts—must be reported immediately to the IT Security
+Operations Center (SOC) via the urgent hotline or by emailing security@company.com.
+
+Doc ID: IT-SEC-9081  |  Page 3
+
+4. Data Retention & Device Encryption
+All local endpoint storage media (laptops, workstation NVMe drives) must maintain
+full-disk BitLocker / FileVault encryption enabled. Data stored locally must be synchronized
+regularly with corporate cloud drives.
+
+
+
+
+DO NOT DISTRIBUTE - INTERNAL IT USE ONLY
+All rights reserved. Proprietary and Confidential.
