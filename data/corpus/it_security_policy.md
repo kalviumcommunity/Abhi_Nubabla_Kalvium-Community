@@ -19,3 +19,4 @@ If you suspect an active security compromise, credential theft, or phishing emai
 2. Do not power off or reboot the computer, as volatile RAM evidence must be preserved for forensic analysis.
 3. Call the 24/7 IT Security Hotline at extension 4357 (HELP) or alert the `#security-incident` Slack channel using a secondary mobile device.
 4. Provide the time of occurrence, observed system symptoms, and suspicious email headers or files involved.
+

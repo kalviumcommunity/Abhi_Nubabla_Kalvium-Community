@@ -23,3 +23,4 @@ To qualify for regular or hybrid remote work:
 
 ## 5. Working Hours, Availability & Communication
 Remote employees are expected to maintain core operational hours from 9:00 AM to 5:00 PM local time. Employees must remain reachable via official communication channels (Slack, Microsoft Teams, corporate email) during working hours. Any scheduled absence or temporary unavailability must be logged in the shared department calendar at least 24 hours in advance.
+

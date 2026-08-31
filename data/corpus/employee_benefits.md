@@ -11,3 +11,4 @@ Eligible parents are entitled to 16 weeks of fully paid parental leave following
 
 ## 4. Health Insurance & Wellness Reimbursement
 The company sponsors 90% of the premium for comprehensive medical, dental, and vision insurance for full-time employees and 70% for enrolled dependents. In addition, each employee is eligible for an annual \$600 wellness stipend to cover gym memberships, mental health counseling, fitness equipment, or ergonomic home office furniture. Claims must be submitted with valid receipts before November 30 of each calendar year.
+
