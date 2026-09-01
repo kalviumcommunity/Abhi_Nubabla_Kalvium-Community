@@ -547,13 +547,22 @@ def save_chunks_to_json(chunks: list, output_path: str):
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Corpus Document Loader and Chunker for RAG.")
-    parser.add_argument("directory", help="Path to directory containing corpus documents.")
+    parser = argparse.ArgumentParser(description="Corpus Document Loader, Chunker, and Ingestion Pipeline for RAG.")
+    parser.add_argument("directory", nargs="?", default="data/corpus", help="Path to directory containing corpus documents (default: data/corpus).")
     parser.add_argument("--chunk", action="store_true", help="Chunk the documents and print chunk metadata.")
+    parser.add_argument("--validate", "--full", action="store_true", help="Run full ingestion pipeline with completeness validation and reconciliation audit.")
     parser.add_argument("--output", default="data/sample_chunks.json", help="Path to save the JSON chunk export.")
     args = parser.parse_args()
     
-    if args.chunk:
+    if args.validate:
+        from src.ingestion_pipeline import run_ingestion_pipeline, save_ingestion_artifacts, print_cli_summary
+        from pathlib import Path
+        corpus_path = Path(args.directory)
+        output_path = Path("data")
+        summary, chunks = run_ingestion_pipeline(corpus_path)
+        artifacts = save_ingestion_artifacts(summary, chunks, output_path)
+        print_cli_summary(summary, artifacts)
+    elif args.chunk:
         print(f"\n=== Intake Chunking: {args.directory} ===\n")
         chunks = chunk_directory(args.directory)
         print(f"\n=== Chunking Confirmation Summary ===")
