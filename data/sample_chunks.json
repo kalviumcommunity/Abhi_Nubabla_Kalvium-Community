@@ -1,101 +1,1026 @@
-[
-  {
-    "text": "RAG System Documentation\nThis PDF document contains reference guide for Retrieval-Augmented Generation.\nRetrieval-Augmented Generation (RAG) is a technique that combines retrieval and generation.\nIt leverages external knowledge sources to improve LLM generation accuracy and relevance.\nOur loader module parses this PDF cleanly to feed it to downstream processes.\nVerify that page-by-page text extraction works and is formatted correctly.",
-    "metadata": {
-      "source": "sample_corpus/document.pdf",
-      "section": "RAG System Documentation",
-      "page": 1,
-      "position": 0
-    }
+{
+  "employee_benefits": {
+    "Fixed-Size (Chars)": [
+      {
+        "chunk_id": "employee_benefits_fixed_001",
+        "doc_id": "employee_benefits",
+        "strategy": "Fixed-Size (Chars)",
+        "content": "# Section 6.0: Employee Benefits, Paid Time Off & Leave Guidelines\n\n## 1. Paid Time Off (PTO) Accrual\nFull-time regular employees accrue 18 days of Paid Time Off annually, calculated at a rate of 1.5 days per completed calendar month of active service. Employees may roll over a maximum of 5 unused PTO days into the following calendar year. Any unused balance exceeding 5 days on December 31 will",
+        "char_count": 397,
+        "word_count": 69,
+        "token_count": 94,
+        "start_char": 0,
+        "end_char": 397,
+        "metadata": {
+          "chunk_index": 1,
+          "chunk_size_chars": 400,
+          "overlap_chars": 80
+        }
+      },
+      {
+        "chunk_id": "employee_benefits_fixed_002",
+        "doc_id": "employee_benefits",
+        "strategy": "Fixed-Size (Chars)",
+        "content": "lowing calendar year. Any unused balance exceeding 5 days on December 31 will expire without cash compensation, unless an exception is approved by HR due to operational necessity.\n\n## 2. Sick Leave & Medical Appointments\nEmployees receive 10 dedicated sick days per calendar year. Sick leave is available from the first day of employment and does not require advance notice in emergency situations,",
+        "char_count": 398,
+        "word_count": 63,
+        "token_count": 76,
+        "start_char": 320,
+        "end_char": 718,
+        "metadata": {
+          "chunk_index": 2,
+          "chunk_size_chars": 400,
+          "overlap_chars": 80
+        }
+      },
+      {
+        "chunk_id": "employee_benefits_fixed_003",
+        "doc_id": "employee_benefits",
+        "strategy": "Fixed-Size (Chars)",
+        "content": "day of employment and does not require advance notice in emergency situations, though notification to the manager before 09:00 local time is expected. A medical certificate from a licensed healthcare practitioner is required for absences extending beyond 3 consecutive working days.\n\n## 3. Parental Leave & Family Care\nEligible parents are entitled to 16 weeks of fully paid parental leave following",
+        "char_count": 399,
+        "word_count": 61,
+        "token_count": 74,
+        "start_char": 640,
+        "end_char": 1039,
+        "metadata": {
+          "chunk_index": 3,
+          "chunk_size_chars": 400,
+          "overlap_chars": 80
+        }
+      },
+      {
+        "chunk_id": "employee_benefits_fixed_004",
+        "doc_id": "employee_benefits",
+        "strategy": "Fixed-Size (Chars)",
+        "content": "ligible parents are entitled to 16 weeks of fully paid parental leave following the birth, adoption, or foster placement of a child. Parental leave must be taken within the first 12 months following the qualifying event. Employees may take the leave in a single continuous block or in two separate blocks with supervisory approval. Health insurance benefits continue uninterrupted during the entire",
+        "char_count": 398,
+        "word_count": 62,
+        "token_count": 71,
+        "start_char": 960,
+        "end_char": 1358,
+        "metadata": {
+          "chunk_index": 4,
+          "chunk_size_chars": 400,
+          "overlap_chars": 80
+        }
+      },
+      {
+        "chunk_id": "employee_benefits_fixed_005",
+        "doc_id": "employee_benefits",
+        "strategy": "Fixed-Size (Chars)",
+        "content": "y approval. Health insurance benefits continue uninterrupted during the entire leave duration.\n\n## 4. Health Insurance & Wellness Reimbursement\nThe company sponsors 90% of the premium for comprehensive medical, dental, and vision insurance for full-time employees and 70% for enrolled dependents. In addition, each employee is eligible for an annual \\$600 wellness stipend to cover gym memberships,",
+        "char_count": 398,
+        "word_count": 57,
+        "token_count": 75,
+        "start_char": 1280,
+        "end_char": 1678,
+        "metadata": {
+          "chunk_index": 5,
+          "chunk_size_chars": 400,
+          "overlap_chars": 80
+        }
+      },
+      {
+        "chunk_id": "employee_benefits_fixed_006",
+        "doc_id": "employee_benefits",
+        "strategy": "Fixed-Size (Chars)",
+        "content": "yee is eligible for an annual \\$600 wellness stipend to cover gym memberships, mental health counseling, fitness equipment, or ergonomic home office furniture. Claims must be submitted with valid receipts before November 30 of each calendar year.",
+        "char_count": 246,
+        "word_count": 37,
+        "token_count": 44,
+        "start_char": 1600,
+        "end_char": 1846,
+        "metadata": {
+          "chunk_index": 6,
+          "chunk_size_chars": 400,
+          "overlap_chars": 80
+        }
+      }
+    ],
+    "Sentence-Based": [
+      {
+        "chunk_id": "employee_benefits_sent_001",
+        "doc_id": "employee_benefits",
+        "strategy": "Sentence-Based",
+        "content": "# Section 6.0: Employee Benefits, Paid Time Off & Leave Guidelines\n## 1.\nPaid Time Off (PTO) Accrual\nFull-time regular employees accrue 18 days of Paid Time Off annually, calculated at a rate of 1.5 days per completed calendar month of active service.\nEmployees may roll over a maximum of 5 unused PTO days into the following calendar year.",
+        "char_count": 340,
+        "word_count": 59,
+        "token_count": 82,
+        "start_char": 0,
+        "end_char": 341,
+        "metadata": {
+          "chunk_index": 1,
+          "sentence_count": 4,
+          "sentence_overlap": 1
+        }
+      },
+      {
+        "chunk_id": "employee_benefits_sent_002",
+        "doc_id": "employee_benefits",
+        "strategy": "Sentence-Based",
+        "content": "Employees may roll over a maximum of 5 unused PTO days into the following calendar year.\nAny unused balance exceeding 5 days on December 31 will expire without cash compensation, unless an exception is approved by HR due to operational necessity.\n## 2.\nSick Leave & Medical Appointments\nEmployees receive 10 dedicated sick days per calendar year.",
+        "char_count": 346,
+        "word_count": 57,
+        "token_count": 70,
+        "start_char": 253,
+        "end_char": 600,
+        "metadata": {
+          "chunk_index": 2,
+          "sentence_count": 4,
+          "sentence_overlap": 1
+        }
+      },
+      {
+        "chunk_id": "employee_benefits_sent_003",
+        "doc_id": "employee_benefits",
+        "strategy": "Sentence-Based",
+        "content": "Sick Leave & Medical Appointments\nEmployees receive 10 dedicated sick days per calendar year.\nSick leave is available from the first day of employment and does not require advance notice in emergency situations, though notification to the manager before 09:00 local time is expected.\nA medical certificate from a licensed healthcare practitioner is required for absences extending beyond 3 consecutive working days.\n## 3.",
+        "char_count": 421,
+        "word_count": 64,
+        "token_count": 80,
+        "start_char": 507,
+        "end_char": 929,
+        "metadata": {
+          "chunk_index": 3,
+          "sentence_count": 4,
+          "sentence_overlap": 1
+        }
+      },
+      {
+        "chunk_id": "employee_benefits_sent_004",
+        "doc_id": "employee_benefits",
+        "strategy": "Sentence-Based",
+        "content": "## 3.\nParental Leave & Family Care\nEligible parents are entitled to 16 weeks of fully paid parental leave following the birth, adoption, or foster placement of a child.\nParental leave must be taken within the first 12 months following the qualifying event.\nEmployees may take the leave in a single continuous block or in two separate blocks with supervisory approval.\nHealth insurance benefits continue uninterrupted during the entire leave duration.\n## 4.",
+        "char_count": 456,
+        "word_count": 73,
+        "token_count": 88,
+        "start_char": 924,
+        "end_char": 1381,
+        "metadata": {
+          "chunk_index": 4,
+          "sentence_count": 6,
+          "sentence_overlap": 1
+        }
+      },
+      {
+        "chunk_id": "employee_benefits_sent_005",
+        "doc_id": "employee_benefits",
+        "strategy": "Sentence-Based",
+        "content": "## 4.\nHealth Insurance & Wellness Reimbursement\nThe company sponsors 90% of the premium for comprehensive medical, dental, and vision insurance for full-time employees and 70% for enrolled dependents.\nIn addition, each employee is eligible for an annual \\$600 wellness stipend to cover gym memberships, mental health counseling, fitness equipment, or ergonomic home office furniture.\nClaims must be submitted with valid receipts before November 30 of each calendar year.",
+        "char_count": 470,
+        "word_count": 69,
+        "token_count": 90,
+        "start_char": 1376,
+        "end_char": 1846,
+        "metadata": {
+          "chunk_index": 5,
+          "sentence_count": 4,
+          "sentence_overlap": 1
+        }
+      }
+    ],
+    "Paragraph / Structure-Aware": [
+      {
+        "chunk_id": "employee_benefits_struct_001",
+        "doc_id": "employee_benefits",
+        "strategy": "Paragraph / Structure-Aware",
+        "content": "[Section 6.0: Employee Benefits, Paid Time Off & Leave Guidelines > 1. Paid Time Off (PTO) Accrual]\nFull-time regular employees accrue 18 days of Paid Time Off annually, calculated at a rate of 1.5 days per completed calendar month of active service. Employees may roll over a maximum of 5 unused PTO days into the following calendar year. Any unused balance exceeding 5 days on December 31 will expire without cash compensation, unless an exception is approved by HR due to operational necessity.",
+        "char_count": 497,
+        "word_count": 83,
+        "token_count": 110,
+        "start_char": 68,
+        "end_char": 501,
+        "metadata": {
+          "chunk_index": 1,
+          "section_header": "Section 6.0: Employee Benefits, Paid Time Off & Leave Guidelines > 1. Paid Time Off (PTO) Accrual",
+          "is_complete_section": true
+        }
+      },
+      {
+        "chunk_id": "employee_benefits_struct_002",
+        "doc_id": "employee_benefits",
+        "strategy": "Paragraph / Structure-Aware",
+        "content": "[Section 6.0: Employee Benefits, Paid Time Off & Leave Guidelines > 2. Sick Leave & Medical Appointments]\nEmployees receive 10 dedicated sick days per calendar year. Sick leave is available from the first day of employment and does not require advance notice in emergency situations, though notification to the manager before 09:00 local time is expected. A medical certificate from a licensed healthcare practitioner is required for absences extending beyond 3 consecutive working days.",
+        "char_count": 487,
+        "word_count": 74,
+        "token_count": 94,
+        "start_char": 501,
+        "end_char": 924,
+        "metadata": {
+          "chunk_index": 2,
+          "section_header": "Section 6.0: Employee Benefits, Paid Time Off & Leave Guidelines > 2. Sick Leave & Medical Appointments",
+          "is_complete_section": true
+        }
+      },
+      {
+        "chunk_id": "employee_benefits_struct_003",
+        "doc_id": "employee_benefits",
+        "strategy": "Paragraph / Structure-Aware",
+        "content": "[Section 6.0: Employee Benefits, Paid Time Off & Leave Guidelines > 3. Parental Leave & Family Care]\nEligible parents are entitled to 16 weeks of fully paid parental leave following the birth, adoption, or foster placement of a child. Parental leave must be taken within the first 12 months following the qualifying event. Employees may take the leave in a single continuous block or in two separate blocks with supervisory approval. Health insurance benefits continue uninterrupted during the entire leave duration.",
+        "char_count": 516,
+        "word_count": 81,
+        "token_count": 100,
+        "start_char": 924,
+        "end_char": 1376,
+        "metadata": {
+          "chunk_index": 3,
+          "section_header": "Section 6.0: Employee Benefits, Paid Time Off & Leave Guidelines > 3. Parental Leave & Family Care",
+          "is_complete_section": true
+        }
+      },
+      {
+        "chunk_id": "employee_benefits_struct_004",
+        "doc_id": "employee_benefits",
+        "strategy": "Paragraph / Structure-Aware",
+        "content": "[Section 6.0: Employee Benefits, Paid Time Off & Leave Guidelines > 4. Health Insurance & Wellness Reimbursement]\nThe company sponsors 90% of the premium for comprehensive medical, dental, and vision insurance for full-time employees and 70% for enrolled dependents. In addition, each employee is eligible for an annual \\$600 wellness stipend to cover gym memberships, mental health counseling, fitness equipment, or ergonomic home office furniture. Claims must be submitted with valid receipts before November 30 of each calendar year.",
+        "char_count": 536,
+        "word_count": 79,
+        "token_count": 106,
+        "start_char": 1376,
+        "end_char": 1847,
+        "metadata": {
+          "chunk_index": 4,
+          "section_header": "Section 6.0: Employee Benefits, Paid Time Off & Leave Guidelines > 4. Health Insurance & Wellness Reimbursement",
+          "is_complete_section": true
+        }
+      }
+    ]
   },
-  {
-    "text": "This markdown file serves as a documentation template for testing our document loader.",
-    "metadata": {
-      "source": "sample_corpus/guide.md",
-      "section": "# RAG Optimization Guide",
-      "page": null,
-      "position": 26
-    }
+  "guide": {
+    "Fixed-Size (Chars)": [
+      {
+        "chunk_id": "guide_fixed_001",
+        "doc_id": "guide",
+        "strategy": "Fixed-Size (Chars)",
+        "content": "# RAG Optimization Guide\n\nThis markdown file serves as a documentation template for testing our document loader.\n\n## Key Principles of RAG\n1. **Accurate Loading**: Retrieve documents from mixed formats and transform them into standard text.\n2. **Semantic Chunking**: Split text into semantically cohesive units.\n3. **Smart Retrieving**: Retrieve top-k chunks matching the query embedding.\n\n###",
+        "char_count": 393,
+        "word_count": 56,
+        "token_count": 81,
+        "start_char": 0,
+        "end_char": 393,
+        "metadata": {
+          "chunk_index": 1,
+          "chunk_size_chars": 400,
+          "overlap_chars": 80
+        }
+      },
+      {
+        "chunk_id": "guide_fixed_002",
+        "doc_id": "guide",
+        "strategy": "Fixed-Size (Chars)",
+        "content": "rt Retrieving**: Retrieve top-k chunks matching the query embedding.\n\n### Additional Notes\n* Make sure metadata is preserved.\n* Citations should point back to the source filename.",
+        "char_count": 179,
+        "word_count": 27,
+        "token_count": 36,
+        "start_char": 320,
+        "end_char": 499,
+        "metadata": {
+          "chunk_index": 2,
+          "chunk_size_chars": 400,
+          "overlap_chars": 80
+        }
+      }
+    ],
+    "Sentence-Based": [
+      {
+        "chunk_id": "guide_sent_001",
+        "doc_id": "guide",
+        "strategy": "Sentence-Based",
+        "content": "# RAG Optimization Guide\nThis markdown file serves as a documentation template for testing our document loader.\n## Key Principles of RAG\n1. **Accurate Loading**: Retrieve documents from mixed formats and transform them into standard text.\n2. **Semantic Chunking**: Split text into semantically cohesive units.\n3. **Smart Retrieving**: Retrieve top-k chunks matching the query embedding.",
+        "char_count": 386,
+        "word_count": 55,
+        "token_count": 80,
+        "start_char": 0,
+        "end_char": 388,
+        "metadata": {
+          "chunk_index": 1,
+          "sentence_count": 5,
+          "sentence_overlap": 1
+        }
+      },
+      {
+        "chunk_id": "guide_sent_002",
+        "doc_id": "guide",
+        "strategy": "Sentence-Based",
+        "content": "3. **Smart Retrieving**: Retrieve top-k chunks matching the query embedding.\n### Additional Notes\n* Make sure metadata is preserved.\n* Citations should point back to the source filename.",
+        "char_count": 186,
+        "word_count": 28,
+        "token_count": 39,
+        "start_char": 312,
+        "end_char": 499,
+        "metadata": {
+          "chunk_index": 2,
+          "sentence_count": 2,
+          "sentence_overlap": 1
+        }
+      }
+    ],
+    "Paragraph / Structure-Aware": [
+      {
+        "chunk_id": "guide_struct_001",
+        "doc_id": "guide",
+        "strategy": "Paragraph / Structure-Aware",
+        "content": "[RAG Optimization Guide]\nThis markdown file serves as a documentation template for testing our document loader.",
+        "char_count": 111,
+        "word_count": 16,
+        "token_count": 19,
+        "start_char": 0,
+        "end_char": 114,
+        "metadata": {
+          "chunk_index": 1,
+          "section_header": "RAG Optimization Guide",
+          "is_complete_section": true
+        }
+      },
+      {
+        "chunk_id": "guide_struct_002",
+        "doc_id": "guide",
+        "strategy": "Paragraph / Structure-Aware",
+        "content": "[RAG Optimization Guide > Key Principles of RAG]\n1. **Accurate Loading**: Retrieve documents from mixed formats and transform them into standard text.\n2. **Semantic Chunking**: Split text into semantically cohesive units.\n3. **Smart Retrieving**: Retrieve top-k chunks matching the query embedding.\n\n### Additional Notes\n* Make sure metadata is preserved.\n* Citations should point back to the source filename.",
+        "char_count": 409,
+        "word_count": 59,
+        "token_count": 86,
+        "start_char": 114,
+        "end_char": 500,
+        "metadata": {
+          "chunk_index": 2,
+          "section_header": "RAG Optimization Guide > Key Principles of RAG",
+          "is_complete_section": true
+        }
+      }
+    ]
   },
-  {
-    "text": "1. **Accurate Loading**: Retrieve documents from mixed formats and transform them into standard text.\n2. **Semantic Chunking**: Split text into semantically cohesive units.\n3. **Smart Retrieving**: Retrieve top-k chunks matching the query embedding.",
-    "metadata": {
-      "source": "sample_corpus/guide.md",
-      "section": "## Key Principles of RAG",
-      "page": null,
-      "position": 139
-    }
+  "it_security_policy": {
+    "Fixed-Size (Chars)": [
+      {
+        "chunk_id": "it_security_policy_fixed_001",
+        "doc_id": "it_security_policy",
+        "strategy": "Fixed-Size (Chars)",
+        "content": "# Section 8.1: Corporate IT Security & Incident Response Protocols\n\n## 1. Password & Access Control Standards\nAll internal systems require compliance with strict authentication safeguards. Passwords must contain a minimum of 14 characters including uppercase letters, numbers, and symbols. Passwords expire every 90 days and cannot match any of the previous 5 passwords used. Multi-Factor",
+        "char_count": 388,
+        "word_count": 56,
+        "token_count": 77,
+        "start_char": 0,
+        "end_char": 388,
+        "metadata": {
+          "chunk_index": 1,
+          "chunk_size_chars": 400,
+          "overlap_chars": 80
+        }
+      },
+      {
+        "chunk_id": "it_security_policy_fixed_002",
+        "doc_id": "it_security_policy",
+        "strategy": "Fixed-Size (Chars)",
+        "content": "and cannot match any of the previous 5 passwords used. Multi-Factor Authentication (MFA) via an approved authenticator app is mandatory on all corporate single sign-on (SSO) portals. SMS-based MFA is strictly prohibited due to SIM-swapping vulnerabilities.\n\n## 2. Workstation Security & Encryption\nAll employee endpoints must have FileVault (macOS) or BitLocker (Windows) full-disk encryption",
+        "char_count": 392,
+        "word_count": 54,
+        "token_count": 84,
+        "start_char": 321,
+        "end_char": 713,
+        "metadata": {
+          "chunk_index": 2,
+          "chunk_size_chars": 400,
+          "overlap_chars": 80
+        }
+      },
+      {
+        "chunk_id": "it_security_policy_fixed_003",
+        "doc_id": "it_security_policy",
+        "strategy": "Fixed-Size (Chars)",
+        "content": "must have FileVault (macOS) or BitLocker (Windows) full-disk encryption enabled prior to accessing internal resources. USB storage drives are blocked by administrative group policy unless an exception ticket is authorized by the CISO. Operating system security updates and antivirus definitions are pushed automatically each Tuesday at 02:00 UTC and must not be bypassed or postponed beyond 48",
+        "char_count": 393,
+        "word_count": 57,
+        "token_count": 74,
+        "start_char": 642,
+        "end_char": 1035,
+        "metadata": {
+          "chunk_index": 3,
+          "chunk_size_chars": 400,
+          "overlap_chars": 80
+        }
+      },
+      {
+        "chunk_id": "it_security_policy_fixed_004",
+        "doc_id": "it_security_policy",
+        "strategy": "Fixed-Size (Chars)",
+        "content": "each Tuesday at 02:00 UTC and must not be bypassed or postponed beyond 48 hours.\n\n## 3. Security Incident Classification & Severity Levels\nSecurity incidents are classified into four severity tiers:\n- **Severity 1 (Critical)**: Active data breach, ransomware deployment, or unauthorized administrative privilege escalation. Incident Commander must be notified within 15 minutes.\n- **Severity 2",
+        "char_count": 393,
+        "word_count": 56,
+        "token_count": 78,
+        "start_char": 962,
+        "end_char": 1355,
+        "metadata": {
+          "chunk_index": 4,
+          "chunk_size_chars": 400,
+          "overlap_chars": 80
+        }
+      },
+      {
+        "chunk_id": "it_security_policy_fixed_005",
+        "doc_id": "it_security_policy",
+        "strategy": "Fixed-Size (Chars)",
+        "content": "on. Incident Commander must be notified within 15 minutes.\n- **Severity 2 (High)**: Compromised employee credential, malware detected on internal host, or unauthenticated API exposure. Response required within 1 hour.\n- **Severity 3 (Medium)**: Targeted phishing attempt reported by employee or failed brute-force attempt against internal portal. Response required within 4 business hours.\n-",
+        "char_count": 391,
+        "word_count": 54,
+        "token_count": 81,
+        "start_char": 1282,
+        "end_char": 1673,
+        "metadata": {
+          "chunk_index": 5,
+          "chunk_size_chars": 400,
+          "overlap_chars": 80
+        }
+      },
+      {
+        "chunk_id": "it_security_policy_fixed_006",
+        "doc_id": "it_security_policy",
+        "strategy": "Fixed-Size (Chars)",
+        "content": "t against internal portal. Response required within 4 business hours.\n- **Severity 4 (Low)**: Routine port scanning or spam email delivery. Logged and reviewed during weekly triage.\n\n## 4. Employee Incident Reporting Procedure\nIf you suspect an active security compromise, credential theft, or phishing email:\n1. Immediately disconnect your machine from the network (unplug Ethernet or turn off",
+        "char_count": 394,
+        "word_count": 58,
+        "token_count": 78,
+        "start_char": 1602,
+        "end_char": 1996,
+        "metadata": {
+          "chunk_index": 6,
+          "chunk_size_chars": 400,
+          "overlap_chars": 80
+        }
+      },
+      {
+        "chunk_id": "it_security_policy_fixed_007",
+        "doc_id": "it_security_policy",
+        "strategy": "Fixed-Size (Chars)",
+        "content": "tely disconnect your machine from the network (unplug Ethernet or turn off Wi-Fi).\n2. Do not power off or reboot the computer, as volatile RAM evidence must be preserved for forensic analysis.\n3. Call the 24/7 IT Security Hotline at extension 4357 (HELP) or alert the `#security-incident` Slack channel using a secondary mobile device.\n4. Provide the time of occurrence, observed system symptoms,",
+        "char_count": 396,
+        "word_count": 63,
+        "token_count": 88,
+        "start_char": 1922,
+        "end_char": 2318,
+        "metadata": {
+          "chunk_index": 7,
+          "chunk_size_chars": 400,
+          "overlap_chars": 80
+        }
+      },
+      {
+        "chunk_id": "it_security_policy_fixed_008",
+        "doc_id": "it_security_policy",
+        "strategy": "Fixed-Size (Chars)",
+        "content": "mobile device.\n4. Provide the time of occurrence, observed system symptoms, and suspicious email headers or files involved.",
+        "char_count": 123,
+        "word_count": 18,
+        "token_count": 23,
+        "start_char": 2243,
+        "end_char": 2366,
+        "metadata": {
+          "chunk_index": 8,
+          "chunk_size_chars": 400,
+          "overlap_chars": 80
+        }
+      }
+    ],
+    "Sentence-Based": [
+      {
+        "chunk_id": "it_security_policy_sent_001",
+        "doc_id": "it_security_policy",
+        "strategy": "Sentence-Based",
+        "content": "# Section 8.1: Corporate IT Security & Incident Response Protocols\n## 1.\nPassword & Access Control Standards\nAll internal systems require compliance with strict authentication safeguards.\nPasswords must contain a minimum of 14 characters including uppercase letters, numbers, and symbols.\nPasswords expire every 90 days and cannot match any of the previous 5 passwords used.\nMulti-Factor Authentication (MFA) via an approved authenticator app is mandatory on all corporate single sign-on (SSO) portals.",
+        "char_count": 502,
+        "word_count": 72,
+        "token_count": 100,
+        "start_char": 0,
+        "end_char": 503,
+        "metadata": {
+          "chunk_index": 1,
+          "sentence_count": 6,
+          "sentence_overlap": 1
+        }
+      },
+      {
+        "chunk_id": "it_security_policy_sent_002",
+        "doc_id": "it_security_policy",
+        "strategy": "Sentence-Based",
+        "content": "Multi-Factor Authentication (MFA) via an approved authenticator app is mandatory on all corporate single sign-on (SSO) portals.\nSMS-based MFA is strictly prohibited due to SIM-swapping vulnerabilities.\n## 2.\nWorkstation Security & Encryption\nAll employee endpoints must have FileVault (macOS) or BitLocker (Windows) full-disk encryption enabled prior to accessing internal resources.\nUSB storage drives are blocked by administrative group policy unless an exception ticket is authorized by the CISO.",
+        "char_count": 499,
+        "word_count": 68,
+        "token_count": 99,
+        "start_char": 376,
+        "end_char": 876,
+        "metadata": {
+          "chunk_index": 2,
+          "sentence_count": 5,
+          "sentence_overlap": 1
+        }
+      },
+      {
+        "chunk_id": "it_security_policy_sent_003",
+        "doc_id": "it_security_policy",
+        "strategy": "Sentence-Based",
+        "content": "USB storage drives are blocked by administrative group policy unless an exception ticket is authorized by the CISO.\nOperating system security updates and antivirus definitions are pushed automatically each Tuesday at 02:00 UTC and must not be bypassed or postponed beyond 48 hours.\n## 3.\nSecurity Incident Classification & Severity Levels\nSecurity incidents are classified into four severity tiers:\n- **Severity 1 (Critical)**: Active data breach, ransomware deployment, or unauthorized administrative privilege escalation.",
+        "char_count": 523,
+        "word_count": 73,
+        "token_count": 93,
+        "start_char": 761,
+        "end_char": 1285,
+        "metadata": {
+          "chunk_index": 3,
+          "sentence_count": 4,
+          "sentence_overlap": 1
+        }
+      },
+      {
+        "chunk_id": "it_security_policy_sent_004",
+        "doc_id": "it_security_policy",
+        "strategy": "Sentence-Based",
+        "content": "Security Incident Classification & Severity Levels\nSecurity incidents are classified into four severity tiers:\n- **Severity 1 (Critical)**: Active data breach, ransomware deployment, or unauthorized administrative privilege escalation.\nIncident Commander must be notified within 15 minutes.\n- **Severity 2 (High)**: Compromised employee credential, malware detected on internal host, or unauthenticated API exposure.\nResponse required within 1 hour.",
+        "char_count": 449,
+        "word_count": 57,
+        "token_count": 83,
+        "start_char": 1050,
+        "end_char": 1499,
+        "metadata": {
+          "chunk_index": 4,
+          "sentence_count": 4,
+          "sentence_overlap": 1
+        }
+      },
+      {
+        "chunk_id": "it_security_policy_sent_005",
+        "doc_id": "it_security_policy",
+        "strategy": "Sentence-Based",
+        "content": "Response required within 1 hour.\n- **Severity 3 (Medium)**: Targeted phishing attempt reported by employee or failed brute-force attempt against internal portal.\nResponse required within 4 business hours.\n- **Severity 4 (Low)**: Routine port scanning or spam email delivery.\nLogged and reviewed during weekly triage.\n## 4.\nEmployee Incident Reporting Procedure\nIf you suspect an active security compromise, credential theft, or phishing email:\n1.",
+        "char_count": 446,
+        "word_count": 64,
+        "token_count": 91,
+        "start_char": 1467,
+        "end_char": 1914,
+        "metadata": {
+          "chunk_index": 5,
+          "sentence_count": 7,
+          "sentence_overlap": 1
+        }
+      },
+      {
+        "chunk_id": "it_security_policy_sent_006",
+        "doc_id": "it_security_policy",
+        "strategy": "Sentence-Based",
+        "content": "Employee Incident Reporting Procedure\nIf you suspect an active security compromise, credential theft, or phishing email:\n1.\nImmediately disconnect your machine from the network (unplug Ethernet or turn off Wi-Fi).\n2.\nDo not power off or reboot the computer, as volatile RAM evidence must be preserved for forensic analysis.\n3.\nCall the 24/7 IT Security Hotline at extension 4357 (HELP) or alert the `#security-incident` Slack channel using a secondary mobile device.\n4.",
+        "char_count": 469,
+        "word_count": 72,
+        "token_count": 99,
+        "start_char": 1791,
+        "end_char": 2260,
+        "metadata": {
+          "chunk_index": 6,
+          "sentence_count": 7,
+          "sentence_overlap": 1
+        }
+      },
+      {
+        "chunk_id": "it_security_policy_sent_007",
+        "doc_id": "it_security_policy",
+        "strategy": "Sentence-Based",
+        "content": "4.\nProvide the time of occurrence, observed system symptoms, and suspicious email headers or files involved.",
+        "char_count": 108,
+        "word_count": 16,
+        "token_count": 20,
+        "start_char": 2258,
+        "end_char": 2366,
+        "metadata": {
+          "chunk_index": 7,
+          "sentence_count": 2,
+          "sentence_overlap": 1
+        }
+      }
+    ],
+    "Paragraph / Structure-Aware": [
+      {
+        "chunk_id": "it_security_policy_struct_001",
+        "doc_id": "it_security_policy",
+        "strategy": "Paragraph / Structure-Aware",
+        "content": "[Section 8.1: Corporate IT Security & Incident Response Protocols > 1. Password & Access Control Standards]\nAll internal systems require compliance with strict authentication safeguards. Passwords must contain a minimum of 14 characters including uppercase letters, numbers, and symbols. Passwords expire every 90 days and cannot match any of the previous 5 passwords used. Multi-Factor Authentication (MFA) via an approved authenticator app is mandatory on all corporate single sign-on (SSO) portals. SMS-based MFA is strictly prohibited due to SIM-swapping vulnerabilities.",
+        "char_count": 575,
+        "word_count": 80,
+        "token_count": 114,
+        "start_char": 68,
+        "end_char": 579,
+        "metadata": {
+          "chunk_index": 1,
+          "section_header": "Section 8.1: Corporate IT Security & Incident Response Protocols > 1. Password & Access Control Standards",
+          "is_complete_section": true
+        }
+      },
+      {
+        "chunk_id": "it_security_policy_struct_002",
+        "doc_id": "it_security_policy",
+        "strategy": "Paragraph / Structure-Aware",
+        "content": "[Section 8.1: Corporate IT Security & Incident Response Protocols > 2. Workstation Security & Encryption]\nAll employee endpoints must have FileVault (macOS) or BitLocker (Windows) full-disk encryption enabled prior to accessing internal resources. USB storage drives are blocked by administrative group policy unless an exception ticket is authorized by the CISO. Operating system security updates and antivirus definitions are pushed automatically each Tuesday at 02:00 UTC and must not be bypassed or postponed beyond 48 hours.",
+        "char_count": 529,
+        "word_count": 76,
+        "token_count": 104,
+        "start_char": 579,
+        "end_char": 1044,
+        "metadata": {
+          "chunk_index": 2,
+          "section_header": "Section 8.1: Corporate IT Security & Incident Response Protocols > 2. Workstation Security & Encryption",
+          "is_complete_section": true
+        }
+      },
+      {
+        "chunk_id": "it_security_policy_struct_003",
+        "doc_id": "it_security_policy",
+        "strategy": "Paragraph / Structure-Aware",
+        "content": "[Section 8.1: Corporate IT Security & Incident Response Protocols > 3. Security Incident Classification & Severity Levels]\nSecurity incidents are classified into four severity tiers:\n- **Severity 1 (Critical)**: Active data breach, ransomware deployment, or unauthorized administrative privilege escalation. Incident Commander must be notified within 15 minutes.\n- **Severity 2 (High)**: Compromised employee credential, malware detected on internal host, or unauthenticated API exposure. Response required within 1 hour.\n- **Severity 3 (Medium)**: Targeted phishing attempt reported by employee or failed brute-force attempt against internal portal. Response required within 4 business hours.\n- **Severity 4 (Low)**: Routine port scanning or spam email delivery. Logged and reviewed during weekly triage.",
+        "char_count": 805,
+        "word_count": 108,
+        "token_count": 160,
+        "start_char": 1044,
+        "end_char": 1785,
+        "metadata": {
+          "chunk_index": 3,
+          "section_header": "Section 8.1: Corporate IT Security & Incident Response Protocols > 3. Security Incident Classification & Severity Levels",
+          "is_complete_section": true
+        }
+      },
+      {
+        "chunk_id": "it_security_policy_struct_004",
+        "doc_id": "it_security_policy",
+        "strategy": "Paragraph / Structure-Aware",
+        "content": "[Section 8.1: Corporate IT Security & Incident Response Protocols > 4. Employee Incident Reporting Procedure]\nIf you suspect an active security compromise, credential theft, or phishing email:\n1. Immediately disconnect your machine from the network (unplug Ethernet or turn off Wi-Fi).\n2. Do not power off or reboot the computer, as volatile RAM evidence must be preserved for forensic analysis.\n3. Call the 24/7 IT Security Hotline at extension 4357 (HELP) or alert the `#security-incident` Slack channel using a secondary mobile device.\n4. Provide the time of occurrence, observed system symptoms, and suspicious email headers or files involved.",
+        "char_count": 647,
+        "word_count": 98,
+        "token_count": 136,
+        "start_char": 1785,
+        "end_char": 2367,
+        "metadata": {
+          "chunk_index": 4,
+          "section_header": "Section 8.1: Corporate IT Security & Incident Response Protocols > 4. Employee Incident Reporting Procedure",
+          "is_complete_section": true
+        }
+      }
+    ]
   },
-  {
-    "text": "* Make sure metadata is preserved.\n* Citations should point back to the source filename.",
-    "metadata": {
-      "source": "sample_corpus/guide.md",
-      "section": "### Additional Notes",
-      "page": null,
-      "position": 411
-    }
-  },
-  {
-    "text": "Welcome to the RAG Document Loader test.\nThis is a plain text file that contains unstructured information.\nIt is designed to be loaded by our document loader and parsed into plain text.\nRAG systems need simple text format to compute embeddings and search for matching chunks.\nThis concludes the plain text sample file.",
-    "metadata": {
-      "source": "sample_corpus/hello.txt",
-      "section": "N/A",
-      "page": null,
-      "position": 0
-    }
-  },
-  {
-    "text": "Community Knowledge Base",
-    "metadata": {
-      "source": "sample_corpus/page.html",
-      "section": "N/A",
-      "page": null,
-      "position": 249
-    }
-  },
-  {
-    "text": "This HTML page contains reference information about our community guidelines.",
-    "metadata": {
-      "source": "sample_corpus/page.html",
-      "section": "N/A",
-      "page": null,
-      "position": 327
-    }
-  },
-  {
-    "text": "Members should follow collaboration standards, review PRs promptly, and participate in discussion threads.",
-    "metadata": {
-      "source": "sample_corpus/page.html",
-      "section": "N/A",
-      "page": null,
-      "position": 420
-    }
-  },
-  {
-    "text": "Be respectful and constructive.",
-    "metadata": {
-      "source": "sample_corpus/page.html",
-      "section": "H2: Rules of Engagement",
-      "page": null,
-      "position": 597
-    }
-  },
-  {
-    "text": "Maintain clear code documentation.",
-    "metadata": {
-      "source": "sample_corpus/page.html",
-      "section": "H2: Rules of Engagement",
-      "page": null,
-      "position": 650
-    }
-  },
-  {
-    "text": "Test changes locally before pushing.",
-    "metadata": {
-      "source": "sample_corpus/page.html",
-      "section": "H2: Rules of Engagement",
-      "page": null,
-      "position": 706
-    }
+  "remote_work_policy": {
+    "Fixed-Size (Chars)": [
+      {
+        "chunk_id": "remote_work_policy_fixed_001",
+        "doc_id": "remote_work_policy",
+        "strategy": "Fixed-Size (Chars)",
+        "content": "# Section 4.2: Remote Work & Workplace Flexibility Policy\n\n## 1. Overview & Scope\nThis policy defines operational guidelines and security protocols for remote work arrangements within the organization. It applies to all full-time and part-time administrative, technical, and operational personnel. Remote work is a privilege designed to support work-life balance while ensuring organizational",
+        "char_count": 392,
+        "word_count": 54,
+        "token_count": 70,
+        "start_char": 0,
+        "end_char": 392,
+        "metadata": {
+          "chunk_index": 1,
+          "chunk_size_chars": 400,
+          "overlap_chars": 80
+        }
+      },
+      {
+        "chunk_id": "remote_work_policy_fixed_002",
+        "doc_id": "remote_work_policy",
+        "strategy": "Fixed-Size (Chars)",
+        "content": "lege designed to support work-life balance while ensuring organizational productivity, client confidentiality, and data security remain uncompromised.\n\n## 2. Eligibility Requirements\nTo qualify for regular or hybrid remote work:\n- The employee must have completed a minimum of 6 months of continuous full-time employment.\n- The employee's latest performance evaluation rating must meet or exceed",
+        "char_count": 395,
+        "word_count": 55,
+        "token_count": 69,
+        "start_char": 320,
+        "end_char": 715,
+        "metadata": {
+          "chunk_index": 2,
+          "chunk_size_chars": 400,
+          "overlap_chars": 80
+        }
+      },
+      {
+        "chunk_id": "remote_work_policy_fixed_003",
+        "doc_id": "remote_work_policy",
+        "strategy": "Fixed-Size (Chars)",
+        "content": ".\n- The employee's latest performance evaluation rating must meet or exceed 'Satisfactory' standards.\n- The employee's role must be classified as 'Remote-Eligible' by the Department Head. Roles requiring mandatory physical presence (e.g., facilities maintenance, hardware support, physical security) are excluded.\n- The employee must maintain a dedicated, private home workspace free from background",
+        "char_count": 399,
+        "word_count": 54,
+        "token_count": 73,
+        "start_char": 640,
+        "end_char": 1039,
+        "metadata": {
+          "chunk_index": 3,
+          "chunk_size_chars": 400,
+          "overlap_chars": 80
+        }
+      },
+      {
+        "chunk_id": "remote_work_policy_fixed_004",
+        "doc_id": "remote_work_policy",
+        "strategy": "Fixed-Size (Chars)",
+        "content": "employee must maintain a dedicated, private home workspace free from background disruptions.\n\n## 3. Request & Approval Workflow\n1. **Submission**: Employees must submit a formal Remote Work Application via the HR Portal at least 14 calendar days prior to the desired effective date.\n2. **Managerial Review**: Direct supervisors evaluate the application considering team coverage, project",
+        "char_count": 387,
+        "word_count": 55,
+        "token_count": 72,
+        "start_char": 960,
+        "end_char": 1347,
+        "metadata": {
+          "chunk_index": 4,
+          "chunk_size_chars": 400,
+          "overlap_chars": 80
+        }
+      },
+      {
+        "chunk_id": "remote_work_policy_fixed_005",
+        "doc_id": "remote_work_policy",
+        "strategy": "Fixed-Size (Chars)",
+        "content": "rvisors evaluate the application considering team coverage, project deliverables, and communication plans within 5 business days.\n3. **IT Security Verification**: The IT Security Operations team verifies that the employee's designated home office setup satisfies encrypted VPN and multi-factor authentication (MFA) requirements.\n4. **HR Registration**: Approved requests are logged into the central",
+        "char_count": 398,
+        "word_count": 51,
+        "token_count": 72,
+        "start_char": 1280,
+        "end_char": 1678,
+        "metadata": {
+          "chunk_index": 5,
+          "chunk_size_chars": 400,
+          "overlap_chars": 80
+        }
+      },
+      {
+        "chunk_id": "remote_work_policy_fixed_006",
+        "doc_id": "remote_work_policy",
+        "strategy": "Fixed-Size (Chars)",
+        "content": "rements.\n4. **HR Registration**: Approved requests are logged into the central employee database, valid for a maximum term of 12 months, subject to annual renewal.\n\n## 4. Technical Equipment & Information Security\n- **Company Hardware**: Only company-issued laptops equipped with active Endpoint Detection and Response (EDR) software may be used for remote work. Personal devices cannot access",
+        "char_count": 393,
+        "word_count": 57,
+        "token_count": 78,
+        "start_char": 1600,
+        "end_char": 1993,
+        "metadata": {
+          "chunk_index": 6,
+          "chunk_size_chars": 400,
+          "overlap_chars": 80
+        }
+      },
+      {
+        "chunk_id": "remote_work_policy_fixed_007",
+        "doc_id": "remote_work_policy",
+        "strategy": "Fixed-Size (Chars)",
+        "content": "EDR) software may be used for remote work. Personal devices cannot access production environments.\n- **Network Security**: Connecting to public, unencrypted Wi-Fi networks is strictly prohibited. Remote workers must connect exclusively via the corporate AES-256 encrypted VPN tunnel.\n- **Data Protection**: Confidential documents must not be printed at remote locations or stored on unapproved",
+        "char_count": 393,
+        "word_count": 54,
+        "token_count": 72,
+        "start_char": 1920,
+        "end_char": 2313,
+        "metadata": {
+          "chunk_index": 7,
+          "chunk_size_chars": 400,
+          "overlap_chars": 80
+        }
+      },
+      {
+        "chunk_id": "remote_work_policy_fixed_008",
+        "doc_id": "remote_work_policy",
+        "strategy": "Fixed-Size (Chars)",
+        "content": "documents must not be printed at remote locations or stored on unapproved personal cloud storage accounts. Screens must be locked when stepping away from the workstation.\n\n## 5. Working Hours, Availability & Communication\nRemote employees are expected to maintain core operational hours from 9:00 AM to 5:00 PM local time. Employees must remain reachable via official communication channels (Slack,",
+        "char_count": 398,
+        "word_count": 59,
+        "token_count": 75,
+        "start_char": 2240,
+        "end_char": 2638,
+        "metadata": {
+          "chunk_index": 8,
+          "chunk_size_chars": 400,
+          "overlap_chars": 80
+        }
+      },
+      {
+        "chunk_id": "remote_work_policy_fixed_009",
+        "doc_id": "remote_work_policy",
+        "strategy": "Fixed-Size (Chars)",
+        "content": "e. Employees must remain reachable via official communication channels (Slack, Microsoft Teams, corporate email) during working hours. Any scheduled absence or temporary unavailability must be logged in the shared department calendar at least 24 hours in advance.",
+        "char_count": 263,
+        "word_count": 37,
+        "token_count": 46,
+        "start_char": 2560,
+        "end_char": 2823,
+        "metadata": {
+          "chunk_index": 9,
+          "chunk_size_chars": 400,
+          "overlap_chars": 80
+        }
+      }
+    ],
+    "Sentence-Based": [
+      {
+        "chunk_id": "remote_work_policy_sent_001",
+        "doc_id": "remote_work_policy",
+        "strategy": "Sentence-Based",
+        "content": "# Section 4.2: Remote Work & Workplace Flexibility Policy\n## 1.\nOverview & Scope\nThis policy defines operational guidelines and security protocols for remote work arrangements within the organization.\nIt applies to all full-time and part-time administrative, technical, and operational personnel.\nRemote work is a privilege designed to support work-life balance while ensuring organizational productivity, client confidentiality, and data security remain uncompromised.\n## 2.",
+        "char_count": 475,
+        "word_count": 64,
+        "token_count": 87,
+        "start_char": 0,
+        "end_char": 477,
+        "metadata": {
+          "chunk_index": 1,
+          "sentence_count": 6,
+          "sentence_overlap": 1
+        }
+      },
+      {
+        "chunk_id": "remote_work_policy_sent_002",
+        "doc_id": "remote_work_policy",
+        "strategy": "Sentence-Based",
+        "content": "## 2.\nEligibility Requirements\nTo qualify for regular or hybrid remote work:\n- The employee must have completed a minimum of 6 months of continuous full-time employment.\n- The employee's latest performance evaluation rating must meet or exceed 'Satisfactory' standards.\n- The employee's role must be classified as 'Remote-Eligible' by the Department Head.\nRoles requiring mandatory physical presence (e.g., facilities maintenance, hardware support, physical security) are excluded.",
+        "char_count": 481,
+        "word_count": 67,
+        "token_count": 92,
+        "start_char": 472,
+        "end_char": 953,
+        "metadata": {
+          "chunk_index": 2,
+          "sentence_count": 5,
+          "sentence_overlap": 1
+        }
+      },
+      {
+        "chunk_id": "remote_work_policy_sent_003",
+        "doc_id": "remote_work_policy",
+        "strategy": "Sentence-Based",
+        "content": "Roles requiring mandatory physical presence (e.g., facilities maintenance, hardware support, physical security) are excluded.\n- The employee must maintain a dedicated, private home workspace free from background disruptions.\n## 3.\nRequest & Approval Workflow\n1. **Submission**: Employees must submit a formal Remote Work Application via the HR Portal at least 14 calendar days prior to the desired effective date.",
+        "char_count": 413,
+        "word_count": 59,
+        "token_count": 77,
+        "start_char": 828,
+        "end_char": 1242,
+        "metadata": {
+          "chunk_index": 3,
+          "sentence_count": 4,
+          "sentence_overlap": 1
+        }
+      },
+      {
+        "chunk_id": "remote_work_policy_sent_004",
+        "doc_id": "remote_work_policy",
+        "strategy": "Sentence-Based",
+        "content": "Request & Approval Workflow\n1. **Submission**: Employees must submit a formal Remote Work Application via the HR Portal at least 14 calendar days prior to the desired effective date.\n2. **Managerial Review**: Direct supervisors evaluate the application considering team coverage, project deliverables, and communication plans within 5 business days.",
+        "char_count": 349,
+        "word_count": 49,
+        "token_count": 66,
+        "start_char": 1060,
+        "end_char": 1409,
+        "metadata": {
+          "chunk_index": 4,
+          "sentence_count": 2,
+          "sentence_overlap": 1
+        }
+      },
+      {
+        "chunk_id": "remote_work_policy_sent_005",
+        "doc_id": "remote_work_policy",
+        "strategy": "Sentence-Based",
+        "content": "2. **Managerial Review**: Direct supervisors evaluate the application considering team coverage, project deliverables, and communication plans within 5 business days.\n3. **IT Security Verification**: The IT Security Operations team verifies that the employee's designated home office setup satisfies encrypted VPN and multi-factor authentication (MFA) requirements.\n4. **HR Registration**: Approved requests are logged into the central employee database, valid for a maximum term of 12 months, subject to annual renewal.",
+        "char_count": 520,
+        "word_count": 69,
+        "token_count": 97,
+        "start_char": 1243,
+        "end_char": 1763,
+        "metadata": {
+          "chunk_index": 5,
+          "sentence_count": 3,
+          "sentence_overlap": 1
+        }
+      },
+      {
+        "chunk_id": "remote_work_policy_sent_006",
+        "doc_id": "remote_work_policy",
+        "strategy": "Sentence-Based",
+        "content": "4. **HR Registration**: Approved requests are logged into the central employee database, valid for a maximum term of 12 months, subject to annual renewal.\n## 4.\nTechnical Equipment & Information Security\n- **Company Hardware**: Only company-issued laptops equipped with active Endpoint Detection and Response (EDR) software may be used for remote work.\nPersonal devices cannot access production environments.\n- **Network Security**: Connecting to public, unencrypted Wi-Fi networks is strictly prohibited.",
+        "char_count": 505,
+        "word_count": 70,
+        "token_count": 97,
+        "start_char": 1609,
+        "end_char": 2115,
+        "metadata": {
+          "chunk_index": 6,
+          "sentence_count": 5,
+          "sentence_overlap": 1
+        }
+      },
+      {
+        "chunk_id": "remote_work_policy_sent_007",
+        "doc_id": "remote_work_policy",
+        "strategy": "Sentence-Based",
+        "content": "- **Network Security**: Connecting to public, unencrypted Wi-Fi networks is strictly prohibited.\nRemote workers must connect exclusively via the corporate AES-256 encrypted VPN tunnel.\n- **Data Protection**: Confidential documents must not be printed at remote locations or stored on unapproved personal cloud storage accounts.\nScreens must be locked when stepping away from the workstation.\n## 5.",
+        "char_count": 397,
+        "word_count": 56,
+        "token_count": 74,
+        "start_char": 2019,
+        "end_char": 2417,
+        "metadata": {
+          "chunk_index": 7,
+          "sentence_count": 5,
+          "sentence_overlap": 1
+        }
+      },
+      {
+        "chunk_id": "remote_work_policy_sent_008",
+        "doc_id": "remote_work_policy",
+        "strategy": "Sentence-Based",
+        "content": "## 5.\nWorking Hours, Availability & Communication\nRemote employees are expected to maintain core operational hours from 9:00 AM to 5:00 PM local time.\nEmployees must remain reachable via official communication channels (Slack, Microsoft Teams, corporate email) during working hours.\nAny scheduled absence or temporary unavailability must be logged in the shared department calendar at least 24 hours in advance.",
+        "char_count": 411,
+        "word_count": 60,
+        "token_count": 79,
+        "start_char": 2412,
+        "end_char": 2823,
+        "metadata": {
+          "chunk_index": 8,
+          "sentence_count": 4,
+          "sentence_overlap": 1
+        }
+      }
+    ],
+    "Paragraph / Structure-Aware": [
+      {
+        "chunk_id": "remote_work_policy_struct_001",
+        "doc_id": "remote_work_policy",
+        "strategy": "Paragraph / Structure-Aware",
+        "content": "[Section 4.2: Remote Work & Workplace Flexibility Policy > 1. Overview & Scope]\nThis policy defines operational guidelines and security protocols for remote work arrangements within the organization. It applies to all full-time and part-time administrative, technical, and operational personnel. Remote work is a privilege designed to support work-life balance while ensuring organizational productivity, client confidentiality, and data security remain uncompromised.",
+        "char_count": 468,
+        "word_count": 61,
+        "token_count": 82,
+        "start_char": 59,
+        "end_char": 472,
+        "metadata": {
+          "chunk_index": 1,
+          "section_header": "Section 4.2: Remote Work & Workplace Flexibility Policy > 1. Overview & Scope",
+          "is_complete_section": true
+        }
+      },
+      {
+        "chunk_id": "remote_work_policy_struct_002",
+        "doc_id": "remote_work_policy",
+        "strategy": "Paragraph / Structure-Aware",
+        "content": "[Section 4.2: Remote Work & Workplace Flexibility Policy > 2. Eligibility Requirements]\nTo qualify for regular or hybrid remote work:\n- The employee must have completed a minimum of 6 months of continuous full-time employment.\n- The employee's latest performance evaluation rating must meet or exceed 'Satisfactory' standards.\n- The employee's role must be classified as 'Remote-Eligible' by the Department Head. Roles requiring mandatory physical presence (e.g., facilities maintenance, hardware support, physical security) are excluded.\n- The employee must maintain a dedicated, private home workspace free from background disruptions.",
+        "char_count": 637,
+        "word_count": 89,
+        "token_count": 122,
+        "start_char": 472,
+        "end_char": 1054,
+        "metadata": {
+          "chunk_index": 2,
+          "section_header": "Section 4.2: Remote Work & Workplace Flexibility Policy > 2. Eligibility Requirements",
+          "is_complete_section": true
+        }
+      },
+      {
+        "chunk_id": "remote_work_policy_struct_003",
+        "doc_id": "remote_work_policy",
+        "strategy": "Paragraph / Structure-Aware",
+        "content": "[Section 4.2: Remote Work & Workplace Flexibility Policy > 3. Request & Approval Workflow]\n1. **Submission**: Employees must submit a formal Remote Work Application via the HR Portal at least 14 calendar days prior to the desired effective date.\n2. **Managerial Review**: Direct supervisors evaluate the application considering team coverage, project deliverables, and communication plans within 5 business days.\n3. **IT Security Verification**: The IT Security Operations team verifies that the employee's designated home office setup satisfies encrypted VPN and multi-factor authentication (MFA) requirements.\n4. **HR Registration**: Approved requests are logged into the central employee database, valid for a maximum term of 12 months, subject to annual renewal.",
+        "char_count": 766,
+        "word_count": 108,
+        "token_count": 151,
+        "start_char": 1054,
+        "end_char": 1765,
+        "metadata": {
+          "chunk_index": 3,
+          "section_header": "Section 4.2: Remote Work & Workplace Flexibility Policy > 3. Request & Approval Workflow",
+          "is_complete_section": true
+        }
+      },
+      {
+        "chunk_id": "remote_work_policy_struct_004",
+        "doc_id": "remote_work_policy",
+        "strategy": "Paragraph / Structure-Aware",
+        "content": "[Section 4.2: Remote Work & Workplace Flexibility Policy > 4. Technical Equipment & Information Security]\n- **Company Hardware**: Only company-issued laptops equipped with active Endpoint Detection and Response (EDR) software may be used for remote work. Personal devices cannot access production environments.\n- **Network Security**: Connecting to public, unencrypted Wi-Fi networks is strictly prohibited. Remote workers must connect exclusively via the corporate AES-256 encrypted VPN tunnel.\n- **Data Protection**: Confidential documents must not be printed at remote locations or stored on unapproved personal cloud storage accounts. Screens must be locked when stepping away from the workstation.",
+        "char_count": 702,
+        "word_count": 96,
+        "token_count": 130,
+        "start_char": 1765,
+        "end_char": 2412,
+        "metadata": {
+          "chunk_index": 4,
+          "section_header": "Section 4.2: Remote Work & Workplace Flexibility Policy > 4. Technical Equipment & Information Security",
+          "is_complete_section": true
+        }
+      },
+      {
+        "chunk_id": "remote_work_policy_struct_005",
+        "doc_id": "remote_work_policy",
+        "strategy": "Paragraph / Structure-Aware",
+        "content": "[Section 4.2: Remote Work & Workplace Flexibility Policy > 5. Working Hours, Availability & Communication]\nRemote employees are expected to maintain core operational hours from 9:00 AM to 5:00 PM local time. Employees must remain reachable via official communication channels (Slack, Microsoft Teams, corporate email) during working hours. Any scheduled absence or temporary unavailability must be logged in the shared department calendar at least 24 hours in advance.",
+        "char_count": 468,
+        "word_count": 68,
+        "token_count": 93,
+        "start_char": 2412,
+        "end_char": 2824,
+        "metadata": {
+          "chunk_index": 5,
+          "section_header": "Section 4.2: Remote Work & Workplace Flexibility Policy > 5. Working Hours, Availability & Communication",
+          "is_complete_section": true
+        }
+      }
+    ]
   }
-]
+}

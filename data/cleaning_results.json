@@ -1,0 +1,86 @@
+[
+  {
+    "doc_name": "hr_remote_policy_raw.txt",
+    "metrics": {
+      "original_chars": 2467,
+      "cleaned_chars": 1953,
+      "original_words": 341,
+      "cleaned_words": 266,
+      "original_lines": 56,
+      "cleaned_lines": 18,
+      "original_tokens": 513,
+      "cleaned_tokens": 345,
+      "char_reduction_pct": 20.84,
+      "token_reduction_pct": 32.75
+    },
+    "noise_removed_stats": {
+      "nfkc_chars_normalized": 6,
+      "invisible_chars_removed": 0,
+      "page_numbers_removed": 4,
+      "breadcrumbs_removed": 1,
+      "boilerplate_headers_footers_removed": 7,
+      "dividers_removed": 2,
+      "hyphenated_words_joined": 2,
+      "sentence_line_wraps_joined": 16,
+      "runaway_blank_lines_collapsed": 2
+    },
+    "original_text": "Home > HR Department > Policies > Remote Work\n\nCONFIDENTIAL & PROPRIETARY \u2014 ACME CORP\nAcme Corporation Internal HR Policy Guide 2026\nPage 1 of 4\n\n==================================================\n# Section 4.2: Remote Work & Workplace Flexibility Policy\n==================================================\n\n1. Overview & Scope\nThis policy defines the operational guidelines and security protocols for remote\nwork arrangements within the organization. It applies to all full-time and\npart-time administrative, technical, and operational personnel. Remote work\nis a privilege designed to support work-life balance while ensuring organizational\nproductivity, client con\ufb01dentiality, and data security remain uncompromised.\n\nAcme Corporation Internal HR Policy Guide 2026\nPage 2 of 4\n\n2. Eligibility Requirements\nTo qualify for regular or hybrid remote work:\n- The employee must have completed a minimum of 6 months of continuous\n  full-time employment.\n- The employee's latest performance evaluation rating must meet or exceed\n  'Sa\ufb01sfatory' standards with of\ufb01cial HR approval.\n- The employee's role must be classi\ufb01ed as 'Remote-Eligible' by the\n  Department Head. Roles requiring mandatory physical presence (e.g.,\n  facilities maintenance, hardware support, physical security) are excluded.\n\n3. Request & Approval Workflow\nWork-from-home (WFH) requests must be sub-\nmitted through the company's of\ufb01cial HR Portal at least two weeks prior to the\nrequested start date. All full-time employees with a minimum of six months of\ncontinuous service are eligible, provided their current job responsi-\nbilities permit remote operations.\n\nAcme Corporation Internal HR Policy Guide 2026\nPage 3 of 4\n\nDepartment managers will review requests based on team workload, coverage,\nand performance metrics before forwarding the application to the HR Remote Work\nCoordinator for final administrative approval. Approved employees must adhere\nto core business hours and maintain secure network connectivity at all times.\n\n4. Technical Equipment & Security Protocols\nApproved employees will receive corporate-issued laptop hardware pre-con\ufb01gured\nwith encrypted disk storage and mandatory virtual private network (VPN) client\nsoftware. Employees must never connect to unencrypted public Wi-Fi networks\nwithout activating the corporate VPN tunnel first.\n\nAcme Corporation Internal HR Policy Guide 2026\nPage 4 of 4\nCONFIDENTIAL & PROPRIETARY \u2014 ACME CORP\nAll rights reserved. DO NOT DISTRIBUTE.\n",
+    "cleaned_text": "# Section 4.2: Remote Work & Workplace Flexibility Policy\n\n1. Overview & Scope\nThis policy defines the operational guidelines and security protocols for remote work arrangements within the organization. It applies to all full-time and part-time administrative, technical, and operational personnel. Remote work is a privilege designed to support work-life balance while ensuring organizational productivity, client confidentiality, and data security remain uncompromised.\n\n2. Eligibility Requirements\nTo qualify for regular or hybrid remote work:\n- The employee must have completed a minimum of 6 months of continuous full-time employment.\n- The employee's latest performance evaluation rating must meet or exceed 'Safisfatory' standards with official HR approval.\n- The employee's role must be classified as 'Remote-Eligible' by the Department Head. Roles requiring mandatory physical presence (e.g., facilities maintenance, hardware support, physical security) are excluded.\n\n3. Request & Approval Workflow\nWork-from-home (WFH) requests must be submitted through the company's official HR Portal at least two weeks prior to the requested start date. All full-time employees with a minimum of six months of continuous service are eligible, provided their current job responsibilities permit remote operations.\n\nDepartment managers will review requests based on team workload, coverage, and performance metrics before forwarding the application to the HR Remote Work Coordinator for final administrative approval. Approved employees must adhere to core business hours and maintain secure network connectivity at all times.\n\n4. Technical Equipment & Security Protocols\nApproved employees will receive corporate-issued laptop hardware pre-configured with encrypted disk storage and mandatory virtual private network (VPN) client software. Employees must never connect to unencrypted public Wi-Fi networks without activating the corporate VPN tunnel first."
+  },
+  {
+    "doc_name": "it_security_guide_raw.txt",
+    "metrics": {
+      "original_chars": 1637,
+      "cleaned_chars": 1273,
+      "original_words": 214,
+      "cleaned_words": 167,
+      "original_lines": 41,
+      "cleaned_lines": 13,
+      "original_tokens": 326,
+      "cleaned_tokens": 225,
+      "char_reduction_pct": 22.24,
+      "token_reduction_pct": 30.98
+    },
+    "noise_removed_stats": {
+      "nfkc_chars_normalized": 0,
+      "invisible_chars_removed": 0,
+      "page_numbers_removed": 3,
+      "breadcrumbs_removed": 1,
+      "boilerplate_headers_footers_removed": 2,
+      "dividers_removed": 2,
+      "hyphenated_words_joined": 2,
+      "sentence_line_wraps_joined": 9,
+      "runaway_blank_lines_collapsed": 3
+    },
+    "original_text": "Nav: Home / IT Department / Information Security / Access Rules\n\nDoc ID: IT-SEC-9081  |  Page 1\n\n--------------------------------------------------\n# IT Security & System Access Guidelines\n--------------------------------------------------\n\n1. Password & Authentication Standards\nAll corporate user accounts MUST utilize multi-factor authentication (MFA)\nwith mandatory hardware token or push notification verification. Passwords must\nbe at least 16 characters in length, containing a mix of uppercase letters,\nlowercase letters, numbers, and special characters.\n\nDoc ID: IT-SEC-9081  |  Page 2\n\n2. Virtual Private Network (VPN) Usage\nEmployees accessing corporate resources remotely are required to establish an\nen-\ncrypted VPN session using approved corporate credentials. Split-tunneling is strictly\nprohibited to ensure all traffic undergoes central security inspection. Zero-width\ninvisible spaces (\"\\u200b\") or hidden characters should never interfere with access tokens.\n\n3. Incident Response & Reporting\nSecurity incidents\u2014including suspected phishing emails, lost hardware, or un-\nauthorized system access attempts\u2014must be reported immediately to the IT Security\nOperations Center (SOC) via the urgent hotline or by emailing security@company.com.\n\nDoc ID: IT-SEC-9081  |  Page 3\n\n4. Data Retention & Device Encryption\nAll local endpoint storage media (laptops, workstation NVMe drives) must maintain\nfull-disk BitLocker / FileVault encryption enabled. Data stored locally must be synchronized\nregularly with corporate cloud drives.\n\n\n\n\nDO NOT DISTRIBUTE - INTERNAL IT USE ONLY\nAll rights reserved. Proprietary and Confidential.\n",
+    "cleaned_text": "# IT Security & System Access Guidelines\n\n1. Password & Authentication Standards\nAll corporate user accounts MUST utilize multi-factor authentication (MFA) with mandatory hardware token or push notification verification. Passwords must be at least 16 characters in length, containing a mix of uppercase letters, lowercase letters, numbers, and special characters.\n\n2. Virtual Private Network (VPN) Usage\nEmployees accessing corporate resources remotely are required to establish an encrypted VPN session using approved corporate credentials. Split-tunneling is strictly prohibited to ensure all traffic undergoes central security inspection. Zero-width invisible spaces (\"\\u200b\") or hidden characters should never interfere with access tokens.\n\n3. Incident Response & Reporting\nSecurity incidents\u2014including suspected phishing emails, lost hardware, or unauthorized system access attempts\u2014must be reported immediately to the IT Security Operations Center (SOC) via the urgent hotline or by emailing security@company.com.\n\n4. Data Retention & Device Encryption\nAll local endpoint storage media (laptops, workstation NVMe drives) must maintain full-disk BitLocker / FileVault encryption enabled. Data stored locally must be synchronized regularly with corporate cloud drives."
+  },
+  {
+    "doc_name": "travel_expense_policy_raw.txt",
+    "metrics": {
+      "original_chars": 1426,
+      "cleaned_chars": 988,
+      "original_words": 205,
+      "cleaned_words": 144,
+      "original_lines": 37,
+      "cleaned_lines": 11,
+      "original_tokens": 300,
+      "cleaned_tokens": 177,
+      "char_reduction_pct": 30.72,
+      "token_reduction_pct": 41.0
+    },
+    "noise_removed_stats": {
+      "nfkc_chars_normalized": 0,
+      "invisible_chars_removed": 0,
+      "page_numbers_removed": 2,
+      "breadcrumbs_removed": 1,
+      "boilerplate_headers_footers_removed": 5,
+      "dividers_removed": 2,
+      "hyphenated_words_joined": 1,
+      "sentence_line_wraps_joined": 5,
+      "runaway_blank_lines_collapsed": 3
+    },
+    "original_text": "Navigation: Home > Finance > Corporate Policies > Travel & Reimbursements\n\n*** ACME CORP TRAVEL & EXPENSE POLICY 2026 ***\n- Page 1 -\n\n==================================================\n# Travel & Business Expense Reimbursement Policy\n==================================================\n\n1. Expense Eligibility & Guidelines\nEmployees traveling on official company business are entitled to full reim-\nbursement for legitimate, documented, and pre-approved travel expenses. All expense\nreports must be submitted via the \uff26\uff49\uff4e\uff41\uff4e\uff43\uff45 Portal within 30 days of trip completion.\n\n- Page 2 -\n\n*** ACME CORP TRAVEL & EXPENSE POLICY 2026 ***\n\n2. Lodging & Per Diem Allowance\nDaily meal per diem limits are established based on the destination city tier. Domestic\ntravel per diem is capped at $75 per day, while international destination caps vary by location\nschedule. Lodging expenses must not exceed standard business-class hotel tariffs without\nprior written authorization from the Department Vice President.\n\n\n3. Transportation & Car Rentals\nEconomy class air travel is mandatory for all domestic flights under 6 hours in duration.\nFor ground transit, preferred rental car vendors must be selected through the corporate\ntravel engine to ensure negotiated corporate insurance coverage remains active.\n\n\n\n\nAll expenses subject to audit pursuant to Section 8.1.\nCONFIDENTIAL & PROPRIETARY \u2014 ACME CORP\nAll rights reserved. DO NOT DISTRIBUTE.\n",
+    "cleaned_text": "# Travel & Business Expense Reimbursement Policy\n\n1. Expense Eligibility & Guidelines\nEmployees traveling on official company business are entitled to full reimbursement for legitimate, documented, and pre-approved travel expenses. All expense reports must be submitted via the Finance Portal within 30 days of trip completion.\n\n2. Lodging & Per Diem Allowance\nDaily meal per diem limits are established based on the destination city tier. Domestic travel per diem is capped at $75 per day, while international destination caps vary by location schedule. Lodging expenses must not exceed standard business-class hotel tariffs without prior written authorization from the Department Vice President.\n\n3. Transportation & Car Rentals\nEconomy class air travel is mandatory for all domestic flights under 6 hours in duration.\nFor ground transit, preferred rental car vendors must be selected through the corporate travel engine to ensure negotiated corporate insurance coverage remains active."
+  }
+]
