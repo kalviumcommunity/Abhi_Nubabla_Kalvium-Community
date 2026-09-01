@@ -87,7 +87,7 @@ This repository implements tools, benchmark reports, and system prompt architect
 │   ├── structured_output.py   # Structured JSON parsing and validation module
 │   ├── prompts.py             # System prompt definitions & test scenarios
 │   ├── compare_prompts.py     # Prompt engineering benchmark runner
-│   └── structured_output.py   # Structured JSON responses with Pydantic validation
+│   └── structured_output.py   # JSON response format mode & Pydantic validation
 ├── data/
 │   ├── corpus/                # Multi-format corpus documents (.md, .pdf, .html, .txt)
 │   ├── ingestion_summary.json # Ingestion accounting summary & completeness proof
