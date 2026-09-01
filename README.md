@@ -20,27 +20,43 @@ This repository implements tools, benchmark reports, and system prompt architect
 
 ---
 
+### 3. Text Embeddings & Semantic Similarity Demonstration
+- **Task 1 — Generate Embeddings**: Dense continuous embeddings generation for short sample texts across HR leave queries, policy chunks, and unrelated infrastructure/ML domains.
+- **Task 2 — Vector Dimension Verification**: Automatic verification confirming that every sample text yields an embedding of identical length ($D = 1536$).
+- **Task 3 — Cosine Similarity Comparison**: Measurement and validation proving that semantically similar query-paraphrase and query-context pairs score significantly higher than unrelated topics.
+- **Task 4 — Conceptual Explanation**: Architectural explanation of why embeddings represent geometric semantic meaning rather than random IDs or sparse keyword counts.
+- **Task 5 — Artifact Exports**: Automatic export of structured results to `data/embedding_results.json` and comprehensive markdown report to `data/embedding_report.md`.
+
+---
+
 ## 📁 Repository Structure
 
 ```text
 .
 ├── src/
-│   ├── token_counter.py       # Tasks 1-5: Tiktoken token counting & cost estimation engine
+│   ├── embedding_demo.py      # Text embedding generation, dimensionality verification & cosine similarity
+│   ├── token_counter.py       # Tiktoken token counting & cost estimation engine
 │   ├── prompts.py             # System prompt definitions & test scenarios
-│   └── compare_prompts.py     # Prompt engineering benchmark runner
+│   ├── compare_prompts.py     # Prompt engineering benchmark runner
+│   └── structured_output.py   # Structured JSON responses with Pydantic validation
 ├── data/
+│   ├── embedding_report.md    # Markdown summary of embeddings, shapes & similarity comparisons
+│   ├── embedding_results.json # JSON dataset of embeddings, previews & similarity matrix
 │   ├── token_cost_report.md   # Markdown summary of token counts & cost estimates
 │   ├── token_count_results.json# JSON dataset of token counts & length-token ratios
 │   ├── comparison_report.md   # Side-by-side prompt output comparison report
 │   └── comparison_results.json# Raw LLM benchmark results
 ├── prompt/
-│   ├── templates.py            # Shared named-placeholder templates and renderer
-│   ├── example_renders.md      # Example filled prompts for chat and batch paths
-│   └── chosen_prompt.md        # Documentation for chosen system prompt
+│   ├── templates.py           # Shared named-placeholder templates and renderer
+│   ├── example_renders.md     # Example filled prompts for chat and batch paths
+│   └── chosen_prompt.md       # Documentation for chosen system prompt
+├── embedding_demo.py          # Root CLI entry point for embedding demonstration
+├── document_loader.py         # Multi-format document loader with metadata tagging
+├── trace_demo.py              # Chunk-to-source traceability demo
 ├── .env.example               # Template environment variables
 ├── .gitignore                 # Git ignore configuration
 ├── main.py                    # Application entry point for LLM chat requests
-├── requirements.txt           # Project dependencies (openai, tiktoken, etc.)
+├── requirements.txt           # Project dependencies (openai, tiktoken, rich, etc.)
 └── README.md                  # Project overview & documentation
 ```
 
@@ -57,7 +73,14 @@ source .venv/bin/activate
 pip install -r requirements.txt
 ```
 
-### 2. Reusable Prompt Templates
+### 2. Run Text Embeddings Demonstration (Tasks 1–5)
+```bash
+python embedding_demo.py
+# or
+python src/embedding_demo.py
+```
+
+### 3. Reusable Prompt Templates
 ```python
 from prompt.templates import render_rag_request
 
@@ -71,20 +94,33 @@ The interactive chat and parameter-experiment batch feature both use this same
 `{context}`/`{question}` template. See `prompt/example_renders.md` for complete
 rendered examples.
 
-### 3. Run Token Counting & Cost Estimation (Tasks 1–5)
+### 4. Run Token Counting & Cost Estimation
 ```bash
 python src/token_counter.py
 ```
 
-### 4. Run Prompt Benchmark Comparison
+### 5. Run Prompt Benchmark Comparison
 ```bash
 python src/compare_prompts.py
 ```
 
-### 5. Run Main Application
+### 6. Run Main Application
 ```bash
 python main.py
 ```
+
+---
+
+## 📊 Summary of Embeddings & Semantic Similarity Findings
+
+| Comparison Pair | Domain Relationship | Expected | Cosine Similarity | Result |
+| :--- | :--- | :---: | :---: | :--- |
+| **Text A vs. Text B** | Paraphrased Query (Vacation vs. Time Off) | `HIGH` | **`0.7199`** | ✅ High Semantic Match |
+| **Text A vs. Text C** | Query vs. HR Portal Policy Chunk | `HIGH` | **`0.6704`** | ✅ High Semantic Match |
+| **Text A vs. Text D** | Vacation Query vs. AWS Cloud DB Migration | `LOW` | **`-0.0034`** | ✅ Orthogonal / Dissimilar |
+| **Text A vs. Text E** | Vacation Query vs. CNN Image Tensors | `LOW` | **`-0.0037`** | ✅ Orthogonal / Dissimilar |
+
+**Key Takeaway**: Continuous vector embeddings map concepts into geometric space where meaning translates directly to directional proximity, allowing RAG pipelines to match user intent even with zero keyword overlap.
 
 ---
 
