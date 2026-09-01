@@ -1,0 +1,383 @@
+{
+  "chunker_config": {
+    "chunk_size_tokens": 200,
+    "chunk_overlap_tokens": 40,
+    "tokenizer": "tiktoken (gpt-4o / cl100k_base)"
+  },
+  "stats_by_document": [
+    {
+      "doc_id": "employee_benefits",
+      "chunk_count": 3,
+      "doc_total_tokens": 363,
+      "doc_total_chars": 1848,
+      "total_chunk_tokens": 443,
+      "avg_tokens_per_chunk": 147.67,
+      "min_tokens": 43,
+      "max_tokens": 200,
+      "token_std_dev": 74.01,
+      "avg_chars_per_chunk": 756.67,
+      "overlap_overhead_pct": 22.04
+    },
+    {
+      "doc_id": "guide",
+      "chunk_count": 1,
+      "doc_total_tokens": 102,
+      "doc_total_chars": 500,
+      "total_chunk_tokens": 102,
+      "avg_tokens_per_chunk": 102.0,
+      "min_tokens": 102,
+      "max_tokens": 102,
+      "token_std_dev": 0.0,
+      "avg_chars_per_chunk": 499.0,
+      "overlap_overhead_pct": 0.0
+    },
+    {
+      "doc_id": "it_security_policy",
+      "chunk_count": 3,
+      "doc_total_tokens": 470,
+      "doc_total_chars": 2368,
+      "total_chunk_tokens": 550,
+      "avg_tokens_per_chunk": 183.33,
+      "min_tokens": 150,
+      "max_tokens": 200,
+      "token_std_dev": 23.57,
+      "avg_chars_per_chunk": 923.0,
+      "overlap_overhead_pct": 17.02
+    },
+    {
+      "doc_id": "remote_work_policy",
+      "chunk_count": 4,
+      "doc_total_tokens": 523,
+      "doc_total_chars": 2825,
+      "total_chunk_tokens": 643,
+      "avg_tokens_per_chunk": 160.75,
+      "min_tokens": 43,
+      "max_tokens": 200,
+      "token_std_dev": 67.98,
+      "avg_chars_per_chunk": 870.5,
+      "overlap_overhead_pct": 22.94
+    },
+    {
+      "doc_id": "hello",
+      "chunk_count": 1,
+      "doc_total_tokens": 61,
+      "doc_total_chars": 319,
+      "total_chunk_tokens": 61,
+      "avg_tokens_per_chunk": 61.0,
+      "min_tokens": 61,
+      "max_tokens": 61,
+      "token_std_dev": 0.0,
+      "avg_chars_per_chunk": 318.0,
+      "overlap_overhead_pct": 0.0
+    }
+  ],
+  "boundary_preservation_demo": {
+    "doc_id": "remote_work_policy",
+    "chunk_size": 200,
+    "overlap": 40,
+    "no_overlap_chunk_count": 3,
+    "overlap_chunk_count": 4,
+    "no_overlap": [
+      {
+        "id": "remote_work_policy_no_overlap_tok_001",
+        "tokens": 200,
+        "tail": "y) are excluded.\n- The employee must maintain a dedicated, private home workspace free from background disruptions.\n\n## 3. Request & Approval Workflow"
+      },
+      {
+        "id": "remote_work_policy_no_overlap_tok_002",
+        "tokens": 200,
+        "head": "1. **Submission**: Employees must submit a formal Remote Work Application via the HR Portal at least 14 calendar days prior to the desired effective d"
+      }
+    ],
+    "with_overlap": [
+      {
+        "id": "remote_work_policy_with_overlap_tok_001",
+        "tokens": 200,
+        "tail": "y) are excluded.\n- The employee must maintain a dedicated, private home workspace free from background disruptions.\n\n## 3. Request & Approval Workflow"
+      },
+      {
+        "id": "remote_work_policy_with_overlap_tok_002",
+        "tokens": 200,
+        "head": "e.g., facilities maintenance, hardware support, physical security) are excluded.\n- The employee must maintain a dedicated, private home workspace free from background disruptions.\n\n## 3. Request & App"
+      }
+    ],
+    "boundary_idea_comparison": {
+      "boundary_idea_topic": "IT Security & VPN Encryption Requirements",
+      "without_overlap": {
+        "chunk_1_end": "e must maintain a dedicated, private home workspace free from background disruptions.  ## 3. Request & Approval Workflow",
+        "chunk_2_start": "1. **Submission**: Employees must submit a formal Remote Work Application via the HR Portal at least 14 calendar days pr",
+        "defect": "Without overlap, Chunk 1 cuts off mid-section/mid-clause. Chunk 2 begins with disconnected tail fragments without initial sentence context."
+      },
+      "with_overlap": {
+        "repeated_overlap_context": "(e.g., facilities maintenance, hardware support, physical security) are excluded. - The employee must maintain a dedicated, private home workspace free from background disruptions.  ## 3. Request & Approval Workflow",
+        "chunk_2_full_head": "e.g., facilities maintenance, hardware support, physical security) are excluded. - The employee must maintain a dedicated, private home workspace free from background disruptions.  ## 3. Request & Approval Workflow 1. **",
+        "benefit": "Thanks to 40-token overlap, Chunk 2 repeats the preceding clause intact. A search query retrieving Chunk 2 receives complete policy rules without missing context."
+      }
+    }
+  },
+  "parameter_justification": {
+    "chosen_chunk_size_tokens": 200,
+    "chosen_overlap_tokens": 40,
+    "overlap_percentage": "20.0%",
+    "storage_overhead_pct": "+25.0%",
+    "target_models": "gpt-4o / Gemini 1.5/3",
+    "justifications": {
+      "1_context_window_fit": "A chunk size of 200 tokens fits comfortably within LLM context limits and prompt budgets. For RAG applications retrieving top-K (e.g. K=5) chunks, 5 x 200 = 1,000 context tokens, leaving ample headroom for system prompts, conversation history, and generation without exceeding model limits or triggering truncation.",
+      "2_embedding_model_sweet_spot": "200 tokens (~150 words) aligns perfectly with state-of-the-art dense text embedding models (such as text-embedding-3-small/large or BGE/Gecko). Dense embeddings compress full passage semantics most accurately in the 100-300 token range; larger chunks dilute key facts, while tiny chunks lack surrounding context.",
+      "3_controlled_overlap_boundary_protection": "An overlap of 40 tokens (~30 words / 1-2 complete sentences) guarantees that any key rule, eligibility requirement, or technical specification spanning across a 200-token boundary is fully preserved intact in at least one adjacent chunk.",
+      "4_cost_vs_context_tradeoff": "The 20% overlap (40/200 tokens) incurs a modest +25% token storage/indexing overhead in the vector store. This minimal cost overhead provides 100% boundary safety, eliminating query failure from truncated sentences without bloated vector database costs."
+    }
+  },
+  "sample_chunks": {
+    "employee_benefits": [
+      {
+        "chunk_id": "employee_benefits_tok_001",
+        "doc_id": "employee_benefits",
+        "content": "# Section 6.0: Employee Benefits, Paid Time Off & Leave Guidelines\n\n## 1. Paid Time Off (PTO) Accrual\nFull-time regular employees accrue 18 days of Paid Time Off annually, calculated at a rate of 1.5 days per completed calendar month of active service. Employees may roll over a maximum of 5 unused PTO days into the following calendar year. Any unused balance exceeding 5 days on December 31 will expire without cash compensation, unless an exception is approved by HR due to operational necessity.\n\n## 2. Sick Leave & Medical Appointments\nEmployees receive 10 dedicated sick days per calendar year. Sick leave is available from the first day of employment and does not require advance notice in emergency situations, though notification to the manager before 09:00 local time is expected. A medical certificate from a licensed healthcare practitioner is required for absences extending beyond 3 consecutive working days.\n\n## 3. Parental Leave & Family Care",
+        "token_count": 200,
+        "char_count": 958,
+        "word_count": 155,
+        "start_char": 0,
+        "end_char": 958,
+        "metadata": {
+          "chunk_index": 1,
+          "chunk_size_tokens": 200,
+          "chunk_overlap_tokens": 40,
+          "token_range": [
+            0,
+            200
+          ],
+          "overlap_tokens_from_prev": 0
+        }
+      },
+      {
+        "chunk_id": "employee_benefits_tok_002",
+        "doc_id": "employee_benefits",
+        "content": "09:00 local time is expected. A medical certificate from a licensed healthcare practitioner is required for absences extending beyond 3 consecutive working days.\n\n## 3. Parental Leave & Family Care\nEligible parents are entitled to 16 weeks of fully paid parental leave following the birth, adoption, or foster placement of a child. Parental leave must be taken within the first 12 months following the qualifying event. Employees may take the leave in a single continuous block or in two separate blocks with supervisory approval. Health insurance benefits continue uninterrupted during the entire leave duration.\n\n## 4. Health Insurance & Wellness Reimbursement\nThe company sponsors 90% of the premium for comprehensive medical, dental, and vision insurance for full-time employees and 70% for enrolled dependents. In addition, each employee is eligible for an annual \\$600 wellness stipend to cover gym memberships, mental health counseling, fitness equipment, or ergonomic home office furniture. Claims must be submitted with valid receipts before November 30 of each",
+        "token_count": 200,
+        "char_count": 1070,
+        "word_count": 161,
+        "start_char": 761,
+        "end_char": 1831,
+        "metadata": {
+          "chunk_index": 2,
+          "chunk_size_tokens": 200,
+          "chunk_overlap_tokens": 40,
+          "token_range": [
+            160,
+            360
+          ],
+          "overlap_tokens_from_prev": 40
+        }
+      },
+      {
+        "chunk_id": "employee_benefits_tok_003",
+        "doc_id": "employee_benefits",
+        "content": "is eligible for an annual \\$600 wellness stipend to cover gym memberships, mental health counseling, fitness equipment, or ergonomic home office furniture. Claims must be submitted with valid receipts before November 30 of each calendar year.",
+        "token_count": 43,
+        "char_count": 242,
+        "word_count": 36,
+        "start_char": 1604,
+        "end_char": 1846,
+        "metadata": {
+          "chunk_index": 3,
+          "chunk_size_tokens": 200,
+          "chunk_overlap_tokens": 40,
+          "token_range": [
+            320,
+            363
+          ],
+          "overlap_tokens_from_prev": 40
+        }
+      }
+    ],
+    "guide": [
+      {
+        "chunk_id": "guide_tok_001",
+        "doc_id": "guide",
+        "content": "# RAG Optimization Guide\n\nThis markdown file serves as a documentation template for testing our document loader.\n\n## Key Principles of RAG\n1. **Accurate Loading**: Retrieve documents from mixed formats and transform them into standard text.\n2. **Semantic Chunking**: Split text into semantically cohesive units.\n3. **Smart Retrieving**: Retrieve top-k chunks matching the query embedding.\n\n### Additional Notes\n* Make sure metadata is preserved.\n* Citations should point back to the source filename.",
+        "token_count": 102,
+        "char_count": 499,
+        "word_count": 73,
+        "start_char": 0,
+        "end_char": 499,
+        "metadata": {
+          "chunk_index": 1,
+          "chunk_size_tokens": 200,
+          "chunk_overlap_tokens": 40,
+          "token_range": [
+            0,
+            102
+          ],
+          "overlap_tokens_from_prev": 0
+        }
+      }
+    ],
+    "it_security_policy": [
+      {
+        "chunk_id": "it_security_policy_tok_001",
+        "doc_id": "it_security_policy",
+        "content": "# Section 8.1: Corporate IT Security & Incident Response Protocols\n\n## 1. Password & Access Control Standards\nAll internal systems require compliance with strict authentication safeguards. Passwords must contain a minimum of 14 characters including uppercase letters, numbers, and symbols. Passwords expire every 90 days and cannot match any of the previous 5 passwords used. Multi-Factor Authentication (MFA) via an approved authenticator app is mandatory on all corporate single sign-on (SSO) portals. SMS-based MFA is strictly prohibited due to SIM-swapping vulnerabilities.\n\n## 2. Workstation Security & Encryption\nAll employee endpoints must have FileVault (macOS) or BitLocker (Windows) full-disk encryption enabled prior to accessing internal resources. USB storage drives are blocked by administrative group policy unless an exception ticket is authorized by the CISO. Operating system security updates and antivirus definitions are pushed automatically each Tuesday at 02:00 UTC and must not be bypassed or postponed beyond",
+        "token_count": 200,
+        "char_count": 1032,
+        "word_count": 146,
+        "start_char": 0,
+        "end_char": 1032,
+        "metadata": {
+          "chunk_index": 1,
+          "chunk_size_tokens": 200,
+          "chunk_overlap_tokens": 40,
+          "token_range": [
+            0,
+            200
+          ],
+          "overlap_tokens_from_prev": 0
+        }
+      },
+      {
+        "chunk_id": "it_security_policy_tok_002",
+        "doc_id": "it_security_policy",
+        "content": "group policy unless an exception ticket is authorized by the CISO. Operating system security updates and antivirus definitions are pushed automatically each Tuesday at 02:00 UTC and must not be bypassed or postponed beyond 48 hours.\n\n## 3. Security Incident Classification & Severity Levels\nSecurity incidents are classified into four severity tiers:\n- **Severity 1 (Critical)**: Active data breach, ransomware deployment, or unauthorized administrative privilege escalation. Incident Commander must be notified within 15 minutes.\n- **Severity 2 (High)**: Compromised employee credential, malware detected on internal host, or unauthenticated API exposure. Response required within 1 hour.\n- **Severity 3 (Medium)**: Targeted phishing attempt reported by employee or failed brute-force attempt against internal portal. Response required within 4 business hours.\n- **Severity 4 (Low)**: Routine port scanning or spam email delivery. Logged and reviewed during weekly triage.\n\n## 4. Employee Incident Reporting Procedure\nIf you",
+        "token_count": 200,
+        "char_count": 1025,
+        "word_count": 143,
+        "start_char": 810,
+        "end_char": 1835,
+        "metadata": {
+          "chunk_index": 2,
+          "chunk_size_tokens": 200,
+          "chunk_overlap_tokens": 40,
+          "token_range": [
+            160,
+            360
+          ],
+          "overlap_tokens_from_prev": 40
+        }
+      },
+      {
+        "chunk_id": "it_security_policy_tok_003",
+        "doc_id": "it_security_policy",
+        "content": "4 business hours.\n- **Severity 4 (Low)**: Routine port scanning or spam email delivery. Logged and reviewed during weekly triage.\n\n## 4. Employee Incident Reporting Procedure\nIf you suspect an active security compromise, credential theft, or phishing email:\n1. Immediately disconnect your machine from the network (unplug Ethernet or turn off Wi-Fi).\n2. Do not power off or reboot the computer, as volatile RAM evidence must be preserved for forensic analysis.\n3. Call the 24/7 IT Security Hotline at extension 4357 (HELP) or alert the `#security-incident` Slack channel using a secondary mobile device.\n4. Provide the time of occurrence, observed system symptoms, and suspicious email headers or files involved.",
+        "token_count": 150,
+        "char_count": 712,
+        "word_count": 109,
+        "start_char": 1654,
+        "end_char": 2366,
+        "metadata": {
+          "chunk_index": 3,
+          "chunk_size_tokens": 200,
+          "chunk_overlap_tokens": 40,
+          "token_range": [
+            320,
+            470
+          ],
+          "overlap_tokens_from_prev": 40
+        }
+      }
+    ],
+    "remote_work_policy": [
+      {
+        "chunk_id": "remote_work_policy_tok_001",
+        "doc_id": "remote_work_policy",
+        "content": "# Section 4.2: Remote Work & Workplace Flexibility Policy\n\n## 1. Overview & Scope\nThis policy defines operational guidelines and security protocols for remote work arrangements within the organization. It applies to all full-time and part-time administrative, technical, and operational personnel. Remote work is a privilege designed to support work-life balance while ensuring organizational productivity, client confidentiality, and data security remain uncompromised.\n\n## 2. Eligibility Requirements\nTo qualify for regular or hybrid remote work:\n- The employee must have completed a minimum of 6 months of continuous full-time employment.\n- The employee's latest performance evaluation rating must meet or exceed 'Satisfactory' standards.\n- The employee's role must be classified as 'Remote-Eligible' by the Department Head. Roles requiring mandatory physical presence (e.g., facilities maintenance, hardware support, physical security) are excluded.\n- The employee must maintain a dedicated, private home workspace free from background disruptions.\n\n## 3. Request & Approval Workflow",
+        "token_count": 200,
+        "char_count": 1087,
+        "word_count": 149,
+        "start_char": 0,
+        "end_char": 1087,
+        "metadata": {
+          "chunk_index": 1,
+          "chunk_size_tokens": 200,
+          "chunk_overlap_tokens": 40,
+          "token_range": [
+            0,
+            200
+          ],
+          "overlap_tokens_from_prev": 0
+        }
+      },
+      {
+        "chunk_id": "remote_work_policy_tok_002",
+        "doc_id": "remote_work_policy",
+        "content": "e.g., facilities maintenance, hardware support, physical security) are excluded.\n- The employee must maintain a dedicated, private home workspace free from background disruptions.\n\n## 3. Request & Approval Workflow\n1. **Submission**: Employees must submit a formal Remote Work Application via the HR Portal at least 14 calendar days prior to the desired effective date.\n2. **Managerial Review**: Direct supervisors evaluate the application considering team coverage, project deliverables, and communication plans within 5 business days.\n3. **IT Security Verification**: The IT Security Operations team verifies that the employee's designated home office setup satisfies encrypted VPN and multi-factor authentication (MFA) requirements.\n4. **HR Registration**: Approved requests are logged into the central employee database, valid for a maximum term of 12 months, subject to annual renewal.\n\n## 4. Technical Equipment & Information Security\n- **Company Hardware**: Only company-issued laptops equipped with active Endpoint Detection and Response (EDR) software",
+        "token_count": 200,
+        "char_count": 1060,
+        "word_count": 145,
+        "start_char": 873,
+        "end_char": 1933,
+        "metadata": {
+          "chunk_index": 2,
+          "chunk_size_tokens": 200,
+          "chunk_overlap_tokens": 40,
+          "token_range": [
+            160,
+            360
+          ],
+          "overlap_tokens_from_prev": 40
+        }
+      },
+      {
+        "chunk_id": "remote_work_policy_tok_003",
+        "doc_id": "remote_work_policy",
+        "content": "12 months, subject to annual renewal.\n\n## 4. Technical Equipment & Information Security\n- **Company Hardware**: Only company-issued laptops equipped with active Endpoint Detection and Response (EDR) software may be used for remote work. Personal devices cannot access production environments.\n- **Network Security**: Connecting to public, unencrypted Wi-Fi networks is strictly prohibited. Remote workers must connect exclusively via the corporate AES-256 encrypted VPN tunnel.\n- **Data Protection**: Confidential documents must not be printed at remote locations or stored on unapproved personal cloud storage accounts. Screens must be locked when stepping away from the workstation.\n\n## 5. Working Hours, Availability & Communication\nRemote employees are expected to maintain core operational hours from 9:00 AM to 5:00 PM local time. Employees must remain reachable via official communication channels (Slack, Microsoft Teams, corporate email) during working hours. Any scheduled absence or temporary unavailability must be logged in the shared department calendar at least 24 hours",
+        "token_count": 200,
+        "char_count": 1085,
+        "word_count": 152,
+        "start_char": 1726,
+        "end_char": 2811,
+        "metadata": {
+          "chunk_index": 3,
+          "chunk_size_tokens": 200,
+          "chunk_overlap_tokens": 40,
+          "token_range": [
+            320,
+            520
+          ],
+          "overlap_tokens_from_prev": 40
+        }
+      },
+      {
+        "chunk_id": "remote_work_policy_tok_004",
+        "doc_id": "remote_work_policy",
+        "content": "must remain reachable via official communication channels (Slack, Microsoft Teams, corporate email) during working hours. Any scheduled absence or temporary unavailability must be logged in the shared department calendar at least 24 hours in advance.",
+        "token_count": 43,
+        "char_count": 250,
+        "word_count": 35,
+        "start_char": 2573,
+        "end_char": 2823,
+        "metadata": {
+          "chunk_index": 4,
+          "chunk_size_tokens": 200,
+          "chunk_overlap_tokens": 40,
+          "token_range": [
+            480,
+            523
+          ],
+          "overlap_tokens_from_prev": 40
+        }
+      }
+    ],
+    "hello": [
+      {
+        "chunk_id": "hello_tok_001",
+        "doc_id": "hello",
+        "content": "Welcome to the RAG Document Loader test.\nThis is a plain text file that contains unstructured information.\nIt is designed to be loaded by our document loader and parsed into plain text.\nRAG systems need simple text format to compute embeddings and search for matching chunks.\nThis concludes the plain text sample file.",
+        "token_count": 61,
+        "char_count": 318,
+        "word_count": 53,
+        "start_char": 0,
+        "end_char": 318,
+        "metadata": {
+          "chunk_index": 1,
+          "chunk_size_tokens": 200,
+          "chunk_overlap_tokens": 40,
+          "token_range": [
+            0,
+            61
+          ],
+          "overlap_tokens_from_prev": 0
+        }
+      }
+    ]
+  }
+}
