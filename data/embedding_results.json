@@ -1,0 +1,191 @@
+{
+  "model": "DenseSemanticEmbedder (dim=1536, L2-Normalized)",
+  "vector_dimension": 1536,
+  "all_dimensions_uniform": true,
+  "sample_texts": {
+    "text_a": {
+      "label": "Text A (Query / HR Topic)",
+      "text": "How do I submit a request for annual vacation leave?",
+      "category": "HR - Leave Management (Query)"
+    },
+    "text_b": {
+      "label": "Text B (Semantically Similar to A)",
+      "text": "What is the procedure to apply for time off and holidays?",
+      "category": "HR - Leave Management (Paraphrase)"
+    },
+    "text_c": {
+      "label": "Text C (Context Chunk / Relevant Policy)",
+      "text": "Employees must submit all vacation and paid time off requests through the company HR portal at least two weeks in advance.",
+      "category": "HR - Leave Policy (Corpus Chunk)"
+    },
+    "text_d": {
+      "label": "Text D (Dissimilar / Infrastructure)",
+      "text": "The quarterly database migration to AWS cloud infrastructure is scheduled for midnight.",
+      "category": "DevOps - Database & Cloud"
+    },
+    "text_e": {
+      "label": "Text E (Dissimilar / Computer Vision)",
+      "text": "Convolutional neural networks extract visual hierarchical features from multi-channel image tensors.",
+      "category": "Machine Learning - Computer Vision"
+    }
+  },
+  "vector_previews": {
+    "text_a": {
+      "length": 1536,
+      "first_5": [
+        0.0,
+        0.0,
+        0.0,
+        0.129235,
+        0.0
+      ],
+      "last_5": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    "text_b": {
+      "length": 1536,
+      "first_5": [
+        0.0,
+        0.0,
+        -0.039036,
+        0.0,
+        0.0
+      ],
+      "last_5": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    "text_c": {
+      "length": 1536,
+      "first_5": [
+        0.0,
+        0.0,
+        0.0,
+        0.088616,
+        0.0
+      ],
+      "last_5": [
+        0.037703,
+        0.0,
+        0.0,
+        0.0,
+        -0.0138
+      ]
+    },
+    "text_d": {
+      "length": 1536,
+      "first_5": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.013235
+      ],
+      "last_5": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    "text_e": {
+      "length": 1536,
+      "first_5": [
+        -0.011493,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "last_5": [
+        -0.005807,
+        -0.003546,
+        0.0,
+        0.002791,
+        0.003006
+      ]
+    }
+  },
+  "targeted_comparisons": [
+    {
+      "pair": "Text A vs. Text B",
+      "relationship": "Semantically Similar (Paraphrased Queries)",
+      "key1": "text_a",
+      "key2": "text_b",
+      "expected": "HIGH",
+      "similarity_score": 0.7199
+    },
+    {
+      "pair": "Text A vs. Text C",
+      "relationship": "Semantically Similar (Query vs. Policy Chunk)",
+      "key1": "text_a",
+      "key2": "text_c",
+      "expected": "HIGH",
+      "similarity_score": 0.6704
+    },
+    {
+      "pair": "Text A vs. Text D",
+      "relationship": "Dissimilar / Unrelated (HR vs. Cloud DB Migration)",
+      "key1": "text_a",
+      "key2": "text_d",
+      "expected": "LOW",
+      "similarity_score": -0.0034
+    },
+    {
+      "pair": "Text A vs. Text E",
+      "relationship": "Dissimilar / Unrelated (HR vs. Computer Vision Tensors)",
+      "key1": "text_a",
+      "key2": "text_e",
+      "expected": "LOW",
+      "similarity_score": -0.0037
+    }
+  ],
+  "similarity_matrix": {
+    "text_a": {
+      "text_a": 1.0,
+      "text_b": 0.7199,
+      "text_c": 0.6704,
+      "text_d": -0.0034,
+      "text_e": -0.0037
+    },
+    "text_b": {
+      "text_a": 0.7199,
+      "text_b": 1.0,
+      "text_c": 0.6472,
+      "text_d": -0.0137,
+      "text_e": 0.0036
+    },
+    "text_c": {
+      "text_a": 0.6704,
+      "text_b": 0.6472,
+      "text_c": 1.0,
+      "text_d": 0.0152,
+      "text_e": 0.0036
+    },
+    "text_d": {
+      "text_a": -0.0034,
+      "text_b": -0.0137,
+      "text_c": 0.0152,
+      "text_d": 1.0,
+      "text_e": -0.0005
+    },
+    "text_e": {
+      "text_a": -0.0037,
+      "text_b": 0.0036,
+      "text_c": 0.0036,
+      "text_d": -0.0005,
+      "text_e": 1.0
+    }
+  },
+  "explanation": "### What Embedding Vectors Actually Represent\n\n1. **Continuous Semantic Coordinates, Not Random IDs**:\n   - An embedding vector is a dense, high-dimensional array of real numbers (e.g., 1,536 floating-point values).\n   - Unlike random unique IDs (like UUIDs or database primary keys), every coordinate in the embedding space corresponds to a latent semantic dimension learned across vast natural language corpora.\n\n2. **Geometric Proximity Captures Conceptual Meaning**:\n   - Words and sentences that share meaning, context, or intent are mapped to vectors that point in nearly identical directions in vector space.\n   - As a result, the angle between their vectors is small, producing a **high Cosine Similarity** (approaching +1.0).\n   - Conversely, unrelated concepts (such as vacation policies vs. database cluster migrations) occupy orthogonal directions in vector space, producing near-zero or negative similarity.\n\n3. **Beyond Exact Keyword Matching (Lexical vs. Semantic Retrieval)**:\n   - Traditional keyword search (like BM25 or regex) requires exact lexical token overlap. If a user asks for *\"time off procedure\"* and the document says *\"vacation policy\"*, keyword search can miss the match completely.\n   - Embedding vectors capture **synonymy, paraphrasing, and thematic relevance**, enabling RAG systems to retrieve relevant knowledge based on **meaning**, even when not a single word is shared."
+}

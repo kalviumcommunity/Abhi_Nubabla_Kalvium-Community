@@ -44,6 +44,15 @@ This repository implements tools, benchmark reports, and system prompt architect
 
 ---
 
+### 3. Text Embeddings & Semantic Similarity Demonstration
+- **Task 1 — Generate Embeddings**: Dense continuous embeddings generation for short sample texts across HR leave queries, policy chunks, and unrelated infrastructure/ML domains.
+- **Task 2 — Vector Dimension Verification**: Automatic verification confirming that every sample text yields an embedding of identical length ($D = 1536$).
+- **Task 3 — Cosine Similarity Comparison**: Measurement and validation proving that semantically similar query-paraphrase and query-context pairs score significantly higher than unrelated topics.
+- **Task 4 — Conceptual Explanation**: Architectural explanation of why embeddings represent geometric semantic meaning rather than random IDs or sparse keyword counts.
+- **Task 5 — Artifact Exports**: Automatic export of structured results to `data/embedding_results.json` and comprehensive markdown report to `data/embedding_report.md`.
+
+---
+
 ## 📁 Repository Structure
 
 ```text
@@ -77,7 +86,8 @@ This repository implements tools, benchmark reports, and system prompt architect
 │   ├── token_counter.py       # Tiktoken token counting & cost estimation engine
 │   ├── structured_output.py   # Structured JSON parsing and validation module
 │   ├── prompts.py             # System prompt definitions & test scenarios
-│   └── compare_prompts.py     # Prompt engineering benchmark runner
+│   ├── compare_prompts.py     # Prompt engineering benchmark runner
+│   └── structured_output.py   # Structured JSON responses with Pydantic validation
 ├── data/
 │   ├── corpus/                # Multi-format corpus documents (.md, .pdf, .html, .txt)
 │   ├── ingestion_summary.json # Ingestion accounting summary & completeness proof
