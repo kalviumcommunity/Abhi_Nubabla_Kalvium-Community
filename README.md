@@ -30,12 +30,6 @@ This repository implements tools, benchmark reports, and system prompt architect
 - **Task 4 — Show Before/After Evidence**: Detailed reports (`data/cleaning_report.md`, `data/cleaning_results.json`) featuring side-by-side comparative text snippets and token reduction metrics via `tiktoken`.
 - **Task 5 — Commit with Sample Output**: Exported clean document files saved to `data/cleaned_documents/` ready for vector retrieval.
 
-### 4. Text Embeddings & Semantic Similarity Demonstration
-- **Task 1 — Generate Embeddings**: Dense continuous embeddings generation for short sample texts across HR leave queries, policy chunks, and unrelated infrastructure/ML domains.
-- **Task 2 — Vector Dimension Verification**: Automatic verification confirming that every sample text yields an embedding of identical length ($D = 1536$).
-- **Task 3 — Cosine Similarity Comparison**: Measurement and validation proving that semantically similar query-paraphrase and query-context pairs score significantly higher than unrelated topics.
-- **Task 4 — Conceptual Explanation**: Architectural explanation of why embeddings represent geometric semantic meaning rather than random IDs or sparse keyword counts.
-- **Task 5 — Artifact Exports**: Automatic export of structured results to `data/embedding_results.json` and comprehensive markdown report to `data/embedding_report.md`.
 
 ### 5. Query-Chunk Similarity Ranking & Retrieval
 - **Task 1 — Similarity Metrics**: Implementation of Cosine Similarity, Euclidean Distance ($L_2$), and Dot Product for vector similarity evaluation.
@@ -59,6 +53,7 @@ This repository implements tools, benchmark reports, and system prompt architect
 - **Task 5 — Report Generation & Exports**: Automated export of JSON data to `data/token_count_results.json` and formatted markdown report to `data/token_cost_report.md`.
 
 ---
+
 
 ## 📁 Repository Structure
 
