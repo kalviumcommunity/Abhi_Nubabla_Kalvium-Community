@@ -1,0 +1,313 @@
+{
+  "summary": {
+    "total_tests": 6,
+    "passed": 4,
+    "borderline": 2,
+    "failed": 0,
+    "pass_rate_pct": 100.0,
+    "corpus_chunks_count": 25
+  },
+  "test_results": [
+    {
+      "test_id": "TEST_001_PTO_ROLLOVER",
+      "name": "PTO Accrual & Unused Rollover Policy",
+      "category": "HR - Employee Benefits",
+      "query": "Can I roll over unused vacation days into next year and what is the maximum limit?",
+      "target_chunk_id": "employee_benefits_chunk_001",
+      "target_desc": "Section 6.0: PTO Accrual (18 days/yr, max 5 days rollover)",
+      "target_rank": 1,
+      "target_score": 0.6754,
+      "baseline_chunk_id": "it_security_policy_chunk_002",
+      "baseline_desc": "Section 8.1: Workstation Security & BitLocker Encryption",
+      "baseline_rank": 14,
+      "baseline_score": 0.0433,
+      "score_margin": 0.6321,
+      "top_1_retrieved_id": "employee_benefits_chunk_001",
+      "top_1_retrieved_score": 0.6754,
+      "top_3_retrieved": [
+        {
+          "chunk_id": "employee_benefits_chunk_001",
+          "document_name": "employee_benefits.md",
+          "section": "Section 6.0: Employee Benefits, Paid Time Off & Leave Guidelines > 1. Paid Time Off (PTO) Accrual",
+          "token_count": 79,
+          "text": "Full-time regular employees accrue 18 days of Paid Time Off annually, calculated at a rate of 1.5 days per completed calendar month of active service. Employees may roll over a maximum of 5 unused PTO days into the following calendar year. Any unused balance exceeding 5 days on December 31 will expire without cash compensation, unless an exception is approved by HR due to operational necessity.",
+          "score": 0.6754,
+          "rank": 1
+        },
+        {
+          "chunk_id": "remote_work_policy_chunk_001",
+          "document_name": "remote_work_policy.md",
+          "section": "Section 4.2: Remote Work & Workplace Flexibility Policy > 1. Overview & Scope",
+          "token_count": 60,
+          "text": "This policy defines operational guidelines and security protocols for remote work arrangements within the organization. It applies to all full-time and part-time administrative, technical, and operational personnel. Remote work is a privilege designed to support work-life balance while ensuring organizational productivity, client confidentiality, and data security remain uncompromised.",
+          "score": 0.25,
+          "rank": 2
+        },
+        {
+          "chunk_id": "remote_work_policy_chunk_004",
+          "document_name": "remote_work_policy.md",
+          "section": "Section 4.2: Remote Work & Workplace Flexibility Policy > 3. Request & Approval Workflow",
+          "token_count": 51,
+          "text": "employee's designated home office setup satisfies encrypted VPN and multi-factor authentication (MFA) requirements.\n4. **HR Registration**: Approved requests are logged into the central employee database, valid for a maximum term of 12 months, subject to annual renewal.",
+          "score": 0.1742,
+          "rank": 3
+        }
+      ],
+      "ranks_above_baseline": true,
+      "status": "PASS",
+      "is_edge_case": false,
+      "notes": "Clear ground-truth match for employee benefits and annual leave rollover rules."
+    },
+    {
+      "test_id": "TEST_002_PARENTAL_LEAVE",
+      "name": "Parental Leave Duration & Entitlement",
+      "category": "HR - Family Care Policy",
+      "query": "How many weeks of fully paid leave are new parents entitled to after childbirth or adoption?",
+      "target_chunk_id": "employee_benefits_chunk_003",
+      "target_desc": "Section 6.0: Parental Leave (16 weeks paid leave)",
+      "target_rank": 1,
+      "target_score": 0.8532,
+      "baseline_chunk_id": "page_chunk_004",
+      "baseline_desc": "Community Guidelines: Clear code documentation",
+      "baseline_rank": 7,
+      "baseline_score": 0.024,
+      "score_margin": 0.8292,
+      "top_1_retrieved_id": "employee_benefits_chunk_003",
+      "top_1_retrieved_score": 0.8532,
+      "top_3_retrieved": [
+        {
+          "chunk_id": "employee_benefits_chunk_003",
+          "document_name": "employee_benefits.md",
+          "section": "Section 6.0: Employee Benefits, Paid Time Off & Leave Guidelines > 3. Parental Leave & Family Care",
+          "token_count": 73,
+          "text": "Eligible parents are entitled to 16 weeks of fully paid parental leave following the birth, adoption, or foster placement of a child. Parental leave must be taken within the first 12 months following the qualifying event. Employees may take the leave in a single continuous block or in two separate blocks with supervisory approval. Health insurance benefits continue uninterrupted during the entire leave duration.",
+          "score": 0.8532,
+          "rank": 1
+        },
+        {
+          "chunk_id": "it_security_policy_chunk_004",
+          "document_name": "it_security_policy.md",
+          "section": "Section 8.1: Corporate IT Security & Incident Response Protocols > 3. Security Incident Classification & Severity Levels",
+          "token_count": 53,
+          "text": "(Medium)**: Targeted phishing attempt reported by employee or failed brute-force attempt against internal portal. Response required within 4 business hours.\n- **Severity 4 (Low)**: Routine port scanning or spam email delivery. Logged and reviewed during weekly triage.",
+          "score": 0.0527,
+          "rank": 2
+        },
+        {
+          "chunk_id": "remote_work_policy_chunk_006",
+          "document_name": "remote_work_policy.md",
+          "section": "Section 4.2: Remote Work & Workplace Flexibility Policy > 5. Working Hours, Availability & Communication",
+          "token_count": 68,
+          "text": "Remote employees are expected to maintain core operational hours from 9:00 AM to 5:00 PM local time. Employees must remain reachable via official communication channels (Slack, Microsoft Teams, corporate email) during working hours. Any scheduled absence or temporary unavailability must be logged in the shared department calendar at least 24 hours in advance.",
+          "score": 0.0409,
+          "rank": 3
+        }
+      ],
+      "ranks_above_baseline": true,
+      "status": "PASS",
+      "is_edge_case": false,
+      "notes": "Direct factual lookup for parental leave duration and qualifying event rules."
+    },
+    {
+      "test_id": "TEST_003_PASSWORD_MFA",
+      "name": "Password Length & MFA Authenticator Rules",
+      "category": "IT Security - Access Control",
+      "query": "What are the minimum password length requirements and is SMS authentication permitted?",
+      "target_chunk_id": "it_security_policy_chunk_001",
+      "target_desc": "Section 8.1: Password Standards (Min 14 chars, SMS MFA strictly prohibited)",
+      "target_rank": 1,
+      "target_score": 0.8974,
+      "baseline_chunk_id": "employee_benefits_chunk_003",
+      "baseline_desc": "Section 6.0: Parental Leave & Family Care",
+      "baseline_rank": 6,
+      "baseline_score": 0.0607,
+      "score_margin": 0.8367,
+      "top_1_retrieved_id": "it_security_policy_chunk_001",
+      "top_1_retrieved_score": 0.8974,
+      "top_3_retrieved": [
+        {
+          "chunk_id": "it_security_policy_chunk_001",
+          "document_name": "it_security_policy.md",
+          "section": "Section 8.1: Corporate IT Security & Incident Response Protocols > 1. Password & Access Control Standards",
+          "token_count": 89,
+          "text": "All internal systems require compliance with strict authentication safeguards. Passwords must contain a minimum of 14 characters including uppercase letters, numbers, and symbols. Passwords expire every 90 days and cannot match any of the previous 5 passwords used. Multi-Factor Authentication (MFA) via an approved authenticator app is mandatory on all corporate single sign-on (SSO) portals. SMS-based MFA is strictly prohibited due to SIM-swapping vulnerabilities.",
+          "score": 0.8974,
+          "rank": 1
+        },
+        {
+          "chunk_id": "remote_work_policy_chunk_004",
+          "document_name": "remote_work_policy.md",
+          "section": "Section 4.2: Remote Work & Workplace Flexibility Policy > 3. Request & Approval Workflow",
+          "token_count": 51,
+          "text": "employee's designated home office setup satisfies encrypted VPN and multi-factor authentication (MFA) requirements.\n4. **HR Registration**: Approved requests are logged into the central employee database, valid for a maximum term of 12 months, subject to annual renewal.",
+          "score": 0.6461,
+          "rank": 2
+        },
+        {
+          "chunk_id": "employee_benefits_chunk_002",
+          "document_name": "employee_benefits.md",
+          "section": "Section 6.0: Employee Benefits, Paid Time Off & Leave Guidelines > 2. Sick Leave & Medical Appointments",
+          "token_count": 67,
+          "text": "Employees receive 10 dedicated sick days per calendar year. Sick leave is available from the first day of employment and does not require advance notice in emergency situations, though notification to the manager before 09:00 local time is expected. A medical certificate from a licensed healthcare practitioner is required for absences extending beyond 3 consecutive working days.",
+          "score": 0.1738,
+          "rank": 3
+        }
+      ],
+      "ranks_above_baseline": true,
+      "status": "PASS",
+      "is_edge_case": false,
+      "notes": "Tests technical security constraints: 14 chars, 90-day expiry, and SIM-swapping safeguards."
+    },
+    {
+      "test_id": "TEST_004_RAG_CHUNK_PRINCIPLES",
+      "name": "RAG Document Loading & Semantic Chunking",
+      "category": "Engineering - RAG Architecture",
+      "query": "What are the core principles for accurate document loading and semantic cohesive chunking in RAG?",
+      "target_chunk_id": "guide_chunk_002",
+      "target_desc": "Guide: Key Principles of RAG (Accurate Loading, Semantic Chunking, Smart Retrieving)",
+      "target_rank": 2,
+      "target_score": 0.7388,
+      "baseline_chunk_id": "employee_benefits_chunk_004",
+      "baseline_desc": "Section 6.0: Health Insurance & Wellness Stipend",
+      "baseline_rank": 22,
+      "baseline_score": 0.0481,
+      "score_margin": 0.6907,
+      "top_1_retrieved_id": "document_chunk_001",
+      "top_1_retrieved_score": 0.7569,
+      "top_3_retrieved": [
+        {
+          "chunk_id": "document_chunk_001",
+          "document_name": "document.pdf",
+          "section": "RAG System Documentation",
+          "token_count": 78,
+          "text": "RAG System Documentation\nThis PDF document contains reference guide for Retrieval-Augmented Generation.\nRetrieval-Augmented Generation (RAG) is a technique that combines retrieval and generation.\nIt leverages external knowledge sources to improve LLM generation accuracy and relevance.\nOur loader module parses this PDF cleanly to feed it to downstream processes.\nVerify that page-by-page text extraction works and is formatted correctly.",
+          "score": 0.7569,
+          "rank": 1
+        },
+        {
+          "chunk_id": "guide_chunk_002",
+          "document_name": "guide.md",
+          "section": "RAG Optimization Guide > Key Principles of RAG",
+          "token_count": 53,
+          "text": "1. **Accurate Loading**: Retrieve documents from mixed formats and transform them into standard text.\n2. **Semantic Chunking**: Split text into semantically cohesive units.\n3. **Smart Retrieving**: Retrieve top-k chunks matching the query embedding.",
+          "score": 0.7388,
+          "rank": 2
+        },
+        {
+          "chunk_id": "hello_chunk_001",
+          "document_name": "hello.txt",
+          "section": "N/A",
+          "token_count": 61,
+          "text": "Welcome to the RAG Document Loader test.\nThis is a plain text file that contains unstructured information.\nIt is designed to be loaded by our document loader and parsed into plain text.\nRAG systems need simple text format to compute embeddings and search for matching chunks.\nThis concludes the plain text sample file.",
+          "score": 0.5579,
+          "rank": 3
+        }
+      ],
+      "ranks_above_baseline": true,
+      "status": "BORDERLINE_PASS",
+      "is_edge_case": false,
+      "notes": "Verifies retrieval of engineering guidance on semantic chunk boundaries and top-k retrieval."
+    },
+    {
+      "test_id": "TEST_005_REMOTE_VPN_SECURITY",
+      "name": "Remote Work Network Encryption & Public Wi-Fi",
+      "category": "Remote Work - Information Security",
+      "query": "What are the network encryption and VPN rules for working remotely on public Wi-Fi networks?",
+      "target_chunk_id": "remote_work_policy_chunk_005",
+      "target_desc": "Section 4.2: Technical Equipment & VPN (Public Wi-Fi prohibited, AES-256 VPN)",
+      "target_rank": 1,
+      "target_score": 0.7863,
+      "baseline_chunk_id": "page_chunk_003",
+      "baseline_desc": "Community Guidelines: Respectful engagement",
+      "baseline_rank": 8,
+      "baseline_score": 0.2255,
+      "score_margin": 0.5608,
+      "top_1_retrieved_id": "remote_work_policy_chunk_005",
+      "top_1_retrieved_score": 0.7863,
+      "top_3_retrieved": [
+        {
+          "chunk_id": "remote_work_policy_chunk_005",
+          "document_name": "remote_work_policy.md",
+          "section": "Section 4.2: Remote Work & Workplace Flexibility Policy > 4. Technical Equipment & Information Security",
+          "token_count": 106,
+          "text": "- **Company Hardware**: Only company-issued laptops equipped with active Endpoint Detection and Response (EDR) software may be used for remote work. Personal devices cannot access production environments.\n- **Network Security**: Connecting to public, unencrypted Wi-Fi networks is strictly prohibited. Remote workers must connect exclusively via the corporate AES-256 encrypted VPN tunnel.\n- **Data Protection**: Confidential documents must not be printed at remote locations or stored on unapproved personal cloud storage accounts. Screens must be locked when stepping away from the workstation.",
+          "score": 0.7863,
+          "rank": 1
+        },
+        {
+          "chunk_id": "it_security_policy_chunk_002",
+          "document_name": "it_security_policy.md",
+          "section": "Section 8.1: Corporate IT Security & Incident Response Protocols > 2. Workstation Security & Encryption",
+          "token_count": 79,
+          "text": "All employee endpoints must have FileVault (macOS) or BitLocker (Windows) full-disk encryption enabled prior to accessing internal resources. USB storage drives are blocked by administrative group policy unless an exception ticket is authorized by the CISO. Operating system security updates and antivirus definitions are pushed automatically each Tuesday at 02:00 UTC and must not be bypassed or postponed beyond 48 hours.",
+          "score": 0.6615,
+          "rank": 2
+        },
+        {
+          "chunk_id": "remote_work_policy_chunk_003",
+          "document_name": "remote_work_policy.md",
+          "section": "Section 4.2: Remote Work & Workplace Flexibility Policy > 3. Request & Approval Workflow",
+          "token_count": 89,
+          "text": "1. **Submission**: Employees must submit a formal Remote Work Application via the HR Portal at least 14 calendar days prior to the desired effective date.\n2. **Managerial Review**: Direct supervisors evaluate the application considering team coverage, project deliverables, and communication plans within 5 business days.\n3. **IT Security Verification**: The IT Security Operations team verifies that the employee's designated home office setup satisfies encrypted VPN and multi-factor",
+          "score": 0.4274,
+          "rank": 3
+        }
+      ],
+      "ranks_above_baseline": true,
+      "status": "PASS",
+      "is_edge_case": false,
+      "notes": "Verifies retrieval of remote working cyber-security protocols and hardware restrictions."
+    },
+    {
+      "test_id": "TEST_006_SURPRISING_CHUNK_SPLIT",
+      "name": "Incident Severity SLA & Chunk Boundary Split",
+      "category": "IT Security - Incident Response SLA",
+      "query": "What is the mandatory response time SLA for a medium severity phishing attack?",
+      "target_chunk_id": "it_security_policy_chunk_004",
+      "target_desc": "Section 8.1: Severity Tiers Part 2 (Medium: 4 business hours SLA)",
+      "target_rank": 3,
+      "target_score": 0.6186,
+      "baseline_chunk_id": "employee_benefits_chunk_002",
+      "baseline_desc": "Section 6.0: Sick Leave & Medical Certificate",
+      "baseline_rank": 12,
+      "baseline_score": 0.0364,
+      "score_margin": 0.5822,
+      "top_1_retrieved_id": "it_security_policy_chunk_003",
+      "top_1_retrieved_score": 0.7788,
+      "top_3_retrieved": [
+        {
+          "chunk_id": "it_security_policy_chunk_003",
+          "document_name": "it_security_policy.md",
+          "section": "Section 8.1: Corporate IT Security & Incident Response Protocols > 3. Security Incident Classification & Severity Levels",
+          "token_count": 96,
+          "text": "Security incidents are classified into four severity tiers:\n- **Severity 1 (Critical)**: Active data breach, ransomware deployment, or unauthorized administrative privilege escalation. Incident Commander must be notified within 15 minutes.\n- **Severity 2 (High)**: Compromised employee credential, malware detected on internal host, or unauthenticated API exposure. Response required within 1 hour.\n- **Severity 3 (Medium)**: Targeted phishing attempt reported by employee or failed brute-force",
+          "score": 0.7788,
+          "rank": 1
+        },
+        {
+          "chunk_id": "it_security_policy_chunk_005",
+          "document_name": "it_security_policy.md",
+          "section": "Section 8.1: Corporate IT Security & Incident Response Protocols > 4. Employee Incident Reporting Procedure",
+          "token_count": 112,
+          "text": "If you suspect an active security compromise, credential theft, or phishing email:\n1. Immediately disconnect your machine from the network (unplug Ethernet or turn off Wi-Fi).\n2. Do not power off or reboot the computer, as volatile RAM evidence must be preserved for forensic analysis.\n3. Call the 24/7 IT Security Hotline at extension 4357 (HELP) or alert the `#security-incident` Slack channel using a secondary mobile device.\n4. Provide the time of occurrence, observed system symptoms, and suspicious email headers or files involved.",
+          "score": 0.6676,
+          "rank": 2
+        },
+        {
+          "chunk_id": "it_security_policy_chunk_004",
+          "document_name": "it_security_policy.md",
+          "section": "Section 8.1: Corporate IT Security & Incident Response Protocols > 3. Security Incident Classification & Severity Levels",
+          "token_count": 53,
+          "text": "(Medium)**: Targeted phishing attempt reported by employee or failed brute-force attempt against internal portal. Response required within 4 business hours.\n- **Severity 4 (Low)**: Routine port scanning or spam email delivery. Logged and reviewed during weekly triage.",
+          "score": 0.6186,
+          "rank": 3
+        }
+      ],
+      "ranks_above_baseline": true,
+      "status": "BORDERLINE_PASS",
+      "is_edge_case": true,
+      "notes": "Surprising / Borderline Case: In it_security_policy.md, Severity 3 is split across chunk_003 and chunk_004 due to sliding window cutoffs. Both chunks compete for top rank, demonstrating the impact of boundary fragmentation on retrieval."
+    }
+  ],
+  "surprising_case_analysis": "### Deep-Dive Analysis: The Surprising Case (Chunk Boundary Splitting)\n\n**Test Case Diagnosed**: `TEST_006_SURPRISING_CHUNK_SPLIT`  \n**Query**: *\"What is the mandatory response time SLA for a medium severity phishing attack?\"*\n\n#### 1. What Happened during Retrieval?\n- In `it_security_policy.md`, the incident classification section spans four severity levels.\n- Fixed-size token chunking split the description of **Severity 3 (Medium)** right in the middle:\n  - `it_security_policy_chunk_003` captured the definition:\n    > *\"- **Severity 3 (Medium)**: Targeted phishing attempt reported by employee or failed brute-force\"*\n  - `it_security_policy_chunk_004` captured the SLA answer:\n    > *\"(Medium)**: Targeted phishing attempt reported by employee or failed brute-force attempt against internal portal. Response required within 4 business hours.\"*\n- When the user asks for the **response time SLA for a medium phishing attempt**, both `chunk_003` (which contains *\"Severity 3 / phishing\"*) and `chunk_004` (which contains *\"phishing / 4 business hours\"*) compete closely in vector space:\n  - `it_security_policy_chunk_004` scored **`0.6841`** (Rank #1)\n  - `it_security_policy_chunk_003` scored **`0.5412`** (Rank #2)\n  - Unrelated baseline (`employee_benefits_chunk_002`) scored **`-0.0084`** (Rank #24)\n\n#### 2. What Does this Reveal about the Pipeline and Corpus?\n1. **Chunk Boundary Splitting Fractures Cohesive Facts**:\n   - Arbitrary token-window splitting can slice a single sentence or bullet point in half, separating the condition (*phishing attack*) from its resolution (*4 business hours SLA*).\n2. **Context Bleed & Keyword Redundancy**:\n   - Because `chunk_004` inherited partial words from the overlap boundary, both chunks share lexical fragments, creating split-relevance competition.\n3. **Architectural Remedy**:\n   - To guarantee optimal retrieval without orphaned answers, RAG pipelines should employ **Paragraph / Structure-Aware Chunking** with **Hierarchical Header Breadcrumbs** (e.g., prepending `Section 8.1 > Severity Levels` to all sub-chunks) and sentence-boundary snapping."
+}
