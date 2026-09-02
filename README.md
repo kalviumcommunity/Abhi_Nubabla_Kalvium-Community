@@ -44,14 +44,15 @@ This repository implements tools, benchmark reports, and system prompt architect
 
 ---
 
-### 3. Text Embeddings & Semantic Similarity Demonstration
-- **Task 1 — Generate Embeddings**: Dense continuous embeddings generation for short sample texts across HR leave queries, policy chunks, and unrelated infrastructure/ML domains.
-- **Task 2 — Vector Dimension Verification**: Automatic verification confirming that every sample text yields an embedding of identical length ($D = 1536$).
-- **Task 3 — Cosine Similarity Comparison**: Measurement and validation proving that semantically similar query-paraphrase and query-context pairs score significantly higher than unrelated topics.
-- **Task 4 — Conceptual Explanation**: Architectural explanation of why embeddings represent geometric semantic meaning rather than random IDs or sparse keyword counts.
-- **Task 5 — Artifact Exports**: Automatic export of structured results to `data/embedding_results.json` and comprehensive markdown report to `data/embedding_report.md`.
+### 3. Corpus Embedding Vector Generation & Retrieval Metadata Storage (`Generating-Embeddings` Branch)
+- **Task 1 — Generate Embeddings Through API**: API client engine (`src/generate_embeddings.py`) passing text chunks to OpenAI-compatible embeddings API and confirming vectors returned with expected dimension ($D = 1536$).
+- **Task 2 — Store Vectors with Source Chunks & Metadata**: Direct pairing of full embedding vectors with source text chunk and rich retrieval metadata (`source_document`, `chunk_index`, `section`, `page`, `token_count`, `file_type`).
+- **Task 3 — Environment Configuration**: Dynamic loading of `OPENAI_API_KEY`, `OPENAI_BASE_URL`, and `EMBEDDING_MODEL` from environment config (`.env`) without hardcoding secrets or model settings.
+- **Task 4 — Verification Output**: Terminal console and Markdown report verification displaying embedded chunk count, vector length ($D = 1536$), and trimmed sample vector values.
+- **Task 5 — Sample Output & Unit Test Suite**: Exported dataset (`data/embedded_chunks.json`), audit report (`data/embedding_generation_report.md`), and comprehensive unit test suite (`tests/test_embedding_generator.py`).
 
 ---
+
 
 ## 📁 Repository Structure
 
