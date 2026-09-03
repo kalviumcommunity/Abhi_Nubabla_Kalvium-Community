@@ -25,3 +25,4 @@ def retrieve_top_k(
     """
     retriever = VectorStoreRetriever(vector_store_path=vector_store_path)
     return retriever.retrieve_top_k(query=query, k=k)
+
