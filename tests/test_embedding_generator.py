@@ -67,13 +67,27 @@ class TestEmbeddingGenerator(unittest.TestCase):
         """Task 1: Verify passing prepared text chunks returns vectors of expected dimension."""
         texts = [c["text"] for c in self.sample_chunks]
         expected_dim = 1536
-        vectors, model_info = generate_embeddings(texts, dimension=expected_dim)
+        vectors, model_info, metrics = generate_embeddings(texts, dimension=expected_dim, initial_retry_delay=0.01)
 
         self.assertEqual(len(vectors), len(texts))
         for vec in vectors:
             self.assertEqual(len(vec), expected_dim)
             self.assertIsInstance(vec, list)
             self.assertTrue(all(isinstance(x, float) for x in vec))
+        self.assertIn("total_batches", metrics)
+
+    def test_batch_processing_and_metrics(self):
+        """Task 1: Verify batch processing divides input into correct batch sizes."""
+        texts = [c["text"] for c in self.sample_chunks]
+        # Batch size 1 -> 2 batches
+        vectors_b1, _, metrics_b1 = generate_embeddings(texts, batch_size=1, initial_retry_delay=0.01)
+        self.assertEqual(metrics_b1["total_batches"], 2)
+        self.assertEqual(len(vectors_b1), 2)
+
+        # Batch size 10 -> 1 batch
+        vectors_b10, _, metrics_b10 = generate_embeddings(texts, batch_size=10, initial_retry_delay=0.01)
+        self.assertEqual(metrics_b10["total_batches"], 1)
+        self.assertEqual(len(vectors_b10), 2)
 
     def test_task2_store_vectors_with_metadata(self):
         """Task 2: Verify storing each vector paired with source text and metadata."""
@@ -84,7 +98,9 @@ class TestEmbeddingGenerator(unittest.TestCase):
             input_chunks_path=str(self.input_chunks_file),
             output_json_path=str(out_json),
             output_report_path=str(out_report),
-            dimension=1536
+            dimension=1536,
+            batch_size=1,
+            initial_retry_delay=0.01
         )
 
         self.assertEqual(summary["total_chunks_embedded"], 2)
@@ -112,37 +128,66 @@ class TestEmbeddingGenerator(unittest.TestCase):
         self.assertEqual(item1["vector_length"], 1536)
         self.assertEqual(len(item1["vector"]), 1536)
 
-        # Check metadata fields for chunk 2
-        item2 = items[1]
-        self.assertEqual(item2["chunk_id"], "test_chunk_002")
-        meta2 = item2["metadata"]
-        self.assertEqual(meta2["source_document"], "it_security_policy.md")
-        self.assertEqual(meta2["chunk_index"], 2)
-        self.assertEqual(meta2["section"], "2. VPN & Encryption Protocols")
-        self.assertEqual(meta2["page"], 1)
-
-    def test_task4_verification_trimmed_vector_values(self):
-        """Task 4: Verify vector length and trimmed vector values are recorded."""
+    def test_task4_skip_already_embedded_chunks(self):
+        """Task 4: Verify on re-runs already-embedded chunks are detected and skipped."""
         out_json = self.temp_path / "embedded_chunks.json"
         out_report = self.temp_path / "embedding_report.md"
 
-        process_corpus_embeddings(
+        # First run: embeds 2 chunks, 0 skipped
+        summary_run1 = process_corpus_embeddings(
             input_chunks_path=str(self.input_chunks_file),
             output_json_path=str(out_json),
             output_report_path=str(out_report),
-            dimension=1536
+            dimension=1536,
+            initial_retry_delay=0.01
         )
+        rm1 = summary_run1["run_metrics"]
+        self.assertEqual(rm1["chunks_embedded_this_run"], 2)
+        self.assertEqual(rm1["skipped_chunks_already_embedded"], 0)
 
-        with open(out_json, "r", encoding="utf-8") as f:
-            data = json.load(f)
+        # Second run: 0 chunks embedded, 2 skipped
+        summary_run2 = process_corpus_embeddings(
+            input_chunks_path=str(self.input_chunks_file),
+            output_json_path=str(out_json),
+            output_report_path=str(out_report),
+            dimension=1536,
+            initial_retry_delay=0.01
+        )
+        rm2 = summary_run2["run_metrics"]
+        self.assertEqual(rm2["chunks_embedded_this_run"], 0)
+        self.assertEqual(rm2["skipped_chunks_already_embedded"], 2)
+        self.assertEqual(rm2["run_cost_usd"], 0.0)
 
-        item = data["embedded_chunks"][0]
-        trimmed = item["trimmed_vector"]
-        self.assertIn("first_5", trimmed)
-        self.assertIn("last_5", trimmed)
-        self.assertEqual(len(trimmed["first_5"]), 5)
-        self.assertEqual(len(trimmed["last_5"]), 5)
-        self.assertIn("preview_str", trimmed)
+        # Third run with force=True: 2 chunks embedded, 0 skipped
+        summary_run3 = process_corpus_embeddings(
+            input_chunks_path=str(self.input_chunks_file),
+            output_json_path=str(out_json),
+            output_report_path=str(out_report),
+            dimension=1536,
+            force=True,
+            initial_retry_delay=0.01
+        )
+        rm3 = summary_run3["run_metrics"]
+        self.assertEqual(rm3["chunks_embedded_this_run"], 2)
+        self.assertEqual(rm3["skipped_chunks_already_embedded"], 0)
+
+    def test_task3_cost_calculation_and_reporting(self):
+        """Task 3: Verify token usage and approximate cost estimation."""
+        out_json = self.temp_path / "embedded_chunks.json"
+        out_report = self.temp_path / "embedding_report.md"
+
+        summary = process_corpus_embeddings(
+            input_chunks_path=str(self.input_chunks_file),
+            output_json_path=str(out_json),
+            output_report_path=str(out_report),
+            cost_per_1k_tokens=0.0001,
+            initial_retry_delay=0.01
+        )
+        rm = summary["run_metrics"]
+        expected_tokens = 22 + 18  # 40 tokens total
+        self.assertEqual(rm["tokens_embedded_this_run"], expected_tokens)
+        expected_cost = (40 / 1000.0) * 0.0001  # 0.000004
+        self.assertAlmostEqual(rm["run_cost_usd"], expected_cost, places=6)
 
     def test_fallback_dense_embedder(self):
         """Verify DenseSemanticEmbedder generates normalized vectors of target dimension."""

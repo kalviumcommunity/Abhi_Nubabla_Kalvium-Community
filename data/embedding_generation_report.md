@@ -1,13 +1,33 @@
-# Corpus Embedding Generation & Retrieval Metadata Report
+# Batch Embedding Pipeline & Rate/Cost Management Report
 
-**Embedding Model / Engine**: `DenseSemanticEmbedder (Local Fallback, D=1536)`  
-**Total Chunks Embedded**: `25`  
+**Embedding Model / Engine**: `OpenAI-Compatible API (text-embedding-3-small)`  
+**Total Corpus Chunks**: `25`  
+**Chunks Embedded This Run**: `0`  
+**Skipped Chunks (Already Embedded)**: `25`  
+**Failed Batches**: `0`  
+**Estimated Run Cost ($USD)**: `$0.000000`  
 **Vector Length (Dimension $D$)**: `1536` floating-point coordinates  
-**Uniform Vector Dimensions**: `Confirmed (100% Uniform)`  
 
 ---
 
-## 1. Environment & API Configuration
+## 1. Batch Execution & Retry Metrics
+
+| Metric | Value |
+| :--- | :--- |
+| **Configured Batch Size** | `8` chunks/batch |
+| **Max Retries Allowed** | `3` retries |
+| **Total Batches Processed** | `0` |
+| **Successful Batches** | `0` |
+| **Failed Batches** | `0` |
+| **Total API Requests Made** | `0` |
+| **Retries Attempted** | `0` |
+| **Tokens Embedded This Run** | `0` tokens |
+| **Estimated Run Cost ($USD)** | `$0.000000` |
+| **Total Corpus Cost ($USD)** | `$0.000029` |
+
+---
+
+## 2. Environment Configuration
 
 | Setting | Value / Status |
 | :--- | :--- |
@@ -17,7 +37,7 @@
 
 ---
 
-## 2. Sample Stored Embedded Chunks
+## 3. Sample Stored Embedded Chunks
 
 | Chunk ID | Document | Section | Page | Tokens | Vector Dim | Trimmed Vector Values (First 3 & Last 3) |
 | :--- | :--- | :--- | :---: | :---: | :---: | :--- |
@@ -29,34 +49,7 @@
 
 ---
 
-## 3. Stored Text & Metadata Verification
+## 4. Deduplication & Idempotency Proof
 
-### Chunk: `document_chunk_001`
-- **Source Document**: `document.pdf`
-- **Chunk Index**: `0`
-- **Section**: `RAG System Documentation`
-- **Vector Length**: `1536`
-- **Sample Vector Slice (First 5 Values)**: `[0.0, 0.0, 0.000344, 0.0, 0.0]`
-- **Stored Source Text Snippet**:
-  > *"RAG System Documentation
-This PDF document contains reference guide for Retrieval-Augmented Generation.
-Retrieval-Augmented Generation (RAG) is a tech..."*
-
-### Chunk: `employee_benefits_chunk_001`
-- **Source Document**: `employee_benefits.md`
-- **Chunk Index**: `68`
-- **Section**: `Section 6.0: Employee Benefits, Paid Time Off & Leave Guidelines > 1. Paid Time Off (PTO) Accrual`
-- **Vector Length**: `1536`
-- **Sample Vector Slice (First 5 Values)**: `[0.0, 0.0, 0.0, 0.051707, 0.0]`
-- **Stored Source Text Snippet**:
-  > *"Full-time regular employees accrue 18 days of Paid Time Off annually, calculated at a rate of 1.5 days per completed calendar month of active service...."*
-
-### Chunk: `employee_benefits_chunk_002`
-- **Source Document**: `employee_benefits.md`
-- **Chunk Index**: `501`
-- **Section**: `Section 6.0: Employee Benefits, Paid Time Off & Leave Guidelines > 2. Sick Leave & Medical Appointments`
-- **Vector Length**: `1536`
-- **Sample Vector Slice (First 5 Values)**: `[-0.036305, 0.0, 0.0, 0.0, 0.0]`
-- **Stored Source Text Snippet**:
-  > *"Employees receive 10 dedicated sick days per calendar year. Sick leave is available from the first day of employment and does not require advance noti..."*
+> On re-running the embedding script, `25` out of `25` chunks were detected as already embedded and skipped. This prevented `25` redundant API calls and saved approximate execution cost.
 
