@@ -1,0 +1,67 @@
+{
+  "collection_name": "corpus_chunks_v1",
+  "vector_dimension": 1536,
+  "count_validation": {
+    "expected_corpus_chunks": 25,
+    "records_inserted": 25,
+    "indexed_collection_count": 25,
+    "count_matched": true,
+    "status": "PASSED (100% Match)"
+  },
+  "spot_check_summary": {
+    "spot_checks_performed": 3,
+    "spot_checks_passed": 3,
+    "spot_checks_failed": 0,
+    "all_passed": true,
+    "status": "PASSED (100% Field Precision)"
+  },
+  "corpus_totals": {
+    "total_documents": 7,
+    "total_tokens": 1470,
+    "total_characters": 7916
+  },
+  "spot_check_details": [
+    {
+      "chunk_id": "document_chunk_001",
+      "status": "PASSED",
+      "id_matched": true,
+      "text_matched": true,
+      "metadata_matched": true,
+      "vector_len_matched": true,
+      "vector_length": 1536,
+      "source_document": "document.pdf",
+      "chunk_index": 0,
+      "section": "RAG System Documentation",
+      "source_text_snippet": "RAG System Documentation\nThis PDF document contains reference guide for Retrieval-Augmented Generation.\nRetrieval-Augmen...",
+      "trimmed_vector_preview": "[+0.0000, +0.0000, +0.0003, ... , -0.0340, +0.0000, +0.0000]"
+    },
+    {
+      "chunk_id": "it_security_policy_chunk_004",
+      "status": "PASSED",
+      "id_matched": true,
+      "text_matched": true,
+      "metadata_matched": true,
+      "vector_len_matched": true,
+      "vector_length": 1536,
+      "source_document": "it_security_policy.md",
+      "chunk_index": 1458,
+      "section": "Section 8.1: Corporate IT Security & Incident Response Protocols > 3. Security Incident Classification & Severity Levels",
+      "source_text_snippet": "(Medium)**: Targeted phishing attempt reported by employee or failed brute-force attempt against internal portal. Respon...",
+      "trimmed_vector_preview": "[+0.0000, +0.0000, +0.0000, ... , +0.0025, -0.0616, +0.0321]"
+    },
+    {
+      "chunk_id": "remote_work_policy_chunk_006",
+      "status": "PASSED",
+      "id_matched": true,
+      "text_matched": true,
+      "metadata_matched": true,
+      "vector_len_matched": true,
+      "vector_length": 1536,
+      "source_document": "remote_work_policy.md",
+      "chunk_index": 2412,
+      "section": "Section 4.2: Remote Work & Workplace Flexibility Policy > 5. Working Hours, Availability & Communication",
+      "source_text_snippet": "Remote employees are expected to maintain core operational hours from 9:00 AM to 5:00 PM local time. Employees must rema...",
+      "trimmed_vector_preview": "[-0.0192, +0.0114, +0.0324, ... , +0.0000, +0.0000, +0.0000]"
+    }
+  ]
+}
