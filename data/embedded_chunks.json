@@ -1,10 +1,29 @@
 {
   "summary": {
-    "embedding_model": "DenseSemanticEmbedder (Local Fallback, D=1536)",
+    "embedding_model": "OpenAI-Compatible API (text-embedding-3-small)",
     "environment_config": {
       "api_key_configured": true,
       "api_base_url": "https://api.groq.com/openai/v1",
       "configured_model": "text-embedding-3-small"
+    },
+    "batch_config": {
+      "batch_size": 8,
+      "max_retries": 3
+    },
+    "run_metrics": {
+      "total_corpus_chunks": 25,
+      "skipped_chunks_already_embedded": 25,
+      "chunks_embedded_this_run": 0,
+      "failed_chunks": 0,
+      "total_batches_processed": 0,
+      "successful_batches": 0,
+      "failed_batches": 0,
+      "total_api_calls_made": 0,
+      "retries_attempted": 0,
+      "tokens_embedded_this_run": 0,
+      "run_cost_usd": 0.0,
+      "total_corpus_tokens": 1470,
+      "total_corpus_cost_usd": 2.9e-05
     },
     "total_chunks_embedded": 25,
     "vector_dimension": 1536,
@@ -46,6 +65,32 @@
         "first_3_values": [
           -0.036305,
           0.0,
+          0.0
+        ]
+      },
+      {
+        "chunk_id": "employee_benefits_chunk_003",
+        "source_document": "employee_benefits.md",
+        "chunk_index": 924,
+        "section": "Section 6.0: Employee Benefits, Paid Time Off & Leave Guidelines > 3. Parental Leave & Family Care",
+        "vector_length": 1536,
+        "trimmed_vector_preview": "[+0.0000, +0.0048, +0.0000, ... , +0.0107, +0.0000, +0.0000]",
+        "first_3_values": [
+          0.0,
+          0.004805,
+          0.0
+        ]
+      },
+      {
+        "chunk_id": "employee_benefits_chunk_004",
+        "source_document": "employee_benefits.md",
+        "chunk_index": 1376,
+        "section": "Section 6.0: Employee Benefits, Paid Time Off & Leave Guidelines > 4. Health Insurance & Wellness Reimbursement",
+        "vector_length": 1536,
+        "trimmed_vector_preview": "[+0.0000, -0.0120, +0.0000, ... , +0.0000, +0.0000, -0.0276]",
+        "first_3_values": [
+          0.0,
+          -0.012026,
           0.0
         ]
       }
