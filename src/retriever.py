@@ -2,6 +2,7 @@
 Public Retrieval Interface for Staff RAG Assistant.
 Provides high-level retrieve_top_k function for grounding downstream LLM generation.
 Supports single-stage (direct top-k) and two-stage (retrieve + re-rank) retrieval.
+Includes end-to-end augmented prompt generation with context injection.
 """
 
 from typing import List, Optional
@@ -12,6 +13,7 @@ from src.reranker import (
     ChunkReranker,
     RerangingResult,
 )
+from src.context_injector import AugmentedPromptBuilder, AugmentedPrompt
 
 
 def retrieve_top_k(
@@ -91,4 +93,66 @@ def retrieve_with_reranking(
     )
     
     return result
+
+
+def build_augmented_prompt(
+    user_question: str,
+    k: int = 3,
+    vector_store_path: str = "data/embedded_chunks.json",
+    model_name: str = "gpt-3.5-turbo",
+    context_budget_percent: float = 0.50,
+    grounding_style: str = "professional",
+) -> AugmentedPrompt:
+    """
+    End-to-end RAG pipeline: retrieve chunks and build augmented prompt with context injection.
+    
+    This is the primary function for integrating retrieval into LLM systems.
+    It handles:
+    1. Retrieving k most relevant chunks
+    2. Injecting chunks with source markers [1], [2], etc.
+    3. Enforcing token budget
+    4. Adding grounding instructions
+    5. Assembling final augmented prompt ready for LLM
+
+    Args:
+        user_question: The user's question or prompt.
+        k: Number of chunks to retrieve (default: 3).
+        vector_store_path: Path to pre-computed embedded chunks JSON.
+        model_name: Target LLM model name (e.g., "gpt-3.5-turbo", "gpt-4").
+        context_budget_percent: Percentage of model's tokens for context (default: 50%).
+        grounding_style: Style of grounding instructions ("basic", "strict", "professional").
+
+    Returns:
+        AugmentedPrompt containing:
+        - assembled_prompt: Ready-to-use prompt with injected context
+        - injected_chunks: Chunks with source markers
+        - token_count_*: Detailed token budget breakdown
+        - token_budget_remaining: Tokens available for answer
+    
+    Example:
+        >>> result = build_augmented_prompt(
+        ...     user_question="How much PTO do employees get?",
+        ...     k=3,
+        ...     model_name="gpt-3.5-turbo",
+        ... )
+        >>> print(result.assembled_prompt)  # Ready for LLM API
+        >>> print(result.token_budget_remaining)  # Space for answer
+    """
+    # Stage 1: Retrieve relevant chunks
+    chunks = retrieve_top_k(query=user_question, k=k, vector_store_path=vector_store_path)
+    
+    # Stage 2: Build augmented prompt with context injection
+    builder = AugmentedPromptBuilder(
+        model_name=model_name,
+        context_budget_percent=context_budget_percent,
+        grounding_style=grounding_style,
+    )
+    
+    augmented_prompt = builder.build_augmented_prompt(
+        user_question=user_question,
+        chunks=chunks,
+        template_style="standard",
+    )
+    
+    return augmented_prompt
 
