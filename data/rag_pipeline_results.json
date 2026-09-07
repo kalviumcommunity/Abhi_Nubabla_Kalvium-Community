@@ -1,0 +1,179 @@
+{
+  "pipeline_name": "End-to-End Grounded RAG Pipeline Architecture",
+  "embedding_model": "OpenAI-Compatible API (text-embedding-3-small)",
+  "total_queries_executed": 4,
+  "pipeline_runs": [
+    {
+      "query": "How many days of paid time off do employees get each year, and can unused PTO be rolled over?",
+      "answer": "Employees accrue 18\u202fdays of PTO annually, and up to 5 unused days may be rolled over into the next calendar year.  \n\n- PTO accrual: 1.5 days per completed calendar month.  \n- Rollover limit: 5 days; any balance above that expires on December\u202f31.  \n- Rollover requires no additional approval unless an exception is granted by HR.",
+      "returned_sources": [
+        {
+          "rank": 1,
+          "chunk_id": "employee_benefits_chunk_001",
+          "source_document": "employee_benefits.md",
+          "section": "Section 6.0: Employee Benefits, Paid Time Off & Leave Guidelines > 1. Paid Time Off (PTO) Accrual",
+          "page": null,
+          "similarity_score": 0.526892,
+          "token_count": 79
+        },
+        {
+          "rank": 2,
+          "chunk_id": "employee_benefits_chunk_002",
+          "source_document": "employee_benefits.md",
+          "section": "Section 6.0: Employee Benefits, Paid Time Off & Leave Guidelines > 2. Sick Leave & Medical Appointments",
+          "page": null,
+          "similarity_score": 0.380419,
+          "token_count": 67
+        },
+        {
+          "rank": 3,
+          "chunk_id": "employee_benefits_chunk_003",
+          "source_document": "employee_benefits.md",
+          "section": "Section 6.0: Employee Benefits, Paid Time Off & Leave Guidelines > 3. Parental Leave & Family Care",
+          "page": null,
+          "similarity_score": 0.235217,
+          "token_count": 73
+        }
+      ],
+      "retrieved_chunk_count": 3,
+      "generation_model": "OpenAI-Compatible API (openai/gpt-oss-20b)",
+      "user_prompt": "Use the verified context below to answer the staff member's question. If the context does not contain enough information, follow the fallback instruction in your system prompt.\n\nVerified context:\n[Source 1: Document: employee_benefits.md | Section: Section 6.0: Employee Benefits, Paid Time Off & Leave Guidelines > 1. Paid Time Off (PTO) Accrual | N/A | Similarity: 0.5269]\nFull-time regular employees accrue 18 days of Paid Time Off annually, calculated at a rate of 1.5 days per completed calendar month of active service. Employees may roll over a maximum of 5 unused PTO days into the following calendar year. Any unused balance exceeding 5 days on December 31 will expire without cash compensation, unless an exception is approved by HR due to operational necessity.\n\n[Source 2: Document: employee_benefits.md | Section: Section 6.0: Employee Benefits, Paid Time Off & Leave Guidelines > 2. Sick Leave & Medical Appointments | N/A | Similarity: 0.3804]\nEmployees receive 10 dedicated sick days per calendar year. Sick leave is available from the first day of employment and does not require advance notice in emergency situations, though notification to the manager before 09:00 local time is expected. A medical certificate from a licensed healthcare practitioner is required for absences extending beyond 3 consecutive working days.\n\n[Source 3: Document: employee_benefits.md | Section: Section 6.0: Employee Benefits, Paid Time Off & Leave Guidelines > 3. Parental Leave & Family Care | N/A | Similarity: 0.2352]\nEligible parents are entitled to 16 weeks of fully paid parental leave following the birth, adoption, or foster placement of a child. Parental leave must be taken within the first 12 months following the qualifying event. Employees may take the leave in a single continuous block or in two separate blocks with supervisory approval. Health insurance benefits continue uninterrupted during the entire leave duration.\n\n\nStaff question:\nHow many days of paid time off do employees get each year, and can unused PTO be rolled over?",
+      "stage_metrics": {
+        "query_embed_dimension": 1536,
+        "retrieved_chunk_count": 3,
+        "top_similarity_score": 0.526892,
+        "context_token_count": 219,
+        "pipeline_execution_ms": 6287.81
+      }
+    },
+    {
+      "query": "What are the network encryption and VPN requirements for connecting remotely to company resources?",
+      "answer": "Employees must connect to company resources via an encrypted VPN that is protected by multi\u2011factor authentication.  \n\n- The VPN connection must use industry\u2011standard encryption (e.g., AES\u2011256).  \n- Multi\u2011factor authentication (MFA) is required for all remote access.  \n- The IT Security Operations team verifies compliance before approval.",
+      "returned_sources": [
+        {
+          "rank": 1,
+          "chunk_id": "remote_work_policy_chunk_003",
+          "source_document": "remote_work_policy.md",
+          "section": "Section 4.2: Remote Work & Workplace Flexibility Policy > 3. Request & Approval Workflow",
+          "page": null,
+          "similarity_score": 0.685587,
+          "token_count": 89
+        },
+        {
+          "rank": 2,
+          "chunk_id": "remote_work_policy_chunk_002",
+          "source_document": "remote_work_policy.md",
+          "section": "Section 4.2: Remote Work & Workplace Flexibility Policy > 2. Eligibility Requirements",
+          "page": null,
+          "similarity_score": 0.632984,
+          "token_count": 101
+        },
+        {
+          "rank": 3,
+          "chunk_id": "remote_work_policy_chunk_001",
+          "source_document": "remote_work_policy.md",
+          "section": "Section 4.2: Remote Work & Workplace Flexibility Policy > 1. Overview & Scope",
+          "page": null,
+          "similarity_score": 0.631093,
+          "token_count": 60
+        }
+      ],
+      "retrieved_chunk_count": 3,
+      "generation_model": "OpenAI-Compatible API (openai/gpt-oss-20b)",
+      "user_prompt": "Use the verified context below to answer the staff member's question. If the context does not contain enough information, follow the fallback instruction in your system prompt.\n\nVerified context:\n[Source 1: Document: remote_work_policy.md | Section: Section 4.2: Remote Work & Workplace Flexibility Policy > 3. Request & Approval Workflow | N/A | Similarity: 0.6856]\n1. **Submission**: Employees must submit a formal Remote Work Application via the HR Portal at least 14 calendar days prior to the desired effective date.\n2. **Managerial Review**: Direct supervisors evaluate the application considering team coverage, project deliverables, and communication plans within 5 business days.\n3. **IT Security Verification**: The IT Security Operations team verifies that the employee's designated home office setup satisfies encrypted VPN and multi-factor\n\n[Source 2: Document: remote_work_policy.md | Section: Section 4.2: Remote Work & Workplace Flexibility Policy > 2. Eligibility Requirements | N/A | Similarity: 0.6330]\nTo qualify for regular or hybrid remote work:\n- The employee must have completed a minimum of 6 months of continuous full-time employment.\n- The employee's latest performance evaluation rating must meet or exceed 'Satisfactory' standards.\n- The employee's role must be classified as 'Remote-Eligible' by the Department Head. Roles requiring mandatory physical presence (e.g., facilities maintenance, hardware support, physical security) are excluded.\n- The employee must maintain a dedicated, private home workspace free from background disruptions.\n\n[Source 3: Document: remote_work_policy.md | Section: Section 4.2: Remote Work & Workplace Flexibility Policy > 1. Overview & Scope | N/A | Similarity: 0.6311]\nThis policy defines operational guidelines and security protocols for remote work arrangements within the organization. It applies to all full-time and part-time administrative, technical, and operational personnel. Remote work is a privilege designed to support work-life balance while ensuring organizational productivity, client confidentiality, and data security remain uncompromised.\n\n\nStaff question:\nWhat are the network encryption and VPN requirements for connecting remotely to company resources?",
+      "stage_metrics": {
+        "query_embed_dimension": 1536,
+        "retrieved_chunk_count": 3,
+        "top_similarity_score": 0.685587,
+        "context_token_count": 250,
+        "pipeline_execution_ms": 2809.53
+      }
+    },
+    {
+      "query": "What are the minimum password length requirements and is SMS authentication permitted?",
+      "answer": "Passwords must be at least 14 characters long, and SMS-based authentication is not permitted.",
+      "returned_sources": [
+        {
+          "rank": 1,
+          "chunk_id": "it_security_policy_chunk_001",
+          "source_document": "it_security_policy.md",
+          "section": "Section 8.1: Corporate IT Security & Incident Response Protocols > 1. Password & Access Control Standards",
+          "page": null,
+          "similarity_score": 0.301636,
+          "token_count": 89
+        },
+        {
+          "rank": 2,
+          "chunk_id": "remote_work_policy_chunk_004",
+          "source_document": "remote_work_policy.md",
+          "section": "Section 4.2: Remote Work & Workplace Flexibility Policy > 3. Request & Approval Workflow",
+          "page": null,
+          "similarity_score": 0.233014,
+          "token_count": 51
+        },
+        {
+          "rank": 3,
+          "chunk_id": "employee_benefits_chunk_003",
+          "source_document": "employee_benefits.md",
+          "section": "Section 6.0: Employee Benefits, Paid Time Off & Leave Guidelines > 3. Parental Leave & Family Care",
+          "page": null,
+          "similarity_score": 0.179449,
+          "token_count": 73
+        }
+      ],
+      "retrieved_chunk_count": 3,
+      "generation_model": "OpenAI-Compatible API (openai/gpt-oss-20b)",
+      "user_prompt": "Use the verified context below to answer the staff member's question. If the context does not contain enough information, follow the fallback instruction in your system prompt.\n\nVerified context:\n[Source 1: Document: it_security_policy.md | Section: Section 8.1: Corporate IT Security & Incident Response Protocols > 1. Password & Access Control Standards | N/A | Similarity: 0.3016]\nAll internal systems require compliance with strict authentication safeguards. Passwords must contain a minimum of 14 characters including uppercase letters, numbers, and symbols. Passwords expire every 90 days and cannot match any of the previous 5 passwords used. Multi-Factor Authentication (MFA) via an approved authenticator app is mandatory on all corporate single sign-on (SSO) portals. SMS-based MFA is strictly prohibited due to SIM-swapping vulnerabilities.\n\n[Source 2: Document: remote_work_policy.md | Section: Section 4.2: Remote Work & Workplace Flexibility Policy > 3. Request & Approval Workflow | N/A | Similarity: 0.2330]\nemployee's designated home office setup satisfies encrypted VPN and multi-factor authentication (MFA) requirements.\n4. **HR Registration**: Approved requests are logged into the central employee database, valid for a maximum term of 12 months, subject to annual renewal.\n\n[Source 3: Document: employee_benefits.md | Section: Section 6.0: Employee Benefits, Paid Time Off & Leave Guidelines > 3. Parental Leave & Family Care | N/A | Similarity: 0.1794]\nEligible parents are entitled to 16 weeks of fully paid parental leave following the birth, adoption, or foster placement of a child. Parental leave must be taken within the first 12 months following the qualifying event. Employees may take the leave in a single continuous block or in two separate blocks with supervisory approval. Health insurance benefits continue uninterrupted during the entire leave duration.\n\n\nStaff question:\nWhat are the minimum password length requirements and is SMS authentication permitted?",
+      "stage_metrics": {
+        "query_embed_dimension": 1536,
+        "retrieved_chunk_count": 3,
+        "top_similarity_score": 0.301636,
+        "context_token_count": 213,
+        "pipeline_execution_ms": 1975.97
+      }
+    },
+    {
+      "query": "How does the RAG document loader transform mixed-format files and semantic chunk units for retrieval?",
+      "answer": "The loader first normalizes mixed\u2011format files into plain text, then splits that text into semantically",
+      "returned_sources": [
+        {
+          "rank": 1,
+          "chunk_id": "hello_chunk_001",
+          "source_document": "hello.txt",
+          "section": "N/A",
+          "page": null,
+          "similarity_score": 0.78774,
+          "token_count": 61
+        },
+        {
+          "rank": 2,
+          "chunk_id": "guide_chunk_001",
+          "source_document": "guide.md",
+          "section": "RAG Optimization Guide",
+          "page": null,
+          "similarity_score": 0.720937,
+          "token_count": 14
+        },
+        {
+          "rank": 3,
+          "chunk_id": "guide_chunk_002",
+          "source_document": "guide.md",
+          "section": "RAG Optimization Guide > Key Principles of RAG",
+          "page": null,
+          "similarity_score": 0.688304,
+          "token_count": 53
+        }
+      ],
+      "retrieved_chunk_count": 3,
+      "generation_model": "OpenAI-Compatible API (openai/gpt-oss-20b)",
+      "user_prompt": "Use the verified context below to answer the staff member's question. If the context does not contain enough information, follow the fallback instruction in your system prompt.\n\nVerified context:\n[Source 1: Document: hello.txt | Section: N/A | N/A | Similarity: 0.7877]\nWelcome to the RAG Document Loader test.\nThis is a plain text file that contains unstructured information.\nIt is designed to be loaded by our document loader and parsed into plain text.\nRAG systems need simple text format to compute embeddings and search for matching chunks.\nThis concludes the plain text sample file.\n\n[Source 2: Document: guide.md | Section: RAG Optimization Guide | N/A | Similarity: 0.7209]\nThis markdown file serves as a documentation template for testing our document loader.\n\n[Source 3: Document: guide.md | Section: RAG Optimization Guide > Key Principles of RAG | N/A | Similarity: 0.6883]\n1. **Accurate Loading**: Retrieve documents from mixed formats and transform them into standard text.\n2. **Semantic Chunking**: Split text into semantically cohesive units.\n3. **Smart Retrieving**: Retrieve top-k chunks matching the query embedding.\n\n\nStaff question:\nHow does the RAG document loader transform mixed-format files and semantic chunk units for retrieval?",
+      "stage_metrics": {
+        "query_embed_dimension": 1536,
+        "retrieved_chunk_count": 3,
+        "top_similarity_score": 0.78774,
+        "context_token_count": 128,
+        "pipeline_execution_ms": 2543.98
+      }
+    }
+  ]
+}
