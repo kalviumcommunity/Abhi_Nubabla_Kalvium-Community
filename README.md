@@ -1,4 +1,4 @@
-# Staff RAG Assistant - Tokenization, Ingestion, Embeddings, Similarity Retrieval & Sanity Verification
+# Staff RAG Assistant - Ingestion, Chunking, Embeddings, Top-K Retrieval & Grounding Verification
 
 This repository implements tools, benchmark reports, and system prompt architectures for an internal Staff RAG Assistant.
 
@@ -6,12 +6,19 @@ This repository implements tools, benchmark reports, and system prompt architect
 
 ## 📋 Features & Tasks Implemented
 
-### 1. Full Corpus Ingestion & Completeness Validation (`Corpus-Preparation` Branch)
-- **Task 1 — End-to-End Pipeline**: Multi-format ingestion pipeline (`src/ingestion_pipeline.py`) supporting `.md`, `.pdf`, `.html`, and `.txt` files with automated text cleaning and structure-aware chunking.
-- **Task 2 — Ingestion Summary Report**: Comprehensive accounting of total source documents, successfully ingested files, chunk counts, token totals, and structured error logs exported to `data/ingestion_summary.json` and `data/ingestion_report.md`.
-- **Task 3 — Completeness Validation**: Mathematical reconciliation proving zero silent drops ($$\text{Total} = \text{Ingested} + \text{Failures} + \text{Skipped}$$) with failure detection for corrupted files (e.g. `corrupt.pdf`).
-- **Task 4 — Sample Chunks Inspection**: Serialized chunks with breadcrumb section headers, page numbers, character offsets, and `tiktoken` counts exported to `data/ingested_chunks.json`.
-- **Task 5 — Integration Tests & Commit**: Full test suite (`tests/test_ingestion_pipeline.py`) verifying 100% document accounting and error boundary isolation.
+### 1. Top-K Vector Store Retrieval & Grounding Step
+- **Task 1 — Embed User Query**: Transform natural language user queries into continuous 1536-dimensional normalized vectors ($\|\mathbf{q}\|_2 = 1.0$) matching the corpus chunk embedding geometry.
+- **Task 2 — Top-K Similarity Search**: Query the indexed vector store using Cosine Similarity ($\cos \theta = \mathbf{q} \cdot \mathbf{c}$) and extract the $k$ highest-scoring chunks.
+- **Task 3 — Scores & Rich Metadata Enrichment**: Format retrieved chunks with similarity scores, unique chunk IDs, source document names, section breadcrumb hierarchies, page numbers, character/token offsets, and raw source text.
+- **Task 4 — Changing $k$ Comparative Analysis**: Evaluate multi-$k$ retrieval configurations ($k=2$ vs. $k=3$ vs. $k=5$) to benchmark the precision vs. recall trade-off, token budget consumption, and grounding coverage for downstream LLM prompts.
+- **Task 5 — JSON & Markdown Artifacts**: Complete benchmark dataset exported to `data/retrieval_results.json` and comprehensive technical grounding report saved to `data/retrieval_report.md`.
+
+### 2. Retrieval Sanity-Testing & Known-Relevance Verification
+- **Task 1 — Known Relevance Dataset**: Curated ground-truth test cases covering PTO rollover, parental leave, password MFA, RAG chunking, and remote VPN rules.
+- **Task 2 — Rank & Margin Verification**: Automatic verification that target chunks rank above unrelated baselines with large positive score margins ($\Delta \ge +0.56$).
+- **Task 3 — Borderline / Edge-Case Diagnostic**: Deep-dive analysis of fixed-window chunk boundary splits (`it_security_policy_chunk_003` vs `004`), proving why structure-aware chunking is critical.
+- **Task 4 — Sanity Test Reports**: Export of full verification results to `data/sanity_test_results.json` and formatted report to `data/sanity_report.md`.
+- **Task 5 — Quality-Check CLI**: Standalone test CLI in `sanity_test.py` and `src/sanity_test.py`.
 
 ### 2. Document Chunking Strategies (`Chunking-Strategies` Branch)
 - **Task 1 — Split Using Defined Strategies**: Implementation of three distinct chunking algorithms in `src/chunker.py`:
@@ -65,6 +72,7 @@ This repository implements tools, benchmark reports, and system prompt architect
 ```text
 .
 ├── src/
+│   ├── retriever.py           # Tasks 1-5: Top-K Vector Store Retriever & dynamic k comparison
 │   ├── sanity_test.py         # Tasks 1-5: Retrieval sanity tests & ground-truth verification
 │   ├── similarity_ranking.py  # Tasks 1-5: Query-to-chunk similarity ranking & retrieval
 │   ├── embedding_demo.py      # Tasks 1-5: Text embedding generation, dimensionality & similarity
@@ -76,6 +84,8 @@ This repository implements tools, benchmark reports, and system prompt architect
 │   ├── compare_prompts.py     # Prompt engineering benchmark runner
 │   └── structured_output.py   # JSON response format mode & Pydantic validation
 ├── data/
+│   ├── retrieval_report.md    # Comprehensive Markdown report of Top-K retrieval & k-comparisons
+│   ├── retrieval_results.json # Full JSON dataset of Top-K retrieved chunks with scores & metadata
 │   ├── sanity_report.md       # Markdown summary of sanity test passes, margins & diagnostics
 │   ├── sanity_test_results.json # Full JSON dataset of sanity test runs and scores
 │   ├── similarity_ranking_report.md # Markdown report of top-k and bottom-k chunk rankings
@@ -102,8 +112,11 @@ This repository implements tools, benchmark reports, and system prompt architect
 │   ├── example_renders.md     # Example filled prompts for chat and batch paths
 │   └── chosen_prompt.md       # Documentation for chosen system prompt
 ├── tests/
+│   ├── test_retriever.py      # Unit tests for Top-K Vector Store Retriever & k-invariance
 │   ├── test_ingestion_pipeline.py # Unit tests for ingestion and reconciliation
-│   └── test_chunker.py        # Unit tests for chunking strategies
+│   ├── test_chunker.py        # Unit tests for chunking strategies
+│   └── test_token_aware_chunker.py # Unit tests for token-aware chunker
+├── retriever.py               # Root CLI entry point for Top-K Vector Store Retriever
 ├── sanity_test.py             # Root CLI entry point for retrieval sanity tests
 ├── similarity_ranking.py      # Root CLI entry point for similarity ranking demo
 ├── embedding_demo.py          # Root CLI entry point for embedding demonstration
@@ -122,67 +135,59 @@ This repository implements tools, benchmark reports, and system prompt architect
 
 ### 1. Environment Setup
 ```bash
-# macOS/Linux
-source .venv/bin/activate
 # Windows PowerShell
 .venv\Scripts\Activate.ps1
 pip install -r requirements.txt
 ```
 
-### 2. Run Retrieval Sanity Verification Test Suite
+### 2. Run Top-K Vector Store Retrieval & Multi-K Analysis
 ```bash
-python sanity_test.py
-# or
-python src/sanity_test.py
+# Run default retrieval suite (k=3 with k=2, 3, 5 comparisons)
+python retriever.py
+
+# Run retrieval for a custom user query with specific k
+python retriever.py --query "What is the policy on roll over of unused PTO?" -k 3
+
+# Run custom multi-k comparison
+python retriever.py --query "What are the VPN and encryption protocols?" --compare-k 2 4 6
 ```
 
-### 3. Run Query-Chunk Similarity Ranking Demo
+### 3. Run Retrieval Sanity Verification Test Suite
 ```bash
-python similarity_ranking.py
-# or with custom query:
+python sanity_test.py
+```
+
+### 4. Run Query-Chunk Similarity Ranking Demo
+```bash
 python similarity_ranking.py --query "What is the policy for 16 weeks parental leave?"
 ```
 
-### 4. Run Text Embeddings Demonstration
+### 5. Run Text Embeddings Demonstration
 ```bash
 python embedding_demo.py
-# or
-python src/embedding_demo.py
 ```
 
-### 5. Run Full Ingestion Pipeline & Completeness Validation
+### 6. Run Full Ingestion Pipeline & Completeness Validation
 ```bash
 python src/ingestion_pipeline.py
-# or using document_loader.py:
-python document_loader.py data/corpus --validate
 ```
 
-### 6. Run Document Chunking Strategies Benchmark
-```bash
-python src/chunker.py
-```
-
-### 7. Run Token Counting & Cost Estimation
-```bash
-python src/token_counter.py
-```
-
-### 8. Run All Test Suites
+### 7. Run All Test Suites
 ```bash
 python -m unittest discover -s tests -p "*.py" -v
 ```
 
 ---
 
-## 📊 Summary of Sanity Verification Findings
+## 📊 Summary of Top-K Retrieval & Grounding Evaluation
 
-| Test ID | Domain & Scenario | Target Chunk | Target Rank | Score Margin (Δ) | Status |
-| :--- | :--- | :--- | :---: | :---: | :---: |
-| **TEST_001** | PTO Accrual & Rollover | `employee_benefits_chunk_001` | **#1** / 25 | **`+0.6321`** | ✅ `PASS` |
-| **TEST_002** | Parental Leave Entitlement | `employee_benefits_chunk_003` | **#1** / 25 | **`+0.8292`** | ✅ `PASS` |
-| **TEST_003** | Password & MFA Authenticator | `it_security_policy_chunk_001` | **#1** / 25 | **`+0.8367`** | ✅ `PASS` |
-| **TEST_004** | RAG Chunking Principles | `guide_chunk_002` | **#2** / 25 | **`+0.6907`** | ⚠️ `BORDERLINE_PASS` |
-| **TEST_005** | Remote VPN & Hardware Security | `remote_work_policy_chunk_005` | **#1** / 25 | **`+0.5608`** | ✅ `PASS` |
-| **TEST_006** | Incident Severity SLA Split | `it_security_policy_chunk_004` | **#3** / 25 | **`+0.5822`** | ⚠️ `BORDERLINE_PASS` |
+| Sample Query | Domain | Top Grounding Chunk ID | Top Score | k=2 Token Budget | k=5 Token Budget | Grounding Decision |
+| :--- | :--- | :--- | :---: | :---: | :---: | :---: |
+| **PTO Rollover & Accrual** | HR Benefits | `employee_benefits_chunk_001` | **`0.8066`** | 139 tokens | 408 tokens | ✅ Direct Grounding |
+| **Security Incident Hotline** | IT Security | `it_security_policy_chunk_003` | **`0.7026`** | 208 tokens | 338 tokens | ✅ Direct Grounding |
+| **Remote VPN & Encryption** | Remote Work | `remote_work_policy_chunk_005` | **`0.7605`** | 185 tokens | 426 tokens | ✅ Direct Grounding |
+| **Parental Leave Blocks** | HR Benefits | `employee_benefits_chunk_003` | **`0.7695`** | 134 tokens | 320 tokens | ✅ Direct Grounding |
 
-**Overall Sanity Pass Rate**: **`100.0%`** (4 Clear Passes, 2 Borderline Passes, 0 Failures). Mean target vs. unrelated baseline score margin: **`+0.6886`**.
+**Key Takeaway on Changing $k$**:
+- **$k=2$ to $k=3$**: Ideal for targeted prompt injection. High signal-to-noise ratio, average similarity $> 0.60$, minimal token overhead ($\le 250$ tokens).
+- **$k=5$**: Maximizes context recall for multi-part synthesis across adjacent policy documents, while keeping total context below $450$ tokens.
