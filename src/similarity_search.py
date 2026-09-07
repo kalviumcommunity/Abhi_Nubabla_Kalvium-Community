@@ -220,9 +220,16 @@ class VectorStoreRetriever:
         # Use deterministic dense embedder matching indexed chunks
         return self.embedder.embed(query)
 
-    def retrieve_top_k(self, query: str, k: int = 3) -> List[RetrievedChunk]:
+    def retrieve_top_k(
+        self,
+        query: str,
+        k: int = 3,
+        score_threshold: float = 0.0,
+        metadata_filter: Optional[Dict[str, Any]] = None,
+    ) -> List[RetrievedChunk]:
         """
         Task 2 & 3: Run top-k similarity search and return chunks with scores and metadata.
+        Supports score thresholding and metadata filtering for retrieval tuning.
         """
         if k <= 0:
             raise ValueError(f"k must be a positive integer, got {k}")
@@ -235,7 +242,25 @@ class VectorStoreRetriever:
             chunk_vector = chunk.get("vector")
             if not chunk_vector:
                 continue
+
+            metadata = chunk.get("metadata", {})
+            # Check metadata filter if specified
+            if metadata_filter:
+                match = True
+                for key, expected_val in metadata_filter.items():
+                    actual_val = metadata.get(key) or chunk.get(key)
+                    if actual_val != expected_val:
+                        match = False
+                        break
+                if not match:
+                    continue
+
             score = cosine_similarity(query_vector, chunk_vector)
+
+            # Check minimum score threshold
+            if score < score_threshold:
+                continue
+
             scored_chunks.append((score, chunk))
 
         # Sort descending by similarity score
