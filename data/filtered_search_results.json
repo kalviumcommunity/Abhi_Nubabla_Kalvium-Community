@@ -1,0 +1,815 @@
+{
+  "metadata": {
+    "timestamp": "2026-09-07T13:30:54.252473",
+    "vector_store_path": "data\\embedded_chunks.json",
+    "total_corpus_chunks": 25,
+    "embedding_dimension": 1536,
+    "scenarios_evaluated": 4
+  },
+  "scenarios": [
+    {
+      "scenario_id": "scenario_1_pto_leave_scope",
+      "domain": "HR & Employee Benefits",
+      "intent": "Scope query to HR Benefits to eliminate cross-domain workplace flexibility distractors.",
+      "comparison": {
+        "query": "What are the rules for annual paid time off, sick leave, and rolling over unused days?",
+        "filter": {
+          "source_document": "employee_benefits.md",
+          "source_documents_in": null,
+          "file_type": null,
+          "file_types_in": null,
+          "section_contains": null,
+          "min_page": null,
+          "max_page": null,
+          "description": "source_document == 'employee_benefits.md'"
+        },
+        "target_document": "employee_benefits.md",
+        "k": 4,
+        "alpha": 0.0,
+        "exact_terms": [
+          "rollover",
+          "5 unused",
+          "December 31"
+        ],
+        "unfiltered": {
+          "count": 4,
+          "precision": 0.75,
+          "distractors_count": 1,
+          "distractor_chunk_ids": [
+            "it_security_policy_chunk_005"
+          ],
+          "chunks": [
+            {
+              "rank": 1,
+              "hybrid_score": 0.4548,
+              "vector_score": 0.4548,
+              "lexical_score": 0.5675,
+              "chunk_id": "employee_benefits_chunk_002",
+              "source_document": "employee_benefits.md",
+              "section": "Section 6.0: Employee Benefits, Paid Time Off & Leave Guidelines > 2. Sick Leave & Medical Appointments",
+              "page": null,
+              "token_count": 67,
+              "text": "Employees receive 10 dedicated sick days per calendar year. Sick leave is available from the first day of employment and does not require advance notice in emergency situations, though notification to the manager before 09:00 local time is expected. A medical certificate from a licensed healthcare practitioner is required for absences extending beyond 3 consecutive working days.",
+              "metadata": {
+                "source_document": "employee_benefits.md",
+                "source_path": "data/corpus/employee_benefits.md",
+                "chunk_index": 501,
+                "section": "Section 6.0: Employee Benefits, Paid Time Off & Leave Guidelines > 2. Sick Leave & Medical Appointments",
+                "page": null,
+                "file_type": ".md",
+                "token_count": 67,
+                "char_count": 381
+              }
+            },
+            {
+              "rank": 2,
+              "hybrid_score": 0.3312,
+              "vector_score": 0.3312,
+              "lexical_score": 0.4372,
+              "chunk_id": "employee_benefits_chunk_003",
+              "source_document": "employee_benefits.md",
+              "section": "Section 6.0: Employee Benefits, Paid Time Off & Leave Guidelines > 3. Parental Leave & Family Care",
+              "page": null,
+              "token_count": 73,
+              "text": "Eligible parents are entitled to 16 weeks of fully paid parental leave following the birth, adoption, or foster placement of a child. Parental leave must be taken within the first 12 months following the qualifying event. Employees may take the leave in a single continuous block or in two separate blocks with supervisory approval. Health insurance benefits continue uninterrupted during the entire leave duration.",
+              "metadata": {
+                "source_document": "employee_benefits.md",
+                "source_path": "data/corpus/employee_benefits.md",
+                "chunk_index": 924,
+                "section": "Section 6.0: Employee Benefits, Paid Time Off & Leave Guidelines > 3. Parental Leave & Family Care",
+                "page": null,
+                "file_type": ".md",
+                "token_count": 73,
+                "char_count": 415
+              }
+            },
+            {
+              "rank": 3,
+              "hybrid_score": 0.3167,
+              "vector_score": 0.3167,
+              "lexical_score": 1.0,
+              "chunk_id": "employee_benefits_chunk_001",
+              "source_document": "employee_benefits.md",
+              "section": "Section 6.0: Employee Benefits, Paid Time Off & Leave Guidelines > 1. Paid Time Off (PTO) Accrual",
+              "page": null,
+              "token_count": 79,
+              "text": "Full-time regular employees accrue 18 days of Paid Time Off annually, calculated at a rate of 1.5 days per completed calendar month of active service. Employees may roll over a maximum of 5 unused PTO days into the following calendar year. Any unused balance exceeding 5 days on December 31 will expire without cash compensation, unless an exception is approved by HR due to operational necessity.",
+              "metadata": {
+                "source_document": "employee_benefits.md",
+                "source_path": "data/corpus/employee_benefits.md",
+                "chunk_index": 68,
+                "section": "Section 6.0: Employee Benefits, Paid Time Off & Leave Guidelines > 1. Paid Time Off (PTO) Accrual",
+                "page": null,
+                "file_type": ".md",
+                "token_count": 79,
+                "char_count": 397
+              }
+            },
+            {
+              "rank": 4,
+              "hybrid_score": 0.1953,
+              "vector_score": 0.1953,
+              "lexical_score": 0.4564,
+              "chunk_id": "it_security_policy_chunk_005",
+              "source_document": "it_security_policy.md",
+              "section": "Section 8.1: Corporate IT Security & Incident Response Protocols > 4. Employee Incident Reporting Procedure",
+              "page": null,
+              "token_count": 112,
+              "text": "If you suspect an active security compromise, credential theft, or phishing email:\n1. Immediately disconnect your machine from the network (unplug Ethernet or turn off Wi-Fi).\n2. Do not power off or reboot the computer, as volatile RAM evidence must be preserved for forensic analysis.\n3. Call the 24/7 IT Security Hotline at extension 4357 (HELP) or alert the `#security-incident` Slack channel using a secondary mobile device.\n4. Provide the time of occurrence, observed system symptoms, and suspicious email headers or files involved.",
+              "metadata": {
+                "source_document": "it_security_policy.md",
+                "source_path": "data/corpus/it_security_policy.md",
+                "chunk_index": 1785,
+                "section": "Section 8.1: Corporate IT Security & Incident Response Protocols > 4. Employee Incident Reporting Procedure",
+                "page": null,
+                "file_type": ".md",
+                "token_count": 112,
+                "char_count": 537
+              }
+            }
+          ]
+        },
+        "filtered": {
+          "count": 4,
+          "precision": 1.0,
+          "distractors_count": 0,
+          "distractor_chunk_ids": [],
+          "chunks": [
+            {
+              "rank": 1,
+              "hybrid_score": 0.4548,
+              "vector_score": 0.4548,
+              "lexical_score": 0.5675,
+              "chunk_id": "employee_benefits_chunk_002",
+              "source_document": "employee_benefits.md",
+              "section": "Section 6.0: Employee Benefits, Paid Time Off & Leave Guidelines > 2. Sick Leave & Medical Appointments",
+              "page": null,
+              "token_count": 67,
+              "text": "Employees receive 10 dedicated sick days per calendar year. Sick leave is available from the first day of employment and does not require advance notice in emergency situations, though notification to the manager before 09:00 local time is expected. A medical certificate from a licensed healthcare practitioner is required for absences extending beyond 3 consecutive working days.",
+              "metadata": {
+                "source_document": "employee_benefits.md",
+                "source_path": "data/corpus/employee_benefits.md",
+                "chunk_index": 501,
+                "section": "Section 6.0: Employee Benefits, Paid Time Off & Leave Guidelines > 2. Sick Leave & Medical Appointments",
+                "page": null,
+                "file_type": ".md",
+                "token_count": 67,
+                "char_count": 381
+              }
+            },
+            {
+              "rank": 2,
+              "hybrid_score": 0.3312,
+              "vector_score": 0.3312,
+              "lexical_score": 0.4372,
+              "chunk_id": "employee_benefits_chunk_003",
+              "source_document": "employee_benefits.md",
+              "section": "Section 6.0: Employee Benefits, Paid Time Off & Leave Guidelines > 3. Parental Leave & Family Care",
+              "page": null,
+              "token_count": 73,
+              "text": "Eligible parents are entitled to 16 weeks of fully paid parental leave following the birth, adoption, or foster placement of a child. Parental leave must be taken within the first 12 months following the qualifying event. Employees may take the leave in a single continuous block or in two separate blocks with supervisory approval. Health insurance benefits continue uninterrupted during the entire leave duration.",
+              "metadata": {
+                "source_document": "employee_benefits.md",
+                "source_path": "data/corpus/employee_benefits.md",
+                "chunk_index": 924,
+                "section": "Section 6.0: Employee Benefits, Paid Time Off & Leave Guidelines > 3. Parental Leave & Family Care",
+                "page": null,
+                "file_type": ".md",
+                "token_count": 73,
+                "char_count": 415
+              }
+            },
+            {
+              "rank": 3,
+              "hybrid_score": 0.3167,
+              "vector_score": 0.3167,
+              "lexical_score": 1.0,
+              "chunk_id": "employee_benefits_chunk_001",
+              "source_document": "employee_benefits.md",
+              "section": "Section 6.0: Employee Benefits, Paid Time Off & Leave Guidelines > 1. Paid Time Off (PTO) Accrual",
+              "page": null,
+              "token_count": 79,
+              "text": "Full-time regular employees accrue 18 days of Paid Time Off annually, calculated at a rate of 1.5 days per completed calendar month of active service. Employees may roll over a maximum of 5 unused PTO days into the following calendar year. Any unused balance exceeding 5 days on December 31 will expire without cash compensation, unless an exception is approved by HR due to operational necessity.",
+              "metadata": {
+                "source_document": "employee_benefits.md",
+                "source_path": "data/corpus/employee_benefits.md",
+                "chunk_index": 68,
+                "section": "Section 6.0: Employee Benefits, Paid Time Off & Leave Guidelines > 1. Paid Time Off (PTO) Accrual",
+                "page": null,
+                "file_type": ".md",
+                "token_count": 79,
+                "char_count": 397
+              }
+            },
+            {
+              "rank": 4,
+              "hybrid_score": 0.1643,
+              "vector_score": 0.1643,
+              "lexical_score": 0.4233,
+              "chunk_id": "employee_benefits_chunk_004",
+              "source_document": "employee_benefits.md",
+              "section": "Section 6.0: Employee Benefits, Paid Time Off & Leave Guidelines > 4. Health Insurance & Wellness Reimbursement",
+              "page": null,
+              "token_count": 79,
+              "text": "The company sponsors 90% of the premium for comprehensive medical, dental, and vision insurance for full-time employees and 70% for enrolled dependents. In addition, each employee is eligible for an annual \\$600 wellness stipend to cover gym memberships, mental health counseling, fitness equipment, or ergonomic home office furniture. Claims must be submitted with valid receipts before November 30 of each calendar year.",
+              "metadata": {
+                "source_document": "employee_benefits.md",
+                "source_path": "data/corpus/employee_benefits.md",
+                "chunk_index": 1376,
+                "section": "Section 6.0: Employee Benefits, Paid Time Off & Leave Guidelines > 4. Health Insurance & Wellness Reimbursement",
+                "page": null,
+                "file_type": ".md",
+                "token_count": 79,
+                "char_count": 422
+              }
+            }
+          ]
+        },
+        "precision_gain": 0.25,
+        "distractors_eliminated": 1,
+        "precision_improved": true
+      }
+    },
+    {
+      "scenario_id": "scenario_2_it_security_incident_hotline",
+      "domain": "IT Security & Incident Response",
+      "intent": "Apply section filter ('Incident') + hybrid exact-term boost ('4357', '#security-incident') to surface urgent reporting procedures.",
+      "comparison": {
+        "query": "What is the procedure for reporting a suspected malware infection, security compromise, or lost device?",
+        "filter": {
+          "source_document": "it_security_policy.md",
+          "source_documents_in": null,
+          "file_type": null,
+          "file_types_in": null,
+          "section_contains": "Incident",
+          "min_page": null,
+          "max_page": null,
+          "description": "source_document == 'it_security_policy.md' AND section contains 'Incident'"
+        },
+        "target_document": "it_security_policy.md",
+        "k": 4,
+        "alpha": 0.3,
+        "exact_terms": [
+          "4357",
+          "#security-incident",
+          "extension"
+        ],
+        "unfiltered": {
+          "count": 4,
+          "precision": 0.75,
+          "distractors_count": 1,
+          "distractor_chunk_ids": [
+            "remote_work_policy_chunk_001"
+          ],
+          "chunks": [
+            {
+              "rank": 1,
+              "hybrid_score": 0.691,
+              "vector_score": 0.5585,
+              "lexical_score": 1.0,
+              "chunk_id": "it_security_policy_chunk_005",
+              "source_document": "it_security_policy.md",
+              "section": "Section 8.1: Corporate IT Security & Incident Response Protocols > 4. Employee Incident Reporting Procedure",
+              "page": null,
+              "token_count": 112,
+              "text": "If you suspect an active security compromise, credential theft, or phishing email:\n1. Immediately disconnect your machine from the network (unplug Ethernet or turn off Wi-Fi).\n2. Do not power off or reboot the computer, as volatile RAM evidence must be preserved for forensic analysis.\n3. Call the 24/7 IT Security Hotline at extension 4357 (HELP) or alert the `#security-incident` Slack channel using a secondary mobile device.\n4. Provide the time of occurrence, observed system symptoms, and suspicious email headers or files involved.",
+              "metadata": {
+                "source_document": "it_security_policy.md",
+                "source_path": "data/corpus/it_security_policy.md",
+                "chunk_index": 1785,
+                "section": "Section 8.1: Corporate IT Security & Incident Response Protocols > 4. Employee Incident Reporting Procedure",
+                "page": null,
+                "file_type": ".md",
+                "token_count": 112,
+                "char_count": 537
+              }
+            },
+            {
+              "rank": 2,
+              "hybrid_score": 0.4392,
+              "vector_score": 0.5104,
+              "lexical_score": 0.2732,
+              "chunk_id": "it_security_policy_chunk_003",
+              "source_document": "it_security_policy.md",
+              "section": "Section 8.1: Corporate IT Security & Incident Response Protocols > 3. Security Incident Classification & Severity Levels",
+              "page": null,
+              "token_count": 96,
+              "text": "Security incidents are classified into four severity tiers:\n- **Severity 1 (Critical)**: Active data breach, ransomware deployment, or unauthorized administrative privilege escalation. Incident Commander must be notified within 15 minutes.\n- **Severity 2 (High)**: Compromised employee credential, malware detected on internal host, or unauthenticated API exposure. Response required within 1 hour.\n- **Severity 3 (Medium)**: Targeted phishing attempt reported by employee or failed brute-force",
+              "metadata": {
+                "source_document": "it_security_policy.md",
+                "source_path": "data/corpus/it_security_policy.md",
+                "chunk_index": 1044,
+                "section": "Section 8.1: Corporate IT Security & Incident Response Protocols > 3. Security Incident Classification & Severity Levels",
+                "page": null,
+                "file_type": ".md",
+                "token_count": 96,
+                "char_count": 494
+              }
+            },
+            {
+              "rank": 3,
+              "hybrid_score": 0.4255,
+              "vector_score": 0.4738,
+              "lexical_score": 0.3129,
+              "chunk_id": "it_security_policy_chunk_002",
+              "source_document": "it_security_policy.md",
+              "section": "Section 8.1: Corporate IT Security & Incident Response Protocols > 2. Workstation Security & Encryption",
+              "page": null,
+              "token_count": 79,
+              "text": "All employee endpoints must have FileVault (macOS) or BitLocker (Windows) full-disk encryption enabled prior to accessing internal resources. USB storage drives are blocked by administrative group policy unless an exception ticket is authorized by the CISO. Operating system security updates and antivirus definitions are pushed automatically each Tuesday at 02:00 UTC and must not be bypassed or postponed beyond 48 hours.",
+              "metadata": {
+                "source_document": "it_security_policy.md",
+                "source_path": "data/corpus/it_security_policy.md",
+                "chunk_index": 579,
+                "section": "Section 8.1: Corporate IT Security & Incident Response Protocols > 2. Workstation Security & Encryption",
+                "page": null,
+                "file_type": ".md",
+                "token_count": 79,
+                "char_count": 423
+              }
+            },
+            {
+              "rank": 4,
+              "hybrid_score": 0.393,
+              "vector_score": 0.3988,
+              "lexical_score": 0.3795,
+              "chunk_id": "remote_work_policy_chunk_001",
+              "source_document": "remote_work_policy.md",
+              "section": "Section 4.2: Remote Work & Workplace Flexibility Policy > 1. Overview & Scope",
+              "page": null,
+              "token_count": 60,
+              "text": "This policy defines operational guidelines and security protocols for remote work arrangements within the organization. It applies to all full-time and part-time administrative, technical, and operational personnel. Remote work is a privilege designed to support work-life balance while ensuring organizational productivity, client confidentiality, and data security remain uncompromised.",
+              "metadata": {
+                "source_document": "remote_work_policy.md",
+                "source_path": "data/corpus/remote_work_policy.md",
+                "chunk_index": 59,
+                "section": "Section 4.2: Remote Work & Workplace Flexibility Policy > 1. Overview & Scope",
+                "page": null,
+                "file_type": ".md",
+                "token_count": 60,
+                "char_count": 388
+              }
+            }
+          ]
+        },
+        "filtered": {
+          "count": 4,
+          "precision": 1.0,
+          "distractors_count": 0,
+          "distractor_chunk_ids": [],
+          "chunks": [
+            {
+              "rank": 1,
+              "hybrid_score": 0.691,
+              "vector_score": 0.5585,
+              "lexical_score": 1.0,
+              "chunk_id": "it_security_policy_chunk_005",
+              "source_document": "it_security_policy.md",
+              "section": "Section 8.1: Corporate IT Security & Incident Response Protocols > 4. Employee Incident Reporting Procedure",
+              "page": null,
+              "token_count": 112,
+              "text": "If you suspect an active security compromise, credential theft, or phishing email:\n1. Immediately disconnect your machine from the network (unplug Ethernet or turn off Wi-Fi).\n2. Do not power off or reboot the computer, as volatile RAM evidence must be preserved for forensic analysis.\n3. Call the 24/7 IT Security Hotline at extension 4357 (HELP) or alert the `#security-incident` Slack channel using a secondary mobile device.\n4. Provide the time of occurrence, observed system symptoms, and suspicious email headers or files involved.",
+              "metadata": {
+                "source_document": "it_security_policy.md",
+                "source_path": "data/corpus/it_security_policy.md",
+                "chunk_index": 1785,
+                "section": "Section 8.1: Corporate IT Security & Incident Response Protocols > 4. Employee Incident Reporting Procedure",
+                "page": null,
+                "file_type": ".md",
+                "token_count": 112,
+                "char_count": 537
+              }
+            },
+            {
+              "rank": 2,
+              "hybrid_score": 0.4392,
+              "vector_score": 0.5104,
+              "lexical_score": 0.2732,
+              "chunk_id": "it_security_policy_chunk_003",
+              "source_document": "it_security_policy.md",
+              "section": "Section 8.1: Corporate IT Security & Incident Response Protocols > 3. Security Incident Classification & Severity Levels",
+              "page": null,
+              "token_count": 96,
+              "text": "Security incidents are classified into four severity tiers:\n- **Severity 1 (Critical)**: Active data breach, ransomware deployment, or unauthorized administrative privilege escalation. Incident Commander must be notified within 15 minutes.\n- **Severity 2 (High)**: Compromised employee credential, malware detected on internal host, or unauthenticated API exposure. Response required within 1 hour.\n- **Severity 3 (Medium)**: Targeted phishing attempt reported by employee or failed brute-force",
+              "metadata": {
+                "source_document": "it_security_policy.md",
+                "source_path": "data/corpus/it_security_policy.md",
+                "chunk_index": 1044,
+                "section": "Section 8.1: Corporate IT Security & Incident Response Protocols > 3. Security Incident Classification & Severity Levels",
+                "page": null,
+                "file_type": ".md",
+                "token_count": 96,
+                "char_count": 494
+              }
+            },
+            {
+              "rank": 3,
+              "hybrid_score": 0.4255,
+              "vector_score": 0.4738,
+              "lexical_score": 0.3129,
+              "chunk_id": "it_security_policy_chunk_002",
+              "source_document": "it_security_policy.md",
+              "section": "Section 8.1: Corporate IT Security & Incident Response Protocols > 2. Workstation Security & Encryption",
+              "page": null,
+              "token_count": 79,
+              "text": "All employee endpoints must have FileVault (macOS) or BitLocker (Windows) full-disk encryption enabled prior to accessing internal resources. USB storage drives are blocked by administrative group policy unless an exception ticket is authorized by the CISO. Operating system security updates and antivirus definitions are pushed automatically each Tuesday at 02:00 UTC and must not be bypassed or postponed beyond 48 hours.",
+              "metadata": {
+                "source_document": "it_security_policy.md",
+                "source_path": "data/corpus/it_security_policy.md",
+                "chunk_index": 579,
+                "section": "Section 8.1: Corporate IT Security & Incident Response Protocols > 2. Workstation Security & Encryption",
+                "page": null,
+                "file_type": ".md",
+                "token_count": 79,
+                "char_count": 423
+              }
+            },
+            {
+              "rank": 4,
+              "hybrid_score": 0.241,
+              "vector_score": 0.2387,
+              "lexical_score": 0.2462,
+              "chunk_id": "it_security_policy_chunk_001",
+              "source_document": "it_security_policy.md",
+              "section": "Section 8.1: Corporate IT Security & Incident Response Protocols > 1. Password & Access Control Standards",
+              "page": null,
+              "token_count": 89,
+              "text": "All internal systems require compliance with strict authentication safeguards. Passwords must contain a minimum of 14 characters including uppercase letters, numbers, and symbols. Passwords expire every 90 days and cannot match any of the previous 5 passwords used. Multi-Factor Authentication (MFA) via an approved authenticator app is mandatory on all corporate single sign-on (SSO) portals. SMS-based MFA is strictly prohibited due to SIM-swapping vulnerabilities.",
+              "metadata": {
+                "source_document": "it_security_policy.md",
+                "source_path": "data/corpus/it_security_policy.md",
+                "chunk_index": 68,
+                "section": "Section 8.1: Corporate IT Security & Incident Response Protocols > 1. Password & Access Control Standards",
+                "page": null,
+                "file_type": ".md",
+                "token_count": 89,
+                "char_count": 467
+              }
+            }
+          ]
+        },
+        "precision_gain": 0.25,
+        "distractors_eliminated": 1,
+        "precision_improved": true
+      }
+    },
+    {
+      "scenario_id": "scenario_3_remote_vpn_encryption",
+      "domain": "Remote Work & Hardware Security",
+      "intent": "Filter to Remote Work Policy while boosting AES-256 and BitLocker terms.",
+      "comparison": {
+        "query": "What hardware encryption and VPN tunnel requirements apply to remote employee laptops?",
+        "filter": {
+          "source_document": "remote_work_policy.md",
+          "source_documents_in": null,
+          "file_type": null,
+          "file_types_in": null,
+          "section_contains": null,
+          "min_page": null,
+          "max_page": null,
+          "description": "source_document == 'remote_work_policy.md'"
+        },
+        "target_document": "remote_work_policy.md",
+        "k": 4,
+        "alpha": 0.25,
+        "exact_terms": [
+          "AES-256",
+          "BitLocker",
+          "FileVault"
+        ],
+        "unfiltered": {
+          "count": 4,
+          "precision": 0.75,
+          "distractors_count": 1,
+          "distractor_chunk_ids": [
+            "it_security_policy_chunk_002"
+          ],
+          "chunks": [
+            {
+              "rank": 1,
+              "hybrid_score": 0.5886,
+              "vector_score": 0.4515,
+              "lexical_score": 1.0,
+              "chunk_id": "remote_work_policy_chunk_005",
+              "source_document": "remote_work_policy.md",
+              "section": "Section 4.2: Remote Work & Workplace Flexibility Policy > 4. Technical Equipment & Information Security",
+              "page": null,
+              "token_count": 106,
+              "text": "- **Company Hardware**: Only company-issued laptops equipped with active Endpoint Detection and Response (EDR) software may be used for remote work. Personal devices cannot access production environments.\n- **Network Security**: Connecting to public, unencrypted Wi-Fi networks is strictly prohibited. Remote workers must connect exclusively via the corporate AES-256 encrypted VPN tunnel.\n- **Data Protection**: Confidential documents must not be printed at remote locations or stored on unapproved personal cloud storage accounts. Screens must be locked when stepping away from the workstation.",
+              "metadata": {
+                "source_document": "remote_work_policy.md",
+                "source_path": "data/corpus/remote_work_policy.md",
+                "chunk_index": 1765,
+                "section": "Section 4.2: Remote Work & Workplace Flexibility Policy > 4. Technical Equipment & Information Security",
+                "page": null,
+                "file_type": ".md",
+                "token_count": 106,
+                "char_count": 596
+              }
+            },
+            {
+              "rank": 2,
+              "hybrid_score": 0.563,
+              "vector_score": 0.4173,
+              "lexical_score": 1.0,
+              "chunk_id": "it_security_policy_chunk_002",
+              "source_document": "it_security_policy.md",
+              "section": "Section 8.1: Corporate IT Security & Incident Response Protocols > 2. Workstation Security & Encryption",
+              "page": null,
+              "token_count": 79,
+              "text": "All employee endpoints must have FileVault (macOS) or BitLocker (Windows) full-disk encryption enabled prior to accessing internal resources. USB storage drives are blocked by administrative group policy unless an exception ticket is authorized by the CISO. Operating system security updates and antivirus definitions are pushed automatically each Tuesday at 02:00 UTC and must not be bypassed or postponed beyond 48 hours.",
+              "metadata": {
+                "source_document": "it_security_policy.md",
+                "source_path": "data/corpus/it_security_policy.md",
+                "chunk_index": 579,
+                "section": "Section 8.1: Corporate IT Security & Incident Response Protocols > 2. Workstation Security & Encryption",
+                "page": null,
+                "file_type": ".md",
+                "token_count": 79,
+                "char_count": 423
+              }
+            },
+            {
+              "rank": 3,
+              "hybrid_score": 0.4873,
+              "vector_score": 0.4895,
+              "lexical_score": 0.481,
+              "chunk_id": "remote_work_policy_chunk_001",
+              "source_document": "remote_work_policy.md",
+              "section": "Section 4.2: Remote Work & Workplace Flexibility Policy > 1. Overview & Scope",
+              "page": null,
+              "token_count": 60,
+              "text": "This policy defines operational guidelines and security protocols for remote work arrangements within the organization. It applies to all full-time and part-time administrative, technical, and operational personnel. Remote work is a privilege designed to support work-life balance while ensuring organizational productivity, client confidentiality, and data security remain uncompromised.",
+              "metadata": {
+                "source_document": "remote_work_policy.md",
+                "source_path": "data/corpus/remote_work_policy.md",
+                "chunk_index": 59,
+                "section": "Section 4.2: Remote Work & Workplace Flexibility Policy > 1. Overview & Scope",
+                "page": null,
+                "file_type": ".md",
+                "token_count": 60,
+                "char_count": 388
+              }
+            },
+            {
+              "rank": 4,
+              "hybrid_score": 0.4587,
+              "vector_score": 0.4534,
+              "lexical_score": 0.4744,
+              "chunk_id": "remote_work_policy_chunk_003",
+              "source_document": "remote_work_policy.md",
+              "section": "Section 4.2: Remote Work & Workplace Flexibility Policy > 3. Request & Approval Workflow",
+              "page": null,
+              "token_count": 89,
+              "text": "1. **Submission**: Employees must submit a formal Remote Work Application via the HR Portal at least 14 calendar days prior to the desired effective date.\n2. **Managerial Review**: Direct supervisors evaluate the application considering team coverage, project deliverables, and communication plans within 5 business days.\n3. **IT Security Verification**: The IT Security Operations team verifies that the employee's designated home office setup satisfies encrypted VPN and multi-factor",
+              "metadata": {
+                "source_document": "remote_work_policy.md",
+                "source_path": "data/corpus/remote_work_policy.md",
+                "chunk_index": 1054,
+                "section": "Section 4.2: Remote Work & Workplace Flexibility Policy > 3. Request & Approval Workflow",
+                "page": null,
+                "file_type": ".md",
+                "token_count": 89,
+                "char_count": 485
+              }
+            }
+          ]
+        },
+        "filtered": {
+          "count": 4,
+          "precision": 1.0,
+          "distractors_count": 0,
+          "distractor_chunk_ids": [],
+          "chunks": [
+            {
+              "rank": 1,
+              "hybrid_score": 0.5886,
+              "vector_score": 0.4515,
+              "lexical_score": 1.0,
+              "chunk_id": "remote_work_policy_chunk_005",
+              "source_document": "remote_work_policy.md",
+              "section": "Section 4.2: Remote Work & Workplace Flexibility Policy > 4. Technical Equipment & Information Security",
+              "page": null,
+              "token_count": 106,
+              "text": "- **Company Hardware**: Only company-issued laptops equipped with active Endpoint Detection and Response (EDR) software may be used for remote work. Personal devices cannot access production environments.\n- **Network Security**: Connecting to public, unencrypted Wi-Fi networks is strictly prohibited. Remote workers must connect exclusively via the corporate AES-256 encrypted VPN tunnel.\n- **Data Protection**: Confidential documents must not be printed at remote locations or stored on unapproved personal cloud storage accounts. Screens must be locked when stepping away from the workstation.",
+              "metadata": {
+                "source_document": "remote_work_policy.md",
+                "source_path": "data/corpus/remote_work_policy.md",
+                "chunk_index": 1765,
+                "section": "Section 4.2: Remote Work & Workplace Flexibility Policy > 4. Technical Equipment & Information Security",
+                "page": null,
+                "file_type": ".md",
+                "token_count": 106,
+                "char_count": 596
+              }
+            },
+            {
+              "rank": 2,
+              "hybrid_score": 0.4873,
+              "vector_score": 0.4895,
+              "lexical_score": 0.481,
+              "chunk_id": "remote_work_policy_chunk_001",
+              "source_document": "remote_work_policy.md",
+              "section": "Section 4.2: Remote Work & Workplace Flexibility Policy > 1. Overview & Scope",
+              "page": null,
+              "token_count": 60,
+              "text": "This policy defines operational guidelines and security protocols for remote work arrangements within the organization. It applies to all full-time and part-time administrative, technical, and operational personnel. Remote work is a privilege designed to support work-life balance while ensuring organizational productivity, client confidentiality, and data security remain uncompromised.",
+              "metadata": {
+                "source_document": "remote_work_policy.md",
+                "source_path": "data/corpus/remote_work_policy.md",
+                "chunk_index": 59,
+                "section": "Section 4.2: Remote Work & Workplace Flexibility Policy > 1. Overview & Scope",
+                "page": null,
+                "file_type": ".md",
+                "token_count": 60,
+                "char_count": 388
+              }
+            },
+            {
+              "rank": 3,
+              "hybrid_score": 0.4587,
+              "vector_score": 0.4534,
+              "lexical_score": 0.4744,
+              "chunk_id": "remote_work_policy_chunk_003",
+              "source_document": "remote_work_policy.md",
+              "section": "Section 4.2: Remote Work & Workplace Flexibility Policy > 3. Request & Approval Workflow",
+              "page": null,
+              "token_count": 89,
+              "text": "1. **Submission**: Employees must submit a formal Remote Work Application via the HR Portal at least 14 calendar days prior to the desired effective date.\n2. **Managerial Review**: Direct supervisors evaluate the application considering team coverage, project deliverables, and communication plans within 5 business days.\n3. **IT Security Verification**: The IT Security Operations team verifies that the employee's designated home office setup satisfies encrypted VPN and multi-factor",
+              "metadata": {
+                "source_document": "remote_work_policy.md",
+                "source_path": "data/corpus/remote_work_policy.md",
+                "chunk_index": 1054,
+                "section": "Section 4.2: Remote Work & Workplace Flexibility Policy > 3. Request & Approval Workflow",
+                "page": null,
+                "file_type": ".md",
+                "token_count": 89,
+                "char_count": 485
+              }
+            },
+            {
+              "rank": 4,
+              "hybrid_score": 0.4358,
+              "vector_score": 0.423,
+              "lexical_score": 0.4744,
+              "chunk_id": "remote_work_policy_chunk_004",
+              "source_document": "remote_work_policy.md",
+              "section": "Section 4.2: Remote Work & Workplace Flexibility Policy > 3. Request & Approval Workflow",
+              "page": null,
+              "token_count": 51,
+              "text": "employee's designated home office setup satisfies encrypted VPN and multi-factor authentication (MFA) requirements.\n4. **HR Registration**: Approved requests are logged into the central employee database, valid for a maximum term of 12 months, subject to annual renewal.",
+              "metadata": {
+                "source_document": "remote_work_policy.md",
+                "source_path": "data/corpus/remote_work_policy.md",
+                "chunk_index": 1459,
+                "section": "Section 4.2: Remote Work & Workplace Flexibility Policy > 3. Request & Approval Workflow",
+                "page": null,
+                "file_type": ".md",
+                "token_count": 51,
+                "char_count": 270
+              }
+            }
+          ]
+        },
+        "precision_gain": 0.25,
+        "distractors_eliminated": 1,
+        "precision_improved": true
+      }
+    },
+    {
+      "scenario_id": "scenario_4_rag_system_documentation",
+      "domain": "Engineering Architecture",
+      "intent": "Restrict retrieval by file_type=='.pdf' to retrieve official PDF architecture guide.",
+      "comparison": {
+        "query": "How does the document loader parse external files and feed chunks into downstream generation?",
+        "filter": {
+          "source_document": null,
+          "source_documents_in": null,
+          "file_type": ".pdf",
+          "file_types_in": null,
+          "section_contains": null,
+          "min_page": null,
+          "max_page": null,
+          "description": "file_type == '.pdf'"
+        },
+        "target_document": "document.pdf",
+        "k": 3,
+        "alpha": 0.0,
+        "exact_terms": [
+          "loader",
+          "downstream"
+        ],
+        "unfiltered": {
+          "count": 3,
+          "precision": 0.3333,
+          "distractors_count": 2,
+          "distractor_chunk_ids": [
+            "hello_chunk_001",
+            "guide_chunk_001"
+          ],
+          "chunks": [
+            {
+              "rank": 1,
+              "hybrid_score": 0.6918,
+              "vector_score": 0.6918,
+              "lexical_score": 0.9766,
+              "chunk_id": "hello_chunk_001",
+              "source_document": "hello.txt",
+              "section": "N/A",
+              "page": null,
+              "token_count": 61,
+              "text": "Welcome to the RAG Document Loader test.\nThis is a plain text file that contains unstructured information.\nIt is designed to be loaded by our document loader and parsed into plain text.\nRAG systems need simple text format to compute embeddings and search for matching chunks.\nThis concludes the plain text sample file.",
+              "metadata": {
+                "source_document": "hello.txt",
+                "source_path": "data/corpus/hello.txt",
+                "chunk_index": 0,
+                "section": "N/A",
+                "page": null,
+                "file_type": ".txt",
+                "token_count": 61,
+                "char_count": 318
+              }
+            },
+            {
+              "rank": 2,
+              "hybrid_score": 0.6413,
+              "vector_score": 0.6413,
+              "lexical_score": 0.4929,
+              "chunk_id": "guide_chunk_001",
+              "source_document": "guide.md",
+              "section": "RAG Optimization Guide",
+              "page": null,
+              "token_count": 14,
+              "text": "This markdown file serves as a documentation template for testing our document loader.",
+              "metadata": {
+                "source_document": "guide.md",
+                "source_path": "data/corpus/guide.md",
+                "chunk_index": 0,
+                "section": "RAG Optimization Guide",
+                "page": null,
+                "file_type": ".md",
+                "token_count": 14,
+                "char_count": 86
+              }
+            },
+            {
+              "rank": 3,
+              "hybrid_score": 0.5816,
+              "vector_score": 0.5816,
+              "lexical_score": 1.0,
+              "chunk_id": "document_chunk_001",
+              "source_document": "document.pdf",
+              "section": "RAG System Documentation",
+              "page": 1,
+              "token_count": 78,
+              "text": "RAG System Documentation\nThis PDF document contains reference guide for Retrieval-Augmented Generation.\nRetrieval-Augmented Generation (RAG) is a technique that combines retrieval and generation.\nIt leverages external knowledge sources to improve LLM generation accuracy and relevance.\nOur loader module parses this PDF cleanly to feed it to downstream processes.\nVerify that page-by-page text extraction works and is formatted correctly.",
+              "metadata": {
+                "source_document": "document.pdf",
+                "source_path": "data/corpus/document.pdf",
+                "chunk_index": 0,
+                "section": "RAG System Documentation",
+                "page": 1,
+                "file_type": ".pdf",
+                "token_count": 78,
+                "char_count": 438
+              }
+            }
+          ]
+        },
+        "filtered": {
+          "count": 1,
+          "precision": 1.0,
+          "distractors_count": 0,
+          "distractor_chunk_ids": [],
+          "chunks": [
+            {
+              "rank": 1,
+              "hybrid_score": 0.5816,
+              "vector_score": 0.5816,
+              "lexical_score": 1.0,
+              "chunk_id": "document_chunk_001",
+              "source_document": "document.pdf",
+              "section": "RAG System Documentation",
+              "page": 1,
+              "token_count": 78,
+              "text": "RAG System Documentation\nThis PDF document contains reference guide for Retrieval-Augmented Generation.\nRetrieval-Augmented Generation (RAG) is a technique that combines retrieval and generation.\nIt leverages external knowledge sources to improve LLM generation accuracy and relevance.\nOur loader module parses this PDF cleanly to feed it to downstream processes.\nVerify that page-by-page text extraction works and is formatted correctly.",
+              "metadata": {
+                "source_document": "document.pdf",
+                "source_path": "data/corpus/document.pdf",
+                "chunk_index": 0,
+                "section": "RAG System Documentation",
+                "page": 1,
+                "file_type": ".pdf",
+                "token_count": 78,
+                "char_count": 438
+              }
+            }
+          ]
+        },
+        "precision_gain": 0.6667,
+        "distractors_eliminated": 2,
+        "precision_improved": true
+      }
+    }
+  ]
+}

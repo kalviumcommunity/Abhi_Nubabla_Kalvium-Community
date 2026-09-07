@@ -1,4 +1,4 @@
-# Staff RAG Assistant - Tokenization, Ingestion, Embeddings, Similarity Search & Retrieval
+# Staff RAG Assistant - Ingestion, Embeddings, Similarity Search, Metadata Filtering & Hybrid Retrieval
 
 This repository implements tools, benchmark reports, and system prompt architectures for an internal Staff RAG Assistant.
 
@@ -6,7 +6,14 @@ This repository implements tools, benchmark reports, and system prompt architect
 
 ## 📋 Features & Tasks Implemented
 
-### 1. Top-K Vector Database Similarity Search & Retrieval (`Similarity-Search` Branch)
+### 1. Metadata-Filtered & Hybrid Vector Retrieval (`MetadataFiltering` Branch)
+- **Task 1 — Metadata Filtering Engine**: Scope retrieval candidate chunks prior to similarity search using deterministic metadata filters (`source_document`, `section`, `file_type`, `page_range`, and custom predicate callbacks).
+- **Task 2 — Filtered vs. Unfiltered Comparison**: Systematic side-by-side evaluation running queries with and without filters, showing that scoped retrieval prevents cross-domain distractor interference.
+- **Task 3 — Lexical & Exact Term Hybrid Matching**: Fused scoring engine combining dense vector similarity with normalized keyword term frequencies and exact identifier boosting (e.g. extension `4357`, `#security-incident`, `AES-256`, `BitLocker`) via tunable weighting parameter $\alpha \in [0.0, 1.0]$.
+- **Task 4 — Precision Improvement Quantification**: Quantitative demonstration proving that metadata filtering boosts in-scope precision from $33.3\% - 75.0\%$ to **$100.0\%$**, eliminating cross-document distractors.
+- **Task 5 — Benchmark Exports**: Complete evaluation dataset exported to `data/filtered_search_results.json` and in-depth report generated at `data/filtered_search_report.md`.
+
+### 2. Top-K Vector Database Similarity Search & Retrieval (`Similarity-Search` Branch)
 - **Task 1 — Query Embedding**: Embeds user queries using the identical 1536-dimensional embedding model and normalization scale as the indexed corpus chunks (`data/embedded_chunks.json`).
 - **Task 2 — Top-K Vector Search**: Computes cosine similarities ($\mathbf{q} \cdot \mathbf{c}_i$) against the indexed vector database and retrieves the top-$k$ most relevant chunks.
 - **Task 3 — Scores & Metadata Inclusion**: Every retrieved chunk includes similarity scores, cleaned source text, source document path, section breadcrumb, chunk position, page number, and token counts.
@@ -48,7 +55,6 @@ This repository implements tools, benchmark reports, and system prompt architect
 - **Task 1 — Known Relevance Dataset**: Curated ground-truth test cases covering PTO rollover, parental leave, password MFA, RAG chunking, and remote VPN rules.
 - **Task 2 — Rank & Margin Verification**: Automatic verification that target chunks rank above unrelated baselines with large positive score margins ($\Delta \ge +0.56$).
 - **Task 3 — Borderline / Edge-Case Diagnostic**: Deep-dive analysis of fixed-window chunk boundary splits (`it_security_policy_chunk_003` vs `004`), proving why structure-aware chunking is critical.
-- **Task 4 — Sanity Test Reports**: Export of full verification results to `data/sanity_test_results.json` and formatted report to `data/sanity_report.md`.
 - **Task 5 — Quality-Check CLI**: Standalone test CLI in `sanity_test.py` and `src/sanity_test.py`.
 
 ---
@@ -58,8 +64,9 @@ This repository implements tools, benchmark reports, and system prompt architect
 ```text
 .
 ├── src/
+│   ├── filtered_retrieval.py  # Tasks 1-5: Metadata filtering, lexical/hybrid scoring & precision analysis
 │   ├── similarity_search.py   # Tasks 1-5: Top-k vector database similarity search & retrieval
-│   ├── retriever.py           # Public retrieve_top_k interface for RAG generation
+│   ├── retriever.py           # Public retrieve_top_k and retrieve_filtered interfaces
 │   ├── sanity_test.py         # Tasks 1-5: Retrieval sanity tests & ground-truth verification
 │   ├── similarity_ranking.py  # Tasks 1-5: Query-to-chunk similarity ranking & retrieval
 │   ├── embedding_demo.py      # Tasks 1-5: Text embedding generation, dimensionality & similarity
@@ -71,6 +78,8 @@ This repository implements tools, benchmark reports, and system prompt architect
 │   ├── compare_prompts.py     # Prompt engineering benchmark runner
 │   └── structured_output.py   # JSON response format mode & Pydantic validation
 ├── data/
+│   ├── filtered_search_results.json # Serialized metadata-filtered vs unfiltered benchmark runs
+│   ├── filtered_search_report.md    # Markdown technical report on metadata filtering & precision
 │   ├── similarity_search_results.json # Serialized query retrieval runs for k=1, 3, 5
 │   ├── similarity_search_report.md    # Markdown similarity search report with changing k
 │   ├── embedded_chunks.json   # Vector store with 1536-D embeddings & metadata
@@ -93,9 +102,12 @@ This repository implements tools, benchmark reports, and system prompt architect
 │   ├── example_renders.md     # Example filled prompts for chat and batch paths
 │   └── chosen_prompt.md       # Documentation for chosen system prompt
 ├── tests/
+│   ├── test_filtered_retrieval.py # Unit tests for metadata filtering & hybrid scoring
 │   ├── test_similarity_search.py  # Unit tests for top-k similarity search & changing k
+│   ├── test_retriever.py          # Unit tests for retriever interface
 │   ├── test_ingestion_pipeline.py # Unit tests for ingestion and reconciliation
-│   └── test_chunker.py        # Unit tests for chunking strategies
+│   └── test_chunker.py            # Unit tests for chunking strategies
+├── filtered_retrieval.py      # Root CLI entry point for metadata-filtered retrieval
 ├── similarity_search.py       # Root CLI entry point for top-k similarity search
 ├── sanity_test.py             # Root CLI entry point for retrieval sanity tests
 ├── similarity_ranking.py      # Root CLI entry point for similarity ranking demo
@@ -119,46 +131,58 @@ This repository implements tools, benchmark reports, and system prompt architect
 pip install -r requirements.txt
 ```
 
-### 2. Run Top-K Similarity Search & Changing K Demo
+### 2. Run Metadata-Filtered & Hybrid Retrieval Demo
 ```bash
-python similarity_search.py
-# or with specific k values:
-python similarity_search.py --k-values 1 3 5 10
+# Run benchmark across all filtered scenarios
+python filtered_retrieval.py
+
+# Filter by document and apply hybrid exact term boosting
+python filtered_retrieval.py --query "What is the procedure for reporting active malware?" --filter-doc it_security_policy.md --hybrid 0.3 --exact-terms 4357 #security-incident
+
+# Compare filtered vs unfiltered results
+python filtered_retrieval.py --query "What are the rules for annual paid time off?" --filter-doc employee_benefits.md --compare-unfiltered
 ```
 
-### 3. Programmatic Retrieval in Python
+### 3. Programmatic Filtered Retrieval in Python
 ```python
-from src.retriever import retrieve_top_k
+from src.retriever import retrieve_filtered, MetadataFilter
 
-# Retrieve top 3 relevant chunks for a question
-chunks = retrieve_top_k("What are the PTO rollover rules?", k=3)
-for chunk in chunks:
-    print(f"Rank {chunk.rank} | Score: {chunk.score} | Doc: {chunk.metadata['source_document']}")
-    print(chunk.source_text)
+# Scope retrieval strictly to IT Security policy and Incident sections
+f = MetadataFilter(source_document="it_security_policy.md", section_contains="Incident")
+chunks = retrieve_filtered(
+    query="How to report malware or compromised password?",
+    filter_spec=f,
+    k=3,
+    alpha=0.3,
+    exact_terms=["4357", "#security-incident"]
+)
+
+for c in chunks:
+    print(f"Rank {c.rank} | Hybrid Score: {c.hybrid_score:.4f} | Doc: {c.source_document} | Section: {c.section}")
+    print(c.text[:100] + "...")
 ```
 
-### 4. Run Retrieval Sanity Verification Test Suite
+### 4. Run Top-K Similarity Search Demo
 ```bash
-python sanity_test.py
+python similarity_search.py --k-values 1 3 5
 ```
 
-### 4. Run Query-Chunk Similarity Ranking Demo
-```bash
-python src/ingestion_pipeline.py
-```
-
-### 6. Run All Test Suites
+### 5. Run All Test Suites
 ```bash
 python -m unittest discover -s tests -p "*.py" -v
 ```
 
 ---
 
-## 📊 Summary of Changing $k$ Retrieval Findings
+## 📊 Summary of Metadata Filtering & Precision Findings
 
-| Query Intent | $k=1$ (Precision) | $k=3$ (Balanced) | $k=5$ (Recall) | Top Retrieved Document & Section |
-| :--- | :---: | :---: | :---: | :--- |
-| **PTO Accrual & Rollover** | Score: **0.5269** (79 toks) | Scores: **0.5269 – 0.2352** (219 toks) | Scores: **0.5269 – 0.1981** (366 toks) | `employee_benefits.md` > *1. Paid Time Off (PTO) Accrual* |
-| **IT Incident Reporting** | Score: **0.5100** (112 toks) | Scores: **0.5100 – 0.4138** (287 toks) | Scores: **0.5100 – 0.3115** (453 toks) | `it_security_policy.md` > *4. Incident Reporting Procedure* |
-| **Remote Work VPN Rules** | Score: **0.6856** (89 toks) | Scores: **0.6856 – 0.6311** (250 toks) | Scores: **0.6856 – 0.5339** (407 toks) | `remote_work_policy.md` > *3. Request & Approval Workflow* |
-| **RAG Ingestion Principles** | Score: **0.7877** (61 toks) | Scores: **0.7877 – 0.6883** (128 toks) | Scores: **0.7877 – 0.5425** (211 toks) | `hello.txt` & `guide.md` > *RAG Architecture* |
+| Benchmark Scenario | Target Scope | Unfiltered Precision | Filtered Precision | Precision Gain (Δ) | Distractors Eliminated | Top Filtered Chunk |
+| :--- | :--- | :---: | :---: | :---: | :---: | :--- |
+| **HR & Employee Benefits** | `employee_benefits.md` | 75.0% | **100.0%** | **+25.0%** | **1 chunk(s)** | `employee_benefits_chunk_002` (Score: 0.4548) |
+| **IT Security Hotline** | `it_security_policy.md` | 75.0% | **100.0%** | **+25.0%** | **1 chunk(s)** | `it_security_policy_chunk_005` (Score: 0.6910) |
+| **Remote VPN Encryption** | `remote_work_policy.md` | 75.0% | **100.0%** | **+25.0%** | **1 chunk(s)** | `remote_work_policy_chunk_001` (Score: 0.5886) |
+| **RAG System Architecture** | `document.pdf` | 33.3% | **100.0%** | **+66.7%** | **2 chunk(s)** | `document_chunk_001` (Score: 0.5816) |
+
+**Key Takeaways**:
+- **Distractor Elimination**: Unfiltered global search pulled irrelevant cross-domain chunks into prompt context (e.g. general text files or remote work clauses during HR queries). Metadata pre-filtering guaranteed **100.0% in-scope precision**.
+- **Hybrid Exact Term Boost**: Using $\alpha = 0.3$ with exact keywords (e.g., phone extension `4357` or `#security-incident`) boosted critical emergency incident procedures directly to **Rank #1**.
