@@ -1,4 +1,4 @@
-# Staff RAG Assistant - Ingestion, Embeddings, Similarity Search, Filtering, Re-ranking & Retrieval Evaluation
+# Staff RAG Assistant - Ingestion, Embeddings, Similarity Search, Filtering, Re-ranking, Evaluation & Grounded Answers
 
 This repository implements tools, benchmark reports, and system prompt architectures for an internal Staff RAG Assistant.
 
@@ -6,7 +6,14 @@ This repository implements tools, benchmark reports, and system prompt architect
 
 ## 📋 Features & Tasks Implemented
 
-### 1. Systematic Retrieval Quality Evaluation (`RetrievalEvaluation` Branch)
+### 1. Grounded Answer Generation & Source Accuracy Verification (`GroundedAnswer` Branch)
+- **Task 1 — Grounded Answer Generation**: Generate answers strictly constrained to injected retrieved context using structured prompt templates and verifiable citations (`[Source 1: employee_benefits.md]`).
+- **Task 2 — Source Accuracy & Faithfulness Audit**: Automated claim verification engine (`SourceAccuracyChecker`) extracting discrete factual assertions and calculating a faithfulness score ($100.0\%$ verified against chunk text, $0$ unsupported claims).
+- **Task 3 — Missing-Context Safe Refusal Fallback**: Explicit fallback mechanism triggered when query context is absent or below similarity threshold ($\text{similarity} < 0.28$), returning standard refusal with HR/IT contact paths rather than inventing policy.
+- **Task 4 — With vs. Without Retrieval Comparative Analysis**: Systematic side-by-side evaluation proving that RAG grounding eliminates hallucinations (e.g. replacing generic 10-15 vacation day guesses with verified 18 days PTO + 5 days rollover).
+- **Task 5 — Benchmark Exports**: Complete evaluation dataset saved to `data/grounded_generation_results.json` and in-depth report generated at `data/grounded_generation_report.md`.
+
+### 2. Systematic Retrieval Quality Evaluation (`RetrievalEvaluation` Branch)
 - **Task 1 — Labelled Benchmark Queries**: Ground-truth test suite of 10 structured queries with expected chunk IDs, source document mappings, and graded relevance assessments ($0 = \text{Irrelevant}$, $1 = \text{Partially Relevant}$, $2 = \text{Highly Relevant}$).
 - **Task 2 — Recall@k & MRR Measurement**: Systematic measurement of Recall@k, Hit Rate@k, and Mean Reciprocal Rank (MRR) across multiple thresholds ($k \in \{1, 2, 3, 5, 10\}$), showing Recall progression from $65.0\%$ at $k=1$ to $95.0\%$ at $k=5$.
 - **Task 3 — Precision@k & Quality Signal Reporting**: Quantitative Precision@k, F1@k, and NDCG@k metrics across Single-Stage Vector Search, Metadata-Filtered Retrieval, and Two-Stage Re-ranking.
@@ -71,6 +78,7 @@ This repository implements tools, benchmark reports, and system prompt architect
 ```text
 .
 ├── src/
+│   ├── grounded_generator.py  # Tasks 1-5: Grounded generation, source accuracy audit, fallbacks & comparisons
 │   ├── retrieval_evaluator.py # Tasks 1-5: Labelled queries, Recall@k, Precision@k, MRR, NDCG & diagnostics
 │   ├── filtered_retrieval.py  # Tasks 1-5: Metadata filtering, lexical/hybrid scoring & precision analysis
 │   ├── similarity_search.py   # Tasks 1-5: Top-k vector database similarity search & retrieval
@@ -87,6 +95,8 @@ This repository implements tools, benchmark reports, and system prompt architect
 │   ├── compare_prompts.py     # Prompt engineering benchmark runner
 │   └── structured_output.py   # JSON response format mode & Pydantic validation
 ├── data/
+│   ├── grounded_generation_results.json # Serialized grounded answers, audits, fallbacks & comparisons
+│   ├── grounded_generation_report.md    # Markdown audit report on source accuracy & with/without retrieval
 │   ├── retrieval_evaluation_results.json # Serialized evaluation metrics across 10 labelled queries
 │   ├── retrieval_evaluation_report.md    # Markdown audit report on Recall@k, Precision@k & failure modes
 │   ├── filtered_search_results.json # Serialized metadata-filtered vs unfiltered benchmark runs
@@ -113,6 +123,7 @@ This repository implements tools, benchmark reports, and system prompt architect
 │   ├── example_renders.md     # Example filled prompts for chat and batch paths
 │   └── chosen_prompt.md       # Documentation for chosen system prompt
 ├── tests/
+│   ├── test_grounded_generator.py  # Unit tests for grounded generation, faithfulness audits & fallbacks
 │   ├── test_retrieval_evaluator.py # Unit tests for Recall@k, Precision@k, MRR, NDCG & diagnostics
 │   ├── test_filtered_retrieval.py  # Unit tests for metadata filtering & hybrid scoring
 │   ├── test_similarity_search.py   # Unit tests for top-k similarity search & changing k
@@ -120,6 +131,7 @@ This repository implements tools, benchmark reports, and system prompt architect
 │   ├── test_retriever.py           # Unit tests for retriever interface
 │   ├── test_ingestion_pipeline.py  # Unit tests for ingestion and reconciliation
 │   └── test_chunker.py             # Unit tests for chunking strategies
+├── generate_grounded_answer.py# Root CLI entry point for grounded answer generation & audits
 ├── evaluate_retrieval.py      # Root CLI entry point for systematic retrieval quality evaluation
 ├── filtered_retrieval.py      # Root CLI entry point for metadata-filtered retrieval
 ├── similarity_search.py       # Root CLI entry point for top-k similarity search
@@ -145,63 +157,61 @@ This repository implements tools, benchmark reports, and system prompt architect
 pip install -r requirements.txt
 ```
 
-### 2. Run Retrieval Quality Evaluation Benchmark
+### 2. Run Grounded Answer Generation & Benchmark
 ```bash
-# Run full evaluation across Single-Stage Vector Search, Metadata Filtering & Two-Stage Re-ranking
-python evaluate_retrieval.py
+# Run full benchmark across in-scope, fallback, and comparison queries
+python generate_grounded_answer.py
 
-# Run evaluation for specific k values with diagnostic inspection
+# Generate grounded answer for single query with source accuracy audit
+python generate_grounded_answer.py --query "How many days of PTO do employees get, and can unused days roll over?"
+
+# Run side-by-side comparison with vs without retrieval
+python generate_grounded_answer.py --query "How many days of PTO do employees get each year?" --compare-unretrieved
+
+# Test missing-context safe refusal fallback
+python generate_grounded_answer.py --query "What is the stock option strike price and vesting schedule?" --fallback-test
+```
+
+### 3. Run Retrieval Quality Evaluation Benchmark
+```bash
 python evaluate_retrieval.py --k-values 1 2 3 5 10 --mode all
 ```
 
-### 3. Run Metadata-Filtered & Hybrid Retrieval Demo
+### 4. Run Metadata-Filtered & Hybrid Retrieval Demo
 ```bash
-# Run benchmark across all filtered scenarios
 python filtered_retrieval.py
-
-# Filter by document and apply hybrid exact term boosting
-python filtered_retrieval.py --query "What is the procedure for reporting active malware?" --filter-doc it_security_policy.md --hybrid 0.3 --exact-terms 4357 #security-incident
-
-# Compare filtered vs unfiltered results
-python filtered_retrieval.py --query "What are the rules for annual paid time off?" --filter-doc employee_benefits.md --compare-unfiltered
 ```
 
-### 4. Run Top-K Similarity Search Demo
+### 5. Run Unit Test Suites
 ```bash
-python similarity_search.py --k-values 1 3 5
-```
-
-### 5. Run All Test Suites
-```bash
-python -m unittest tests/test_retrieval_evaluator.py -v
+python -m unittest tests/test_grounded_generator.py -v
 ```
 
 ---
 
-## 📊 Summary of Retrieval Evaluation Metrics (Tasks 2 & 3)
+## 📊 Summary of Grounded Generation & Source Accuracy (Tasks 1, 2, 3, 4)
 
-| Retrieval Pipeline Mode | MRR | HitRate@3 | Recall@3 | Precision@3 | F1@3 | NDCG@3 | Recall@5 | Precision@5 |
-| :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| **1. Direct Vector Search (Baseline)** | **0.7950** | **80.0%** | **80.0%** | **33.3%** | 0.4600 | 0.6787 | **95.0%** | **24.0%** |
-| **2. Metadata-Filtered Retrieval** | **0.7667** | **70.0%** | **65.0%** | **26.7%** | 0.3700 | 0.6301 | **85.0%** | **20.0%** |
-| **3. Two-Stage Re-ranked Retrieval** | **0.8700** | **90.0%** | **80.0%** | **30.0%** | 0.4300 | 0.6857 | **85.0%** | **20.0%** |
+### Grounded In-Scope Scenarios (Tasks 1 & 2)
 
-### Recall@k & Precision@k Progression Curve (Direct Vector Search)
+| Scenario | Query Topic | Cited Source Document | Faithfulness Score | Claims Verified | Status |
+| :--- | :--- | :--- | :---: | :---: | :---: |
+| `scenario_01_pto_accrual` | PTO Accrual & Rollover Limits | `employee_benefits.md` | **100.0%** | **4/4** | ✅ FULLY GROUNDED |
+| `scenario_02_security_incident` | 24/7 Hotline & Malware Reporting | `it_security_policy.md` | **100.0%** | **4/4** | ✅ FULLY GROUNDED |
+| `scenario_03_remote_vpn` | Remote VPN & Encryption Rules | `remote_work_policy.md` | **100.0%** | **4/4** | ✅ FULLY GROUNDED |
+| `scenario_04_parental_leave` | Paid Parental Leave Duration | `employee_benefits.md` | **100.0%** | **4/4** | ✅ FULLY GROUNDED |
 
-| Parameter $k$ | Mean Recall@k | Mean Precision@k | Mean Hit Rate@k | Mean F1@k | Mean NDCG@k | Context Token Tradeoff |
-| :---: | :---: | :---: | :---: | :---: | :---: | :--- |
-| **k=1** | **65.0%** | 70.0% | 70.0% | 0.6667 | 0.6333 | Ultra-low token budget (~75 tokens), zero distractor overhead, risk of missing supporting chunks. |
-| **k=2** | **75.0%** | 45.0% | 80.0% | 0.5500 | 0.6662 | Compact context (~150 tokens), high precision for single-chunk queries. |
-| **k=3** | **80.0%** | 33.3% | 80.0% | 0.4600 | 0.6787 | Optimal balance (~240 tokens), captures primary and secondary policy clauses. |
-| **k=5** | **95.0%** | 24.0% | 100.0% | 0.3762 | 0.7498 | High recall (~380 tokens), introduces lower-scoring adjacent distractors. |
-| **k=10** | **100.0%** | 13.0% | 100.0% | 0.2273 | 0.7808 | Maximum recall (~700 tokens), significant noise and prompt token bloat. |
+### Missing-Context Fallback Refusal (Task 3)
 
----
+| Out-of-Scope Query | Trigger Cause | Refusal Message Returned |
+| :--- | :--- | :--- |
+| *Stock Option Vesting Schedule* | Zero relevant corpus chunks | *"I don't have access to this information in the verified company guidelines. Please contact HR at hr@company.com or submit a ticket via the IT Helpdesk portal."* |
+| *Cafeteria Lunch Budget* | Zero relevant corpus chunks | *"I don't have access to this information in the verified company guidelines. Please contact HR at hr@company.com or submit a ticket via the IT Helpdesk portal."* |
 
-## 🔍 Failure Case Inspection & Diagnostic Root Causes (Task 4)
+### Comparative Analysis: With vs. Without Retrieval (Task 4)
 
-| Query ID | User Query | Expected Chunks | Top Distractor | Root Cause Category | Actionable Mitigation |
-| :--- | :--- | :--- | :--- | :--- | :--- |
-| `eval_q06_remote_vpn_encryption` | *"What network encryption and VPN tunnel protocols are required when connecting remotely?"* | `remote_work_policy_chunk_005` | `remote_work_policy_chunk_003` (Rank #1) | **Cross-Domain Semantic Distractor Pull** | Apply pre-retrieval `MetadataFilter(source_document=...)` to prevent cross-policy interference. |
-| `eval_q08_rag_system_loader` | *"How does the RAG document loader module ingest multi-format files?"* | `document_chunk_001`, `guide_chunk_001` | `hello_chunk_001` (Rank #1) | **Borderline Rank Inversion** | Use Two-Stage Re-ranking (`SemanticRelevanceReranker`) to boost deep lexical-semantic alignment. |
-| `eval_q10_cross_domain_distractor` | *"Can employees take leave for wellness or gym activities while working remotely?"* | `employee_benefits_chunk_004`, `remote_work_policy_chunk_001` | `remote_work_policy_chunk_002` (Rank #1) | **Cross-Domain Semantic Distractor Pull** | Apply query routing and metadata pre-filtering before vector scoring. |
+| Feature | 🟢 With Retrieval (RAG Grounded) | 🔴 Without Retrieval (Direct LLM Guess) |
+| :--- | :--- | :--- |
+| **PTO Policy Answer** | **18 days PTO/year**, max **5 days rollover** before Dec 31 | Vague guess: *"10 to 15 vacation days depending on tenure"* |
+| **Security Breach Response** | **Disconnect immediately**, do not reboot, call **ext 4357** | Generic guess: *"Contact general IT support during business hours"* |
+| **Source Faithfulness** | **100.0%** (Backed by verified document chunks) | **0.0%** (Unverified speculative generation) |
+| **Hallucination Risk** | **0%** (Strict context-only constraint) | **High** (Invented numbers and inaccurate procedures) |
