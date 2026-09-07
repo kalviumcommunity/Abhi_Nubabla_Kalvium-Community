@@ -4,7 +4,7 @@ Provides high-level retrieve_top_k function for grounding downstream LLM generat
 Supports single-stage (direct top-k) and two-stage (retrieve + re-rank) retrieval.
 """
 
-from typing import List, Optional
+from typing import List, Optional, Dict, Any
 from src.similarity_search import VectorStoreRetriever, RetrievedChunk
 from src.reranker import (
     TwoStageRetrievalPipeline,
@@ -17,6 +17,8 @@ from src.reranker import (
 def retrieve_top_k(
     query: str,
     k: int = 3,
+    score_threshold: float = 0.0,
+    metadata_filter: Optional[Dict[str, Any]] = None,
     vector_store_path: str = "data/embedded_chunks.json"
 ) -> List[RetrievedChunk]:
     """
@@ -26,6 +28,8 @@ def retrieve_top_k(
     Args:
         query: The user prompt or question.
         k: Number of most similar chunks to return (default: 3).
+        score_threshold: Minimum similarity score threshold (default: 0.0).
+        metadata_filter: Optional metadata filtering criteria (e.g. {"file_type": ".md"}).
         vector_store_path: Path to pre-computed embedded chunks JSON.
 
     Returns:

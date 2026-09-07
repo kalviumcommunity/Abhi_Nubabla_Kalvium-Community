@@ -1,0 +1,490 @@
+{
+  "vector_store_path": "data/embedded_chunks.json",
+  "embedding_model": "OpenAI-Compatible API (text-embedding-3-small)",
+  "total_test_queries": 5,
+  "test_queries": [
+    {
+      "query_id": "test_q1_pto",
+      "topic": "HR - Paid Time Off (PTO) & Leave Limits",
+      "query": "How many days of paid time off do employees get each year, and can unused PTO be rolled over?",
+      "expected_chunk_id": "employee_benefits_chunk_001",
+      "expected_source_doc": "employee_benefits.md"
+    },
+    {
+      "query_id": "test_q2_vpn",
+      "topic": "Remote Work - Network Encryption & VPN Rules",
+      "query": "What are the network encryption and VPN requirements for connecting remotely to company resources?",
+      "expected_chunk_id": "remote_work_policy_chunk_005",
+      "expected_source_doc": "remote_work_policy.md"
+    },
+    {
+      "query_id": "test_q3_password",
+      "topic": "IT Security - Password Length & Authentication",
+      "query": "What are the minimum password length requirements and is SMS authentication permitted?",
+      "expected_chunk_id": "it_security_policy_chunk_001",
+      "expected_source_doc": "it_security_policy.md"
+    },
+    {
+      "query_id": "test_q4_parental",
+      "topic": "HR - Parental Leave Entitlement",
+      "query": "How many weeks of fully paid leave are new parents entitled to after childbirth or adoption?",
+      "expected_chunk_id": "employee_benefits_chunk_003",
+      "expected_source_doc": "employee_benefits.md"
+    },
+    {
+      "query_id": "test_q5_rag_principles",
+      "topic": "RAG Architecture - Ingestion & Chunking Principles",
+      "query": "How does the RAG document loader transform mixed-format files and semantic chunk units for retrieval?",
+      "expected_chunk_id": "guide_chunk_002",
+      "expected_source_doc": "guide_document.md"
+    }
+  ],
+  "compared_configurations": [
+    {
+      "config_id": "config_a_baseline",
+      "name": "Config A: Baseline (k=5, Threshold=0.0)",
+      "k": 5,
+      "score_threshold": 0.0,
+      "metadata_filter": null,
+      "metrics": {
+        "top1_hit_rate": 0.6,
+        "topk_hit_rate": 1.0,
+        "mrr": 0.7167,
+        "avg_tokens_per_query": 338.0,
+        "avg_top_score": 0.5563,
+        "total_top1_hits": 3,
+        "total_topk_hits": 5,
+        "total_queries_tested": 5
+      },
+      "per_query_results": [
+        {
+          "query_id": "test_q1_pto",
+          "topic": "HR - Paid Time Off (PTO) & Leave Limits",
+          "expected_chunk_id": "employee_benefits_chunk_001",
+          "retrieved_count": 5,
+          "rank_found": 1,
+          "is_top1_hit": true,
+          "is_topk_hit": true,
+          "reciprocal_rank": 1.0,
+          "top_score": 0.5269,
+          "retrieved_chunk_ids": [
+            "employee_benefits_chunk_001",
+            "employee_benefits_chunk_002",
+            "employee_benefits_chunk_003",
+            "employee_benefits_chunk_004",
+            "remote_work_policy_chunk_006"
+          ]
+        },
+        {
+          "query_id": "test_q2_vpn",
+          "topic": "Remote Work - Network Encryption & VPN Rules",
+          "expected_chunk_id": "remote_work_policy_chunk_005",
+          "retrieved_count": 5,
+          "rank_found": 4,
+          "is_top1_hit": false,
+          "is_topk_hit": true,
+          "reciprocal_rank": 0.25,
+          "top_score": 0.6856,
+          "retrieved_chunk_ids": [
+            "remote_work_policy_chunk_003",
+            "remote_work_policy_chunk_002",
+            "remote_work_policy_chunk_001",
+            "remote_work_policy_chunk_005",
+            "remote_work_policy_chunk_004"
+          ]
+        },
+        {
+          "query_id": "test_q3_password",
+          "topic": "IT Security - Password Length & Authentication",
+          "expected_chunk_id": "it_security_policy_chunk_001",
+          "retrieved_count": 5,
+          "rank_found": 1,
+          "is_top1_hit": true,
+          "is_topk_hit": true,
+          "reciprocal_rank": 1.0,
+          "top_score": 0.3016,
+          "retrieved_chunk_ids": [
+            "it_security_policy_chunk_001",
+            "remote_work_policy_chunk_004",
+            "employee_benefits_chunk_003",
+            "employee_benefits_chunk_002",
+            "remote_work_policy_chunk_001"
+          ]
+        },
+        {
+          "query_id": "test_q4_parental",
+          "topic": "HR - Parental Leave Entitlement",
+          "expected_chunk_id": "employee_benefits_chunk_003",
+          "retrieved_count": 5,
+          "rank_found": 1,
+          "is_top1_hit": true,
+          "is_topk_hit": true,
+          "reciprocal_rank": 1.0,
+          "top_score": 0.4797,
+          "retrieved_chunk_ids": [
+            "employee_benefits_chunk_003",
+            "employee_benefits_chunk_002",
+            "employee_benefits_chunk_001",
+            "remote_work_policy_chunk_006",
+            "employee_benefits_chunk_004"
+          ]
+        },
+        {
+          "query_id": "test_q5_rag_principles",
+          "topic": "RAG Architecture - Ingestion & Chunking Principles",
+          "expected_chunk_id": "guide_chunk_002",
+          "retrieved_count": 5,
+          "rank_found": 3,
+          "is_top1_hit": false,
+          "is_topk_hit": true,
+          "reciprocal_rank": 0.3333,
+          "top_score": 0.7877,
+          "retrieved_chunk_ids": [
+            "hello_chunk_001",
+            "guide_chunk_001",
+            "guide_chunk_002",
+            "document_chunk_001",
+            "page_chunk_004"
+          ]
+        }
+      ]
+    },
+    {
+      "config_id": "config_b_high_precision",
+      "name": "Config B: High-Precision (k=3, Threshold=0.35)",
+      "k": 3,
+      "score_threshold": 0.35,
+      "metadata_filter": null,
+      "metrics": {
+        "top1_hit_rate": 0.4,
+        "topk_hit_rate": 0.6,
+        "mrr": 0.4667,
+        "avg_tokens_per_query": 119.4,
+        "avg_top_score": 0.62,
+        "total_top1_hits": 2,
+        "total_topk_hits": 3,
+        "total_queries_tested": 5
+      },
+      "per_query_results": [
+        {
+          "query_id": "test_q1_pto",
+          "topic": "HR - Paid Time Off (PTO) & Leave Limits",
+          "expected_chunk_id": "employee_benefits_chunk_001",
+          "retrieved_count": 2,
+          "rank_found": 1,
+          "is_top1_hit": true,
+          "is_topk_hit": true,
+          "reciprocal_rank": 1.0,
+          "top_score": 0.5269,
+          "retrieved_chunk_ids": [
+            "employee_benefits_chunk_001",
+            "employee_benefits_chunk_002"
+          ]
+        },
+        {
+          "query_id": "test_q2_vpn",
+          "topic": "Remote Work - Network Encryption & VPN Rules",
+          "expected_chunk_id": "remote_work_policy_chunk_005",
+          "retrieved_count": 3,
+          "rank_found": -1,
+          "is_top1_hit": false,
+          "is_topk_hit": false,
+          "reciprocal_rank": 0.0,
+          "top_score": 0.6856,
+          "retrieved_chunk_ids": [
+            "remote_work_policy_chunk_003",
+            "remote_work_policy_chunk_002",
+            "remote_work_policy_chunk_001"
+          ]
+        },
+        {
+          "query_id": "test_q3_password",
+          "topic": "IT Security - Password Length & Authentication",
+          "expected_chunk_id": "it_security_policy_chunk_001",
+          "retrieved_count": 0,
+          "rank_found": -1,
+          "is_top1_hit": false,
+          "is_topk_hit": false,
+          "reciprocal_rank": 0.0,
+          "top_score": 0.0,
+          "retrieved_chunk_ids": []
+        },
+        {
+          "query_id": "test_q4_parental",
+          "topic": "HR - Parental Leave Entitlement",
+          "expected_chunk_id": "employee_benefits_chunk_003",
+          "retrieved_count": 1,
+          "rank_found": 1,
+          "is_top1_hit": true,
+          "is_topk_hit": true,
+          "reciprocal_rank": 1.0,
+          "top_score": 0.4797,
+          "retrieved_chunk_ids": [
+            "employee_benefits_chunk_003"
+          ]
+        },
+        {
+          "query_id": "test_q5_rag_principles",
+          "topic": "RAG Architecture - Ingestion & Chunking Principles",
+          "expected_chunk_id": "guide_chunk_002",
+          "retrieved_count": 3,
+          "rank_found": 3,
+          "is_top1_hit": false,
+          "is_topk_hit": true,
+          "reciprocal_rank": 0.3333,
+          "top_score": 0.7877,
+          "retrieved_chunk_ids": [
+            "hello_chunk_001",
+            "guide_chunk_001",
+            "guide_chunk_002"
+          ]
+        }
+      ]
+    },
+    {
+      "config_id": "config_c_metadata_filtered",
+      "name": "Config C: Domain-Filtered (k=3, Threshold=0.20, Markdown Filter)",
+      "k": 3,
+      "score_threshold": 0.2,
+      "metadata_filter": {
+        "file_type": ".md"
+      },
+      "metrics": {
+        "top1_hit_rate": 0.6,
+        "topk_hit_rate": 0.8,
+        "mrr": 0.7,
+        "avg_tokens_per_query": 184.4,
+        "avg_top_score": 0.5429,
+        "total_top1_hits": 3,
+        "total_topk_hits": 4,
+        "total_queries_tested": 5
+      },
+      "per_query_results": [
+        {
+          "query_id": "test_q1_pto",
+          "topic": "HR - Paid Time Off (PTO) & Leave Limits",
+          "expected_chunk_id": "employee_benefits_chunk_001",
+          "retrieved_count": 3,
+          "rank_found": 1,
+          "is_top1_hit": true,
+          "is_topk_hit": true,
+          "reciprocal_rank": 1.0,
+          "top_score": 0.5269,
+          "retrieved_chunk_ids": [
+            "employee_benefits_chunk_001",
+            "employee_benefits_chunk_002",
+            "employee_benefits_chunk_003"
+          ]
+        },
+        {
+          "query_id": "test_q2_vpn",
+          "topic": "Remote Work - Network Encryption & VPN Rules",
+          "expected_chunk_id": "remote_work_policy_chunk_005",
+          "retrieved_count": 3,
+          "rank_found": -1,
+          "is_top1_hit": false,
+          "is_topk_hit": false,
+          "reciprocal_rank": 0.0,
+          "top_score": 0.6856,
+          "retrieved_chunk_ids": [
+            "remote_work_policy_chunk_003",
+            "remote_work_policy_chunk_002",
+            "remote_work_policy_chunk_001"
+          ]
+        },
+        {
+          "query_id": "test_q3_password",
+          "topic": "IT Security - Password Length & Authentication",
+          "expected_chunk_id": "it_security_policy_chunk_001",
+          "retrieved_count": 2,
+          "rank_found": 1,
+          "is_top1_hit": true,
+          "is_topk_hit": true,
+          "reciprocal_rank": 1.0,
+          "top_score": 0.3016,
+          "retrieved_chunk_ids": [
+            "it_security_policy_chunk_001",
+            "remote_work_policy_chunk_004"
+          ]
+        },
+        {
+          "query_id": "test_q4_parental",
+          "topic": "HR - Parental Leave Entitlement",
+          "expected_chunk_id": "employee_benefits_chunk_003",
+          "retrieved_count": 2,
+          "rank_found": 1,
+          "is_top1_hit": true,
+          "is_topk_hit": true,
+          "reciprocal_rank": 1.0,
+          "top_score": 0.4797,
+          "retrieved_chunk_ids": [
+            "employee_benefits_chunk_003",
+            "employee_benefits_chunk_002"
+          ]
+        },
+        {
+          "query_id": "test_q5_rag_principles",
+          "topic": "RAG Architecture - Ingestion & Chunking Principles",
+          "expected_chunk_id": "guide_chunk_002",
+          "retrieved_count": 3,
+          "rank_found": 2,
+          "is_top1_hit": false,
+          "is_topk_hit": true,
+          "reciprocal_rank": 0.5,
+          "top_score": 0.7209,
+          "retrieved_chunk_ids": [
+            "guide_chunk_001",
+            "guide_chunk_002",
+            "remote_work_policy_chunk_005"
+          ]
+        }
+      ]
+    },
+    {
+      "config_id": "config_d_broad_recall",
+      "name": "Config D: Broad Recall (k=10, Threshold=0.10)",
+      "k": 10,
+      "score_threshold": 0.1,
+      "metadata_filter": null,
+      "metrics": {
+        "top1_hit_rate": 0.6,
+        "topk_hit_rate": 1.0,
+        "mrr": 0.7167,
+        "avg_tokens_per_query": 641.4,
+        "avg_top_score": 0.5563,
+        "total_top1_hits": 3,
+        "total_topk_hits": 5,
+        "total_queries_tested": 5
+      },
+      "per_query_results": [
+        {
+          "query_id": "test_q1_pto",
+          "topic": "HR - Paid Time Off (PTO) & Leave Limits",
+          "expected_chunk_id": "employee_benefits_chunk_001",
+          "retrieved_count": 10,
+          "rank_found": 1,
+          "is_top1_hit": true,
+          "is_topk_hit": true,
+          "reciprocal_rank": 1.0,
+          "top_score": 0.5269,
+          "retrieved_chunk_ids": [
+            "employee_benefits_chunk_001",
+            "employee_benefits_chunk_002",
+            "employee_benefits_chunk_003",
+            "employee_benefits_chunk_004",
+            "remote_work_policy_chunk_006",
+            "page_chunk_003",
+            "it_security_policy_chunk_005",
+            "remote_work_policy_chunk_005",
+            "it_security_policy_chunk_001",
+            "document_chunk_001"
+          ]
+        },
+        {
+          "query_id": "test_q2_vpn",
+          "topic": "Remote Work - Network Encryption & VPN Rules",
+          "expected_chunk_id": "remote_work_policy_chunk_005",
+          "retrieved_count": 10,
+          "rank_found": 4,
+          "is_top1_hit": false,
+          "is_topk_hit": true,
+          "reciprocal_rank": 0.25,
+          "top_score": 0.6856,
+          "retrieved_chunk_ids": [
+            "remote_work_policy_chunk_003",
+            "remote_work_policy_chunk_002",
+            "remote_work_policy_chunk_001",
+            "remote_work_policy_chunk_005",
+            "remote_work_policy_chunk_004",
+            "it_security_policy_chunk_005",
+            "it_security_policy_chunk_002",
+            "remote_work_policy_chunk_006",
+            "it_security_policy_chunk_003",
+            "it_security_policy_chunk_001"
+          ]
+        },
+        {
+          "query_id": "test_q3_password",
+          "topic": "IT Security - Password Length & Authentication",
+          "expected_chunk_id": "it_security_policy_chunk_001",
+          "retrieved_count": 10,
+          "rank_found": 1,
+          "is_top1_hit": true,
+          "is_topk_hit": true,
+          "reciprocal_rank": 1.0,
+          "top_score": 0.3016,
+          "retrieved_chunk_ids": [
+            "it_security_policy_chunk_001",
+            "remote_work_policy_chunk_004",
+            "employee_benefits_chunk_003",
+            "employee_benefits_chunk_002",
+            "remote_work_policy_chunk_001",
+            "it_security_policy_chunk_002",
+            "employee_benefits_chunk_004",
+            "document_chunk_001",
+            "remote_work_policy_chunk_003",
+            "page_chunk_003"
+          ]
+        },
+        {
+          "query_id": "test_q4_parental",
+          "topic": "HR - Parental Leave Entitlement",
+          "expected_chunk_id": "employee_benefits_chunk_003",
+          "retrieved_count": 5,
+          "rank_found": 1,
+          "is_top1_hit": true,
+          "is_topk_hit": true,
+          "reciprocal_rank": 1.0,
+          "top_score": 0.4797,
+          "retrieved_chunk_ids": [
+            "employee_benefits_chunk_003",
+            "employee_benefits_chunk_002",
+            "employee_benefits_chunk_001",
+            "remote_work_policy_chunk_006",
+            "employee_benefits_chunk_004"
+          ]
+        },
+        {
+          "query_id": "test_q5_rag_principles",
+          "topic": "RAG Architecture - Ingestion & Chunking Principles",
+          "expected_chunk_id": "guide_chunk_002",
+          "retrieved_count": 9,
+          "rank_found": 3,
+          "is_top1_hit": false,
+          "is_topk_hit": true,
+          "reciprocal_rank": 0.3333,
+          "top_score": 0.7877,
+          "retrieved_chunk_ids": [
+            "hello_chunk_001",
+            "guide_chunk_001",
+            "guide_chunk_002",
+            "document_chunk_001",
+            "page_chunk_004",
+            "remote_work_policy_chunk_005",
+            "it_security_policy_chunk_002",
+            "remote_work_policy_chunk_003",
+            "employee_benefits_chunk_004"
+          ]
+        }
+      ]
+    }
+  ],
+  "best_configuration": {
+    "config_id": "config_a_baseline",
+    "name": "Config A: Baseline (k=5, Threshold=0.0)",
+    "k": 5,
+    "score_threshold": 0.0,
+    "metadata_filter": null,
+    "metrics": {
+      "top1_hit_rate": 0.6,
+      "topk_hit_rate": 1.0,
+      "mrr": 0.7167,
+      "avg_tokens_per_query": 338.0,
+      "avg_top_score": 0.5563,
+      "total_top1_hits": 3,
+      "total_topk_hits": 5,
+      "total_queries_tested": 5
+    },
+    "justification": "**Chosen Setting**: `Config A: Baseline (k=5, Threshold=0.0)`  \n**Empirical Results**: Achieved a **Top-1 Hit Rate of 60.0%**, **Recall@5 of 100.0%**, and an **MRR of 0.7167**.  \n**Rationale**: By setting `k=5` with a minimum score threshold of `0.0`, the retriever eliminates low-similarity false-positive chunks while reducing prompt context token overhead by **50%** compared to k=10."
+  }
+}
