@@ -1,0 +1,117 @@
+{
+  "user_question": "What are the paid time off policies for full-time employees?",
+  "model": "gpt-3.5-turbo",
+  "grounding_style": "professional",
+  "injected_chunks": [
+    {
+      "marker": "[1]",
+      "full_reference": "[1] (employee_benefits.md - Section 6.0: Employee Benefits, Paid Time Off & Leave Guidelines > 4. Health Insurance & Wellness Reimbursement)",
+      "chunk_id": "employee_benefits_chunk_004",
+      "source_document": "employee_benefits.md",
+      "token_count": 80,
+      "original_text": "The company sponsors 90% of the premium for comprehensive medical, dental, and vision insurance for full-time employees and 70% for enrolled dependents. In addition, each employee is eligible for an annual \\$600 wellness stipend to cover gym memberships, mental health counseling, fitness equipment, or ergonomic home office furniture. Claims must be submitted with valid receipts before November 30 of each calendar year.",
+      "injected_text": "[1] (employee_benefits.md - Section 6.0: Employee Benefits, Paid Time Off & Leave Guidelines > 4. Health Insurance & Wellness Reimbursement)\nThe company sponsors 90% of the premium for comprehensive medical, dental, and vision insurance for full-time employees and 70% for enrolled dependents. In addition, each employee is eligible for an annual \\$600 wellness stipend to cover gym memberships, mental health counseling, fitness equipment, or ergonomic home office furniture. Claims must be submitted with valid receipts before November 30 of each calendar year.",
+      "metadata": {
+        "source_document": "employee_benefits.md",
+        "source_path": "data/corpus/employee_benefits.md",
+        "chunk_index": 1376,
+        "section": "Section 6.0: Employee Benefits, Paid Time Off & Leave Guidelines > 4. Health Insurance & Wellness Reimbursement",
+        "page": null,
+        "file_type": ".md",
+        "token_count": 79,
+        "char_count": 422
+      }
+    },
+    {
+      "marker": "[2]",
+      "full_reference": "[2] (employee_benefits.md - Section 6.0: Employee Benefits, Paid Time Off & Leave Guidelines > 1. Paid Time Off (PTO) Accrual)",
+      "chunk_id": "employee_benefits_chunk_001",
+      "source_document": "employee_benefits.md",
+      "token_count": 85,
+      "original_text": "Full-time regular employees accrue 18 days of Paid Time Off annually, calculated at a rate of 1.5 days per completed calendar month of active service. Employees may roll over a maximum of 5 unused PTO days into the following calendar year. Any unused balance exceeding 5 days on December 31 will expire without cash compensation, unless an exception is approved by HR due to operational necessity.",
+      "injected_text": "[2] (employee_benefits.md - Section 6.0: Employee Benefits, Paid Time Off & Leave Guidelines > 1. Paid Time Off (PTO) Accrual)\nFull-time regular employees accrue 18 days of Paid Time Off annually, calculated at a rate of 1.5 days per completed calendar month of active service. Employees may roll over a maximum of 5 unused PTO days into the following calendar year. Any unused balance exceeding 5 days on December 31 will expire without cash compensation, unless an exception is approved by HR due to operational necessity.",
+      "metadata": {
+        "source_document": "employee_benefits.md",
+        "source_path": "data/corpus/employee_benefits.md",
+        "chunk_index": 68,
+        "section": "Section 6.0: Employee Benefits, Paid Time Off & Leave Guidelines > 1. Paid Time Off (PTO) Accrual",
+        "page": null,
+        "file_type": ".md",
+        "token_count": 79,
+        "char_count": 397
+      }
+    },
+    {
+      "marker": "[3]",
+      "full_reference": "[3] (it_security_policy.md - Section 8.1: Corporate IT Security & Incident Response Protocols > 4. Employee Incident Reporting Procedure)",
+      "chunk_id": "it_security_policy_chunk_005",
+      "source_document": "it_security_policy.md",
+      "token_count": 107,
+      "original_text": "If you suspect an active security compromise, credential theft, or phishing email:\n1. Immediately disconnect your machine from the network (unplug Ethernet or turn off Wi-Fi).\n2. Do not power off or reboot the computer, as volatile RAM evidence must be preserved for forensic analysis.\n3. Call the 24/7 IT Security Hotline at extension 4357 (HELP) or alert the `#security-incident` Slack channel using a secondary mobile device.\n4. Provide the time of occurrence, observed system symptoms, and suspicious email headers or files involved.",
+      "injected_text": "[3] (it_security_policy.md - Section 8.1: Corporate IT Security & Incident Response Protocols > 4. Employee Incident Reporting Procedure)\nIf you suspect an active security compromise, credential theft, or phishing email:\n1. Immediately disconnect your machine from the network (unplug Ethernet or turn off Wi-Fi).\n2. Do not power off or reboot the computer, as volatile RAM evidence must be preserved for forensic analysis.\n3. Call the 24/7 IT Security Hotline at extension 4357 (HELP) or alert the `#security-incident` Slack channel using a secondary mobile device.\n4. Provide the time of occurrence, observed system symptoms, and suspicious email headers or files involved.",
+      "metadata": {
+        "source_document": "it_security_policy.md",
+        "source_path": "data/corpus/it_security_policy.md",
+        "chunk_index": 1785,
+        "section": "Section 8.1: Corporate IT Security & Incident Response Protocols > 4. Employee Incident Reporting Procedure",
+        "page": null,
+        "file_type": ".md",
+        "token_count": 112,
+        "char_count": 537
+      }
+    },
+    {
+      "marker": "[4]",
+      "full_reference": "[4] (remote_work_policy.md - Section 4.2: Remote Work & Workplace Flexibility Policy > 5. Working Hours, Availability & Communication)",
+      "chunk_id": "remote_work_policy_chunk_006",
+      "source_document": "remote_work_policy.md",
+      "token_count": 68,
+      "original_text": "Remote employees are expected to maintain core operational hours from 9:00 AM to 5:00 PM local time. Employees must remain reachable via official communication channels (Slack, Microsoft Teams, corporate email) during working hours. Any scheduled absence or temporary unavailability must be logged in the shared department calendar at least 24 hours in advance.",
+      "injected_text": "[4] (remote_work_policy.md - Section 4.2: Remote Work & Workplace Flexibility Policy > 5. Working Hours, Availability & Communication)\nRemote employees are expected to maintain core operational hours from 9:00 AM to 5:00 PM local time. Employees must remain reachable via official communication channels (Slack, Microsoft Teams, corporate email) during working hours. Any scheduled absence or temporary unavailability must be logged in the shared department calendar at least 24 hours in advance.",
+      "metadata": {
+        "source_document": "remote_work_policy.md",
+        "source_path": "data/corpus/remote_work_policy.md",
+        "chunk_index": 2412,
+        "section": "Section 4.2: Remote Work & Workplace Flexibility Policy > 5. Working Hours, Availability & Communication",
+        "page": null,
+        "file_type": ".md",
+        "token_count": 68,
+        "char_count": 361
+      }
+    },
+    {
+      "marker": "[5]",
+      "full_reference": "[5] (remote_work_policy.md - Section 4.2: Remote Work & Workplace Flexibility Policy > 2. Eligibility Requirements)",
+      "chunk_id": "remote_work_policy_chunk_002",
+      "source_document": "remote_work_policy.md",
+      "token_count": 100,
+      "original_text": "To qualify for regular or hybrid remote work:\n- The employee must have completed a minimum of 6 months of continuous full-time employment.\n- The employee's latest performance evaluation rating must meet or exceed 'Satisfactory' standards.\n- The employee's role must be classified as 'Remote-Eligible' by the Department Head. Roles requiring mandatory physical presence (e.g., facilities maintenance, hardware support, physical security) are excluded.\n- The employee must maintain a dedicated, private home workspace free from background disruptions.",
+      "injected_text": "[5] (remote_work_policy.md - Section 4.2: Remote Work & Workplace Flexibility Policy > 2. Eligibility Requirements)\nTo qualify for regular or hybrid remote work:\n- The employee must have completed a minimum of 6 months of continuous full-time employment.\n- The employee's latest performance evaluation rating must meet or exceed 'Satisfactory' standards.\n- The employee's role must be classified as 'Remote-Eligible' by the Department Head. Roles requiring mandatory physical presence (e.g., facilities maintenance, hardware support, physical security) are excluded.\n- The employee must maintain a dedicated, private home workspace free from background disruptions.",
+      "metadata": {
+        "source_document": "remote_work_policy.md",
+        "source_path": "data/corpus/remote_work_policy.md",
+        "chunk_index": 472,
+        "section": "Section 4.2: Remote Work & Workplace Flexibility Policy > 2. Eligibility Requirements",
+        "page": null,
+        "file_type": ".md",
+        "token_count": 101,
+        "char_count": 549
+      }
+    }
+  ],
+  "assembled_prompt": "You are a professional assistant answering based on company policies and documentation.\n\n**Context Guidelines:**\n1. Provide accurate, sourced answers from the official documentation provided below.\n2. Use source citations [1], [2], etc., to indicate where information comes from.\n3. When information is incomplete or ambiguous in the documentation, acknowledge this limitation.\n4. Follow the hierarchy: documented policy > supporting context > admit insufficient information.\n5. Format answers clearly with proper citations and section references.\n6. For policy questions, prioritize accuracy over brevity.\n\n\n---\n\n**Context:**\n[1] (employee_benefits.md - Section 6.0: Employee Benefits, Paid Time Off & Leave Guidelines > 4. Health Insurance & Wellness Reimbursement)\nThe company sponsors 90% of the premium for comprehensive medical, dental, and vision insurance for full-time employees and 70% for enrolled dependents. In addition, each employee is eligible for an annual \\$600 wellness stipend to cover gym memberships, mental health counseling, fitness equipment, or ergonomic home office furniture. Claims must be submitted with valid receipts before November 30 of each calendar year.\n\n[2] (employee_benefits.md - Section 6.0: Employee Benefits, Paid Time Off & Leave Guidelines > 1. Paid Time Off (PTO) Accrual)\nFull-time regular employees accrue 18 days of Paid Time Off annually, calculated at a rate of 1.5 days per completed calendar month of active service. Employees may roll over a maximum of 5 unused PTO days into the following calendar year. Any unused balance exceeding 5 days on December 31 will expire without cash compensation, unless an exception is approved by HR due to operational necessity.\n\n[3] (it_security_policy.md - Section 8.1: Corporate IT Security & Incident Response Protocols > 4. Employee Incident Reporting Procedure)\nIf you suspect an active security compromise, credential theft, or phishing email:\n1. Immediately disconnect your machine from the network (unplug Ethernet or turn off Wi-Fi).\n2. Do not power off or reboot the computer, as volatile RAM evidence must be preserved for forensic analysis.\n3. Call the 24/7 IT Security Hotline at extension 4357 (HELP) or alert the `#security-incident` Slack channel using a secondary mobile device.\n4. Provide the time of occurrence, observed system symptoms, and suspicious email headers or files involved.\n\n[4] (remote_work_policy.md - Section 4.2: Remote Work & Workplace Flexibility Policy > 5. Working Hours, Availability & Communication)\nRemote employees are expected to maintain core operational hours from 9:00 AM to 5:00 PM local time. Employees must remain reachable via official communication channels (Slack, Microsoft Teams, corporate email) during working hours. Any scheduled absence or temporary unavailability must be logged in the shared department calendar at least 24 hours in advance.\n\n[5] (remote_work_policy.md - Section 4.2: Remote Work & Workplace Flexibility Policy > 2. Eligibility Requirements)\nTo qualify for regular or hybrid remote work:\n- The employee must have completed a minimum of 6 months of continuous full-time employment.\n- The employee's latest performance evaluation rating must meet or exceed 'Satisfactory' standards.\n- The employee's role must be classified as 'Remote-Eligible' by the Department Head. Roles requiring mandatory physical presence (e.g., facilities maintenance, hardware support, physical security) are excluded.\n- The employee must maintain a dedicated, private home workspace free from background disruptions.\n\n---\n\n**Question:** What are the paid time off policies for full-time employees?\n\n**Answer:**",
+  "token_counts": {
+    "total": 1559,
+    "instructions": 106,
+    "context": 440,
+    "question": 13,
+    "reserved": 1000
+  },
+  "token_budget": {
+    "limit": 2048,
+    "remaining": 1608,
+    "exceeded": false
+  },
+  "max_tokens": 4096,
+  "generated_at": "2026-09-07T13:29:52.198529"
+}
