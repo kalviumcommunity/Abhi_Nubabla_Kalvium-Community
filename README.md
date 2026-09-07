@@ -114,8 +114,6 @@ This repository implements tools, benchmark reports, and system prompt architect
 
 ### 1. Environment Setup
 ```bash
-# macOS/Linux
-source .venv/bin/activate
 # Windows PowerShell
 .venv\Scripts\Activate.ps1
 pip install -r requirements.txt
@@ -144,7 +142,7 @@ for chunk in chunks:
 python sanity_test.py
 ```
 
-### 5. Run Full Ingestion Pipeline & Completeness Validation
+### 4. Run Query-Chunk Similarity Ranking Demo
 ```bash
 python src/ingestion_pipeline.py
 ```
