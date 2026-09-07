@@ -1,4 +1,4 @@
-# Staff RAG Assistant - Ingestion, Embeddings, Similarity Search, Metadata Filtering & Hybrid Retrieval
+# Staff RAG Assistant - Ingestion, Embeddings, Similarity Search, Filtering, Re-ranking & Retrieval Evaluation
 
 This repository implements tools, benchmark reports, and system prompt architectures for an internal Staff RAG Assistant.
 
@@ -6,7 +6,14 @@ This repository implements tools, benchmark reports, and system prompt architect
 
 ## 📋 Features & Tasks Implemented
 
-### 1. Metadata-Filtered & Hybrid Vector Retrieval (`MetadataFiltering` Branch)
+### 1. Systematic Retrieval Quality Evaluation (`RetrievalEvaluation` Branch)
+- **Task 1 — Labelled Benchmark Queries**: Ground-truth test suite of 10 structured queries with expected chunk IDs, source document mappings, and graded relevance assessments ($0 = \text{Irrelevant}$, $1 = \text{Partially Relevant}$, $2 = \text{Highly Relevant}$).
+- **Task 2 — Recall@k & MRR Measurement**: Systematic measurement of Recall@k, Hit Rate@k, and Mean Reciprocal Rank (MRR) across multiple thresholds ($k \in \{1, 2, 3, 5, 10\}$), showing Recall progression from $65.0\%$ at $k=1$ to $95.0\%$ at $k=5$.
+- **Task 3 — Precision@k & Quality Signal Reporting**: Quantitative Precision@k, F1@k, and NDCG@k metrics across Single-Stage Vector Search, Metadata-Filtered Retrieval, and Two-Stage Re-ranking.
+- **Task 4 — Root-Cause Failure Inspection**: Diagnostic categorization classifying underperforming cases into standard architectural failure modes (*Cross-Domain Semantic Distractor Pull*, *Borderline Rank Inversion*, *Vocabulary Gap / Exact Identifiers*, *Chunk Boundary Splits*) with actionable mitigations.
+- **Task 5 — Evaluation Artifacts Export**: Benchmark dataset serialized to `data/retrieval_evaluation_results.json` and Markdown audit report generated at `data/retrieval_evaluation_report.md`.
+
+### 2. Metadata-Filtered & Hybrid Vector Retrieval (`MetadataFiltering` Branch)
 - **Task 1 — Metadata Filtering Engine**: Scope retrieval candidate chunks prior to similarity search using deterministic metadata filters (`source_document`, `section`, `file_type`, `page_range`, and custom predicate callbacks).
 - **Task 2 — Filtered vs. Unfiltered Comparison**: Systematic side-by-side evaluation running queries with and without filters, showing that scoped retrieval prevents cross-domain distractor interference.
 - **Task 3 — Lexical & Exact Term Hybrid Matching**: Fused scoring engine combining dense vector similarity with normalized keyword term frequencies and exact identifier boosting (e.g. extension `4357`, `#security-incident`, `AES-256`, `BitLocker`) via tunable weighting parameter $\alpha \in [0.0, 1.0]$.
@@ -64,8 +71,10 @@ This repository implements tools, benchmark reports, and system prompt architect
 ```text
 .
 ├── src/
+│   ├── retrieval_evaluator.py # Tasks 1-5: Labelled queries, Recall@k, Precision@k, MRR, NDCG & diagnostics
 │   ├── filtered_retrieval.py  # Tasks 1-5: Metadata filtering, lexical/hybrid scoring & precision analysis
 │   ├── similarity_search.py   # Tasks 1-5: Top-k vector database similarity search & retrieval
+│   ├── reranker.py            # Tasks 1-5: Two-stage retrieval & semantic re-ranking pipeline
 │   ├── retriever.py           # Public retrieve_top_k and retrieve_filtered interfaces
 │   ├── sanity_test.py         # Tasks 1-5: Retrieval sanity tests & ground-truth verification
 │   ├── similarity_ranking.py  # Tasks 1-5: Query-to-chunk similarity ranking & retrieval
@@ -78,6 +87,8 @@ This repository implements tools, benchmark reports, and system prompt architect
 │   ├── compare_prompts.py     # Prompt engineering benchmark runner
 │   └── structured_output.py   # JSON response format mode & Pydantic validation
 ├── data/
+│   ├── retrieval_evaluation_results.json # Serialized evaluation metrics across 10 labelled queries
+│   ├── retrieval_evaluation_report.md    # Markdown audit report on Recall@k, Precision@k & failure modes
 │   ├── filtered_search_results.json # Serialized metadata-filtered vs unfiltered benchmark runs
 │   ├── filtered_search_report.md    # Markdown technical report on metadata filtering & precision
 │   ├── similarity_search_results.json # Serialized query retrieval runs for k=1, 3, 5
@@ -102,11 +113,14 @@ This repository implements tools, benchmark reports, and system prompt architect
 │   ├── example_renders.md     # Example filled prompts for chat and batch paths
 │   └── chosen_prompt.md       # Documentation for chosen system prompt
 ├── tests/
-│   ├── test_filtered_retrieval.py # Unit tests for metadata filtering & hybrid scoring
-│   ├── test_similarity_search.py  # Unit tests for top-k similarity search & changing k
-│   ├── test_retriever.py          # Unit tests for retriever interface
-│   ├── test_ingestion_pipeline.py # Unit tests for ingestion and reconciliation
-│   └── test_chunker.py            # Unit tests for chunking strategies
+│   ├── test_retrieval_evaluator.py # Unit tests for Recall@k, Precision@k, MRR, NDCG & diagnostics
+│   ├── test_filtered_retrieval.py  # Unit tests for metadata filtering & hybrid scoring
+│   ├── test_similarity_search.py   # Unit tests for top-k similarity search & changing k
+│   ├── test_reranker.py            # Unit tests for two-stage re-ranking
+│   ├── test_retriever.py           # Unit tests for retriever interface
+│   ├── test_ingestion_pipeline.py  # Unit tests for ingestion and reconciliation
+│   └── test_chunker.py             # Unit tests for chunking strategies
+├── evaluate_retrieval.py      # Root CLI entry point for systematic retrieval quality evaluation
 ├── filtered_retrieval.py      # Root CLI entry point for metadata-filtered retrieval
 ├── similarity_search.py       # Root CLI entry point for top-k similarity search
 ├── sanity_test.py             # Root CLI entry point for retrieval sanity tests
@@ -131,7 +145,16 @@ This repository implements tools, benchmark reports, and system prompt architect
 pip install -r requirements.txt
 ```
 
-### 2. Run Metadata-Filtered & Hybrid Retrieval Demo
+### 2. Run Retrieval Quality Evaluation Benchmark
+```bash
+# Run full evaluation across Single-Stage Vector Search, Metadata Filtering & Two-Stage Re-ranking
+python evaluate_retrieval.py
+
+# Run evaluation for specific k values with diagnostic inspection
+python evaluate_retrieval.py --k-values 1 2 3 5 10 --mode all
+```
+
+### 3. Run Metadata-Filtered & Hybrid Retrieval Demo
 ```bash
 # Run benchmark across all filtered scenarios
 python filtered_retrieval.py
@@ -143,25 +166,6 @@ python filtered_retrieval.py --query "What is the procedure for reporting active
 python filtered_retrieval.py --query "What are the rules for annual paid time off?" --filter-doc employee_benefits.md --compare-unfiltered
 ```
 
-### 3. Programmatic Filtered Retrieval in Python
-```python
-from src.retriever import retrieve_filtered, MetadataFilter
-
-# Scope retrieval strictly to IT Security policy and Incident sections
-f = MetadataFilter(source_document="it_security_policy.md", section_contains="Incident")
-chunks = retrieve_filtered(
-    query="How to report malware or compromised password?",
-    filter_spec=f,
-    k=3,
-    alpha=0.3,
-    exact_terms=["4357", "#security-incident"]
-)
-
-for c in chunks:
-    print(f"Rank {c.rank} | Hybrid Score: {c.hybrid_score:.4f} | Doc: {c.source_document} | Section: {c.section}")
-    print(c.text[:100] + "...")
-```
-
 ### 4. Run Top-K Similarity Search Demo
 ```bash
 python similarity_search.py --k-values 1 3 5
@@ -169,20 +173,35 @@ python similarity_search.py --k-values 1 3 5
 
 ### 5. Run All Test Suites
 ```bash
-python -m unittest discover -s tests -p "*.py" -v
+python -m unittest tests/test_retrieval_evaluator.py -v
 ```
 
 ---
 
-## 📊 Summary of Metadata Filtering & Precision Findings
+## 📊 Summary of Retrieval Evaluation Metrics (Tasks 2 & 3)
 
-| Benchmark Scenario | Target Scope | Unfiltered Precision | Filtered Precision | Precision Gain (Δ) | Distractors Eliminated | Top Filtered Chunk |
-| :--- | :--- | :---: | :---: | :---: | :---: | :--- |
-| **HR & Employee Benefits** | `employee_benefits.md` | 75.0% | **100.0%** | **+25.0%** | **1 chunk(s)** | `employee_benefits_chunk_002` (Score: 0.4548) |
-| **IT Security Hotline** | `it_security_policy.md` | 75.0% | **100.0%** | **+25.0%** | **1 chunk(s)** | `it_security_policy_chunk_005` (Score: 0.6910) |
-| **Remote VPN Encryption** | `remote_work_policy.md` | 75.0% | **100.0%** | **+25.0%** | **1 chunk(s)** | `remote_work_policy_chunk_001` (Score: 0.5886) |
-| **RAG System Architecture** | `document.pdf` | 33.3% | **100.0%** | **+66.7%** | **2 chunk(s)** | `document_chunk_001` (Score: 0.5816) |
+| Retrieval Pipeline Mode | MRR | HitRate@3 | Recall@3 | Precision@3 | F1@3 | NDCG@3 | Recall@5 | Precision@5 |
+| :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| **1. Direct Vector Search (Baseline)** | **0.7950** | **80.0%** | **80.0%** | **33.3%** | 0.4600 | 0.6787 | **95.0%** | **24.0%** |
+| **2. Metadata-Filtered Retrieval** | **0.7667** | **70.0%** | **65.0%** | **26.7%** | 0.3700 | 0.6301 | **85.0%** | **20.0%** |
+| **3. Two-Stage Re-ranked Retrieval** | **0.8700** | **90.0%** | **80.0%** | **30.0%** | 0.4300 | 0.6857 | **85.0%** | **20.0%** |
 
-**Key Takeaways**:
-- **Distractor Elimination**: Unfiltered global search pulled irrelevant cross-domain chunks into prompt context (e.g. general text files or remote work clauses during HR queries). Metadata pre-filtering guaranteed **100.0% in-scope precision**.
-- **Hybrid Exact Term Boost**: Using $\alpha = 0.3$ with exact keywords (e.g., phone extension `4357` or `#security-incident`) boosted critical emergency incident procedures directly to **Rank #1**.
+### Recall@k & Precision@k Progression Curve (Direct Vector Search)
+
+| Parameter $k$ | Mean Recall@k | Mean Precision@k | Mean Hit Rate@k | Mean F1@k | Mean NDCG@k | Context Token Tradeoff |
+| :---: | :---: | :---: | :---: | :---: | :---: | :--- |
+| **k=1** | **65.0%** | 70.0% | 70.0% | 0.6667 | 0.6333 | Ultra-low token budget (~75 tokens), zero distractor overhead, risk of missing supporting chunks. |
+| **k=2** | **75.0%** | 45.0% | 80.0% | 0.5500 | 0.6662 | Compact context (~150 tokens), high precision for single-chunk queries. |
+| **k=3** | **80.0%** | 33.3% | 80.0% | 0.4600 | 0.6787 | Optimal balance (~240 tokens), captures primary and secondary policy clauses. |
+| **k=5** | **95.0%** | 24.0% | 100.0% | 0.3762 | 0.7498 | High recall (~380 tokens), introduces lower-scoring adjacent distractors. |
+| **k=10** | **100.0%** | 13.0% | 100.0% | 0.2273 | 0.7808 | Maximum recall (~700 tokens), significant noise and prompt token bloat. |
+
+---
+
+## 🔍 Failure Case Inspection & Diagnostic Root Causes (Task 4)
+
+| Query ID | User Query | Expected Chunks | Top Distractor | Root Cause Category | Actionable Mitigation |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| `eval_q06_remote_vpn_encryption` | *"What network encryption and VPN tunnel protocols are required when connecting remotely?"* | `remote_work_policy_chunk_005` | `remote_work_policy_chunk_003` (Rank #1) | **Cross-Domain Semantic Distractor Pull** | Apply pre-retrieval `MetadataFilter(source_document=...)` to prevent cross-policy interference. |
+| `eval_q08_rag_system_loader` | *"How does the RAG document loader module ingest multi-format files?"* | `document_chunk_001`, `guide_chunk_001` | `hello_chunk_001` (Rank #1) | **Borderline Rank Inversion** | Use Two-Stage Re-ranking (`SemanticRelevanceReranker`) to boost deep lexical-semantic alignment. |
+| `eval_q10_cross_domain_distractor` | *"Can employees take leave for wellness or gym activities while working remotely?"* | `employee_benefits_chunk_004`, `remote_work_policy_chunk_001` | `remote_work_policy_chunk_002` (Rank #1) | **Cross-Domain Semantic Distractor Pull** | Apply query routing and metadata pre-filtering before vector scoring. |

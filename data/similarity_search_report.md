@@ -1,6 +1,6 @@
 # Top-K Vector Database Similarity Search & Retrieval Report
 
-**Run Timestamp**: `2026-09-07T13:30:33.061849`  
+**Run Timestamp**: `2026-09-07T14:02:13.800218`  
 **Vector Store**: `data/embedded_chunks.json` (25 chunks indexed)  
 **Embedding Model**: `OpenAI-Compatible API (text-embedding-3-small)`  
 **Values of $k$ Tested**: `1, 3, 5`  

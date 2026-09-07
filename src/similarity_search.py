@@ -300,7 +300,7 @@ class VectorStoreRetriever:
         self,
         query: str,
         k: int = 3,
-        score_threshold: float = 0.0,
+        score_threshold: Optional[float] = None,
         metadata_filter: Optional[Dict[str, Any]] = None,
     ) -> List[RetrievedChunk]:
         """
@@ -333,8 +333,8 @@ class VectorStoreRetriever:
 
             score = cosine_similarity(query_vector, chunk_vector)
 
-            # Check minimum score threshold
-            if score < score_threshold:
+            # Check minimum score threshold if explicitly requested
+            if score_threshold is not None and score < score_threshold:
                 continue
 
             scored_chunks.append((score, chunk))
@@ -347,19 +347,21 @@ class VectorStoreRetriever:
 
         for rank, (score, chunk) in enumerate(top_k_chunks, start=1):
             metadata = chunk.get("metadata", {}).copy()
+            source_text = chunk.get("source_text") or chunk.get("text", "")
             # Ensure required metadata tags exist
-            metadata.setdefault("source_document", metadata.get("source_path", "unknown"))
-            metadata.setdefault("chunk_index", 0)
-            metadata.setdefault("section", "N/A")
-            metadata.setdefault("page", None)
-            metadata.setdefault("token_count", len(chunk.get("source_text", "").split()))
+            metadata.setdefault("source_document", chunk.get("document_name") or metadata.get("source_document") or metadata.get("source_path", "unknown"))
+            metadata.setdefault("chunk_index", chunk.get("position", chunk.get("chunk_index", 0)))
+            metadata.setdefault("file_type", chunk.get("file_type", metadata.get("file_type", ".txt")))
+            metadata.setdefault("section", chunk.get("section", metadata.get("section", "N/A")))
+            metadata.setdefault("page", chunk.get("page", metadata.get("page")))
+            metadata.setdefault("token_count", chunk.get("token_count", len(source_text.split())))
 
             results.append(
                 RetrievedChunk(
                     rank=rank,
                     score=round(score, 6),
                     chunk_id=chunk.get("chunk_id", f"chunk_{rank:03d}"),
-                    source_text=chunk.get("source_text", ""),
+                    source_text=source_text,
                     metadata=metadata,
                 )
             )
