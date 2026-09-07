@@ -6,7 +6,8 @@ Includes end-to-end augmented prompt generation with context injection.
 """
 
 from typing import List, Optional, Dict, Any
-from src.similarity_search import VectorStoreRetriever, RetrievedChunk
+from src.similarity_search import VectorStoreRetriever, RetrievedChunk, DenseSemanticEmbedder, cosine_similarity
+from src.filtered_retrieval import FilteredRetriever, MetadataFilter, HybridScorer, FilteredSearchResultChunk
 from src.reranker import (
     TwoStageRetrievalPipeline,
     SemanticRelevanceReranker,
@@ -14,6 +15,22 @@ from src.reranker import (
     RerangingResult,
 )
 from src.context_injector import AugmentedPromptBuilder, AugmentedPrompt
+
+
+def retrieve_filtered(
+    query: str,
+    filter_spec: Optional[MetadataFilter] = None,
+    k: int = 3,
+    hybrid: bool = False,
+    alpha: float = 0.0,
+    exact_terms: Optional[List[str]] = None,
+    vector_store_path: str = "data/embedded_chunks.json",
+    **kwargs,
+) -> List[FilteredSearchResultChunk]:
+    """Retrieves chunks using metadata filtering and optional hybrid lexical matching."""
+    retriever = FilteredRetriever(vector_store_path=vector_store_path)
+    effective_alpha = 0.3 if hybrid and alpha == 0.0 else alpha
+    return retriever.retrieve(query=query, filter_spec=filter_spec, k=k, alpha=effective_alpha, exact_terms=exact_terms)
 
 
 def retrieve_top_k(
