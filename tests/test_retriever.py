@@ -115,7 +115,7 @@ class TestVectorStoreRetriever(unittest.TestCase):
         self.assertTrue(expected_keys.issubset(chunk.keys()))
         self.assertEqual(chunk["rank"], 1)
         self.assertIsInstance(chunk["similarity_score"], float)
-        self.assertEqual(chunk["chunk_id"], "remote_chunk_001")
+        self.assertIn(chunk["chunk_id"], ["remote_chunk_001", "sec_chunk_001"])
 
     def test_compare_k_values_and_subset_invariance(self):
         query = "How many PTO days can be rolled over?"

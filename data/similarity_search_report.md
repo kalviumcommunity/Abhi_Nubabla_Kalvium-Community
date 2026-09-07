@@ -1,8 +1,8 @@
 # Top-K Vector Database Similarity Search & Retrieval Report
 
-**Run Timestamp**: `2026-09-03T13:24:55.850266`  
+**Run Timestamp**: `2026-09-07T13:30:33.061849`  
 **Vector Store**: `data/embedded_chunks.json` (25 chunks indexed)  
-**Embedding Model**: `DenseSemanticEmbedder (Local Fallback, D=1536)`  
+**Embedding Model**: `OpenAI-Compatible API (text-embedding-3-small)`  
 **Values of $k$ Tested**: `1, 3, 5`  
 
 ---
