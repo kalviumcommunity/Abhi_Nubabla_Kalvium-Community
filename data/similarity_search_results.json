@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-09-07T14:02:13.800218",
+  "timestamp": "2026-09-08T13:32:12.332926",
   "vector_store_path": "data/embedded_chunks.json",
   "embedding_model": "OpenAI-Compatible API (text-embedding-3-small)",
   "total_corpus_chunks": 25,
@@ -200,14 +200,14 @@
         "1": {
           "k": 1,
           "retrieved_count": 1,
-          "top_score": 0.509979,
-          "lowest_score": 0.509979,
+          "top_score": 0.530699,
+          "lowest_score": 0.530699,
           "score_spread": 0.0,
           "total_tokens": 112,
           "chunks": [
             {
               "rank": 1,
-              "score": 0.509979,
+              "score": 0.530699,
               "chunk_id": "it_security_policy_chunk_005",
               "source_text": "If you suspect an active security compromise, credential theft, or phishing email:\n1. Immediately disconnect your machine from the network (unplug Ethernet or turn off Wi-Fi).\n2. Do not power off or reboot the computer, as volatile RAM evidence must be preserved for forensic analysis.\n3. Call the 24/7 IT Security Hotline at extension 4357 (HELP) or alert the `#security-incident` Slack channel using a secondary mobile device.\n4. Provide the time of occurrence, observed system symptoms, and suspicious email headers or files involved.",
               "metadata": {
@@ -226,14 +226,14 @@
         "3": {
           "k": 3,
           "retrieved_count": 3,
-          "top_score": 0.509979,
-          "lowest_score": 0.413812,
-          "score_spread": 0.096167,
+          "top_score": 0.530699,
+          "lowest_score": 0.442371,
+          "score_spread": 0.088328,
           "total_tokens": 287,
           "chunks": [
             {
               "rank": 1,
-              "score": 0.509979,
+              "score": 0.530699,
               "chunk_id": "it_security_policy_chunk_005",
               "source_text": "If you suspect an active security compromise, credential theft, or phishing email:\n1. Immediately disconnect your machine from the network (unplug Ethernet or turn off Wi-Fi).\n2. Do not power off or reboot the computer, as volatile RAM evidence must be preserved for forensic analysis.\n3. Call the 24/7 IT Security Hotline at extension 4357 (HELP) or alert the `#security-incident` Slack channel using a secondary mobile device.\n4. Provide the time of occurrence, observed system symptoms, and suspicious email headers or files involved.",
               "metadata": {
@@ -249,7 +249,7 @@
             },
             {
               "rank": 2,
-              "score": 0.474814,
+              "score": 0.502198,
               "chunk_id": "it_security_policy_chunk_003",
               "source_text": "Security incidents are classified into four severity tiers:\n- **Severity 1 (Critical)**: Active data breach, ransomware deployment, or unauthorized administrative privilege escalation. Incident Commander must be notified within 15 minutes.\n- **Severity 2 (High)**: Compromised employee credential, malware detected on internal host, or unauthenticated API exposure. Response required within 1 hour.\n- **Severity 3 (Medium)**: Targeted phishing attempt reported by employee or failed brute-force",
               "metadata": {
@@ -265,7 +265,7 @@
             },
             {
               "rank": 3,
-              "score": 0.413812,
+              "score": 0.442371,
               "chunk_id": "it_security_policy_chunk_002",
               "source_text": "All employee endpoints must have FileVault (macOS) or BitLocker (Windows) full-disk encryption enabled prior to accessing internal resources. USB storage drives are blocked by administrative group policy unless an exception ticket is authorized by the CISO. Operating system security updates and antivirus definitions are pushed automatically each Tuesday at 02:00 UTC and must not be bypassed or postponed beyond 48 hours.",
               "metadata": {
@@ -284,14 +284,14 @@
         "5": {
           "k": 5,
           "retrieved_count": 5,
-          "top_score": 0.509979,
-          "lowest_score": 0.311511,
-          "score_spread": 0.198468,
+          "top_score": 0.530699,
+          "lowest_score": 0.323628,
+          "score_spread": 0.207071,
           "total_tokens": 453,
           "chunks": [
             {
               "rank": 1,
-              "score": 0.509979,
+              "score": 0.530699,
               "chunk_id": "it_security_policy_chunk_005",
               "source_text": "If you suspect an active security compromise, credential theft, or phishing email:\n1. Immediately disconnect your machine from the network (unplug Ethernet or turn off Wi-Fi).\n2. Do not power off or reboot the computer, as volatile RAM evidence must be preserved for forensic analysis.\n3. Call the 24/7 IT Security Hotline at extension 4357 (HELP) or alert the `#security-incident` Slack channel using a secondary mobile device.\n4. Provide the time of occurrence, observed system symptoms, and suspicious email headers or files involved.",
               "metadata": {
@@ -307,7 +307,7 @@
             },
             {
               "rank": 2,
-              "score": 0.474814,
+              "score": 0.502198,
               "chunk_id": "it_security_policy_chunk_003",
               "source_text": "Security incidents are classified into four severity tiers:\n- **Severity 1 (Critical)**: Active data breach, ransomware deployment, or unauthorized administrative privilege escalation. Incident Commander must be notified within 15 minutes.\n- **Severity 2 (High)**: Compromised employee credential, malware detected on internal host, or unauthenticated API exposure. Response required within 1 hour.\n- **Severity 3 (Medium)**: Targeted phishing attempt reported by employee or failed brute-force",
               "metadata": {
@@ -323,7 +323,7 @@
             },
             {
               "rank": 3,
-              "score": 0.413812,
+              "score": 0.442371,
               "chunk_id": "it_security_policy_chunk_002",
               "source_text": "All employee endpoints must have FileVault (macOS) or BitLocker (Windows) full-disk encryption enabled prior to accessing internal resources. USB storage drives are blocked by administrative group policy unless an exception ticket is authorized by the CISO. Operating system security updates and antivirus definitions are pushed automatically each Tuesday at 02:00 UTC and must not be bypassed or postponed beyond 48 hours.",
               "metadata": {
@@ -339,7 +339,7 @@
             },
             {
               "rank": 4,
-              "score": 0.350845,
+              "score": 0.368308,
               "chunk_id": "remote_work_policy_chunk_001",
               "source_text": "This policy defines operational guidelines and security protocols for remote work arrangements within the organization. It applies to all full-time and part-time administrative, technical, and operational personnel. Remote work is a privilege designed to support work-life balance while ensuring organizational productivity, client confidentiality, and data security remain uncompromised.",
               "metadata": {
@@ -355,7 +355,7 @@
             },
             {
               "rank": 5,
-              "score": 0.311511,
+              "score": 0.323628,
               "chunk_id": "remote_work_policy_chunk_005",
               "source_text": "- **Company Hardware**: Only company-issued laptops equipped with active Endpoint Detection and Response (EDR) software may be used for remote work. Personal devices cannot access production environments.\n- **Network Security**: Connecting to public, unencrypted Wi-Fi networks is strictly prohibited. Remote workers must connect exclusively via the corporate AES-256 encrypted VPN tunnel.\n- **Data Protection**: Confidential documents must not be printed at remote locations or stored on unapproved personal cloud storage accounts. Screens must be locked when stepping away from the workstation.",
               "metadata": {
@@ -382,14 +382,14 @@
         "1": {
           "k": 1,
           "retrieved_count": 1,
-          "top_score": 0.685587,
-          "lowest_score": 0.685587,
+          "top_score": 0.676209,
+          "lowest_score": 0.676209,
           "score_spread": 0.0,
           "total_tokens": 89,
           "chunks": [
             {
               "rank": 1,
-              "score": 0.685587,
+              "score": 0.676209,
               "chunk_id": "remote_work_policy_chunk_003",
               "source_text": "1. **Submission**: Employees must submit a formal Remote Work Application via the HR Portal at least 14 calendar days prior to the desired effective date.\n2. **Managerial Review**: Direct supervisors evaluate the application considering team coverage, project deliverables, and communication plans within 5 business days.\n3. **IT Security Verification**: The IT Security Operations team verifies that the employee's designated home office setup satisfies encrypted VPN and multi-factor",
               "metadata": {
@@ -408,14 +408,14 @@
         "3": {
           "k": 3,
           "retrieved_count": 3,
-          "top_score": 0.685587,
-          "lowest_score": 0.631093,
-          "score_spread": 0.054494,
+          "top_score": 0.676209,
+          "lowest_score": 0.612395,
+          "score_spread": 0.063814,
           "total_tokens": 250,
           "chunks": [
             {
               "rank": 1,
-              "score": 0.685587,
+              "score": 0.676209,
               "chunk_id": "remote_work_policy_chunk_003",
               "source_text": "1. **Submission**: Employees must submit a formal Remote Work Application via the HR Portal at least 14 calendar days prior to the desired effective date.\n2. **Managerial Review**: Direct supervisors evaluate the application considering team coverage, project deliverables, and communication plans within 5 business days.\n3. **IT Security Verification**: The IT Security Operations team verifies that the employee's designated home office setup satisfies encrypted VPN and multi-factor",
               "metadata": {
@@ -431,23 +431,7 @@
             },
             {
               "rank": 2,
-              "score": 0.632984,
-              "chunk_id": "remote_work_policy_chunk_002",
-              "source_text": "To qualify for regular or hybrid remote work:\n- The employee must have completed a minimum of 6 months of continuous full-time employment.\n- The employee's latest performance evaluation rating must meet or exceed 'Satisfactory' standards.\n- The employee's role must be classified as 'Remote-Eligible' by the Department Head. Roles requiring mandatory physical presence (e.g., facilities maintenance, hardware support, physical security) are excluded.\n- The employee must maintain a dedicated, private home workspace free from background disruptions.",
-              "metadata": {
-                "source_document": "remote_work_policy.md",
-                "source_path": "data/corpus/remote_work_policy.md",
-                "chunk_index": 472,
-                "section": "Section 4.2: Remote Work & Workplace Flexibility Policy > 2. Eligibility Requirements",
-                "page": null,
-                "file_type": ".md",
-                "token_count": 101,
-                "char_count": 549
-              }
-            },
-            {
-              "rank": 3,
-              "score": 0.631093,
+              "score": 0.634676,
               "chunk_id": "remote_work_policy_chunk_001",
               "source_text": "This policy defines operational guidelines and security protocols for remote work arrangements within the organization. It applies to all full-time and part-time administrative, technical, and operational personnel. Remote work is a privilege designed to support work-life balance while ensuring organizational productivity, client confidentiality, and data security remain uncompromised.",
               "metadata": {
@@ -459,6 +443,22 @@
                 "file_type": ".md",
                 "token_count": 60,
                 "char_count": 388
+              }
+            },
+            {
+              "rank": 3,
+              "score": 0.612395,
+              "chunk_id": "remote_work_policy_chunk_002",
+              "source_text": "To qualify for regular or hybrid remote work:\n- The employee must have completed a minimum of 6 months of continuous full-time employment.\n- The employee's latest performance evaluation rating must meet or exceed 'Satisfactory' standards.\n- The employee's role must be classified as 'Remote-Eligible' by the Department Head. Roles requiring mandatory physical presence (e.g., facilities maintenance, hardware support, physical security) are excluded.\n- The employee must maintain a dedicated, private home workspace free from background disruptions.",
+              "metadata": {
+                "source_document": "remote_work_policy.md",
+                "source_path": "data/corpus/remote_work_policy.md",
+                "chunk_index": 472,
+                "section": "Section 4.2: Remote Work & Workplace Flexibility Policy > 2. Eligibility Requirements",
+                "page": null,
+                "file_type": ".md",
+                "token_count": 101,
+                "char_count": 549
               }
             }
           ]
@@ -466,14 +466,14 @@
         "5": {
           "k": 5,
           "retrieved_count": 5,
-          "top_score": 0.685587,
-          "lowest_score": 0.533929,
-          "score_spread": 0.151658,
-          "total_tokens": 407,
+          "top_score": 0.676209,
+          "lowest_score": 0.549277,
+          "score_spread": 0.126932,
+          "total_tokens": 468,
           "chunks": [
             {
               "rank": 1,
-              "score": 0.685587,
+              "score": 0.676209,
               "chunk_id": "remote_work_policy_chunk_003",
               "source_text": "1. **Submission**: Employees must submit a formal Remote Work Application via the HR Portal at least 14 calendar days prior to the desired effective date.\n2. **Managerial Review**: Direct supervisors evaluate the application considering team coverage, project deliverables, and communication plans within 5 business days.\n3. **IT Security Verification**: The IT Security Operations team verifies that the employee's designated home office setup satisfies encrypted VPN and multi-factor",
               "metadata": {
@@ -489,23 +489,7 @@
             },
             {
               "rank": 2,
-              "score": 0.632984,
-              "chunk_id": "remote_work_policy_chunk_002",
-              "source_text": "To qualify for regular or hybrid remote work:\n- The employee must have completed a minimum of 6 months of continuous full-time employment.\n- The employee's latest performance evaluation rating must meet or exceed 'Satisfactory' standards.\n- The employee's role must be classified as 'Remote-Eligible' by the Department Head. Roles requiring mandatory physical presence (e.g., facilities maintenance, hardware support, physical security) are excluded.\n- The employee must maintain a dedicated, private home workspace free from background disruptions.",
-              "metadata": {
-                "source_document": "remote_work_policy.md",
-                "source_path": "data/corpus/remote_work_policy.md",
-                "chunk_index": 472,
-                "section": "Section 4.2: Remote Work & Workplace Flexibility Policy > 2. Eligibility Requirements",
-                "page": null,
-                "file_type": ".md",
-                "token_count": 101,
-                "char_count": 549
-              }
-            },
-            {
-              "rank": 3,
-              "score": 0.631093,
+              "score": 0.634676,
               "chunk_id": "remote_work_policy_chunk_001",
               "source_text": "This policy defines operational guidelines and security protocols for remote work arrangements within the organization. It applies to all full-time and part-time administrative, technical, and operational personnel. Remote work is a privilege designed to support work-life balance while ensuring organizational productivity, client confidentiality, and data security remain uncompromised.",
               "metadata": {
@@ -520,8 +504,24 @@
               }
             },
             {
+              "rank": 3,
+              "score": 0.612395,
+              "chunk_id": "remote_work_policy_chunk_002",
+              "source_text": "To qualify for regular or hybrid remote work:\n- The employee must have completed a minimum of 6 months of continuous full-time employment.\n- The employee's latest performance evaluation rating must meet or exceed 'Satisfactory' standards.\n- The employee's role must be classified as 'Remote-Eligible' by the Department Head. Roles requiring mandatory physical presence (e.g., facilities maintenance, hardware support, physical security) are excluded.\n- The employee must maintain a dedicated, private home workspace free from background disruptions.",
+              "metadata": {
+                "source_document": "remote_work_policy.md",
+                "source_path": "data/corpus/remote_work_policy.md",
+                "chunk_index": 472,
+                "section": "Section 4.2: Remote Work & Workplace Flexibility Policy > 2. Eligibility Requirements",
+                "page": null,
+                "file_type": ".md",
+                "token_count": 101,
+                "char_count": 549
+              }
+            },
+            {
               "rank": 4,
-              "score": 0.58128,
+              "score": 0.579579,
               "chunk_id": "remote_work_policy_chunk_005",
               "source_text": "- **Company Hardware**: Only company-issued laptops equipped with active Endpoint Detection and Response (EDR) software may be used for remote work. Personal devices cannot access production environments.\n- **Network Security**: Connecting to public, unencrypted Wi-Fi networks is strictly prohibited. Remote workers must connect exclusively via the corporate AES-256 encrypted VPN tunnel.\n- **Data Protection**: Confidential documents must not be printed at remote locations or stored on unapproved personal cloud storage accounts. Screens must be locked when stepping away from the workstation.",
               "metadata": {
@@ -537,18 +537,18 @@
             },
             {
               "rank": 5,
-              "score": 0.533929,
-              "chunk_id": "remote_work_policy_chunk_004",
-              "source_text": "employee's designated home office setup satisfies encrypted VPN and multi-factor authentication (MFA) requirements.\n4. **HR Registration**: Approved requests are logged into the central employee database, valid for a maximum term of 12 months, subject to annual renewal.",
+              "score": 0.549277,
+              "chunk_id": "it_security_policy_chunk_005",
+              "source_text": "If you suspect an active security compromise, credential theft, or phishing email:\n1. Immediately disconnect your machine from the network (unplug Ethernet or turn off Wi-Fi).\n2. Do not power off or reboot the computer, as volatile RAM evidence must be preserved for forensic analysis.\n3. Call the 24/7 IT Security Hotline at extension 4357 (HELP) or alert the `#security-incident` Slack channel using a secondary mobile device.\n4. Provide the time of occurrence, observed system symptoms, and suspicious email headers or files involved.",
               "metadata": {
-                "source_document": "remote_work_policy.md",
-                "source_path": "data/corpus/remote_work_policy.md",
-                "chunk_index": 1459,
-                "section": "Section 4.2: Remote Work & Workplace Flexibility Policy > 3. Request & Approval Workflow",
+                "source_document": "it_security_policy.md",
+                "source_path": "data/corpus/it_security_policy.md",
+                "chunk_index": 1785,
+                "section": "Section 8.1: Corporate IT Security & Incident Response Protocols > 4. Employee Incident Reporting Procedure",
                 "page": null,
                 "file_type": ".md",
-                "token_count": 51,
-                "char_count": 270
+                "token_count": 112,
+                "char_count": 537
               }
             }
           ]

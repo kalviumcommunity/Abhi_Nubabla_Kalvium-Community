@@ -1,0 +1,1451 @@
+{
+  "timestamp": "2026-09-08T13:24:22.429987",
+  "total_dialogues_evaluated": 3,
+  "total_turns_executed": 10,
+  "total_coreferences_resolved": 4,
+  "total_fallbacks_triggered": 2,
+  "average_similarity_score_lift": 0.0946,
+  "total_benchmark_latency_ms": 22855.81,
+  "dialogues": [
+    {
+      "dialogue_id": "dialogue_1_pto_policy",
+      "title": "Dialogue 1: Employee Benefits & PTO Rollover Multi-Turn Flow",
+      "domain": "Employee Benefits & PTO",
+      "turns_count": 4,
+      "turns": [
+        {
+          "turn_index": 1,
+          "user_message": "What is the company's annual PTO policy?",
+          "raw_query": "What is the company's annual PTO policy?",
+          "rewritten_query": "What is the company's annual PTO policy?",
+          "query_rewrite_result": {
+            "original_query": "What is the company's annual PTO policy?",
+            "rewritten_query": "What is the company's annual PTO policy?",
+            "has_coreference": false,
+            "resolved_entities": [],
+            "rewrite_reasoning": "Query is already self-contained; no history rewriting necessary.",
+            "latency_ms": 0.006600050255656242
+          },
+          "raw_retrieved_chunks": [
+            {
+              "rank": 1,
+              "score": 0.340843,
+              "chunk_id": "employee_benefits_chunk_002",
+              "source_text": "Employees receive 10 dedicated sick days per calendar year. Sick leave is available from the first day of employment and does not require advance notice in emergency situations, though notification to the manager before 09:00 local time is expected. A medical certificate from a licensed healthcare practitioner is required for absences extending beyond 3 consecutive working days.",
+              "metadata": {
+                "source_document": "employee_benefits.md",
+                "source_path": "data/corpus/employee_benefits.md",
+                "chunk_index": 501,
+                "section": "Section 6.0: Employee Benefits, Paid Time Off & Leave Guidelines > 2. Sick Leave & Medical Appointments",
+                "page": null,
+                "file_type": ".md",
+                "token_count": 67,
+                "char_count": 381
+              }
+            },
+            {
+              "rank": 2,
+              "score": 0.303276,
+              "chunk_id": "employee_benefits_chunk_003",
+              "source_text": "Eligible parents are entitled to 16 weeks of fully paid parental leave following the birth, adoption, or foster placement of a child. Parental leave must be taken within the first 12 months following the qualifying event. Employees may take the leave in a single continuous block or in two separate blocks with supervisory approval. Health insurance benefits continue uninterrupted during the entire leave duration.",
+              "metadata": {
+                "source_document": "employee_benefits.md",
+                "source_path": "data/corpus/employee_benefits.md",
+                "chunk_index": 924,
+                "section": "Section 6.0: Employee Benefits, Paid Time Off & Leave Guidelines > 3. Parental Leave & Family Care",
+                "page": null,
+                "file_type": ".md",
+                "token_count": 73,
+                "char_count": 415
+              }
+            },
+            {
+              "rank": 3,
+              "score": 0.209674,
+              "chunk_id": "it_security_policy_chunk_005",
+              "source_text": "If you suspect an active security compromise, credential theft, or phishing email:\n1. Immediately disconnect your machine from the network (unplug Ethernet or turn off Wi-Fi).\n2. Do not power off or reboot the computer, as volatile RAM evidence must be preserved for forensic analysis.\n3. Call the 24/7 IT Security Hotline at extension 4357 (HELP) or alert the `#security-incident` Slack channel using a secondary mobile device.\n4. Provide the time of occurrence, observed system symptoms, and suspicious email headers or files involved.",
+              "metadata": {
+                "source_document": "it_security_policy.md",
+                "source_path": "data/corpus/it_security_policy.md",
+                "chunk_index": 1785,
+                "section": "Section 8.1: Corporate IT Security & Incident Response Protocols > 4. Employee Incident Reporting Procedure",
+                "page": null,
+                "file_type": ".md",
+                "token_count": 112,
+                "char_count": 537
+              }
+            }
+          ],
+          "rewritten_retrieved_chunks": [
+            {
+              "rank": 1,
+              "score": 0.340843,
+              "chunk_id": "employee_benefits_chunk_002",
+              "source_text": "Employees receive 10 dedicated sick days per calendar year. Sick leave is available from the first day of employment and does not require advance notice in emergency situations, though notification to the manager before 09:00 local time is expected. A medical certificate from a licensed healthcare practitioner is required for absences extending beyond 3 consecutive working days.",
+              "metadata": {
+                "source_document": "employee_benefits.md",
+                "source_path": "data/corpus/employee_benefits.md",
+                "chunk_index": 501,
+                "section": "Section 6.0: Employee Benefits, Paid Time Off & Leave Guidelines > 2. Sick Leave & Medical Appointments",
+                "page": null,
+                "file_type": ".md",
+                "token_count": 67,
+                "char_count": 381
+              }
+            },
+            {
+              "rank": 2,
+              "score": 0.303276,
+              "chunk_id": "employee_benefits_chunk_003",
+              "source_text": "Eligible parents are entitled to 16 weeks of fully paid parental leave following the birth, adoption, or foster placement of a child. Parental leave must be taken within the first 12 months following the qualifying event. Employees may take the leave in a single continuous block or in two separate blocks with supervisory approval. Health insurance benefits continue uninterrupted during the entire leave duration.",
+              "metadata": {
+                "source_document": "employee_benefits.md",
+                "source_path": "data/corpus/employee_benefits.md",
+                "chunk_index": 924,
+                "section": "Section 6.0: Employee Benefits, Paid Time Off & Leave Guidelines > 3. Parental Leave & Family Care",
+                "page": null,
+                "file_type": ".md",
+                "token_count": 73,
+                "char_count": 415
+              }
+            },
+            {
+              "rank": 3,
+              "score": 0.209674,
+              "chunk_id": "it_security_policy_chunk_005",
+              "source_text": "If you suspect an active security compromise, credential theft, or phishing email:\n1. Immediately disconnect your machine from the network (unplug Ethernet or turn off Wi-Fi).\n2. Do not power off or reboot the computer, as volatile RAM evidence must be preserved for forensic analysis.\n3. Call the 24/7 IT Security Hotline at extension 4357 (HELP) or alert the `#security-incident` Slack channel using a secondary mobile device.\n4. Provide the time of occurrence, observed system symptoms, and suspicious email headers or files involved.",
+              "metadata": {
+                "source_document": "it_security_policy.md",
+                "source_path": "data/corpus/it_security_policy.md",
+                "chunk_index": 1785,
+                "section": "Section 8.1: Corporate IT Security & Incident Response Protocols > 4. Employee Incident Reporting Procedure",
+                "page": null,
+                "file_type": ".md",
+                "token_count": 112,
+                "char_count": 537
+              }
+            }
+          ],
+          "raw_top_score": 0.3408,
+          "rewritten_top_score": 0.3408,
+          "score_lift": 0.0,
+          "assistant_response": "Based on verified internal guidelines in employee_benefits.md (Section 6.0: Employee Benefits, Paid Time Off & Leave Guidelines > 3. Parental Leave & Family Care): Eligible parents are entitled to 16 weeks of fully paid parental leave following the birth, adoption, or foster placement of a child.\n• Parental leave must be taken within the first 12 months following the qualifying event.\n• Employees may take the leave in a single continuous block or in two separate blocks with supervisory approval.\n\n• Source Document: employee_benefits.md\n• Section: Section 6.0: Employee Benefits, Paid Time Off & Leave Guidelines > 3. Parental Leave & Family Care\n• Relevance Confidence: 0.3033",
+          "is_fallback": false,
+          "returned_sources": [
+            {
+              "rank": 1,
+              "chunk_id": "employee_benefits_chunk_002",
+              "source_document": "employee_benefits.md",
+              "section": "Section 6.0: Employee Benefits, Paid Time Off & Leave Guidelines > 2. Sick Leave & Medical Appointments",
+              "page": null,
+              "similarity_score": 0.340843,
+              "token_count": 67
+            },
+            {
+              "rank": 2,
+              "chunk_id": "employee_benefits_chunk_003",
+              "source_document": "employee_benefits.md",
+              "section": "Section 6.0: Employee Benefits, Paid Time Off & Leave Guidelines > 3. Parental Leave & Family Care",
+              "page": null,
+              "similarity_score": 0.303276,
+              "token_count": 73
+            }
+          ],
+          "faithfulness_score": 1.0,
+          "timestamp": "2026-09-08T13:24:07.823016"
+        },
+        {
+          "turn_index": 2,
+          "user_message": "Can I carry over unused days to next year?",
+          "raw_query": "Can I carry over unused days to next year?",
+          "rewritten_query": "Can employees carry over unused PTO days to the next year, and what is the maximum carryover limit?",
+          "query_rewrite_result": {
+            "original_query": "Can I carry over unused days to next year?",
+            "rewritten_query": "Can employees carry over unused PTO days to the next year, and what is the maximum carryover limit?",
+            "has_coreference": true,
+            "resolved_entities": [
+              "it/carryover -> unused PTO days carryover to next year"
+            ],
+            "rewrite_reasoning": "Resolved pronoun/ellipsis to company PTO annual rollover policy.",
+            "latency_ms": 0.09269989095628262
+          },
+          "raw_retrieved_chunks": [
+            {
+              "rank": 1,
+              "score": 0.310319,
+              "chunk_id": "employee_benefits_chunk_001",
+              "source_text": "Full-time regular employees accrue 18 days of Paid Time Off annually, calculated at a rate of 1.5 days per completed calendar month of active service. Employees may roll over a maximum of 5 unused PTO days into the following calendar year. Any unused balance exceeding 5 days on December 31 will expire without cash compensation, unless an exception is approved by HR due to operational necessity.",
+              "metadata": {
+                "source_document": "employee_benefits.md",
+                "source_path": "data/corpus/employee_benefits.md",
+                "chunk_index": 68,
+                "section": "Section 6.0: Employee Benefits, Paid Time Off & Leave Guidelines > 1. Paid Time Off (PTO) Accrual",
+                "page": null,
+                "file_type": ".md",
+                "token_count": 79,
+                "char_count": 397
+              }
+            },
+            {
+              "rank": 2,
+              "score": 0.148348,
+              "chunk_id": "employee_benefits_chunk_002",
+              "source_text": "Employees receive 10 dedicated sick days per calendar year. Sick leave is available from the first day of employment and does not require advance notice in emergency situations, though notification to the manager before 09:00 local time is expected. A medical certificate from a licensed healthcare practitioner is required for absences extending beyond 3 consecutive working days.",
+              "metadata": {
+                "source_document": "employee_benefits.md",
+                "source_path": "data/corpus/employee_benefits.md",
+                "chunk_index": 501,
+                "section": "Section 6.0: Employee Benefits, Paid Time Off & Leave Guidelines > 2. Sick Leave & Medical Appointments",
+                "page": null,
+                "file_type": ".md",
+                "token_count": 67,
+                "char_count": 381
+              }
+            },
+            {
+              "rank": 3,
+              "score": 0.082224,
+              "chunk_id": "it_security_policy_chunk_001",
+              "source_text": "All internal systems require compliance with strict authentication safeguards. Passwords must contain a minimum of 14 characters including uppercase letters, numbers, and symbols. Passwords expire every 90 days and cannot match any of the previous 5 passwords used. Multi-Factor Authentication (MFA) via an approved authenticator app is mandatory on all corporate single sign-on (SSO) portals. SMS-based MFA is strictly prohibited due to SIM-swapping vulnerabilities.",
+              "metadata": {
+                "source_document": "it_security_policy.md",
+                "source_path": "data/corpus/it_security_policy.md",
+                "chunk_index": 68,
+                "section": "Section 8.1: Corporate IT Security & Incident Response Protocols > 1. Password & Access Control Standards",
+                "page": null,
+                "file_type": ".md",
+                "token_count": 89,
+                "char_count": 467
+              }
+            }
+          ],
+          "rewritten_retrieved_chunks": [
+            {
+              "rank": 1,
+              "score": 0.411669,
+              "chunk_id": "employee_benefits_chunk_002",
+              "source_text": "Employees receive 10 dedicated sick days per calendar year. Sick leave is available from the first day of employment and does not require advance notice in emergency situations, though notification to the manager before 09:00 local time is expected. A medical certificate from a licensed healthcare practitioner is required for absences extending beyond 3 consecutive working days.",
+              "metadata": {
+                "source_document": "employee_benefits.md",
+                "source_path": "data/corpus/employee_benefits.md",
+                "chunk_index": 501,
+                "section": "Section 6.0: Employee Benefits, Paid Time Off & Leave Guidelines > 2. Sick Leave & Medical Appointments",
+                "page": null,
+                "file_type": ".md",
+                "token_count": 67,
+                "char_count": 381
+              }
+            },
+            {
+              "rank": 2,
+              "score": 0.388444,
+              "chunk_id": "employee_benefits_chunk_001",
+              "source_text": "Full-time regular employees accrue 18 days of Paid Time Off annually, calculated at a rate of 1.5 days per completed calendar month of active service. Employees may roll over a maximum of 5 unused PTO days into the following calendar year. Any unused balance exceeding 5 days on December 31 will expire without cash compensation, unless an exception is approved by HR due to operational necessity.",
+              "metadata": {
+                "source_document": "employee_benefits.md",
+                "source_path": "data/corpus/employee_benefits.md",
+                "chunk_index": 68,
+                "section": "Section 6.0: Employee Benefits, Paid Time Off & Leave Guidelines > 1. Paid Time Off (PTO) Accrual",
+                "page": null,
+                "file_type": ".md",
+                "token_count": 79,
+                "char_count": 397
+              }
+            },
+            {
+              "rank": 3,
+              "score": 0.324566,
+              "chunk_id": "employee_benefits_chunk_003",
+              "source_text": "Eligible parents are entitled to 16 weeks of fully paid parental leave following the birth, adoption, or foster placement of a child. Parental leave must be taken within the first 12 months following the qualifying event. Employees may take the leave in a single continuous block or in two separate blocks with supervisory approval. Health insurance benefits continue uninterrupted during the entire leave duration.",
+              "metadata": {
+                "source_document": "employee_benefits.md",
+                "source_path": "data/corpus/employee_benefits.md",
+                "chunk_index": 924,
+                "section": "Section 6.0: Employee Benefits, Paid Time Off & Leave Guidelines > 3. Parental Leave & Family Care",
+                "page": null,
+                "file_type": ".md",
+                "token_count": 73,
+                "char_count": 415
+              }
+            }
+          ],
+          "raw_top_score": 0.3103,
+          "rewritten_top_score": 0.4117,
+          "score_lift": 0.1013,
+          "assistant_response": "Based on verified internal guidelines in employee_benefits.md (Section 6.0: Employee Benefits, Paid Time Off & Leave Guidelines > 1. Paid Time Off (PTO) Accrual): Employees may roll over a maximum of 5 unused PTO days into the following calendar year.\n• Full-time regular employees accrue 18 days of Paid Time Off annually, calculated at a rate of 1.5 days per completed calendar month of active service.\n• Any unused balance exceeding 5 days on December 31 will expire without cash compensation, unless an exception is approved by HR due to operational necessity.\n\n• Source Document: employee_benefits.md\n• Section: Section 6.0: Employee Benefits, Paid Time Off & Leave Guidelines > 1. Paid Time Off (PTO) Accrual\n• Relevance Confidence: 0.3884",
+          "is_fallback": false,
+          "returned_sources": [
+            {
+              "rank": 1,
+              "chunk_id": "employee_benefits_chunk_002",
+              "source_document": "employee_benefits.md",
+              "section": "Section 6.0: Employee Benefits, Paid Time Off & Leave Guidelines > 2. Sick Leave & Medical Appointments",
+              "page": null,
+              "similarity_score": 0.411669,
+              "token_count": 67
+            },
+            {
+              "rank": 2,
+              "chunk_id": "employee_benefits_chunk_001",
+              "source_document": "employee_benefits.md",
+              "section": "Section 6.0: Employee Benefits, Paid Time Off & Leave Guidelines > 1. Paid Time Off (PTO) Accrual",
+              "page": null,
+              "similarity_score": 0.388444,
+              "token_count": 79
+            },
+            {
+              "rank": 3,
+              "chunk_id": "employee_benefits_chunk_003",
+              "source_document": "employee_benefits.md",
+              "section": "Section 6.0: Employee Benefits, Paid Time Off & Leave Guidelines > 3. Parental Leave & Family Care",
+              "page": null,
+              "similarity_score": 0.324566,
+              "token_count": 73
+            }
+          ],
+          "faithfulness_score": 1.0,
+          "timestamp": "2026-09-08T13:24:10.279556"
+        },
+        {
+          "turn_index": 3,
+          "user_message": "What happens if I don't use them by that deadline?",
+          "raw_query": "What happens if I don't use them by that deadline?",
+          "rewritten_query": "What happens to unused rolled-over PTO days after the deadline, and do they expire without cash compensation?",
+          "query_rewrite_result": {
+            "original_query": "What happens if I don't use them by that deadline?",
+            "rewritten_query": "What happens to unused rolled-over PTO days after the deadline, and do they expire without cash compensation?",
+            "has_coreference": true,
+            "resolved_entities": [
+              "them -> unused rolled-over PTO days after deadline"
+            ],
+            "rewrite_reasoning": "Resolved object pronoun to forfeiture and expiration of unused carried-over PTO.",
+            "latency_ms": 0.07509998977184296
+          },
+          "raw_retrieved_chunks": [
+            {
+              "rank": 1,
+              "score": 0.102107,
+              "chunk_id": "document_chunk_001",
+              "source_text": "RAG System Documentation\nThis PDF document contains reference guide for Retrieval-Augmented Generation.\nRetrieval-Augmented Generation (RAG) is a technique that combines retrieval and generation.\nIt leverages external knowledge sources to improve LLM generation accuracy and relevance.\nOur loader module parses this PDF cleanly to feed it to downstream processes.\nVerify that page-by-page text extraction works and is formatted correctly.",
+              "metadata": {
+                "source_document": "document.pdf",
+                "source_path": "data/corpus/document.pdf",
+                "chunk_index": 0,
+                "section": "RAG System Documentation",
+                "page": 1,
+                "file_type": ".pdf",
+                "token_count": 78,
+                "char_count": 438
+              }
+            },
+            {
+              "rank": 2,
+              "score": 0.056563,
+              "chunk_id": "hello_chunk_001",
+              "source_text": "Welcome to the RAG Document Loader test.\nThis is a plain text file that contains unstructured information.\nIt is designed to be loaded by our document loader and parsed into plain text.\nRAG systems need simple text format to compute embeddings and search for matching chunks.\nThis concludes the plain text sample file.",
+              "metadata": {
+                "source_document": "hello.txt",
+                "source_path": "data/corpus/hello.txt",
+                "chunk_index": 0,
+                "section": "N/A",
+                "page": null,
+                "file_type": ".txt",
+                "token_count": 61,
+                "char_count": 318
+              }
+            },
+            {
+              "rank": 3,
+              "score": 0.043942,
+              "chunk_id": "page_chunk_002",
+              "source_text": "Members should follow collaboration standards, review PRs promptly, and participate in discussion threads.",
+              "metadata": {
+                "source_document": "page.html",
+                "source_path": "data/corpus/page.html",
+                "chunk_index": 420,
+                "section": "H1: Community Knowledge Base",
+                "page": null,
+                "file_type": ".html",
+                "token_count": 17,
+                "char_count": 106
+              }
+            }
+          ],
+          "rewritten_retrieved_chunks": [
+            {
+              "rank": 1,
+              "score": 0.338187,
+              "chunk_id": "employee_benefits_chunk_001",
+              "source_text": "Full-time regular employees accrue 18 days of Paid Time Off annually, calculated at a rate of 1.5 days per completed calendar month of active service. Employees may roll over a maximum of 5 unused PTO days into the following calendar year. Any unused balance exceeding 5 days on December 31 will expire without cash compensation, unless an exception is approved by HR due to operational necessity.",
+              "metadata": {
+                "source_document": "employee_benefits.md",
+                "source_path": "data/corpus/employee_benefits.md",
+                "chunk_index": 68,
+                "section": "Section 6.0: Employee Benefits, Paid Time Off & Leave Guidelines > 1. Paid Time Off (PTO) Accrual",
+                "page": null,
+                "file_type": ".md",
+                "token_count": 79,
+                "char_count": 397
+              }
+            },
+            {
+              "rank": 2,
+              "score": 0.306137,
+              "chunk_id": "employee_benefits_chunk_002",
+              "source_text": "Employees receive 10 dedicated sick days per calendar year. Sick leave is available from the first day of employment and does not require advance notice in emergency situations, though notification to the manager before 09:00 local time is expected. A medical certificate from a licensed healthcare practitioner is required for absences extending beyond 3 consecutive working days.",
+              "metadata": {
+                "source_document": "employee_benefits.md",
+                "source_path": "data/corpus/employee_benefits.md",
+                "chunk_index": 501,
+                "section": "Section 6.0: Employee Benefits, Paid Time Off & Leave Guidelines > 2. Sick Leave & Medical Appointments",
+                "page": null,
+                "file_type": ".md",
+                "token_count": 67,
+                "char_count": 381
+              }
+            },
+            {
+              "rank": 3,
+              "score": 0.248598,
+              "chunk_id": "employee_benefits_chunk_003",
+              "source_text": "Eligible parents are entitled to 16 weeks of fully paid parental leave following the birth, adoption, or foster placement of a child. Parental leave must be taken within the first 12 months following the qualifying event. Employees may take the leave in a single continuous block or in two separate blocks with supervisory approval. Health insurance benefits continue uninterrupted during the entire leave duration.",
+              "metadata": {
+                "source_document": "employee_benefits.md",
+                "source_path": "data/corpus/employee_benefits.md",
+                "chunk_index": 924,
+                "section": "Section 6.0: Employee Benefits, Paid Time Off & Leave Guidelines > 3. Parental Leave & Family Care",
+                "page": null,
+                "file_type": ".md",
+                "token_count": 73,
+                "char_count": 415
+              }
+            }
+          ],
+          "raw_top_score": 0.1021,
+          "rewritten_top_score": 0.3382,
+          "score_lift": 0.2361,
+          "assistant_response": "Based on verified internal guidelines in employee_benefits.md (Section 6.0: Employee Benefits, Paid Time Off & Leave Guidelines > 1. Paid Time Off (PTO) Accrual): Employees may roll over a maximum of 5 unused PTO days into the following calendar year.\n• Full-time regular employees accrue 18 days of Paid Time Off annually, calculated at a rate of 1.5 days per completed calendar month of active service.\n• Any unused balance exceeding 5 days on December 31 will expire without cash compensation, unless an exception is approved by HR due to operational necessity.\n\n• Source Document: employee_benefits.md\n• Section: Section 6.0: Employee Benefits, Paid Time Off & Leave Guidelines > 1. Paid Time Off (PTO) Accrual\n• Relevance Confidence: 0.3382",
+          "is_fallback": false,
+          "returned_sources": [
+            {
+              "rank": 1,
+              "chunk_id": "employee_benefits_chunk_001",
+              "source_document": "employee_benefits.md",
+              "section": "Section 6.0: Employee Benefits, Paid Time Off & Leave Guidelines > 1. Paid Time Off (PTO) Accrual",
+              "page": null,
+              "similarity_score": 0.338187,
+              "token_count": 79
+            },
+            {
+              "rank": 2,
+              "chunk_id": "employee_benefits_chunk_002",
+              "source_document": "employee_benefits.md",
+              "section": "Section 6.0: Employee Benefits, Paid Time Off & Leave Guidelines > 2. Sick Leave & Medical Appointments",
+              "page": null,
+              "similarity_score": 0.306137,
+              "token_count": 67
+            }
+          ],
+          "faithfulness_score": 1.0,
+          "timestamp": "2026-09-08T13:24:11.608282"
+        },
+        {
+          "turn_index": 4,
+          "user_message": "How much advance notice is required for taking consecutive days?",
+          "raw_query": "How much advance notice is required for taking consecutive days?",
+          "rewritten_query": "How much advance notice is required for taking consecutive days?",
+          "query_rewrite_result": {
+            "original_query": "How much advance notice is required for taking consecutive days?",
+            "rewritten_query": "How much advance notice is required for taking consecutive days?",
+            "has_coreference": false,
+            "resolved_entities": [],
+            "rewrite_reasoning": "Query is already self-contained; no history rewriting necessary.",
+            "latency_ms": 0.025499844923615456
+          },
+          "raw_retrieved_chunks": [
+            {
+              "rank": 1,
+              "score": 0.358537,
+              "chunk_id": "employee_benefits_chunk_002",
+              "source_text": "Employees receive 10 dedicated sick days per calendar year. Sick leave is available from the first day of employment and does not require advance notice in emergency situations, though notification to the manager before 09:00 local time is expected. A medical certificate from a licensed healthcare practitioner is required for absences extending beyond 3 consecutive working days.",
+              "metadata": {
+                "source_document": "employee_benefits.md",
+                "source_path": "data/corpus/employee_benefits.md",
+                "chunk_index": 501,
+                "section": "Section 6.0: Employee Benefits, Paid Time Off & Leave Guidelines > 2. Sick Leave & Medical Appointments",
+                "page": null,
+                "file_type": ".md",
+                "token_count": 67,
+                "char_count": 381
+              }
+            },
+            {
+              "rank": 2,
+              "score": 0.22265,
+              "chunk_id": "employee_benefits_chunk_001",
+              "source_text": "Full-time regular employees accrue 18 days of Paid Time Off annually, calculated at a rate of 1.5 days per completed calendar month of active service. Employees may roll over a maximum of 5 unused PTO days into the following calendar year. Any unused balance exceeding 5 days on December 31 will expire without cash compensation, unless an exception is approved by HR due to operational necessity.",
+              "metadata": {
+                "source_document": "employee_benefits.md",
+                "source_path": "data/corpus/employee_benefits.md",
+                "chunk_index": 68,
+                "section": "Section 6.0: Employee Benefits, Paid Time Off & Leave Guidelines > 1. Paid Time Off (PTO) Accrual",
+                "page": null,
+                "file_type": ".md",
+                "token_count": 79,
+                "char_count": 397
+              }
+            },
+            {
+              "rank": 3,
+              "score": 0.148662,
+              "chunk_id": "employee_benefits_chunk_004",
+              "source_text": "The company sponsors 90% of the premium for comprehensive medical, dental, and vision insurance for full-time employees and 70% for enrolled dependents. In addition, each employee is eligible for an annual \\$600 wellness stipend to cover gym memberships, mental health counseling, fitness equipment, or ergonomic home office furniture. Claims must be submitted with valid receipts before November 30 of each calendar year.",
+              "metadata": {
+                "source_document": "employee_benefits.md",
+                "source_path": "data/corpus/employee_benefits.md",
+                "chunk_index": 1376,
+                "section": "Section 6.0: Employee Benefits, Paid Time Off & Leave Guidelines > 4. Health Insurance & Wellness Reimbursement",
+                "page": null,
+                "file_type": ".md",
+                "token_count": 79,
+                "char_count": 422
+              }
+            }
+          ],
+          "rewritten_retrieved_chunks": [
+            {
+              "rank": 1,
+              "score": 0.358537,
+              "chunk_id": "employee_benefits_chunk_002",
+              "source_text": "Employees receive 10 dedicated sick days per calendar year. Sick leave is available from the first day of employment and does not require advance notice in emergency situations, though notification to the manager before 09:00 local time is expected. A medical certificate from a licensed healthcare practitioner is required for absences extending beyond 3 consecutive working days.",
+              "metadata": {
+                "source_document": "employee_benefits.md",
+                "source_path": "data/corpus/employee_benefits.md",
+                "chunk_index": 501,
+                "section": "Section 6.0: Employee Benefits, Paid Time Off & Leave Guidelines > 2. Sick Leave & Medical Appointments",
+                "page": null,
+                "file_type": ".md",
+                "token_count": 67,
+                "char_count": 381
+              }
+            },
+            {
+              "rank": 2,
+              "score": 0.22265,
+              "chunk_id": "employee_benefits_chunk_001",
+              "source_text": "Full-time regular employees accrue 18 days of Paid Time Off annually, calculated at a rate of 1.5 days per completed calendar month of active service. Employees may roll over a maximum of 5 unused PTO days into the following calendar year. Any unused balance exceeding 5 days on December 31 will expire without cash compensation, unless an exception is approved by HR due to operational necessity.",
+              "metadata": {
+                "source_document": "employee_benefits.md",
+                "source_path": "data/corpus/employee_benefits.md",
+                "chunk_index": 68,
+                "section": "Section 6.0: Employee Benefits, Paid Time Off & Leave Guidelines > 1. Paid Time Off (PTO) Accrual",
+                "page": null,
+                "file_type": ".md",
+                "token_count": 79,
+                "char_count": 397
+              }
+            },
+            {
+              "rank": 3,
+              "score": 0.148662,
+              "chunk_id": "employee_benefits_chunk_004",
+              "source_text": "The company sponsors 90% of the premium for comprehensive medical, dental, and vision insurance for full-time employees and 70% for enrolled dependents. In addition, each employee is eligible for an annual \\$600 wellness stipend to cover gym memberships, mental health counseling, fitness equipment, or ergonomic home office furniture. Claims must be submitted with valid receipts before November 30 of each calendar year.",
+              "metadata": {
+                "source_document": "employee_benefits.md",
+                "source_path": "data/corpus/employee_benefits.md",
+                "chunk_index": 1376,
+                "section": "Section 6.0: Employee Benefits, Paid Time Off & Leave Guidelines > 4. Health Insurance & Wellness Reimbursement",
+                "page": null,
+                "file_type": ".md",
+                "token_count": 79,
+                "char_count": 422
+              }
+            }
+          ],
+          "raw_top_score": 0.3585,
+          "rewritten_top_score": 0.3585,
+          "score_lift": 0.0,
+          "assistant_response": "Based on verified internal guidelines in employee_benefits.md (Section 6.0: Employee Benefits, Paid Time Off & Leave Guidelines > 2. Sick Leave & Medical Appointments): A medical certificate from a licensed healthcare practitioner is required for absences extending beyond 3 consecutive working days.\n• Employees receive 10 dedicated sick days per calendar year.\n• Sick leave is available from the first day of employment and does not require advance notice in emergency situations, though notification to the manager before 09:00 local time is expected.\n\n• Source Document: employee_benefits.md\n• Section: Section 6.0: Employee Benefits, Paid Time Off & Leave Guidelines > 2. Sick Leave & Medical Appointments\n• Relevance Confidence: 0.3585",
+          "is_fallback": false,
+          "returned_sources": [
+            {
+              "rank": 1,
+              "chunk_id": "employee_benefits_chunk_002",
+              "source_document": "employee_benefits.md",
+              "section": "Section 6.0: Employee Benefits, Paid Time Off & Leave Guidelines > 2. Sick Leave & Medical Appointments",
+              "page": null,
+              "similarity_score": 0.358537,
+              "token_count": 67
+            }
+          ],
+          "faithfulness_score": 0.75,
+          "timestamp": "2026-09-08T13:24:13.349902"
+        }
+      ]
+    },
+    {
+      "dialogue_id": "dialogue_2_security_incident",
+      "title": "Dialogue 2: IT Security Incident Reporting Multi-Turn Flow",
+      "domain": "IT Security & Compliance",
+      "turns_count": 3,
+      "turns": [
+        {
+          "turn_index": 1,
+          "user_message": "How do I report a suspected security incident?",
+          "raw_query": "How do I report a suspected security incident?",
+          "rewritten_query": "How do I report a suspected security incident?",
+          "query_rewrite_result": {
+            "original_query": "How do I report a suspected security incident?",
+            "rewritten_query": "How do I report a suspected security incident?",
+            "has_coreference": false,
+            "resolved_entities": [],
+            "rewrite_reasoning": "Query is already self-contained; no history rewriting necessary.",
+            "latency_ms": 0.0030999071896076202
+          },
+          "raw_retrieved_chunks": [
+            {
+              "rank": 1,
+              "score": 0.633226,
+              "chunk_id": "it_security_policy_chunk_003",
+              "source_text": "Security incidents are classified into four severity tiers:\n- **Severity 1 (Critical)**: Active data breach, ransomware deployment, or unauthorized administrative privilege escalation. Incident Commander must be notified within 15 minutes.\n- **Severity 2 (High)**: Compromised employee credential, malware detected on internal host, or unauthenticated API exposure. Response required within 1 hour.\n- **Severity 3 (Medium)**: Targeted phishing attempt reported by employee or failed brute-force",
+              "metadata": {
+                "source_document": "it_security_policy.md",
+                "source_path": "data/corpus/it_security_policy.md",
+                "chunk_index": 1044,
+                "section": "Section 8.1: Corporate IT Security & Incident Response Protocols > 3. Security Incident Classification & Severity Levels",
+                "page": null,
+                "file_type": ".md",
+                "token_count": 96,
+                "char_count": 494
+              }
+            },
+            {
+              "rank": 2,
+              "score": 0.597897,
+              "chunk_id": "it_security_policy_chunk_005",
+              "source_text": "If you suspect an active security compromise, credential theft, or phishing email:\n1. Immediately disconnect your machine from the network (unplug Ethernet or turn off Wi-Fi).\n2. Do not power off or reboot the computer, as volatile RAM evidence must be preserved for forensic analysis.\n3. Call the 24/7 IT Security Hotline at extension 4357 (HELP) or alert the `#security-incident` Slack channel using a secondary mobile device.\n4. Provide the time of occurrence, observed system symptoms, and suspicious email headers or files involved.",
+              "metadata": {
+                "source_document": "it_security_policy.md",
+                "source_path": "data/corpus/it_security_policy.md",
+                "chunk_index": 1785,
+                "section": "Section 8.1: Corporate IT Security & Incident Response Protocols > 4. Employee Incident Reporting Procedure",
+                "page": null,
+                "file_type": ".md",
+                "token_count": 112,
+                "char_count": 537
+              }
+            },
+            {
+              "rank": 3,
+              "score": 0.576118,
+              "chunk_id": "it_security_policy_chunk_002",
+              "source_text": "All employee endpoints must have FileVault (macOS) or BitLocker (Windows) full-disk encryption enabled prior to accessing internal resources. USB storage drives are blocked by administrative group policy unless an exception ticket is authorized by the CISO. Operating system security updates and antivirus definitions are pushed automatically each Tuesday at 02:00 UTC and must not be bypassed or postponed beyond 48 hours.",
+              "metadata": {
+                "source_document": "it_security_policy.md",
+                "source_path": "data/corpus/it_security_policy.md",
+                "chunk_index": 579,
+                "section": "Section 8.1: Corporate IT Security & Incident Response Protocols > 2. Workstation Security & Encryption",
+                "page": null,
+                "file_type": ".md",
+                "token_count": 79,
+                "char_count": 423
+              }
+            }
+          ],
+          "rewritten_retrieved_chunks": [
+            {
+              "rank": 1,
+              "score": 0.633226,
+              "chunk_id": "it_security_policy_chunk_003",
+              "source_text": "Security incidents are classified into four severity tiers:\n- **Severity 1 (Critical)**: Active data breach, ransomware deployment, or unauthorized administrative privilege escalation. Incident Commander must be notified within 15 minutes.\n- **Severity 2 (High)**: Compromised employee credential, malware detected on internal host, or unauthenticated API exposure. Response required within 1 hour.\n- **Severity 3 (Medium)**: Targeted phishing attempt reported by employee or failed brute-force",
+              "metadata": {
+                "source_document": "it_security_policy.md",
+                "source_path": "data/corpus/it_security_policy.md",
+                "chunk_index": 1044,
+                "section": "Section 8.1: Corporate IT Security & Incident Response Protocols > 3. Security Incident Classification & Severity Levels",
+                "page": null,
+                "file_type": ".md",
+                "token_count": 96,
+                "char_count": 494
+              }
+            },
+            {
+              "rank": 2,
+              "score": 0.597897,
+              "chunk_id": "it_security_policy_chunk_005",
+              "source_text": "If you suspect an active security compromise, credential theft, or phishing email:\n1. Immediately disconnect your machine from the network (unplug Ethernet or turn off Wi-Fi).\n2. Do not power off or reboot the computer, as volatile RAM evidence must be preserved for forensic analysis.\n3. Call the 24/7 IT Security Hotline at extension 4357 (HELP) or alert the `#security-incident` Slack channel using a secondary mobile device.\n4. Provide the time of occurrence, observed system symptoms, and suspicious email headers or files involved.",
+              "metadata": {
+                "source_document": "it_security_policy.md",
+                "source_path": "data/corpus/it_security_policy.md",
+                "chunk_index": 1785,
+                "section": "Section 8.1: Corporate IT Security & Incident Response Protocols > 4. Employee Incident Reporting Procedure",
+                "page": null,
+                "file_type": ".md",
+                "token_count": 112,
+                "char_count": 537
+              }
+            },
+            {
+              "rank": 3,
+              "score": 0.576118,
+              "chunk_id": "it_security_policy_chunk_002",
+              "source_text": "All employee endpoints must have FileVault (macOS) or BitLocker (Windows) full-disk encryption enabled prior to accessing internal resources. USB storage drives are blocked by administrative group policy unless an exception ticket is authorized by the CISO. Operating system security updates and antivirus definitions are pushed automatically each Tuesday at 02:00 UTC and must not be bypassed or postponed beyond 48 hours.",
+              "metadata": {
+                "source_document": "it_security_policy.md",
+                "source_path": "data/corpus/it_security_policy.md",
+                "chunk_index": 579,
+                "section": "Section 8.1: Corporate IT Security & Incident Response Protocols > 2. Workstation Security & Encryption",
+                "page": null,
+                "file_type": ".md",
+                "token_count": 79,
+                "char_count": 423
+              }
+            }
+          ],
+          "raw_top_score": 0.6332,
+          "rewritten_top_score": 0.6332,
+          "score_lift": 0.0,
+          "assistant_response": "Based on verified internal guidelines in it_security_policy.md (Section 8.1: Corporate IT Security & Incident Response Protocols > 3. Security Incident Classification & Severity Levels): Security incidents are classified into four severity tiers:\n- **Severity 1 (Critical)**: Active data breach, ransomware deployment, or unauthorized administrative privilege escalation.\n• Incident Commander must be notified within 15 minutes.\n• - **Severity 2 (High)**: Compromised employee credential, malware detected on internal host, or unauthenticated API exposure.\n\n• Source Document: it_security_policy.md\n• Section: Section 8.1: Corporate IT Security & Incident Response Protocols > 3. Security Incident Classification & Severity Levels\n• Relevance Confidence: 0.6332",
+          "is_fallback": false,
+          "returned_sources": [
+            {
+              "rank": 1,
+              "chunk_id": "it_security_policy_chunk_003",
+              "source_document": "it_security_policy.md",
+              "section": "Section 8.1: Corporate IT Security & Incident Response Protocols > 3. Security Incident Classification & Severity Levels",
+              "page": null,
+              "similarity_score": 0.633226,
+              "token_count": 96
+            },
+            {
+              "rank": 2,
+              "chunk_id": "it_security_policy_chunk_005",
+              "source_document": "it_security_policy.md",
+              "section": "Section 8.1: Corporate IT Security & Incident Response Protocols > 4. Employee Incident Reporting Procedure",
+              "page": null,
+              "similarity_score": 0.597897,
+              "token_count": 112
+            },
+            {
+              "rank": 3,
+              "chunk_id": "it_security_policy_chunk_002",
+              "source_document": "it_security_policy.md",
+              "section": "Section 8.1: Corporate IT Security & Incident Response Protocols > 2. Workstation Security & Encryption",
+              "page": null,
+              "similarity_score": 0.576118,
+              "token_count": 79
+            }
+          ],
+          "faithfulness_score": 1.0,
+          "timestamp": "2026-09-08T13:24:14.584148"
+        },
+        {
+          "turn_index": 2,
+          "user_message": "Who should be notified if it involves customer data?",
+          "raw_query": "Who should be notified if it involves customer data?",
+          "rewritten_query": "Who must be notified immediately if a security incident involves customer data or PII?",
+          "query_rewrite_result": {
+            "original_query": "Who should be notified if it involves customer data?",
+            "rewritten_query": "Who must be notified immediately if a security incident involves customer data or PII?",
+            "has_coreference": true,
+            "resolved_entities": [
+              "it -> security incident involving customer data"
+            ],
+            "rewrite_reasoning": "Resolved pronoun 'it' to security incident and specified customer data notification.",
+            "latency_ms": 0.0654999166727066
+          },
+          "raw_retrieved_chunks": [
+            {
+              "rank": 1,
+              "score": 0.135641,
+              "chunk_id": "page_chunk_003",
+              "source_text": "Be respectful and constructive.",
+              "metadata": {
+                "source_document": "page.html",
+                "source_path": "data/corpus/page.html",
+                "chunk_index": 597,
+                "section": "H2: Rules of Engagement",
+                "page": null,
+                "file_type": ".html",
+                "token_count": 5,
+                "char_count": 31
+              }
+            },
+            {
+              "rank": 2,
+              "score": 0.129834,
+              "chunk_id": "page_chunk_002",
+              "source_text": "Members should follow collaboration standards, review PRs promptly, and participate in discussion threads.",
+              "metadata": {
+                "source_document": "page.html",
+                "source_path": "data/corpus/page.html",
+                "chunk_index": 420,
+                "section": "H1: Community Knowledge Base",
+                "page": null,
+                "file_type": ".html",
+                "token_count": 17,
+                "char_count": 106
+              }
+            },
+            {
+              "rank": 3,
+              "score": 0.125478,
+              "chunk_id": "guide_chunk_003",
+              "source_text": "* Make sure metadata is preserved.\n* Citations should point back to the source filename.",
+              "metadata": {
+                "source_document": "guide.md",
+                "source_path": "data/corpus/guide.md",
+                "chunk_index": 390,
+                "section": "RAG Optimization Guide > Additional Notes",
+                "page": null,
+                "file_type": ".md",
+                "token_count": 18,
+                "char_count": 88
+              }
+            }
+          ],
+          "rewritten_retrieved_chunks": [
+            {
+              "rank": 1,
+              "score": 0.641424,
+              "chunk_id": "it_security_policy_chunk_003",
+              "source_text": "Security incidents are classified into four severity tiers:\n- **Severity 1 (Critical)**: Active data breach, ransomware deployment, or unauthorized administrative privilege escalation. Incident Commander must be notified within 15 minutes.\n- **Severity 2 (High)**: Compromised employee credential, malware detected on internal host, or unauthenticated API exposure. Response required within 1 hour.\n- **Severity 3 (Medium)**: Targeted phishing attempt reported by employee or failed brute-force",
+              "metadata": {
+                "source_document": "it_security_policy.md",
+                "source_path": "data/corpus/it_security_policy.md",
+                "chunk_index": 1044,
+                "section": "Section 8.1: Corporate IT Security & Incident Response Protocols > 3. Security Incident Classification & Severity Levels",
+                "page": null,
+                "file_type": ".md",
+                "token_count": 96,
+                "char_count": 494
+              }
+            },
+            {
+              "rank": 2,
+              "score": 0.61698,
+              "chunk_id": "it_security_policy_chunk_005",
+              "source_text": "If you suspect an active security compromise, credential theft, or phishing email:\n1. Immediately disconnect your machine from the network (unplug Ethernet or turn off Wi-Fi).\n2. Do not power off or reboot the computer, as volatile RAM evidence must be preserved for forensic analysis.\n3. Call the 24/7 IT Security Hotline at extension 4357 (HELP) or alert the `#security-incident` Slack channel using a secondary mobile device.\n4. Provide the time of occurrence, observed system symptoms, and suspicious email headers or files involved.",
+              "metadata": {
+                "source_document": "it_security_policy.md",
+                "source_path": "data/corpus/it_security_policy.md",
+                "chunk_index": 1785,
+                "section": "Section 8.1: Corporate IT Security & Incident Response Protocols > 4. Employee Incident Reporting Procedure",
+                "page": null,
+                "file_type": ".md",
+                "token_count": 112,
+                "char_count": 537
+              }
+            },
+            {
+              "rank": 3,
+              "score": 0.585644,
+              "chunk_id": "it_security_policy_chunk_002",
+              "source_text": "All employee endpoints must have FileVault (macOS) or BitLocker (Windows) full-disk encryption enabled prior to accessing internal resources. USB storage drives are blocked by administrative group policy unless an exception ticket is authorized by the CISO. Operating system security updates and antivirus definitions are pushed automatically each Tuesday at 02:00 UTC and must not be bypassed or postponed beyond 48 hours.",
+              "metadata": {
+                "source_document": "it_security_policy.md",
+                "source_path": "data/corpus/it_security_policy.md",
+                "chunk_index": 579,
+                "section": "Section 8.1: Corporate IT Security & Incident Response Protocols > 2. Workstation Security & Encryption",
+                "page": null,
+                "file_type": ".md",
+                "token_count": 79,
+                "char_count": 423
+              }
+            }
+          ],
+          "raw_top_score": 0.1356,
+          "rewritten_top_score": 0.6414,
+          "score_lift": 0.5058,
+          "assistant_response": "Based on verified internal guidelines in it_security_policy.md (Section 8.1: Corporate IT Security & Incident Response Protocols > 3. Security Incident Classification & Severity Levels): Security incidents are classified into four severity tiers:\n- **Severity 1 (Critical)**: Active data breach, ransomware deployment, or unauthorized administrative privilege escalation.\n• Incident Commander must be notified within 15 minutes.\n• - **Severity 2 (High)**: Compromised employee credential, malware detected on internal host, or unauthenticated API exposure.\n\n• Source Document: it_security_policy.md\n• Section: Section 8.1: Corporate IT Security & Incident Response Protocols > 3. Security Incident Classification & Severity Levels\n• Relevance Confidence: 0.6414",
+          "is_fallback": false,
+          "returned_sources": [
+            {
+              "rank": 1,
+              "chunk_id": "it_security_policy_chunk_003",
+              "source_document": "it_security_policy.md",
+              "section": "Section 8.1: Corporate IT Security & Incident Response Protocols > 3. Security Incident Classification & Severity Levels",
+              "page": null,
+              "similarity_score": 0.641424,
+              "token_count": 96
+            },
+            {
+              "rank": 2,
+              "chunk_id": "it_security_policy_chunk_005",
+              "source_document": "it_security_policy.md",
+              "section": "Section 8.1: Corporate IT Security & Incident Response Protocols > 4. Employee Incident Reporting Procedure",
+              "page": null,
+              "similarity_score": 0.61698,
+              "token_count": 112
+            },
+            {
+              "rank": 3,
+              "chunk_id": "it_security_policy_chunk_002",
+              "source_document": "it_security_policy.md",
+              "section": "Section 8.1: Corporate IT Security & Incident Response Protocols > 2. Workstation Security & Encryption",
+              "page": null,
+              "similarity_score": 0.585644,
+              "token_count": 79
+            }
+          ],
+          "faithfulness_score": 1.0,
+          "timestamp": "2026-09-08T13:24:16.591791"
+        },
+        {
+          "turn_index": 3,
+          "user_message": "What is the mandatory reporting timeline for breaches?",
+          "raw_query": "What is the mandatory reporting timeline for breaches?",
+          "rewritten_query": "What is the mandatory reporting timeline for breaches?",
+          "query_rewrite_result": {
+            "original_query": "What is the mandatory reporting timeline for breaches?",
+            "rewritten_query": "What is the mandatory reporting timeline for breaches?",
+            "has_coreference": false,
+            "resolved_entities": [],
+            "rewrite_reasoning": "Query is already self-contained; no history rewriting necessary.",
+            "latency_ms": 0.0241999514400959
+          },
+          "raw_retrieved_chunks": [
+            {
+              "rank": 1,
+              "score": 0.227417,
+              "chunk_id": "employee_benefits_chunk_004",
+              "source_text": "The company sponsors 90% of the premium for comprehensive medical, dental, and vision insurance for full-time employees and 70% for enrolled dependents. In addition, each employee is eligible for an annual \\$600 wellness stipend to cover gym memberships, mental health counseling, fitness equipment, or ergonomic home office furniture. Claims must be submitted with valid receipts before November 30 of each calendar year.",
+              "metadata": {
+                "source_document": "employee_benefits.md",
+                "source_path": "data/corpus/employee_benefits.md",
+                "chunk_index": 1376,
+                "section": "Section 6.0: Employee Benefits, Paid Time Off & Leave Guidelines > 4. Health Insurance & Wellness Reimbursement",
+                "page": null,
+                "file_type": ".md",
+                "token_count": 79,
+                "char_count": 422
+              }
+            },
+            {
+              "rank": 2,
+              "score": 0.175047,
+              "chunk_id": "guide_chunk_003",
+              "source_text": "* Make sure metadata is preserved.\n* Citations should point back to the source filename.",
+              "metadata": {
+                "source_document": "guide.md",
+                "source_path": "data/corpus/guide.md",
+                "chunk_index": 390,
+                "section": "RAG Optimization Guide > Additional Notes",
+                "page": null,
+                "file_type": ".md",
+                "token_count": 18,
+                "char_count": 88
+              }
+            },
+            {
+              "rank": 3,
+              "score": 0.170359,
+              "chunk_id": "employee_benefits_chunk_003",
+              "source_text": "Eligible parents are entitled to 16 weeks of fully paid parental leave following the birth, adoption, or foster placement of a child. Parental leave must be taken within the first 12 months following the qualifying event. Employees may take the leave in a single continuous block or in two separate blocks with supervisory approval. Health insurance benefits continue uninterrupted during the entire leave duration.",
+              "metadata": {
+                "source_document": "employee_benefits.md",
+                "source_path": "data/corpus/employee_benefits.md",
+                "chunk_index": 924,
+                "section": "Section 6.0: Employee Benefits, Paid Time Off & Leave Guidelines > 3. Parental Leave & Family Care",
+                "page": null,
+                "file_type": ".md",
+                "token_count": 73,
+                "char_count": 415
+              }
+            }
+          ],
+          "rewritten_retrieved_chunks": [
+            {
+              "rank": 1,
+              "score": 0.227417,
+              "chunk_id": "employee_benefits_chunk_004",
+              "source_text": "The company sponsors 90% of the premium for comprehensive medical, dental, and vision insurance for full-time employees and 70% for enrolled dependents. In addition, each employee is eligible for an annual \\$600 wellness stipend to cover gym memberships, mental health counseling, fitness equipment, or ergonomic home office furniture. Claims must be submitted with valid receipts before November 30 of each calendar year.",
+              "metadata": {
+                "source_document": "employee_benefits.md",
+                "source_path": "data/corpus/employee_benefits.md",
+                "chunk_index": 1376,
+                "section": "Section 6.0: Employee Benefits, Paid Time Off & Leave Guidelines > 4. Health Insurance & Wellness Reimbursement",
+                "page": null,
+                "file_type": ".md",
+                "token_count": 79,
+                "char_count": 422
+              }
+            },
+            {
+              "rank": 2,
+              "score": 0.175047,
+              "chunk_id": "guide_chunk_003",
+              "source_text": "* Make sure metadata is preserved.\n* Citations should point back to the source filename.",
+              "metadata": {
+                "source_document": "guide.md",
+                "source_path": "data/corpus/guide.md",
+                "chunk_index": 390,
+                "section": "RAG Optimization Guide > Additional Notes",
+                "page": null,
+                "file_type": ".md",
+                "token_count": 18,
+                "char_count": 88
+              }
+            },
+            {
+              "rank": 3,
+              "score": 0.170359,
+              "chunk_id": "employee_benefits_chunk_003",
+              "source_text": "Eligible parents are entitled to 16 weeks of fully paid parental leave following the birth, adoption, or foster placement of a child. Parental leave must be taken within the first 12 months following the qualifying event. Employees may take the leave in a single continuous block or in two separate blocks with supervisory approval. Health insurance benefits continue uninterrupted during the entire leave duration.",
+              "metadata": {
+                "source_document": "employee_benefits.md",
+                "source_path": "data/corpus/employee_benefits.md",
+                "chunk_index": 924,
+                "section": "Section 6.0: Employee Benefits, Paid Time Off & Leave Guidelines > 3. Parental Leave & Family Care",
+                "page": null,
+                "file_type": ".md",
+                "token_count": 73,
+                "char_count": 415
+              }
+            }
+          ],
+          "raw_top_score": 0.2274,
+          "rewritten_top_score": 0.2274,
+          "score_lift": 0.0,
+          "assistant_response": "I don't have access to this information in the verified company guidelines. Please contact HR at hr@company.com or submit a ticket via the IT Helpdesk portal.",
+          "is_fallback": true,
+          "returned_sources": [],
+          "faithfulness_score": 1.0,
+          "timestamp": "2026-09-08T13:24:17.760319"
+        }
+      ]
+    },
+    {
+      "dialogue_id": "dialogue_3_remote_work_fallback",
+      "title": "Dialogue 3: Remote Work Guidelines & Missing-Context Refusal",
+      "domain": "Remote Work & Fallback Handling",
+      "turns_count": 3,
+      "turns": [
+        {
+          "turn_index": 1,
+          "user_message": "What are the requirements for working remotely?",
+          "raw_query": "What are the requirements for working remotely?",
+          "rewritten_query": "What are the requirements for working remotely?",
+          "query_rewrite_result": {
+            "original_query": "What are the requirements for working remotely?",
+            "rewritten_query": "What are the requirements for working remotely?",
+            "has_coreference": false,
+            "resolved_entities": [],
+            "rewrite_reasoning": "Query is already self-contained; no history rewriting necessary.",
+            "latency_ms": 0.002499902620911598
+          },
+          "raw_retrieved_chunks": [
+            {
+              "rank": 1,
+              "score": 0.705054,
+              "chunk_id": "remote_work_policy_chunk_002",
+              "source_text": "To qualify for regular or hybrid remote work:\n- The employee must have completed a minimum of 6 months of continuous full-time employment.\n- The employee's latest performance evaluation rating must meet or exceed 'Satisfactory' standards.\n- The employee's role must be classified as 'Remote-Eligible' by the Department Head. Roles requiring mandatory physical presence (e.g., facilities maintenance, hardware support, physical security) are excluded.\n- The employee must maintain a dedicated, private home workspace free from background disruptions.",
+              "metadata": {
+                "source_document": "remote_work_policy.md",
+                "source_path": "data/corpus/remote_work_policy.md",
+                "chunk_index": 472,
+                "section": "Section 4.2: Remote Work & Workplace Flexibility Policy > 2. Eligibility Requirements",
+                "page": null,
+                "file_type": ".md",
+                "token_count": 101,
+                "char_count": 549
+              }
+            },
+            {
+              "rank": 2,
+              "score": 0.606977,
+              "chunk_id": "remote_work_policy_chunk_003",
+              "source_text": "1. **Submission**: Employees must submit a formal Remote Work Application via the HR Portal at least 14 calendar days prior to the desired effective date.\n2. **Managerial Review**: Direct supervisors evaluate the application considering team coverage, project deliverables, and communication plans within 5 business days.\n3. **IT Security Verification**: The IT Security Operations team verifies that the employee's designated home office setup satisfies encrypted VPN and multi-factor",
+              "metadata": {
+                "source_document": "remote_work_policy.md",
+                "source_path": "data/corpus/remote_work_policy.md",
+                "chunk_index": 1054,
+                "section": "Section 4.2: Remote Work & Workplace Flexibility Policy > 3. Request & Approval Workflow",
+                "page": null,
+                "file_type": ".md",
+                "token_count": 89,
+                "char_count": 485
+              }
+            },
+            {
+              "rank": 3,
+              "score": 0.489814,
+              "chunk_id": "remote_work_policy_chunk_006",
+              "source_text": "Remote employees are expected to maintain core operational hours from 9:00 AM to 5:00 PM local time. Employees must remain reachable via official communication channels (Slack, Microsoft Teams, corporate email) during working hours. Any scheduled absence or temporary unavailability must be logged in the shared department calendar at least 24 hours in advance.",
+              "metadata": {
+                "source_document": "remote_work_policy.md",
+                "source_path": "data/corpus/remote_work_policy.md",
+                "chunk_index": 2412,
+                "section": "Section 4.2: Remote Work & Workplace Flexibility Policy > 5. Working Hours, Availability & Communication",
+                "page": null,
+                "file_type": ".md",
+                "token_count": 68,
+                "char_count": 361
+              }
+            }
+          ],
+          "rewritten_retrieved_chunks": [
+            {
+              "rank": 1,
+              "score": 0.705054,
+              "chunk_id": "remote_work_policy_chunk_002",
+              "source_text": "To qualify for regular or hybrid remote work:\n- The employee must have completed a minimum of 6 months of continuous full-time employment.\n- The employee's latest performance evaluation rating must meet or exceed 'Satisfactory' standards.\n- The employee's role must be classified as 'Remote-Eligible' by the Department Head. Roles requiring mandatory physical presence (e.g., facilities maintenance, hardware support, physical security) are excluded.\n- The employee must maintain a dedicated, private home workspace free from background disruptions.",
+              "metadata": {
+                "source_document": "remote_work_policy.md",
+                "source_path": "data/corpus/remote_work_policy.md",
+                "chunk_index": 472,
+                "section": "Section 4.2: Remote Work & Workplace Flexibility Policy > 2. Eligibility Requirements",
+                "page": null,
+                "file_type": ".md",
+                "token_count": 101,
+                "char_count": 549
+              }
+            },
+            {
+              "rank": 2,
+              "score": 0.606977,
+              "chunk_id": "remote_work_policy_chunk_003",
+              "source_text": "1. **Submission**: Employees must submit a formal Remote Work Application via the HR Portal at least 14 calendar days prior to the desired effective date.\n2. **Managerial Review**: Direct supervisors evaluate the application considering team coverage, project deliverables, and communication plans within 5 business days.\n3. **IT Security Verification**: The IT Security Operations team verifies that the employee's designated home office setup satisfies encrypted VPN and multi-factor",
+              "metadata": {
+                "source_document": "remote_work_policy.md",
+                "source_path": "data/corpus/remote_work_policy.md",
+                "chunk_index": 1054,
+                "section": "Section 4.2: Remote Work & Workplace Flexibility Policy > 3. Request & Approval Workflow",
+                "page": null,
+                "file_type": ".md",
+                "token_count": 89,
+                "char_count": 485
+              }
+            },
+            {
+              "rank": 3,
+              "score": 0.489814,
+              "chunk_id": "remote_work_policy_chunk_006",
+              "source_text": "Remote employees are expected to maintain core operational hours from 9:00 AM to 5:00 PM local time. Employees must remain reachable via official communication channels (Slack, Microsoft Teams, corporate email) during working hours. Any scheduled absence or temporary unavailability must be logged in the shared department calendar at least 24 hours in advance.",
+              "metadata": {
+                "source_document": "remote_work_policy.md",
+                "source_path": "data/corpus/remote_work_policy.md",
+                "chunk_index": 2412,
+                "section": "Section 4.2: Remote Work & Workplace Flexibility Policy > 5. Working Hours, Availability & Communication",
+                "page": null,
+                "file_type": ".md",
+                "token_count": 68,
+                "char_count": 361
+              }
+            }
+          ],
+          "raw_top_score": 0.7051,
+          "rewritten_top_score": 0.7051,
+          "score_lift": 0.0,
+          "assistant_response": "Based on verified internal guidelines in remote_work_policy.md (Section 4.2: Remote Work & Workplace Flexibility Policy > 2. Eligibility Requirements): To qualify for regular or hybrid remote work:\n- The employee must have completed a minimum of 6 months of continuous full-time employment.\n• - The employee's latest performance evaluation rating must meet or exceed 'Satisfactory' standards.\n• - The employee's role must be classified as 'Remote-Eligible' by the Department Head.\n\n• Source Document: remote_work_policy.md\n• Section: Section 4.2: Remote Work & Workplace Flexibility Policy > 2. Eligibility Requirements\n• Relevance Confidence: 0.7051",
+          "is_fallback": false,
+          "returned_sources": [
+            {
+              "rank": 1,
+              "chunk_id": "remote_work_policy_chunk_002",
+              "source_document": "remote_work_policy.md",
+              "section": "Section 4.2: Remote Work & Workplace Flexibility Policy > 2. Eligibility Requirements",
+              "page": null,
+              "similarity_score": 0.705054,
+              "token_count": 101
+            },
+            {
+              "rank": 2,
+              "chunk_id": "remote_work_policy_chunk_003",
+              "source_document": "remote_work_policy.md",
+              "section": "Section 4.2: Remote Work & Workplace Flexibility Policy > 3. Request & Approval Workflow",
+              "page": null,
+              "similarity_score": 0.606977,
+              "token_count": 89
+            },
+            {
+              "rank": 3,
+              "chunk_id": "remote_work_policy_chunk_006",
+              "source_document": "remote_work_policy.md",
+              "section": "Section 4.2: Remote Work & Workplace Flexibility Policy > 5. Working Hours, Availability & Communication",
+              "page": null,
+              "similarity_score": 0.489814,
+              "token_count": 68
+            }
+          ],
+          "faithfulness_score": 0.8,
+          "timestamp": "2026-09-08T13:24:19.118366"
+        },
+        {
+          "turn_index": 2,
+          "user_message": "Is there a reimbursement for my home setup?",
+          "raw_query": "Is there a reimbursement for my home setup?",
+          "rewritten_query": "What is the company policy for home office setup reimbursement or equipment stipends for remote employees?",
+          "query_rewrite_result": {
+            "original_query": "Is there a reimbursement for my home setup?",
+            "rewritten_query": "What is the company policy for home office setup reimbursement or equipment stipends for remote employees?",
+            "has_coreference": true,
+            "resolved_entities": [
+              "home setup -> remote work equipment reimbursement policy"
+            ],
+            "rewrite_reasoning": "Resolved elliptical equipment question to corporate remote work reimbursement policy.",
+            "latency_ms": 0.06809993647038937
+          },
+          "raw_retrieved_chunks": [
+            {
+              "rank": 1,
+              "score": 0.55751,
+              "chunk_id": "remote_work_policy_chunk_002",
+              "source_text": "To qualify for regular or hybrid remote work:\n- The employee must have completed a minimum of 6 months of continuous full-time employment.\n- The employee's latest performance evaluation rating must meet or exceed 'Satisfactory' standards.\n- The employee's role must be classified as 'Remote-Eligible' by the Department Head. Roles requiring mandatory physical presence (e.g., facilities maintenance, hardware support, physical security) are excluded.\n- The employee must maintain a dedicated, private home workspace free from background disruptions.",
+              "metadata": {
+                "source_document": "remote_work_policy.md",
+                "source_path": "data/corpus/remote_work_policy.md",
+                "chunk_index": 472,
+                "section": "Section 4.2: Remote Work & Workplace Flexibility Policy > 2. Eligibility Requirements",
+                "page": null,
+                "file_type": ".md",
+                "token_count": 101,
+                "char_count": 549
+              }
+            },
+            {
+              "rank": 2,
+              "score": 0.494204,
+              "chunk_id": "remote_work_policy_chunk_003",
+              "source_text": "1. **Submission**: Employees must submit a formal Remote Work Application via the HR Portal at least 14 calendar days prior to the desired effective date.\n2. **Managerial Review**: Direct supervisors evaluate the application considering team coverage, project deliverables, and communication plans within 5 business days.\n3. **IT Security Verification**: The IT Security Operations team verifies that the employee's designated home office setup satisfies encrypted VPN and multi-factor",
+              "metadata": {
+                "source_document": "remote_work_policy.md",
+                "source_path": "data/corpus/remote_work_policy.md",
+                "chunk_index": 1054,
+                "section": "Section 4.2: Remote Work & Workplace Flexibility Policy > 3. Request & Approval Workflow",
+                "page": null,
+                "file_type": ".md",
+                "token_count": 89,
+                "char_count": 485
+              }
+            },
+            {
+              "rank": 3,
+              "score": 0.393417,
+              "chunk_id": "remote_work_policy_chunk_004",
+              "source_text": "employee's designated home office setup satisfies encrypted VPN and multi-factor authentication (MFA) requirements.\n4. **HR Registration**: Approved requests are logged into the central employee database, valid for a maximum term of 12 months, subject to annual renewal.",
+              "metadata": {
+                "source_document": "remote_work_policy.md",
+                "source_path": "data/corpus/remote_work_policy.md",
+                "chunk_index": 1459,
+                "section": "Section 4.2: Remote Work & Workplace Flexibility Policy > 3. Request & Approval Workflow",
+                "page": null,
+                "file_type": ".md",
+                "token_count": 51,
+                "char_count": 270
+              }
+            }
+          ],
+          "rewritten_retrieved_chunks": [
+            {
+              "rank": 1,
+              "score": 0.659918,
+              "chunk_id": "remote_work_policy_chunk_002",
+              "source_text": "To qualify for regular or hybrid remote work:\n- The employee must have completed a minimum of 6 months of continuous full-time employment.\n- The employee's latest performance evaluation rating must meet or exceed 'Satisfactory' standards.\n- The employee's role must be classified as 'Remote-Eligible' by the Department Head. Roles requiring mandatory physical presence (e.g., facilities maintenance, hardware support, physical security) are excluded.\n- The employee must maintain a dedicated, private home workspace free from background disruptions.",
+              "metadata": {
+                "source_document": "remote_work_policy.md",
+                "source_path": "data/corpus/remote_work_policy.md",
+                "chunk_index": 472,
+                "section": "Section 4.2: Remote Work & Workplace Flexibility Policy > 2. Eligibility Requirements",
+                "page": null,
+                "file_type": ".md",
+                "token_count": 101,
+                "char_count": 549
+              }
+            },
+            {
+              "rank": 2,
+              "score": 0.589921,
+              "chunk_id": "remote_work_policy_chunk_003",
+              "source_text": "1. **Submission**: Employees must submit a formal Remote Work Application via the HR Portal at least 14 calendar days prior to the desired effective date.\n2. **Managerial Review**: Direct supervisors evaluate the application considering team coverage, project deliverables, and communication plans within 5 business days.\n3. **IT Security Verification**: The IT Security Operations team verifies that the employee's designated home office setup satisfies encrypted VPN and multi-factor",
+              "metadata": {
+                "source_document": "remote_work_policy.md",
+                "source_path": "data/corpus/remote_work_policy.md",
+                "chunk_index": 1054,
+                "section": "Section 4.2: Remote Work & Workplace Flexibility Policy > 3. Request & Approval Workflow",
+                "page": null,
+                "file_type": ".md",
+                "token_count": 89,
+                "char_count": 485
+              }
+            },
+            {
+              "rank": 3,
+              "score": 0.478648,
+              "chunk_id": "remote_work_policy_chunk_006",
+              "source_text": "Remote employees are expected to maintain core operational hours from 9:00 AM to 5:00 PM local time. Employees must remain reachable via official communication channels (Slack, Microsoft Teams, corporate email) during working hours. Any scheduled absence or temporary unavailability must be logged in the shared department calendar at least 24 hours in advance.",
+              "metadata": {
+                "source_document": "remote_work_policy.md",
+                "source_path": "data/corpus/remote_work_policy.md",
+                "chunk_index": 2412,
+                "section": "Section 4.2: Remote Work & Workplace Flexibility Policy > 5. Working Hours, Availability & Communication",
+                "page": null,
+                "file_type": ".md",
+                "token_count": 68,
+                "char_count": 361
+              }
+            }
+          ],
+          "raw_top_score": 0.5575,
+          "rewritten_top_score": 0.6599,
+          "score_lift": 0.1024,
+          "assistant_response": "I don't have access to this information in the verified company guidelines. Please contact HR at hr@company.com or submit a ticket via the IT Helpdesk portal.",
+          "is_fallback": true,
+          "returned_sources": [],
+          "faithfulness_score": 1.0,
+          "timestamp": "2026-09-08T13:24:21.029649"
+        },
+        {
+          "turn_index": 3,
+          "user_message": "What are the security requirements for public coffee shop Wi-Fi?",
+          "raw_query": "What are the security requirements for public coffee shop Wi-Fi?",
+          "rewritten_query": "What are the security requirements for public coffee shop Wi-Fi?",
+          "query_rewrite_result": {
+            "original_query": "What are the security requirements for public coffee shop Wi-Fi?",
+            "rewritten_query": "What are the security requirements for public coffee shop Wi-Fi?",
+            "has_coreference": false,
+            "resolved_entities": [],
+            "rewrite_reasoning": "Query is already self-contained; no history rewriting necessary.",
+            "latency_ms": 0.024399952962994576
+          },
+          "raw_retrieved_chunks": [
+            {
+              "rank": 1,
+              "score": 0.551128,
+              "chunk_id": "it_security_policy_chunk_005",
+              "source_text": "If you suspect an active security compromise, credential theft, or phishing email:\n1. Immediately disconnect your machine from the network (unplug Ethernet or turn off Wi-Fi).\n2. Do not power off or reboot the computer, as volatile RAM evidence must be preserved for forensic analysis.\n3. Call the 24/7 IT Security Hotline at extension 4357 (HELP) or alert the `#security-incident` Slack channel using a secondary mobile device.\n4. Provide the time of occurrence, observed system symptoms, and suspicious email headers or files involved.",
+              "metadata": {
+                "source_document": "it_security_policy.md",
+                "source_path": "data/corpus/it_security_policy.md",
+                "chunk_index": 1785,
+                "section": "Section 8.1: Corporate IT Security & Incident Response Protocols > 4. Employee Incident Reporting Procedure",
+                "page": null,
+                "file_type": ".md",
+                "token_count": 112,
+                "char_count": 537
+              }
+            },
+            {
+              "rank": 2,
+              "score": 0.460971,
+              "chunk_id": "it_security_policy_chunk_003",
+              "source_text": "Security incidents are classified into four severity tiers:\n- **Severity 1 (Critical)**: Active data breach, ransomware deployment, or unauthorized administrative privilege escalation. Incident Commander must be notified within 15 minutes.\n- **Severity 2 (High)**: Compromised employee credential, malware detected on internal host, or unauthenticated API exposure. Response required within 1 hour.\n- **Severity 3 (Medium)**: Targeted phishing attempt reported by employee or failed brute-force",
+              "metadata": {
+                "source_document": "it_security_policy.md",
+                "source_path": "data/corpus/it_security_policy.md",
+                "chunk_index": 1044,
+                "section": "Section 8.1: Corporate IT Security & Incident Response Protocols > 3. Security Incident Classification & Severity Levels",
+                "page": null,
+                "file_type": ".md",
+                "token_count": 96,
+                "char_count": 494
+              }
+            },
+            {
+              "rank": 3,
+              "score": 0.448507,
+              "chunk_id": "it_security_policy_chunk_002",
+              "source_text": "All employee endpoints must have FileVault (macOS) or BitLocker (Windows) full-disk encryption enabled prior to accessing internal resources. USB storage drives are blocked by administrative group policy unless an exception ticket is authorized by the CISO. Operating system security updates and antivirus definitions are pushed automatically each Tuesday at 02:00 UTC and must not be bypassed or postponed beyond 48 hours.",
+              "metadata": {
+                "source_document": "it_security_policy.md",
+                "source_path": "data/corpus/it_security_policy.md",
+                "chunk_index": 579,
+                "section": "Section 8.1: Corporate IT Security & Incident Response Protocols > 2. Workstation Security & Encryption",
+                "page": null,
+                "file_type": ".md",
+                "token_count": 79,
+                "char_count": 423
+              }
+            }
+          ],
+          "rewritten_retrieved_chunks": [
+            {
+              "rank": 1,
+              "score": 0.551128,
+              "chunk_id": "it_security_policy_chunk_005",
+              "source_text": "If you suspect an active security compromise, credential theft, or phishing email:\n1. Immediately disconnect your machine from the network (unplug Ethernet or turn off Wi-Fi).\n2. Do not power off or reboot the computer, as volatile RAM evidence must be preserved for forensic analysis.\n3. Call the 24/7 IT Security Hotline at extension 4357 (HELP) or alert the `#security-incident` Slack channel using a secondary mobile device.\n4. Provide the time of occurrence, observed system symptoms, and suspicious email headers or files involved.",
+              "metadata": {
+                "source_document": "it_security_policy.md",
+                "source_path": "data/corpus/it_security_policy.md",
+                "chunk_index": 1785,
+                "section": "Section 8.1: Corporate IT Security & Incident Response Protocols > 4. Employee Incident Reporting Procedure",
+                "page": null,
+                "file_type": ".md",
+                "token_count": 112,
+                "char_count": 537
+              }
+            },
+            {
+              "rank": 2,
+              "score": 0.460971,
+              "chunk_id": "it_security_policy_chunk_003",
+              "source_text": "Security incidents are classified into four severity tiers:\n- **Severity 1 (Critical)**: Active data breach, ransomware deployment, or unauthorized administrative privilege escalation. Incident Commander must be notified within 15 minutes.\n- **Severity 2 (High)**: Compromised employee credential, malware detected on internal host, or unauthenticated API exposure. Response required within 1 hour.\n- **Severity 3 (Medium)**: Targeted phishing attempt reported by employee or failed brute-force",
+              "metadata": {
+                "source_document": "it_security_policy.md",
+                "source_path": "data/corpus/it_security_policy.md",
+                "chunk_index": 1044,
+                "section": "Section 8.1: Corporate IT Security & Incident Response Protocols > 3. Security Incident Classification & Severity Levels",
+                "page": null,
+                "file_type": ".md",
+                "token_count": 96,
+                "char_count": 494
+              }
+            },
+            {
+              "rank": 3,
+              "score": 0.448507,
+              "chunk_id": "it_security_policy_chunk_002",
+              "source_text": "All employee endpoints must have FileVault (macOS) or BitLocker (Windows) full-disk encryption enabled prior to accessing internal resources. USB storage drives are blocked by administrative group policy unless an exception ticket is authorized by the CISO. Operating system security updates and antivirus definitions are pushed automatically each Tuesday at 02:00 UTC and must not be bypassed or postponed beyond 48 hours.",
+              "metadata": {
+                "source_document": "it_security_policy.md",
+                "source_path": "data/corpus/it_security_policy.md",
+                "chunk_index": 579,
+                "section": "Section 8.1: Corporate IT Security & Incident Response Protocols > 2. Workstation Security & Encryption",
+                "page": null,
+                "file_type": ".md",
+                "token_count": 79,
+                "char_count": 423
+              }
+            }
+          ],
+          "raw_top_score": 0.5511,
+          "rewritten_top_score": 0.5511,
+          "score_lift": 0.0,
+          "assistant_response": "Based on verified internal guidelines in it_security_policy.md (Section 8.1: Corporate IT Security & Incident Response Protocols > 3. Security Incident Classification & Severity Levels): Security incidents are classified into four severity tiers:\n- **Severity 1 (Critical)**: Active data breach, ransomware deployment, or unauthorized administrative privilege escalation.\n• Incident Commander must be notified within 15 minutes.\n• - **Severity 2 (High)**: Compromised employee credential, malware detected on internal host, or unauthenticated API exposure.\n\n• Source Document: it_security_policy.md\n• Section: Section 8.1: Corporate IT Security & Incident Response Protocols > 3. Security Incident Classification & Severity Levels\n• Relevance Confidence: 0.4610",
+          "is_fallback": false,
+          "returned_sources": [
+            {
+              "rank": 1,
+              "chunk_id": "it_security_policy_chunk_005",
+              "source_document": "it_security_policy.md",
+              "section": "Section 8.1: Corporate IT Security & Incident Response Protocols > 4. Employee Incident Reporting Procedure",
+              "page": null,
+              "similarity_score": 0.551128,
+              "token_count": 112
+            },
+            {
+              "rank": 2,
+              "chunk_id": "it_security_policy_chunk_003",
+              "source_document": "it_security_policy.md",
+              "section": "Section 8.1: Corporate IT Security & Incident Response Protocols > 3. Security Incident Classification & Severity Levels",
+              "page": null,
+              "similarity_score": 0.460971,
+              "token_count": 96
+            },
+            {
+              "rank": 3,
+              "chunk_id": "it_security_policy_chunk_002",
+              "source_document": "it_security_policy.md",
+              "section": "Section 8.1: Corporate IT Security & Incident Response Protocols > 2. Workstation Security & Encryption",
+              "page": null,
+              "similarity_score": 0.448507,
+              "token_count": 79
+            }
+          ],
+          "faithfulness_score": 1.0,
+          "timestamp": "2026-09-08T13:24:22.429746"
+        }
+      ]
+    }
+  ]
+}

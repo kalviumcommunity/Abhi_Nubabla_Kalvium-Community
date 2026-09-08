@@ -6,7 +6,14 @@ This repository implements tools, benchmark reports, and system prompt architect
 
 ## 📋 Features & Tasks Implemented
 
-### 1. Grounded Answer Generation & Source Accuracy Verification (`GroundedAnswer` Branch)
+### 1. Conversational RAG & Multi-Turn History Tracking (`ConversationalRAG` Branch)
+- **Task 1 — Multi-Turn History Tracking**: Structured `ConversationHistory` and `ConversationTurn` manager recording multi-turn dialogues, user queries, assistant responses, rewritten search queries, retrieved chunks, and token usage with sliding-window capacity pruning.
+- **Task 2 — Query Rewriting & Anaphora Resolution**: Contextual query reformulation engine (`QueryRewriter`) resolving pronouns (*it, them, that, these*) and conversational ellipses into self-contained standalone search queries suitable for vector retrieval.
+- **Task 3 — Standalone Vector Retrieval & Score Lift**: Multi-stage retrieval evaluating raw vs. rewritten queries, achieving an average similarity score lift of **$+0.0946$** (up to $+0.35$ on ambiguous follow-ups) and ensuring target policy chunks rank #1.
+- **Task 4 — Multi-Turn Dialogue Demonstrations**: Multi-turn flows across Employee Benefits (PTO accrual $\rightarrow$ rollover limit $\rightarrow$ forfeiture consequence), IT Security (incident reporting $\rightarrow$ customer data notification $\rightarrow$ timeline), and Remote Work (VPN guidelines $\rightarrow$ out-of-scope equipment reimbursement fallback refusal).
+- **Task 5 — Benchmark Exports & CLI**: Complete multi-turn dataset exported to `data/conversational_rag_results.json` and in-depth report generated at `data/conversational_rag_report.md`.
+
+### 2. Grounded Answer Generation & Source Accuracy Verification (`GroundedAnswer` Branch)
 - **Task 1 — Grounded Answer Generation**: Generate answers strictly constrained to injected retrieved context using structured prompt templates and verifiable citations (`[Source 1: employee_benefits.md]`).
 - **Task 2 — Source Accuracy & Faithfulness Audit**: Automated claim verification engine (`SourceAccuracyChecker`) extracting discrete factual assertions and calculating a faithfulness score ($100.0\%$ verified against chunk text, $0$ unsupported claims).
 - **Task 3 — Missing-Context Safe Refusal Fallback**: Explicit fallback mechanism triggered when query context is absent or below similarity threshold ($\text{similarity} < 0.28$), returning standard refusal with HR/IT contact paths rather than inventing policy.

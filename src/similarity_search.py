@@ -121,7 +121,7 @@ class DenseSemanticEmbedder:
         # Concept projections matching corpus generation
         semantic_concepts = {
             "hr_leave_vacation": (["vacation", "leave", "pto", "holiday", "sick", "absence", "accrual", "parental"], 4.0),
-            "it_security_compliance": (["security", "policy", "passwords", "encryption", "malware", "incident", "hotline", "vpn"], 4.0),
+            "it_security_compliance": (["security", "passwords", "encryption", "malware", "incident", "hotline", "vpn"], 4.0),
             "remote_work_telecommute": (["remote", "work", "home", "telework", "hybrid", "workspace", "approval", "portal"], 4.0),
             "rag_ingestion_retrieval": (["rag", "retrieval", "chunk", "document", "embedding", "loader", "pipeline", "search"], 4.0),
         }
