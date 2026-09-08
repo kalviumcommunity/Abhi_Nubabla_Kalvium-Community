@@ -157,6 +157,47 @@ class TestGroundedAnswerGenerator(unittest.TestCase):
         self.assertTrue(result.is_fallback)
         self.assertEqual(result.answer, STANDARD_FALLBACK_ANSWER)
 
+    def test_minimum_relevant_chunk_guardrail(self):
+        """Sparse above-threshold retrieval must refuse when more support is required."""
+        generator = GroundedAnswerGenerator(
+            vector_store_path=self.generator.vector_store_path,
+            min_relevant_chunks=2,
+        )
+        generator.retriever.retrieve_top_k = lambda query, k: [
+            RetrievedChunk(
+                rank=1,
+                chunk_id="single_supporting_chunk",
+                source_text="A policy detail with enough similarity but insufficient support.",
+                metadata={"source_document": "policy.md"},
+                score=0.91,
+            )
+        ]
+
+        result = generator.generate_grounded_answer("What is the policy?", k=3)
+
+        self.assertTrue(result.is_fallback)
+        self.assertIn("at least 2 required", result.fallback_reason)
+        self.assertEqual(result.retrieved_chunk_count, 0)
+
+    def test_unfaithful_generated_answer_is_refused(self):
+        """A high-score context cannot bypass the final source-faithfulness gate."""
+        generator = GroundedAnswerGenerator(
+            vector_store_path=self.generator.vector_store_path,
+        )
+        generator._call_llm_api = lambda user_prompt, system_prompt: (
+            "Employees receive a $500 bonus for reporting incidents within 48 hours."
+        )
+
+        result = generator.generate_grounded_answer(
+            "What is the procedure for reporting suspected security breaches?",
+            k=3,
+        )
+
+        self.assertTrue(result.is_fallback)
+        self.assertEqual(result.answer, STANDARD_FALLBACK_ANSWER)
+        self.assertIn("source-faithfulness audit", result.fallback_reason)
+        self.assertEqual(result.returned_sources, [])
+
 
 class TestComparativeGrounding(unittest.TestCase):
     """Unit tests for side-by-side with vs. without retrieval comparison (Task 4)."""

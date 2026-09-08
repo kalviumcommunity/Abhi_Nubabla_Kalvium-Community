@@ -264,9 +264,11 @@ class GroundedAnswerGenerator:
         self,
         vector_store_path: str = "data/embedded_chunks.json",
         min_similarity_threshold: float = 0.28,
+        min_relevant_chunks: int = 1,
     ):
         self.vector_store_path = vector_store_path
         self.min_similarity_threshold = min_similarity_threshold
+        self.min_relevant_chunks = max(1, min_relevant_chunks)
         self.retriever = VectorStoreRetriever(vector_store_path=vector_store_path)
 
     def assemble_context(
@@ -451,12 +453,13 @@ class GroundedAnswerGenerator:
         # Task 3: Filter by similarity confidence threshold
         relevant_chunks = [c for c in raw_chunks if c.score >= self.min_similarity_threshold]
 
-        # Check if context is completely missing or below confidence threshold
-        if not relevant_chunks:
+        # Refuse when retrieval does not provide enough above-threshold support.
+        if len(relevant_chunks) < self.min_relevant_chunks:
             latency = round((time.time() - start_t) * 1000.0, 2)
             top_score = raw_chunks[0].score if raw_chunks else 0.0
             reason = (
-                f"No supporting chunks exceeded similarity threshold ({self.min_similarity_threshold:.2f}). "
+                f"Only {len(relevant_chunks)} supporting chunk(s) exceeded similarity threshold "
+                f"({self.min_similarity_threshold:.2f}); at least {self.min_relevant_chunks} required. "
                 f"Top retrieved chunk had score {top_score:.4f}."
             )
             audit = SourceAccuracyChecker.audit_answer(
@@ -505,6 +508,31 @@ class GroundedAnswerGenerator:
             retrieved_chunks=relevant_chunks,
             is_fallback=False,
         )
+
+        if not audit.is_faithful:
+            latency = round((time.time() - start_t) * 1000.0, 2)
+            refusal_reason = (
+                "Generated answer failed the source-faithfulness audit: "
+                f"{audit.audit_notes}"
+            )
+            refusal_audit = SourceAccuracyChecker.audit_answer(
+                answer=STANDARD_FALLBACK_ANSWER,
+                retrieved_chunks=[],
+                is_fallback=True,
+            )
+            return GroundedGenerationResult(
+                query=query,
+                answer=STANDARD_FALLBACK_ANSWER,
+                is_fallback=True,
+                fallback_reason=refusal_reason,
+                returned_sources=[],
+                retrieved_chunk_count=0,
+                context_text="Generated answer did not pass the source-faithfulness audit.",
+                user_prompt=user_prompt,
+                generation_model="Fallback Policy Engine (Faithfulness Refusal)",
+                source_accuracy_audit=refusal_audit,
+                latency_ms=latency,
+            )
 
         latency = round((time.time() - start_t) * 1000.0, 2)
 
