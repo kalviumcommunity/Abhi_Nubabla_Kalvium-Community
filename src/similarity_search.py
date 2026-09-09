@@ -121,7 +121,7 @@ class DenseSemanticEmbedder:
         # Concept projections matching corpus generation
         semantic_concepts = {
             "hr_leave_vacation": (["vacation", "leave", "pto", "holiday", "sick", "absence", "accrual", "parental"], 4.0),
-            "it_security_compliance": (["security", "policy", "passwords", "encryption", "malware", "incident", "hotline", "vpn"], 4.0),
+            "it_security_compliance": (["security", "passwords", "encryption", "malware", "incident", "hotline", "vpn"], 4.0),
             "remote_work_telecommute": (["remote", "work", "home", "telework", "hybrid", "workspace", "approval", "portal"], 4.0),
             "rag_ingestion_retrieval": (["rag", "retrieval", "chunk", "document", "embedding", "loader", "pipeline", "search"], 4.0),
         }
@@ -220,12 +220,22 @@ class VectorStoreRetriever:
         # Use deterministic dense embedder matching indexed chunks
         return self.embedder.embed(query)
 
-    def retrieve_top_k(self, query: str, k: int = 3) -> List[RetrievedChunk]:
+    def retrieve_top_k(
+        self,
+        query: str,
+        k: int = 3,
+        score_threshold: float = 0.0,
+        metadata_filter: Optional[Dict[str, Any]] = None,
+        filter_metadata: Optional[Dict[str, Any]] = None,
+    ) -> List[RetrievedChunk]:
         """
         Task 2 & 3: Run top-k similarity search and return chunks with scores and metadata.
+        Supports score threshold filtering and metadata scoping.
         """
         if k <= 0:
             raise ValueError(f"k must be a positive integer, got {k}")
+
+        active_filter = metadata_filter or filter_metadata
 
         # Task 1: Embed the user query
         query_vector = self.embed_query(query)
@@ -235,7 +245,21 @@ class VectorStoreRetriever:
             chunk_vector = chunk.get("vector")
             if not chunk_vector:
                 continue
+
+            metadata = chunk.get("metadata", {})
+            if active_filter:
+                match = True
+                for f_key, f_val in active_filter.items():
+                    if metadata.get(f_key) != f_val and chunk.get(f_key) != f_val:
+                        match = False
+                        break
+                if not match:
+                    continue
+
             score = cosine_similarity(query_vector, chunk_vector)
+            if score < score_threshold:
+                continue
+
             scored_chunks.append((score, chunk))
 
         # Sort descending by similarity score

@@ -1,6 +1,6 @@
 # Top-K Vector Database Similarity Search & Retrieval Report
 
-**Run Timestamp**: `2026-09-08T13:14:00.465756`  
+**Run Timestamp**: `2026-09-08T13:32:12.332926`  
 **Vector Store**: `data/embedded_chunks.json` (25 chunks indexed)  
 **Embedding Model**: `OpenAI-Compatible API (text-embedding-3-small)`  
 **Values of $k$ Tested**: `1, 3, 5`  
@@ -21,12 +21,12 @@ Retrieval in RAG systems balances **precision** against **recall**:
 | `query_pto_rollover` | **1** | 1 | **0.5269** | 0.5269 | 0.0000 | 79 | `employee_benefits.md` |
 | `query_pto_rollover` | **3** | 3 | **0.5269** | 0.2352 | 0.2917 | 219 | `employee_benefits.md` |
 | `query_pto_rollover` | **5** | 5 | **0.5269** | 0.1981 | 0.3288 | 366 | `employee_benefits.md` |
-| `query_security_incident` | **1** | 1 | **0.5100** | 0.5100 | 0.0000 | 112 | `it_security_policy.md` |
-| `query_security_incident` | **3** | 3 | **0.5100** | 0.4138 | 0.0962 | 287 | `it_security_policy.md` |
-| `query_security_incident` | **5** | 5 | **0.5100** | 0.3115 | 0.1985 | 453 | `it_security_policy.md` |
-| `query_remote_vpn` | **1** | 1 | **0.6856** | 0.6856 | 0.0000 | 89 | `remote_work_policy.md` |
-| `query_remote_vpn` | **3** | 3 | **0.6856** | 0.6311 | 0.0545 | 250 | `remote_work_policy.md` |
-| `query_remote_vpn` | **5** | 5 | **0.6856** | 0.5339 | 0.1517 | 407 | `remote_work_policy.md` |
+| `query_security_incident` | **1** | 1 | **0.5307** | 0.5307 | 0.0000 | 112 | `it_security_policy.md` |
+| `query_security_incident` | **3** | 3 | **0.5307** | 0.4424 | 0.0883 | 287 | `it_security_policy.md` |
+| `query_security_incident` | **5** | 5 | **0.5307** | 0.3236 | 0.2071 | 453 | `it_security_policy.md` |
+| `query_remote_vpn` | **1** | 1 | **0.6762** | 0.6762 | 0.0000 | 89 | `remote_work_policy.md` |
+| `query_remote_vpn` | **3** | 3 | **0.6762** | 0.6124 | 0.0638 | 250 | `remote_work_policy.md` |
+| `query_remote_vpn` | **5** | 5 | **0.6762** | 0.5493 | 0.1269 | 468 | `remote_work_policy.md` |
 | `query_rag_principles` | **1** | 1 | **0.7877** | 0.7877 | 0.0000 | 61 | `hello.txt` |
 | `query_rag_principles` | **3** | 3 | **0.7877** | 0.6883 | 0.0994 | 128 | `hello.txt` |
 | `query_rag_principles` | **5** | 5 | **0.7877** | 0.5425 | 0.2453 | 211 | `hello.txt` |
@@ -59,7 +59,7 @@ Full-time regular employees accrue 18 days of Paid Time Off annually, calculated
 
 #### Retrieved Chunks at $k=3$:
 
-##### Rank 1: `it_security_policy_chunk_005` (Score: **0.5100**)
+##### Rank 1: `it_security_policy_chunk_005` (Score: **0.5307**)
 - **Document**: `it_security_policy.md`
 - **Section**: `Section 8.1: Corporate IT Security & Incident Response Protocols > 4. Employee Incident Reporting Procedure`
 - **Page**: `N/A`
@@ -81,7 +81,7 @@ If you suspect an active security compromise, credential theft, or phishing emai
 
 #### Retrieved Chunks at $k=3$:
 
-##### Rank 1: `remote_work_policy_chunk_003` (Score: **0.6856**)
+##### Rank 1: `remote_work_policy_chunk_003` (Score: **0.6762**)
 - **Document**: `remote_work_policy.md`
 - **Section**: `Section 4.2: Remote Work & Workplace Flexibility Policy > 3. Request & Approval Workflow`
 - **Page**: `N/A`
