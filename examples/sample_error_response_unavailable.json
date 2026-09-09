@@ -1,0 +1,7 @@
+{
+  "status": "error",
+  "message": "Vector store not initialized. Please run indexing pipeline first.",
+  "error_code": "VECTOR_STORE_NOT_FOUND",
+  "timestamp": "2025-01-15T14:40:15.789012",
+  "request_id": "550e8400-e29b-41d4-a716-446655440002"
+}
