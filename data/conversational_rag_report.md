@@ -1,6 +1,6 @@
 # Conversational RAG & Query Rewriting Audit Report
 
-**Run Timestamp**: `2026-09-08T13:24:22.429987`  
+**Run Timestamp**: `2026-09-09T13:23:47.338697`  
 **Total Multi-Turn Dialogues**: `3`  
 **Total Turns Executed**: `10`  
 **Coreferences & Ellipses Resolved**: `4`  

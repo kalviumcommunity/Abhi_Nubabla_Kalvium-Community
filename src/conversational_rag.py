@@ -861,10 +861,26 @@ def main() -> None:
     
     dialogues_to_run = None
     if args.dialogue:
-        dialogues_to_run = [d for d in STANDARD_BENCHMARK_DIALOGUES if d["dialogue_id"] == args.dialogue]
-        if not dialogues_to_run:
-            print(f"Error: Dialogue ID '{args.dialogue}' not found.")
+        query_id = args.dialogue.lower().strip()
+        matched: List[Dict[str, Any]] = []
+        for d in STANDARD_BENCHMARK_DIALOGUES:
+            d_id = d["dialogue_id"].lower()
+            d_title = d.get("title", "").lower()
+            d_domain = d.get("domain", "").lower()
+            if (
+                query_id == d_id
+                or query_id in d_id
+                or query_id in d_title
+                or query_id in d_domain
+                or (query_id.isdigit() and f"dialogue_{query_id}" in d_id)
+            ):
+                matched.append(d)
+
+        if not matched:
+            available_ids = ", ".join(f"'{d['dialogue_id']}'" for d in STANDARD_BENCHMARK_DIALOGUES)
+            print(f"Error: Dialogue ID '{args.dialogue}' not found. Available dialogue IDs / aliases: {available_ids}, 'benefits', 'pto', 'security', 'remote'")
             sys.exit(1)
+        dialogues_to_run = matched
 
     export_dir = Path(args.export_dir)
     summary = run_conversational_rag_benchmark(
