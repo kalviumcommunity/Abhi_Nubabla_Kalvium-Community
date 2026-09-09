@@ -1,0 +1,7 @@
+{
+  "status": "error",
+  "message": "Invalid request: Question cannot be empty or whitespace only",
+  "error_code": "VALIDATION_ERROR",
+  "timestamp": "2025-01-15T14:35:22.456789",
+  "request_id": "550e8400-e29b-41d4-a716-446655440001"
+}
