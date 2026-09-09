@@ -1,0 +1,88 @@
+{
+  "timestamp": "2026-09-09T14:00:53.420276",
+  "vector_store": "data\\embedded_chunks.json",
+  "initial_corpus_chunks": 37,
+  "steps": [
+    {
+      "step": 1,
+      "name": "Pre-Upload Baseline Query",
+      "query": "What are the mandatory security rules and approval requirements for using AI code assistants?",
+      "top_score": 0.5623,
+      "is_fallback": false,
+      "answer_summary": "Based on verified internal guidelines in remote_work_policy.md (Section 4.2: Remote Work & Workplace Flexibility Policy > 2. Eligibility Requirements)...",
+      "retrieved_chunk_sources": [
+        "remote_work_policy.md",
+        "remote_work_policy.md",
+        "remote_work_policy.md"
+      ]
+    },
+    {
+      "step": 2,
+      "name": "Runtime Document Upload & Indexing",
+      "upload_status": "SUCCESS",
+      "status_code": 201,
+      "document_name": "ai_code_assistant_guidelines.md",
+      "chunks_created": 3,
+      "tokens_indexed": 215,
+      "indexing_time_sec": 0.2964,
+      "created_chunk_ids": [
+        "ai_code_assistant_guidelines_chunk_001",
+        "ai_code_assistant_guidelines_chunk_002",
+        "ai_code_assistant_guidelines_chunk_003"
+      ]
+    },
+    {
+      "step": 3,
+      "name": "Post-Upload Live Query (Zero App Restart)",
+      "query": "What are the mandatory security rules and approval requirements for using AI code assistants?",
+      "top_score": 0.5623,
+      "is_fallback": false,
+      "answer": "Based on verified internal guidelines in remote_work_policy.md (Section 4.2: Remote Work & Workplace Flexibility Policy > 2. Eligibility Requirements): Roles requiring mandatory physical presence (e.g., facilities maintenance, hardware support, physical security) are excluded.\n• To qualify for regular or hybrid remote work:\n- The employee must have completed a minimum of 6 months of continuous full-time employment.\n• - The employee's latest performance evaluation rating must meet or exceed 'Satisfactory' standards.\n\n• Source Document: remote_work_policy.md\n• Section: Section 4.2: Remote Work & Workplace Flexibility Policy > 2. Eligibility Requirements\n• Relevance Confidence: 0.5464",
+      "citations": [
+        "remote_work_policy.md (Section 4.2: Remote Work & Workplace Flexibility Policy > 3. Request & Approval Workflow)",
+        "remote_work_policy.md (Section 4.2: Remote Work & Workplace Flexibility Policy > 1. Overview & Scope)",
+        "remote_work_policy.md (Section 4.2: Remote Work & Workplace Flexibility Policy > 2. Eligibility Requirements)"
+      ],
+      "target_document_retrieved_at_rank_1": false,
+      "total_chunks_after_upload": 40,
+      "score_lift": 0.0
+    }
+  ],
+  "negative_tests": [
+    {
+      "test_name": "Empty File Rejection",
+      "input_filename": "empty_policy.txt",
+      "file_size": 0,
+      "expected_status": 400,
+      "actual_status": 400,
+      "message": "Upload error: File is empty (0 bytes). Please provide a non-empty document.",
+      "passed": true
+    },
+    {
+      "test_name": "Unsupported Format Rejection (.exe)",
+      "input_filename": "malicious_payload.exe",
+      "expected_status": 415,
+      "actual_status": 415,
+      "message": "Upload error: Unsupported file type '.exe'. Allowed formats: .htm, .html, .md, .pdf, .txt.",
+      "passed": true
+    },
+    {
+      "test_name": "Oversized File Rejection (> 10 MB)",
+      "input_filename": "huge_handbook.md",
+      "file_size_bytes": 11534336,
+      "expected_status": 413,
+      "actual_status": 413,
+      "message": "Upload error: File size (11.00 MB / 11534336 bytes) exceeds maximum allowed limit of 10.0 MB.",
+      "passed": true
+    },
+    {
+      "test_name": "Corrupted Document Handling (Malformed PDF)",
+      "input_filename": "corrupted_policy.pdf",
+      "expected_status": 422,
+      "actual_status": 422,
+      "message": "Document ingestion error: Failed to extract content from 'corrupted_policy.pdf': Stream has ended unexpectedly",
+      "passed": true
+    }
+  ],
+  "total_elapsed_sec": 63.8812
+}
