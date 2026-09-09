@@ -1,0 +1,33 @@
+{
+  "guardrail": {
+    "min_similarity_threshold": 0.28,
+    "min_relevant_chunks": 1,
+    "faithfulness_gate": "refuse when source_accuracy_audit.is_faithful is false"
+  },
+  "samples": [
+    {
+      "case": "refusal_weak_retrieval",
+      "query": "What is the stock option equity vesting schedule and strike price calculation for senior staff?",
+      "is_fallback": true,
+      "fallback_reason": "Only 0 supporting chunk(s) exceeded similarity threshold (0.28); at least 1 required. Top retrieved chunk had score 0.1798.",
+      "answer": "I don't have access to this information in the verified company guidelines. Please contact HR at hr@company.com or submit a ticket via the IT Helpdesk portal.",
+      "retrieved_chunk_count": 0,
+      "returned_sources": []
+    },
+    {
+      "case": "success_strong_context",
+      "query": "How many days of paid time off do employees get each year, and can unused PTO be rolled over?",
+      "is_fallback": false,
+      "answer": "Based on verified internal guidelines in employee_benefits.md: Full-time regular employees accrue 18 days of Paid Time Off annually. Employees may roll over a maximum of 5 unused PTO days into the following calendar year.",
+      "retrieved_chunk_count": 2,
+      "returned_sources": [
+        {
+          "chunk_id": "employee_benefits_chunk_001",
+          "source_document": "employee_benefits.md",
+          "similarity_score": 0.5269
+        }
+      ],
+      "faithfulness_score": 1.0
+    }
+  ]
+}

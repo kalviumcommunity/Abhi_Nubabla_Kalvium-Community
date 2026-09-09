@@ -170,20 +170,13 @@ class VectorStoreRetriever:
     def __init__(
         self,
         vector_store_path: str = "data/embedded_chunks.json",
-        chunks_data: Optional[List[Dict[str, Any]]] = None,
         embedder: Optional[DenseSemanticEmbedder] = None,
     ):
         self.vector_store_path = Path(vector_store_path)
         self.embedder = embedder or DenseSemanticEmbedder(dimension=1536)
         self.model_name = "DenseSemanticEmbedder (Local Fallback, D=1536)"
         self.chunks_data: List[Dict[str, Any]] = []
-        if chunks_data is not None:
-            self.chunks_data = chunks_data
-            for idx, chunk in enumerate(self.chunks_data):
-                if "vector" not in chunk or not chunk["vector"]:
-                    chunk["vector"] = self.embedder.embed(chunk.get("text", chunk.get("source_text", "")))
-        else:
-            self._load_vector_store()
+        self._load_vector_store()
 
     def _load_vector_store(self) -> None:
         """Loads indexed chunks and precomputed vectors from disk."""
@@ -207,75 +200,6 @@ class VectorStoreRetriever:
         if not self.chunks_data:
             raise ValueError(f"Vector database in {self.vector_store_path} contains 0 chunks.")
 
-    @property
-    def total_chunks(self) -> int:
-        return len(self.chunks_data)
-
-    def retrieve(
-        self, query: str, k: int = 3, min_score: Optional[float] = None
-    ) -> List[Dict[str, Any]]:
-        """Dictionary-based retrieve interface for tests."""
-        if not query or not query.strip():
-            return []
-        retrieved = self.retrieve_top_k(query=query, k=k)
-        results = []
-        for c in retrieved:
-            if min_score is not None and c.score < min_score:
-                continue
-            meta = c.metadata.copy()
-            results.append({
-                "chunk_id": c.chunk_id,
-                "chunk_index": meta.get("chunk_index", 0),
-                "document_name": meta.get("source_document", "unknown"),
-                "source": meta.get("source_path", meta.get("source_document", "unknown")),
-                "file_type": meta.get("file_type", ".txt"),
-                "section": meta.get("section", "N/A"),
-                "page": meta.get("page"),
-                "position": meta.get("chunk_index", 0),
-                "token_count": meta.get("token_count", len(c.source_text.split())),
-                "char_count": len(c.source_text),
-                "similarity_score": c.score,
-                "text": c.source_text,
-                "metadata": meta,
-                "rank": c.rank,
-            })
-        return results
-
-    def compare_k(self, query: str, k_values: List[int]) -> Dict[str, Any]:
-        """Comparison helper for multi-k tests."""
-        runs = self.demonstrate_changing_k(query, k_values=k_values)
-        res_dict = {}
-        sorted_k = sorted(k_values)
-        for k in sorted_k:
-            run = runs[k]
-            res_dict[f"k={k}"] = {
-                "k": k,
-                "retrieved_count": run.retrieved_count,
-                "chunks": [
-                    {
-                        "chunk_id": c.chunk_id,
-                        "similarity_score": c.score,
-                        "text": c.source_text,
-                        "document_name": c.metadata.get("source_document", "unknown"),
-                    }
-                    for c in run.chunks
-                ]
-            }
-        marginal = []
-        for i in range(len(sorted_k) - 1):
-            k1 = sorted_k[i]
-            k2 = sorted_k[i + 1]
-            marginal.append({
-                "transition": f"k={k1} -> k={k2}",
-                "chunks_added": k2 - k1,
-            })
-        return {
-            "query": query,
-            "k_values": sorted_k,
-            "comparisons": res_dict,
-            "marginal_analysis": marginal,
-        }
-
     def embed_query(self, query: str) -> List[float]:
         """Task 1: Embed user query using the same embedding model."""
         load_dotenv()
@@ -296,16 +220,9 @@ class VectorStoreRetriever:
         # Use deterministic dense embedder matching indexed chunks
         return self.embedder.embed(query)
 
-    def retrieve_top_k(
-        self,
-        query: str,
-        k: int = 3,
-        score_threshold: float = 0.0,
-        metadata_filter: Optional[Dict[str, Any]] = None,
-    ) -> List[RetrievedChunk]:
+    def retrieve_top_k(self, query: str, k: int = 3) -> List[RetrievedChunk]:
         """
         Task 2 & 3: Run top-k similarity search and return chunks with scores and metadata.
-        Supports score thresholding and metadata filtering for retrieval tuning.
         """
         if k <= 0:
             raise ValueError(f"k must be a positive integer, got {k}")
@@ -318,25 +235,7 @@ class VectorStoreRetriever:
             chunk_vector = chunk.get("vector")
             if not chunk_vector:
                 continue
-
-            metadata = chunk.get("metadata", {})
-            # Check metadata filter if specified
-            if metadata_filter:
-                match = True
-                for key, expected_val in metadata_filter.items():
-                    actual_val = metadata.get(key) or chunk.get(key)
-                    if actual_val != expected_val:
-                        match = False
-                        break
-                if not match:
-                    continue
-
             score = cosine_similarity(query_vector, chunk_vector)
-
-            # Check minimum score threshold
-            if score < score_threshold:
-                continue
-
             scored_chunks.append((score, chunk))
 
         # Sort descending by similarity score

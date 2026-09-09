@@ -1,0 +1,2651 @@
+{
+  "metadata": {
+    "timestamp": "2026-09-07T14:06:42.794203",
+    "vector_store_path": "data/embedded_chunks.json",
+    "total_labelled_queries": 10,
+    "evaluated_k_values": [
+      1,
+      2,
+      3,
+      5,
+      10
+    ],
+    "pipelines_evaluated": [
+      "vector_top_k",
+      "metadata_filtered",
+      "two_stage_rerank"
+    ]
+  },
+  "pipeline_comparisons": {
+    "vector_top_k": {
+      "mode": "vector_top_k",
+      "summary_metrics": {
+        "total_queries": 10,
+        "mean_mrr": 0.795,
+        "metrics_by_k": {
+          "k=1": {
+            "mean_recall": 0.65,
+            "mean_precision": 0.7,
+            "mean_hit_rate": 0.7,
+            "mean_f1": 0.6667,
+            "mean_ndcg": 0.6333
+          },
+          "k=2": {
+            "mean_recall": 0.75,
+            "mean_precision": 0.45,
+            "mean_hit_rate": 0.8,
+            "mean_f1": 0.55,
+            "mean_ndcg": 0.6662
+          },
+          "k=3": {
+            "mean_recall": 0.8,
+            "mean_precision": 0.3333,
+            "mean_hit_rate": 0.8,
+            "mean_f1": 0.46,
+            "mean_ndcg": 0.6787
+          },
+          "k=5": {
+            "mean_recall": 0.95,
+            "mean_precision": 0.24,
+            "mean_hit_rate": 1.0,
+            "mean_f1": 0.3762,
+            "mean_ndcg": 0.7498
+          },
+          "k=10": {
+            "mean_recall": 1.0,
+            "mean_precision": 0.13,
+            "mean_hit_rate": 1.0,
+            "mean_f1": 0.2273,
+            "mean_ndcg": 0.7808
+          }
+        }
+      },
+      "query_evaluations": [
+        {
+          "query_id": "eval_q01_pto_rollover",
+          "query": "How many days of paid time off do employees get each year, and can unused PTO be rolled over into the next year?",
+          "domain": "HR & Employee Benefits",
+          "difficulty": "Easy",
+          "relevant_chunk_ids": [
+            "employee_benefits_chunk_001"
+          ],
+          "reciprocal_rank": 1.0,
+          "k_metrics": {
+            "k=1": {
+              "recall": 1.0,
+              "precision": 1.0,
+              "hit_rate": 1,
+              "f1": 1.0,
+              "ndcg": 1.0,
+              "retrieved_chunk_ids": [
+                "employee_benefits_chunk_001"
+              ]
+            },
+            "k=2": {
+              "recall": 1.0,
+              "precision": 0.5,
+              "hit_rate": 1,
+              "f1": 0.6667,
+              "ndcg": 1.0,
+              "retrieved_chunk_ids": [
+                "employee_benefits_chunk_001",
+                "employee_benefits_chunk_002"
+              ]
+            },
+            "k=3": {
+              "recall": 1.0,
+              "precision": 0.3333,
+              "hit_rate": 1,
+              "f1": 0.5,
+              "ndcg": 1.0,
+              "retrieved_chunk_ids": [
+                "employee_benefits_chunk_001",
+                "employee_benefits_chunk_002",
+                "employee_benefits_chunk_003"
+              ]
+            },
+            "k=5": {
+              "recall": 1.0,
+              "precision": 0.2,
+              "hit_rate": 1,
+              "f1": 0.3333,
+              "ndcg": 1.0,
+              "retrieved_chunk_ids": [
+                "employee_benefits_chunk_001",
+                "employee_benefits_chunk_002",
+                "employee_benefits_chunk_003",
+                "employee_benefits_chunk_004",
+                "it_security_policy_chunk_005"
+              ]
+            },
+            "k=10": {
+              "recall": 1.0,
+              "precision": 0.1,
+              "hit_rate": 1,
+              "f1": 0.1818,
+              "ndcg": 1.0,
+              "retrieved_chunk_ids": [
+                "employee_benefits_chunk_001",
+                "employee_benefits_chunk_002",
+                "employee_benefits_chunk_003",
+                "employee_benefits_chunk_004",
+                "it_security_policy_chunk_005",
+                "remote_work_policy_chunk_006",
+                "remote_work_policy_chunk_003",
+                "page_chunk_003",
+                "guide_chunk_002",
+                "remote_work_policy_chunk_002"
+              ]
+            }
+          },
+          "has_failure_diagnostic": false,
+          "diagnostic_summary": "Optimal (Rank #1)"
+        },
+        {
+          "query_id": "eval_q02_sick_leave_policy",
+          "query": "What is the policy for taking sick leave and when is a medical certificate required from a doctor?",
+          "domain": "HR & Employee Benefits",
+          "difficulty": "Easy",
+          "relevant_chunk_ids": [
+            "employee_benefits_chunk_002"
+          ],
+          "reciprocal_rank": 1.0,
+          "k_metrics": {
+            "k=1": {
+              "recall": 1.0,
+              "precision": 1.0,
+              "hit_rate": 1,
+              "f1": 1.0,
+              "ndcg": 1.0,
+              "retrieved_chunk_ids": [
+                "employee_benefits_chunk_002"
+              ]
+            },
+            "k=2": {
+              "recall": 1.0,
+              "precision": 0.5,
+              "hit_rate": 1,
+              "f1": 0.6667,
+              "ndcg": 0.8262,
+              "retrieved_chunk_ids": [
+                "employee_benefits_chunk_002",
+                "it_security_policy_chunk_005"
+              ]
+            },
+            "k=3": {
+              "recall": 1.0,
+              "precision": 0.3333,
+              "hit_rate": 1,
+              "f1": 0.5,
+              "ndcg": 0.8262,
+              "retrieved_chunk_ids": [
+                "employee_benefits_chunk_002",
+                "it_security_policy_chunk_005",
+                "it_security_policy_chunk_002"
+              ]
+            },
+            "k=5": {
+              "recall": 1.0,
+              "precision": 0.2,
+              "hit_rate": 1,
+              "f1": 0.3333,
+              "ndcg": 0.8262,
+              "retrieved_chunk_ids": [
+                "employee_benefits_chunk_002",
+                "it_security_policy_chunk_005",
+                "it_security_policy_chunk_002",
+                "employee_benefits_chunk_003",
+                "remote_work_policy_chunk_001"
+              ]
+            },
+            "k=10": {
+              "recall": 1.0,
+              "precision": 0.1,
+              "hit_rate": 1,
+              "f1": 0.1818,
+              "ndcg": 0.8262,
+              "retrieved_chunk_ids": [
+                "employee_benefits_chunk_002",
+                "it_security_policy_chunk_005",
+                "it_security_policy_chunk_002",
+                "employee_benefits_chunk_003",
+                "remote_work_policy_chunk_001",
+                "remote_work_policy_chunk_005",
+                "it_security_policy_chunk_001",
+                "it_security_policy_chunk_003",
+                "remote_work_policy_chunk_003",
+                "remote_work_policy_chunk_004"
+              ]
+            }
+          },
+          "has_failure_diagnostic": false,
+          "diagnostic_summary": "Optimal (Rank #1)"
+        },
+        {
+          "query_id": "eval_q03_parental_leave",
+          "query": "How many weeks of fully paid parental leave are new parents entitled to and can the leave be split?",
+          "domain": "HR & Employee Benefits",
+          "difficulty": "Easy",
+          "relevant_chunk_ids": [
+            "employee_benefits_chunk_003"
+          ],
+          "reciprocal_rank": 1.0,
+          "k_metrics": {
+            "k=1": {
+              "recall": 1.0,
+              "precision": 1.0,
+              "hit_rate": 1,
+              "f1": 1.0,
+              "ndcg": 1.0,
+              "retrieved_chunk_ids": [
+                "employee_benefits_chunk_003"
+              ]
+            },
+            "k=2": {
+              "recall": 1.0,
+              "precision": 0.5,
+              "hit_rate": 1,
+              "f1": 0.6667,
+              "ndcg": 0.8262,
+              "retrieved_chunk_ids": [
+                "employee_benefits_chunk_003",
+                "employee_benefits_chunk_002"
+              ]
+            },
+            "k=3": {
+              "recall": 1.0,
+              "precision": 0.3333,
+              "hit_rate": 1,
+              "f1": 0.5,
+              "ndcg": 0.8262,
+              "retrieved_chunk_ids": [
+                "employee_benefits_chunk_003",
+                "employee_benefits_chunk_002",
+                "employee_benefits_chunk_001"
+              ]
+            },
+            "k=5": {
+              "recall": 1.0,
+              "precision": 0.2,
+              "hit_rate": 1,
+              "f1": 0.3333,
+              "ndcg": 0.9328,
+              "retrieved_chunk_ids": [
+                "employee_benefits_chunk_003",
+                "employee_benefits_chunk_002",
+                "employee_benefits_chunk_001",
+                "remote_work_policy_chunk_006",
+                "employee_benefits_chunk_004"
+              ]
+            },
+            "k=10": {
+              "recall": 1.0,
+              "precision": 0.1,
+              "hit_rate": 1,
+              "f1": 0.1818,
+              "ndcg": 0.9328,
+              "retrieved_chunk_ids": [
+                "employee_benefits_chunk_003",
+                "employee_benefits_chunk_002",
+                "employee_benefits_chunk_001",
+                "remote_work_policy_chunk_006",
+                "employee_benefits_chunk_004",
+                "it_security_policy_chunk_005",
+                "remote_work_policy_chunk_005",
+                "page_chunk_003",
+                "it_security_policy_chunk_001",
+                "remote_work_policy_chunk_002"
+              ]
+            }
+          },
+          "has_failure_diagnostic": false,
+          "diagnostic_summary": "Optimal (Rank #1)"
+        },
+        {
+          "query_id": "eval_q04_incident_reporting_hotline",
+          "query": "What is the step-by-step procedure for reporting a suspected malware infection, phishing, or active security breach?",
+          "domain": "IT Security & Compliance",
+          "difficulty": "Medium",
+          "relevant_chunk_ids": [
+            "it_security_policy_chunk_005",
+            "it_security_policy_chunk_003"
+          ],
+          "reciprocal_rank": 1.0,
+          "k_metrics": {
+            "k=1": {
+              "recall": 0.5,
+              "precision": 1.0,
+              "hit_rate": 1,
+              "f1": 0.6667,
+              "ndcg": 0.3333,
+              "retrieved_chunk_ids": [
+                "it_security_policy_chunk_003"
+              ]
+            },
+            "k=2": {
+              "recall": 1.0,
+              "precision": 1.0,
+              "hit_rate": 1,
+              "f1": 1.0,
+              "ndcg": 0.7967,
+              "retrieved_chunk_ids": [
+                "it_security_policy_chunk_003",
+                "it_security_policy_chunk_005"
+              ]
+            },
+            "k=3": {
+              "recall": 1.0,
+              "precision": 0.6667,
+              "hit_rate": 1,
+              "f1": 0.8,
+              "ndcg": 0.7003,
+              "retrieved_chunk_ids": [
+                "it_security_policy_chunk_003",
+                "it_security_policy_chunk_005",
+                "it_security_policy_chunk_002"
+              ]
+            },
+            "k=5": {
+              "recall": 1.0,
+              "precision": 0.4,
+              "hit_rate": 1,
+              "f1": 0.5714,
+              "ndcg": 0.7003,
+              "retrieved_chunk_ids": [
+                "it_security_policy_chunk_003",
+                "it_security_policy_chunk_005",
+                "it_security_policy_chunk_002",
+                "remote_work_policy_chunk_001",
+                "remote_work_policy_chunk_005"
+              ]
+            },
+            "k=10": {
+              "recall": 1.0,
+              "precision": 0.2,
+              "hit_rate": 1,
+              "f1": 0.3333,
+              "ndcg": 0.7003,
+              "retrieved_chunk_ids": [
+                "it_security_policy_chunk_003",
+                "it_security_policy_chunk_005",
+                "it_security_policy_chunk_002",
+                "remote_work_policy_chunk_001",
+                "remote_work_policy_chunk_005",
+                "remote_work_policy_chunk_003",
+                "remote_work_policy_chunk_004",
+                "it_security_policy_chunk_001",
+                "remote_work_policy_chunk_002",
+                "employee_benefits_chunk_003"
+              ]
+            }
+          },
+          "has_failure_diagnostic": false,
+          "diagnostic_summary": "Optimal (Rank #1)"
+        },
+        {
+          "query_id": "eval_q05_password_mfa_rules",
+          "query": "What are the corporate password complexity rules, minimum character length, and MFA authenticator requirements?",
+          "domain": "IT Security & Compliance",
+          "difficulty": "Easy",
+          "relevant_chunk_ids": [
+            "it_security_policy_chunk_001"
+          ],
+          "reciprocal_rank": 1.0,
+          "k_metrics": {
+            "k=1": {
+              "recall": 1.0,
+              "precision": 1.0,
+              "hit_rate": 1,
+              "f1": 1.0,
+              "ndcg": 1.0,
+              "retrieved_chunk_ids": [
+                "it_security_policy_chunk_001"
+              ]
+            },
+            "k=2": {
+              "recall": 1.0,
+              "precision": 0.5,
+              "hit_rate": 1,
+              "f1": 0.6667,
+              "ndcg": 0.8262,
+              "retrieved_chunk_ids": [
+                "it_security_policy_chunk_001",
+                "remote_work_policy_chunk_004"
+              ]
+            },
+            "k=3": {
+              "recall": 1.0,
+              "precision": 0.3333,
+              "hit_rate": 1,
+              "f1": 0.5,
+              "ndcg": 0.8262,
+              "retrieved_chunk_ids": [
+                "it_security_policy_chunk_001",
+                "remote_work_policy_chunk_004",
+                "remote_work_policy_chunk_001"
+              ]
+            },
+            "k=5": {
+              "recall": 1.0,
+              "precision": 0.2,
+              "hit_rate": 1,
+              "f1": 0.3333,
+              "ndcg": 0.9448,
+              "retrieved_chunk_ids": [
+                "it_security_policy_chunk_001",
+                "remote_work_policy_chunk_004",
+                "remote_work_policy_chunk_001",
+                "it_security_policy_chunk_002",
+                "employee_benefits_chunk_002"
+              ]
+            },
+            "k=10": {
+              "recall": 1.0,
+              "precision": 0.1,
+              "hit_rate": 1,
+              "f1": 0.1818,
+              "ndcg": 0.9448,
+              "retrieved_chunk_ids": [
+                "it_security_policy_chunk_001",
+                "remote_work_policy_chunk_004",
+                "remote_work_policy_chunk_001",
+                "it_security_policy_chunk_002",
+                "employee_benefits_chunk_002",
+                "employee_benefits_chunk_003",
+                "it_security_policy_chunk_005",
+                "remote_work_policy_chunk_003",
+                "remote_work_policy_chunk_002",
+                "page_chunk_003"
+              ]
+            }
+          },
+          "has_failure_diagnostic": false,
+          "diagnostic_summary": "Optimal (Rank #1)"
+        },
+        {
+          "query_id": "eval_q06_remote_vpn_encryption",
+          "query": "What network encryption and VPN tunnel protocols are required when connecting remotely to corporate infrastructure?",
+          "domain": "Remote Work Policy",
+          "difficulty": "Medium",
+          "relevant_chunk_ids": [
+            "remote_work_policy_chunk_005"
+          ],
+          "reciprocal_rank": 0.25,
+          "k_metrics": {
+            "k=1": {
+              "recall": 0.0,
+              "precision": 0.0,
+              "hit_rate": 0,
+              "f1": 0.0,
+              "ndcg": 0.0,
+              "retrieved_chunk_ids": [
+                "remote_work_policy_chunk_003"
+              ]
+            },
+            "k=2": {
+              "recall": 0.0,
+              "precision": 0.0,
+              "hit_rate": 0,
+              "f1": 0.0,
+              "ndcg": 0.1738,
+              "retrieved_chunk_ids": [
+                "remote_work_policy_chunk_003",
+                "remote_work_policy_chunk_001"
+              ]
+            },
+            "k=3": {
+              "recall": 0.0,
+              "precision": 0.0,
+              "hit_rate": 0,
+              "f1": 0.0,
+              "ndcg": 0.1527,
+              "retrieved_chunk_ids": [
+                "remote_work_policy_chunk_003",
+                "remote_work_policy_chunk_001",
+                "remote_work_policy_chunk_002"
+              ]
+            },
+            "k=5": {
+              "recall": 1.0,
+              "precision": 0.2,
+              "hit_rate": 1,
+              "f1": 0.3333,
+              "ndcg": 0.4655,
+              "retrieved_chunk_ids": [
+                "remote_work_policy_chunk_003",
+                "remote_work_policy_chunk_001",
+                "remote_work_policy_chunk_002",
+                "remote_work_policy_chunk_005",
+                "remote_work_policy_chunk_004"
+              ]
+            },
+            "k=10": {
+              "recall": 1.0,
+              "precision": 0.1,
+              "hit_rate": 1,
+              "f1": 0.1818,
+              "ndcg": 0.5462,
+              "retrieved_chunk_ids": [
+                "remote_work_policy_chunk_003",
+                "remote_work_policy_chunk_001",
+                "remote_work_policy_chunk_002",
+                "remote_work_policy_chunk_005",
+                "remote_work_policy_chunk_004",
+                "it_security_policy_chunk_005",
+                "it_security_policy_chunk_002",
+                "it_security_policy_chunk_003",
+                "remote_work_policy_chunk_006",
+                "it_security_policy_chunk_001"
+              ]
+            }
+          },
+          "has_failure_diagnostic": true,
+          "diagnostic_summary": "Cross-Domain Semantic Distractor Pull"
+        },
+        {
+          "query_id": "eval_q07_remote_work_eligibility",
+          "query": "What are the eligibility requirements and minimum tenure before an employee can request regular remote work?",
+          "domain": "Remote Work Policy",
+          "difficulty": "Easy",
+          "relevant_chunk_ids": [
+            "remote_work_policy_chunk_002"
+          ],
+          "reciprocal_rank": 1.0,
+          "k_metrics": {
+            "k=1": {
+              "recall": 1.0,
+              "precision": 1.0,
+              "hit_rate": 1,
+              "f1": 1.0,
+              "ndcg": 1.0,
+              "retrieved_chunk_ids": [
+                "remote_work_policy_chunk_002"
+              ]
+            },
+            "k=2": {
+              "recall": 1.0,
+              "precision": 0.5,
+              "hit_rate": 1,
+              "f1": 0.6667,
+              "ndcg": 1.0,
+              "retrieved_chunk_ids": [
+                "remote_work_policy_chunk_002",
+                "remote_work_policy_chunk_003"
+              ]
+            },
+            "k=3": {
+              "recall": 1.0,
+              "precision": 0.3333,
+              "hit_rate": 1,
+              "f1": 0.5,
+              "ndcg": 1.0,
+              "retrieved_chunk_ids": [
+                "remote_work_policy_chunk_002",
+                "remote_work_policy_chunk_003",
+                "remote_work_policy_chunk_001"
+              ]
+            },
+            "k=5": {
+              "recall": 1.0,
+              "precision": 0.2,
+              "hit_rate": 1,
+              "f1": 0.3333,
+              "ndcg": 1.0,
+              "retrieved_chunk_ids": [
+                "remote_work_policy_chunk_002",
+                "remote_work_policy_chunk_003",
+                "remote_work_policy_chunk_001",
+                "remote_work_policy_chunk_006",
+                "remote_work_policy_chunk_004"
+              ]
+            },
+            "k=10": {
+              "recall": 1.0,
+              "precision": 0.1,
+              "hit_rate": 1,
+              "f1": 0.1818,
+              "ndcg": 1.0,
+              "retrieved_chunk_ids": [
+                "remote_work_policy_chunk_002",
+                "remote_work_policy_chunk_003",
+                "remote_work_policy_chunk_001",
+                "remote_work_policy_chunk_006",
+                "remote_work_policy_chunk_004",
+                "remote_work_policy_chunk_005",
+                "employee_benefits_chunk_004",
+                "it_security_policy_chunk_004",
+                "employee_benefits_chunk_002",
+                "it_security_policy_chunk_001"
+              ]
+            }
+          },
+          "has_failure_diagnostic": false,
+          "diagnostic_summary": "Optimal (Rank #1)"
+        },
+        {
+          "query_id": "eval_q08_rag_system_loader",
+          "query": "How does the RAG document loader module ingest multi-format files and format page-by-page text extraction?",
+          "domain": "Engineering & Architecture",
+          "difficulty": "Medium",
+          "relevant_chunk_ids": [
+            "document_chunk_001",
+            "guide_chunk_001"
+          ],
+          "reciprocal_rank": 0.5,
+          "k_metrics": {
+            "k=1": {
+              "recall": 0.0,
+              "precision": 0.0,
+              "hit_rate": 0,
+              "f1": 0.0,
+              "ndcg": 0.0,
+              "retrieved_chunk_ids": [
+                "hello_chunk_001"
+              ]
+            },
+            "k=2": {
+              "recall": 0.5,
+              "precision": 0.5,
+              "hit_rate": 1,
+              "f1": 0.5,
+              "ndcg": 0.3869,
+              "retrieved_chunk_ids": [
+                "hello_chunk_001",
+                "guide_chunk_001"
+              ]
+            },
+            "k=3": {
+              "recall": 1.0,
+              "precision": 0.6667,
+              "hit_rate": 1,
+              "f1": 0.8,
+              "ndcg": 0.6291,
+              "retrieved_chunk_ids": [
+                "hello_chunk_001",
+                "guide_chunk_001",
+                "document_chunk_001"
+              ]
+            },
+            "k=5": {
+              "recall": 1.0,
+              "precision": 0.4,
+              "hit_rate": 1,
+              "f1": 0.5714,
+              "ndcg": 0.709,
+              "retrieved_chunk_ids": [
+                "hello_chunk_001",
+                "guide_chunk_001",
+                "document_chunk_001",
+                "guide_chunk_002",
+                "page_chunk_004"
+              ]
+            },
+            "k=10": {
+              "recall": 1.0,
+              "precision": 0.2,
+              "hit_rate": 1,
+              "f1": 0.3333,
+              "ndcg": 0.709,
+              "retrieved_chunk_ids": [
+                "hello_chunk_001",
+                "guide_chunk_001",
+                "document_chunk_001",
+                "guide_chunk_002",
+                "page_chunk_004",
+                "remote_work_policy_chunk_005",
+                "it_security_policy_chunk_002",
+                "remote_work_policy_chunk_003",
+                "page_chunk_001",
+                "employee_benefits_chunk_002"
+              ]
+            }
+          },
+          "has_failure_diagnostic": true,
+          "diagnostic_summary": "Borderline Rank Inversion (Rank #2 or #3)"
+        },
+        {
+          "query_id": "eval_q09_borderline_incident_slas",
+          "query": "What are the notification SLAs and response times for Severity 1 critical security incidents?",
+          "domain": "IT Security & Compliance",
+          "difficulty": "Hard/Borderline",
+          "relevant_chunk_ids": [
+            "it_security_policy_chunk_003"
+          ],
+          "reciprocal_rank": 1.0,
+          "k_metrics": {
+            "k=1": {
+              "recall": 1.0,
+              "precision": 1.0,
+              "hit_rate": 1,
+              "f1": 1.0,
+              "ndcg": 1.0,
+              "retrieved_chunk_ids": [
+                "it_security_policy_chunk_003"
+              ]
+            },
+            "k=2": {
+              "recall": 1.0,
+              "precision": 0.5,
+              "hit_rate": 1,
+              "f1": 0.6667,
+              "ndcg": 0.8262,
+              "retrieved_chunk_ids": [
+                "it_security_policy_chunk_003",
+                "it_security_policy_chunk_005"
+              ]
+            },
+            "k=3": {
+              "recall": 1.0,
+              "precision": 0.3333,
+              "hit_rate": 1,
+              "f1": 0.5,
+              "ndcg": 0.8262,
+              "retrieved_chunk_ids": [
+                "it_security_policy_chunk_003",
+                "it_security_policy_chunk_005",
+                "it_security_policy_chunk_002"
+              ]
+            },
+            "k=5": {
+              "recall": 1.0,
+              "precision": 0.2,
+              "hit_rate": 1,
+              "f1": 0.3333,
+              "ndcg": 0.8262,
+              "retrieved_chunk_ids": [
+                "it_security_policy_chunk_003",
+                "it_security_policy_chunk_005",
+                "it_security_policy_chunk_002",
+                "remote_work_policy_chunk_001",
+                "remote_work_policy_chunk_003"
+              ]
+            },
+            "k=10": {
+              "recall": 1.0,
+              "precision": 0.1,
+              "hit_rate": 1,
+              "f1": 0.1818,
+              "ndcg": 0.8262,
+              "retrieved_chunk_ids": [
+                "it_security_policy_chunk_003",
+                "it_security_policy_chunk_005",
+                "it_security_policy_chunk_002",
+                "remote_work_policy_chunk_001",
+                "remote_work_policy_chunk_003",
+                "remote_work_policy_chunk_005",
+                "remote_work_policy_chunk_004",
+                "it_security_policy_chunk_001",
+                "remote_work_policy_chunk_002",
+                "employee_benefits_chunk_002"
+              ]
+            }
+          },
+          "has_failure_diagnostic": false,
+          "diagnostic_summary": "Optimal (Rank #1)"
+        },
+        {
+          "query_id": "eval_q10_cross_domain_distractor",
+          "query": "Can employees take leave for wellness or gym activities while working remotely from home?",
+          "domain": "Cross-Domain Synthesis",
+          "difficulty": "Hard/Borderline",
+          "relevant_chunk_ids": [
+            "employee_benefits_chunk_004",
+            "remote_work_policy_chunk_001"
+          ],
+          "reciprocal_rank": 0.2,
+          "k_metrics": {
+            "k=1": {
+              "recall": 0.0,
+              "precision": 0.0,
+              "hit_rate": 0,
+              "f1": 0.0,
+              "ndcg": 0.0,
+              "retrieved_chunk_ids": [
+                "remote_work_policy_chunk_002"
+              ]
+            },
+            "k=2": {
+              "recall": 0.0,
+              "precision": 0.0,
+              "hit_rate": 0,
+              "f1": 0.0,
+              "ndcg": 0.0,
+              "retrieved_chunk_ids": [
+                "remote_work_policy_chunk_002",
+                "remote_work_policy_chunk_003"
+              ]
+            },
+            "k=3": {
+              "recall": 0.0,
+              "precision": 0.0,
+              "hit_rate": 0,
+              "f1": 0.0,
+              "ndcg": 0.0,
+              "retrieved_chunk_ids": [
+                "remote_work_policy_chunk_002",
+                "remote_work_policy_chunk_003",
+                "remote_work_policy_chunk_006"
+              ]
+            },
+            "k=5": {
+              "recall": 0.5,
+              "precision": 0.2,
+              "hit_rate": 1,
+              "f1": 0.2857,
+              "ndcg": 0.0936,
+              "retrieved_chunk_ids": [
+                "remote_work_policy_chunk_002",
+                "remote_work_policy_chunk_003",
+                "remote_work_policy_chunk_006",
+                "remote_work_policy_chunk_005",
+                "remote_work_policy_chunk_001"
+              ]
+            },
+            "k=10": {
+              "recall": 1.0,
+              "precision": 0.2,
+              "hit_rate": 1,
+              "f1": 0.3333,
+              "ndcg": 0.3227,
+              "retrieved_chunk_ids": [
+                "remote_work_policy_chunk_002",
+                "remote_work_policy_chunk_003",
+                "remote_work_policy_chunk_006",
+                "remote_work_policy_chunk_005",
+                "remote_work_policy_chunk_001",
+                "employee_benefits_chunk_002",
+                "remote_work_policy_chunk_004",
+                "employee_benefits_chunk_004",
+                "it_security_policy_chunk_004",
+                "employee_benefits_chunk_003"
+              ]
+            }
+          },
+          "has_failure_diagnostic": true,
+          "diagnostic_summary": "Cross-Domain Semantic Distractor Pull"
+        }
+      ],
+      "failure_diagnostics": [
+        {
+          "query_id": "eval_q06_remote_vpn_encryption",
+          "query": "What network encryption and VPN tunnel protocols are required when connecting remotely to corporate infrastructure?",
+          "first_relevant_rank": 4,
+          "top_retrieved_chunk_id": "remote_work_policy_chunk_003",
+          "top_retrieved_doc": "remote_work_policy.md",
+          "expected_relevant_ids": [
+            "remote_work_policy_chunk_005"
+          ],
+          "root_cause_category": "Cross-Domain Semantic Distractor Pull",
+          "detailed_explanation": "Dense embeddings for query 'What network encryption and VPN tunnel protoc...' overlapped with adjacent policy files (`remote_work_policy.md`), pulling irrelevant distractor `remote_work_policy_chunk_003` to Rank #1.",
+          "recommended_mitigation": "Apply pre-retrieval MetadataFilter(source_document='...') to eliminate cross-document interference."
+        },
+        {
+          "query_id": "eval_q08_rag_system_loader",
+          "query": "How does the RAG document loader module ingest multi-format files and format page-by-page text extraction?",
+          "first_relevant_rank": 2,
+          "top_retrieved_chunk_id": "hello_chunk_001",
+          "top_retrieved_doc": "hello.txt",
+          "expected_relevant_ids": [
+            "document_chunk_001",
+            "guide_chunk_001"
+          ],
+          "root_cause_category": "Borderline Rank Inversion (Rank #2 or #3)",
+          "detailed_explanation": "The target chunk `document_chunk_001` was retrieved in top-3, but ranked #2 behind general overview chunk `hello_chunk_001` from `hello.txt`.",
+          "recommended_mitigation": "Use Two-Stage Re-ranking (Cross-Encoder / SemanticRelevanceReranker) to boost deep semantic alignment over broad surface similarity."
+        },
+        {
+          "query_id": "eval_q10_cross_domain_distractor",
+          "query": "Can employees take leave for wellness or gym activities while working remotely from home?",
+          "first_relevant_rank": 5,
+          "top_retrieved_chunk_id": "remote_work_policy_chunk_002",
+          "top_retrieved_doc": "remote_work_policy.md",
+          "expected_relevant_ids": [
+            "employee_benefits_chunk_004",
+            "remote_work_policy_chunk_001"
+          ],
+          "root_cause_category": "Cross-Domain Semantic Distractor Pull",
+          "detailed_explanation": "Dense embeddings for query 'Can employees take leave for wellness or gym ...' overlapped with adjacent policy files (`remote_work_policy.md`), pulling irrelevant distractor `remote_work_policy_chunk_002` to Rank #1.",
+          "recommended_mitigation": "Apply pre-retrieval MetadataFilter(source_document='...') to eliminate cross-document interference."
+        }
+      ]
+    },
+    "metadata_filtered": {
+      "mode": "metadata_filtered",
+      "summary_metrics": {
+        "total_queries": 10,
+        "mean_mrr": 0.7667,
+        "metrics_by_k": {
+          "k=1": {
+            "mean_recall": 0.6,
+            "mean_precision": 0.7,
+            "mean_hit_rate": 0.7,
+            "mean_f1": 0.6333,
+            "mean_ndcg": 0.6667
+          },
+          "k=2": {
+            "mean_recall": 0.65,
+            "mean_precision": 0.4,
+            "mean_hit_rate": 0.7,
+            "mean_f1": 0.4834,
+            "mean_ndcg": 0.6338
+          },
+          "k=3": {
+            "mean_recall": 0.65,
+            "mean_precision": 0.2666,
+            "mean_hit_rate": 0.7,
+            "mean_f1": 0.37,
+            "mean_ndcg": 0.6301
+          },
+          "k=5": {
+            "mean_recall": 0.85,
+            "mean_precision": 0.2,
+            "mean_hit_rate": 0.9,
+            "mean_f1": 0.319,
+            "mean_ndcg": 0.7289
+          },
+          "k=10": {
+            "mean_recall": 0.95,
+            "mean_precision": 0.12,
+            "mean_hit_rate": 1.0,
+            "mean_f1": 0.2106,
+            "mean_ndcg": 0.7617
+          }
+        }
+      },
+      "query_evaluations": [
+        {
+          "query_id": "eval_q01_pto_rollover",
+          "query": "How many days of paid time off do employees get each year, and can unused PTO be rolled over into the next year?",
+          "domain": "HR & Employee Benefits",
+          "difficulty": "Easy",
+          "relevant_chunk_ids": [
+            "employee_benefits_chunk_001"
+          ],
+          "reciprocal_rank": 1.0,
+          "k_metrics": {
+            "k=1": {
+              "recall": 1.0,
+              "precision": 1.0,
+              "hit_rate": 1,
+              "f1": 1.0,
+              "ndcg": 1.0,
+              "retrieved_chunk_ids": [
+                "employee_benefits_chunk_001"
+              ]
+            },
+            "k=2": {
+              "recall": 1.0,
+              "precision": 0.5,
+              "hit_rate": 1,
+              "f1": 0.6667,
+              "ndcg": 1.0,
+              "retrieved_chunk_ids": [
+                "employee_benefits_chunk_001",
+                "employee_benefits_chunk_002"
+              ]
+            },
+            "k=3": {
+              "recall": 1.0,
+              "precision": 0.3333,
+              "hit_rate": 1,
+              "f1": 0.5,
+              "ndcg": 1.0,
+              "retrieved_chunk_ids": [
+                "employee_benefits_chunk_001",
+                "employee_benefits_chunk_002",
+                "employee_benefits_chunk_003"
+              ]
+            },
+            "k=5": {
+              "recall": 1.0,
+              "precision": 0.2,
+              "hit_rate": 1,
+              "f1": 0.3333,
+              "ndcg": 1.0,
+              "retrieved_chunk_ids": [
+                "employee_benefits_chunk_001",
+                "employee_benefits_chunk_002",
+                "employee_benefits_chunk_003",
+                "employee_benefits_chunk_004"
+              ]
+            },
+            "k=10": {
+              "recall": 1.0,
+              "precision": 0.1,
+              "hit_rate": 1,
+              "f1": 0.1818,
+              "ndcg": 1.0,
+              "retrieved_chunk_ids": [
+                "employee_benefits_chunk_001",
+                "employee_benefits_chunk_002",
+                "employee_benefits_chunk_003",
+                "employee_benefits_chunk_004"
+              ]
+            }
+          },
+          "has_failure_diagnostic": false,
+          "diagnostic_summary": "Optimal (Rank #1)"
+        },
+        {
+          "query_id": "eval_q02_sick_leave_policy",
+          "query": "What is the policy for taking sick leave and when is a medical certificate required from a doctor?",
+          "domain": "HR & Employee Benefits",
+          "difficulty": "Easy",
+          "relevant_chunk_ids": [
+            "employee_benefits_chunk_002"
+          ],
+          "reciprocal_rank": 1.0,
+          "k_metrics": {
+            "k=1": {
+              "recall": 1.0,
+              "precision": 1.0,
+              "hit_rate": 1,
+              "f1": 1.0,
+              "ndcg": 1.0,
+              "retrieved_chunk_ids": [
+                "employee_benefits_chunk_002"
+              ]
+            },
+            "k=2": {
+              "recall": 1.0,
+              "precision": 0.5,
+              "hit_rate": 1,
+              "f1": 0.6667,
+              "ndcg": 0.8262,
+              "retrieved_chunk_ids": [
+                "employee_benefits_chunk_002",
+                "employee_benefits_chunk_003"
+              ]
+            },
+            "k=3": {
+              "recall": 1.0,
+              "precision": 0.3333,
+              "hit_rate": 1,
+              "f1": 0.5,
+              "ndcg": 0.9639,
+              "retrieved_chunk_ids": [
+                "employee_benefits_chunk_002",
+                "employee_benefits_chunk_003",
+                "employee_benefits_chunk_001"
+              ]
+            },
+            "k=5": {
+              "recall": 1.0,
+              "precision": 0.2,
+              "hit_rate": 1,
+              "f1": 0.3333,
+              "ndcg": 0.9639,
+              "retrieved_chunk_ids": [
+                "employee_benefits_chunk_002",
+                "employee_benefits_chunk_003",
+                "employee_benefits_chunk_001",
+                "employee_benefits_chunk_004"
+              ]
+            },
+            "k=10": {
+              "recall": 1.0,
+              "precision": 0.1,
+              "hit_rate": 1,
+              "f1": 0.1818,
+              "ndcg": 0.9639,
+              "retrieved_chunk_ids": [
+                "employee_benefits_chunk_002",
+                "employee_benefits_chunk_003",
+                "employee_benefits_chunk_001",
+                "employee_benefits_chunk_004"
+              ]
+            }
+          },
+          "has_failure_diagnostic": false,
+          "diagnostic_summary": "Optimal (Rank #1)"
+        },
+        {
+          "query_id": "eval_q03_parental_leave",
+          "query": "How many weeks of fully paid parental leave are new parents entitled to and can the leave be split?",
+          "domain": "HR & Employee Benefits",
+          "difficulty": "Easy",
+          "relevant_chunk_ids": [
+            "employee_benefits_chunk_003"
+          ],
+          "reciprocal_rank": 1.0,
+          "k_metrics": {
+            "k=1": {
+              "recall": 1.0,
+              "precision": 1.0,
+              "hit_rate": 1,
+              "f1": 1.0,
+              "ndcg": 1.0,
+              "retrieved_chunk_ids": [
+                "employee_benefits_chunk_003"
+              ]
+            },
+            "k=2": {
+              "recall": 1.0,
+              "precision": 0.5,
+              "hit_rate": 1,
+              "f1": 0.6667,
+              "ndcg": 0.8262,
+              "retrieved_chunk_ids": [
+                "employee_benefits_chunk_003",
+                "employee_benefits_chunk_002"
+              ]
+            },
+            "k=3": {
+              "recall": 1.0,
+              "precision": 0.3333,
+              "hit_rate": 1,
+              "f1": 0.5,
+              "ndcg": 0.8262,
+              "retrieved_chunk_ids": [
+                "employee_benefits_chunk_003",
+                "employee_benefits_chunk_002",
+                "employee_benefits_chunk_001"
+              ]
+            },
+            "k=5": {
+              "recall": 1.0,
+              "precision": 0.2,
+              "hit_rate": 1,
+              "f1": 0.3333,
+              "ndcg": 0.9448,
+              "retrieved_chunk_ids": [
+                "employee_benefits_chunk_003",
+                "employee_benefits_chunk_002",
+                "employee_benefits_chunk_001",
+                "employee_benefits_chunk_004"
+              ]
+            },
+            "k=10": {
+              "recall": 1.0,
+              "precision": 0.1,
+              "hit_rate": 1,
+              "f1": 0.1818,
+              "ndcg": 0.9448,
+              "retrieved_chunk_ids": [
+                "employee_benefits_chunk_003",
+                "employee_benefits_chunk_002",
+                "employee_benefits_chunk_001",
+                "employee_benefits_chunk_004"
+              ]
+            }
+          },
+          "has_failure_diagnostic": false,
+          "diagnostic_summary": "Optimal (Rank #1)"
+        },
+        {
+          "query_id": "eval_q04_incident_reporting_hotline",
+          "query": "What is the step-by-step procedure for reporting a suspected malware infection, phishing, or active security breach?",
+          "domain": "IT Security & Compliance",
+          "difficulty": "Medium",
+          "relevant_chunk_ids": [
+            "it_security_policy_chunk_005",
+            "it_security_policy_chunk_003"
+          ],
+          "reciprocal_rank": 1.0,
+          "k_metrics": {
+            "k=1": {
+              "recall": 0.5,
+              "precision": 1.0,
+              "hit_rate": 1,
+              "f1": 0.6667,
+              "ndcg": 0.3333,
+              "retrieved_chunk_ids": [
+                "it_security_policy_chunk_003"
+              ]
+            },
+            "k=2": {
+              "recall": 1.0,
+              "precision": 1.0,
+              "hit_rate": 1,
+              "f1": 1.0,
+              "ndcg": 0.7967,
+              "retrieved_chunk_ids": [
+                "it_security_policy_chunk_003",
+                "it_security_policy_chunk_005"
+              ]
+            },
+            "k=3": {
+              "recall": 1.0,
+              "precision": 0.6667,
+              "hit_rate": 1,
+              "f1": 0.8,
+              "ndcg": 0.7003,
+              "retrieved_chunk_ids": [
+                "it_security_policy_chunk_003",
+                "it_security_policy_chunk_005",
+                "it_security_policy_chunk_002"
+              ]
+            },
+            "k=5": {
+              "recall": 1.0,
+              "precision": 0.4,
+              "hit_rate": 1,
+              "f1": 0.5714,
+              "ndcg": 0.7939,
+              "retrieved_chunk_ids": [
+                "it_security_policy_chunk_003",
+                "it_security_policy_chunk_005",
+                "it_security_policy_chunk_002",
+                "it_security_policy_chunk_001",
+                "it_security_policy_chunk_004"
+              ]
+            },
+            "k=10": {
+              "recall": 1.0,
+              "precision": 0.2,
+              "hit_rate": 1,
+              "f1": 0.3333,
+              "ndcg": 0.7939,
+              "retrieved_chunk_ids": [
+                "it_security_policy_chunk_003",
+                "it_security_policy_chunk_005",
+                "it_security_policy_chunk_002",
+                "it_security_policy_chunk_001",
+                "it_security_policy_chunk_004"
+              ]
+            }
+          },
+          "has_failure_diagnostic": false,
+          "diagnostic_summary": "Optimal (Rank #1)"
+        },
+        {
+          "query_id": "eval_q05_password_mfa_rules",
+          "query": "What are the corporate password complexity rules, minimum character length, and MFA authenticator requirements?",
+          "domain": "IT Security & Compliance",
+          "difficulty": "Easy",
+          "relevant_chunk_ids": [
+            "it_security_policy_chunk_001"
+          ],
+          "reciprocal_rank": 0.25,
+          "k_metrics": {
+            "k=1": {
+              "recall": 0.0,
+              "precision": 0.0,
+              "hit_rate": 0,
+              "f1": 0.0,
+              "ndcg": 0.3333,
+              "retrieved_chunk_ids": [
+                "it_security_policy_chunk_002"
+              ]
+            },
+            "k=2": {
+              "recall": 0.0,
+              "precision": 0.0,
+              "hit_rate": 0,
+              "f1": 0.0,
+              "ndcg": 0.2754,
+              "retrieved_chunk_ids": [
+                "it_security_policy_chunk_002",
+                "it_security_policy_chunk_003"
+              ]
+            },
+            "k=3": {
+              "recall": 0.0,
+              "precision": 0.0,
+              "hit_rate": 0,
+              "f1": 0.0,
+              "ndcg": 0.2754,
+              "retrieved_chunk_ids": [
+                "it_security_policy_chunk_002",
+                "it_security_policy_chunk_003",
+                "it_security_policy_chunk_005"
+              ]
+            },
+            "k=5": {
+              "recall": 1.0,
+              "precision": 0.2,
+              "hit_rate": 1,
+              "f1": 0.3333,
+              "ndcg": 0.6313,
+              "retrieved_chunk_ids": [
+                "it_security_policy_chunk_002",
+                "it_security_policy_chunk_003",
+                "it_security_policy_chunk_005",
+                "it_security_policy_chunk_001",
+                "it_security_policy_chunk_004"
+              ]
+            },
+            "k=10": {
+              "recall": 1.0,
+              "precision": 0.1,
+              "hit_rate": 1,
+              "f1": 0.1818,
+              "ndcg": 0.6313,
+              "retrieved_chunk_ids": [
+                "it_security_policy_chunk_002",
+                "it_security_policy_chunk_003",
+                "it_security_policy_chunk_005",
+                "it_security_policy_chunk_001",
+                "it_security_policy_chunk_004"
+              ]
+            }
+          },
+          "has_failure_diagnostic": true,
+          "diagnostic_summary": "Cross-Domain Semantic Distractor Pull"
+        },
+        {
+          "query_id": "eval_q06_remote_vpn_encryption",
+          "query": "What network encryption and VPN tunnel protocols are required when connecting remotely to corporate infrastructure?",
+          "domain": "Remote Work Policy",
+          "difficulty": "Medium",
+          "relevant_chunk_ids": [
+            "remote_work_policy_chunk_005"
+          ],
+          "reciprocal_rank": 0.25,
+          "k_metrics": {
+            "k=1": {
+              "recall": 0.0,
+              "precision": 0.0,
+              "hit_rate": 0,
+              "f1": 0.0,
+              "ndcg": 0.0,
+              "retrieved_chunk_ids": [
+                "remote_work_policy_chunk_003"
+              ]
+            },
+            "k=2": {
+              "recall": 0.0,
+              "precision": 0.0,
+              "hit_rate": 0,
+              "f1": 0.0,
+              "ndcg": 0.1738,
+              "retrieved_chunk_ids": [
+                "remote_work_policy_chunk_003",
+                "remote_work_policy_chunk_001"
+              ]
+            },
+            "k=3": {
+              "recall": 0.0,
+              "precision": 0.0,
+              "hit_rate": 0,
+              "f1": 0.0,
+              "ndcg": 0.1527,
+              "retrieved_chunk_ids": [
+                "remote_work_policy_chunk_003",
+                "remote_work_policy_chunk_001",
+                "remote_work_policy_chunk_002"
+              ]
+            },
+            "k=5": {
+              "recall": 1.0,
+              "precision": 0.2,
+              "hit_rate": 1,
+              "f1": 0.3333,
+              "ndcg": 0.4655,
+              "retrieved_chunk_ids": [
+                "remote_work_policy_chunk_003",
+                "remote_work_policy_chunk_001",
+                "remote_work_policy_chunk_002",
+                "remote_work_policy_chunk_005",
+                "remote_work_policy_chunk_004"
+              ]
+            },
+            "k=10": {
+              "recall": 1.0,
+              "precision": 0.1,
+              "hit_rate": 1,
+              "f1": 0.1818,
+              "ndcg": 0.4655,
+              "retrieved_chunk_ids": [
+                "remote_work_policy_chunk_003",
+                "remote_work_policy_chunk_001",
+                "remote_work_policy_chunk_002",
+                "remote_work_policy_chunk_005",
+                "remote_work_policy_chunk_004",
+                "remote_work_policy_chunk_006"
+              ]
+            }
+          },
+          "has_failure_diagnostic": true,
+          "diagnostic_summary": "Cross-Domain Semantic Distractor Pull"
+        },
+        {
+          "query_id": "eval_q07_remote_work_eligibility",
+          "query": "What are the eligibility requirements and minimum tenure before an employee can request regular remote work?",
+          "domain": "Remote Work Policy",
+          "difficulty": "Easy",
+          "relevant_chunk_ids": [
+            "remote_work_policy_chunk_002"
+          ],
+          "reciprocal_rank": 1.0,
+          "k_metrics": {
+            "k=1": {
+              "recall": 1.0,
+              "precision": 1.0,
+              "hit_rate": 1,
+              "f1": 1.0,
+              "ndcg": 1.0,
+              "retrieved_chunk_ids": [
+                "remote_work_policy_chunk_002"
+              ]
+            },
+            "k=2": {
+              "recall": 1.0,
+              "precision": 0.5,
+              "hit_rate": 1,
+              "f1": 0.6667,
+              "ndcg": 1.0,
+              "retrieved_chunk_ids": [
+                "remote_work_policy_chunk_002",
+                "remote_work_policy_chunk_003"
+              ]
+            },
+            "k=3": {
+              "recall": 1.0,
+              "precision": 0.3333,
+              "hit_rate": 1,
+              "f1": 0.5,
+              "ndcg": 1.0,
+              "retrieved_chunk_ids": [
+                "remote_work_policy_chunk_002",
+                "remote_work_policy_chunk_003",
+                "remote_work_policy_chunk_001"
+              ]
+            },
+            "k=5": {
+              "recall": 1.0,
+              "precision": 0.2,
+              "hit_rate": 1,
+              "f1": 0.3333,
+              "ndcg": 1.0,
+              "retrieved_chunk_ids": [
+                "remote_work_policy_chunk_002",
+                "remote_work_policy_chunk_003",
+                "remote_work_policy_chunk_001",
+                "remote_work_policy_chunk_006",
+                "remote_work_policy_chunk_004"
+              ]
+            },
+            "k=10": {
+              "recall": 1.0,
+              "precision": 0.1,
+              "hit_rate": 1,
+              "f1": 0.1818,
+              "ndcg": 1.0,
+              "retrieved_chunk_ids": [
+                "remote_work_policy_chunk_002",
+                "remote_work_policy_chunk_003",
+                "remote_work_policy_chunk_001",
+                "remote_work_policy_chunk_006",
+                "remote_work_policy_chunk_004",
+                "remote_work_policy_chunk_005"
+              ]
+            }
+          },
+          "has_failure_diagnostic": false,
+          "diagnostic_summary": "Optimal (Rank #1)"
+        },
+        {
+          "query_id": "eval_q08_rag_system_loader",
+          "query": "How does the RAG document loader module ingest multi-format files and format page-by-page text extraction?",
+          "domain": "Engineering & Architecture",
+          "difficulty": "Medium",
+          "relevant_chunk_ids": [
+            "document_chunk_001",
+            "guide_chunk_001"
+          ],
+          "reciprocal_rank": 1.0,
+          "k_metrics": {
+            "k=1": {
+              "recall": 0.5,
+              "precision": 1.0,
+              "hit_rate": 1,
+              "f1": 0.6667,
+              "ndcg": 1.0,
+              "retrieved_chunk_ids": [
+                "document_chunk_001"
+              ]
+            },
+            "k=2": {
+              "recall": 0.5,
+              "precision": 0.5,
+              "hit_rate": 1,
+              "f1": 0.5,
+              "ndcg": 0.6131,
+              "retrieved_chunk_ids": [
+                "document_chunk_001"
+              ]
+            },
+            "k=3": {
+              "recall": 0.5,
+              "precision": 0.3333,
+              "hit_rate": 1,
+              "f1": 0.4,
+              "ndcg": 0.5563,
+              "retrieved_chunk_ids": [
+                "document_chunk_001"
+              ]
+            },
+            "k=5": {
+              "recall": 0.5,
+              "precision": 0.2,
+              "hit_rate": 1,
+              "f1": 0.2857,
+              "ndcg": 0.5563,
+              "retrieved_chunk_ids": [
+                "document_chunk_001"
+              ]
+            },
+            "k=10": {
+              "recall": 0.5,
+              "precision": 0.1,
+              "hit_rate": 1,
+              "f1": 0.1667,
+              "ndcg": 0.5563,
+              "retrieved_chunk_ids": [
+                "document_chunk_001"
+              ]
+            }
+          },
+          "has_failure_diagnostic": true,
+          "diagnostic_summary": "Multi-Chunk Recall Dilution at Small K"
+        },
+        {
+          "query_id": "eval_q09_borderline_incident_slas",
+          "query": "What are the notification SLAs and response times for Severity 1 critical security incidents?",
+          "domain": "IT Security & Compliance",
+          "difficulty": "Hard/Borderline",
+          "relevant_chunk_ids": [
+            "it_security_policy_chunk_003"
+          ],
+          "reciprocal_rank": 1.0,
+          "k_metrics": {
+            "k=1": {
+              "recall": 1.0,
+              "precision": 1.0,
+              "hit_rate": 1,
+              "f1": 1.0,
+              "ndcg": 1.0,
+              "retrieved_chunk_ids": [
+                "it_security_policy_chunk_003"
+              ]
+            },
+            "k=2": {
+              "recall": 1.0,
+              "precision": 0.5,
+              "hit_rate": 1,
+              "f1": 0.6667,
+              "ndcg": 0.8262,
+              "retrieved_chunk_ids": [
+                "it_security_policy_chunk_003",
+                "it_security_policy_chunk_005"
+              ]
+            },
+            "k=3": {
+              "recall": 1.0,
+              "precision": 0.3333,
+              "hit_rate": 1,
+              "f1": 0.5,
+              "ndcg": 0.8262,
+              "retrieved_chunk_ids": [
+                "it_security_policy_chunk_003",
+                "it_security_policy_chunk_005",
+                "it_security_policy_chunk_002"
+              ]
+            },
+            "k=5": {
+              "recall": 1.0,
+              "precision": 0.2,
+              "hit_rate": 1,
+              "f1": 0.3333,
+              "ndcg": 0.9328,
+              "retrieved_chunk_ids": [
+                "it_security_policy_chunk_003",
+                "it_security_policy_chunk_005",
+                "it_security_policy_chunk_002",
+                "it_security_policy_chunk_001",
+                "it_security_policy_chunk_004"
+              ]
+            },
+            "k=10": {
+              "recall": 1.0,
+              "precision": 0.1,
+              "hit_rate": 1,
+              "f1": 0.1818,
+              "ndcg": 0.9328,
+              "retrieved_chunk_ids": [
+                "it_security_policy_chunk_003",
+                "it_security_policy_chunk_005",
+                "it_security_policy_chunk_002",
+                "it_security_policy_chunk_001",
+                "it_security_policy_chunk_004"
+              ]
+            }
+          },
+          "has_failure_diagnostic": false,
+          "diagnostic_summary": "Optimal (Rank #1)"
+        },
+        {
+          "query_id": "eval_q10_cross_domain_distractor",
+          "query": "Can employees take leave for wellness or gym activities while working remotely from home?",
+          "domain": "Cross-Domain Synthesis",
+          "difficulty": "Hard/Borderline",
+          "relevant_chunk_ids": [
+            "employee_benefits_chunk_004",
+            "remote_work_policy_chunk_001"
+          ],
+          "reciprocal_rank": 0.1667,
+          "k_metrics": {
+            "k=1": {
+              "recall": 0.0,
+              "precision": 0.0,
+              "hit_rate": 0,
+              "f1": 0.0,
+              "ndcg": 0.0,
+              "retrieved_chunk_ids": [
+                "remote_work_policy_chunk_002"
+              ]
+            },
+            "k=2": {
+              "recall": 0.0,
+              "precision": 0.0,
+              "hit_rate": 0,
+              "f1": 0.0,
+              "ndcg": 0.0,
+              "retrieved_chunk_ids": [
+                "remote_work_policy_chunk_002",
+                "remote_work_policy_chunk_003"
+              ]
+            },
+            "k=3": {
+              "recall": 0.0,
+              "precision": 0.0,
+              "hit_rate": 0,
+              "f1": 0.0,
+              "ndcg": 0.0,
+              "retrieved_chunk_ids": [
+                "remote_work_policy_chunk_002",
+                "remote_work_policy_chunk_003",
+                "remote_work_policy_chunk_006"
+              ]
+            },
+            "k=5": {
+              "recall": 0.0,
+              "precision": 0.0,
+              "hit_rate": 0,
+              "f1": 0.0,
+              "ndcg": 0.0,
+              "retrieved_chunk_ids": [
+                "remote_work_policy_chunk_002",
+                "remote_work_policy_chunk_003",
+                "remote_work_policy_chunk_006",
+                "remote_work_policy_chunk_005",
+                "employee_benefits_chunk_002"
+              ]
+            },
+            "k=10": {
+              "recall": 1.0,
+              "precision": 0.2,
+              "hit_rate": 1,
+              "f1": 0.3333,
+              "ndcg": 0.3283,
+              "retrieved_chunk_ids": [
+                "remote_work_policy_chunk_002",
+                "remote_work_policy_chunk_003",
+                "remote_work_policy_chunk_006",
+                "remote_work_policy_chunk_005",
+                "employee_benefits_chunk_002",
+                "remote_work_policy_chunk_001",
+                "employee_benefits_chunk_004",
+                "remote_work_policy_chunk_004",
+                "employee_benefits_chunk_003",
+                "it_security_policy_chunk_004"
+              ]
+            }
+          },
+          "has_failure_diagnostic": true,
+          "diagnostic_summary": "Cross-Domain Semantic Distractor Pull"
+        }
+      ],
+      "failure_diagnostics": [
+        {
+          "query_id": "eval_q05_password_mfa_rules",
+          "query": "What are the corporate password complexity rules, minimum character length, and MFA authenticator requirements?",
+          "first_relevant_rank": 4,
+          "top_retrieved_chunk_id": "it_security_policy_chunk_002",
+          "top_retrieved_doc": "it_security_policy.md",
+          "expected_relevant_ids": [
+            "it_security_policy_chunk_001"
+          ],
+          "root_cause_category": "Cross-Domain Semantic Distractor Pull",
+          "detailed_explanation": "Dense embeddings for query 'What are the corporate password complexity ru...' overlapped with adjacent policy files (`it_security_policy.md`), pulling irrelevant distractor `it_security_policy_chunk_002` to Rank #1.",
+          "recommended_mitigation": "Apply pre-retrieval MetadataFilter(source_document='...') to eliminate cross-document interference."
+        },
+        {
+          "query_id": "eval_q06_remote_vpn_encryption",
+          "query": "What network encryption and VPN tunnel protocols are required when connecting remotely to corporate infrastructure?",
+          "first_relevant_rank": 4,
+          "top_retrieved_chunk_id": "remote_work_policy_chunk_003",
+          "top_retrieved_doc": "remote_work_policy.md",
+          "expected_relevant_ids": [
+            "remote_work_policy_chunk_005"
+          ],
+          "root_cause_category": "Cross-Domain Semantic Distractor Pull",
+          "detailed_explanation": "Dense embeddings for query 'What network encryption and VPN tunnel protoc...' overlapped with adjacent policy files (`remote_work_policy.md`), pulling irrelevant distractor `remote_work_policy_chunk_003` to Rank #1.",
+          "recommended_mitigation": "Apply pre-retrieval MetadataFilter(source_document='...') to eliminate cross-document interference."
+        },
+        {
+          "query_id": "eval_q08_rag_system_loader",
+          "query": "How does the RAG document loader module ingest multi-format files and format page-by-page text extraction?",
+          "first_relevant_rank": 1,
+          "top_retrieved_chunk_id": "document_chunk_001",
+          "top_retrieved_doc": "document.pdf",
+          "expected_relevant_ids": [
+            "document_chunk_001",
+            "guide_chunk_001"
+          ],
+          "root_cause_category": "Multi-Chunk Recall Dilution at Small K",
+          "detailed_explanation": "Query requires 2 supporting chunks (['document_chunk_001', 'guide_chunk_001']), but at k=3 only 1 chunk(s) were captured.",
+          "recommended_mitigation": "Increase retrieval budget to k=5 or implement sub-query expansion."
+        },
+        {
+          "query_id": "eval_q10_cross_domain_distractor",
+          "query": "Can employees take leave for wellness or gym activities while working remotely from home?",
+          "first_relevant_rank": 6,
+          "top_retrieved_chunk_id": "remote_work_policy_chunk_002",
+          "top_retrieved_doc": "remote_work_policy.md",
+          "expected_relevant_ids": [
+            "employee_benefits_chunk_004",
+            "remote_work_policy_chunk_001"
+          ],
+          "root_cause_category": "Cross-Domain Semantic Distractor Pull",
+          "detailed_explanation": "Dense embeddings for query 'Can employees take leave for wellness or gym ...' overlapped with adjacent policy files (`remote_work_policy.md`), pulling irrelevant distractor `remote_work_policy_chunk_002` to Rank #1.",
+          "recommended_mitigation": "Apply pre-retrieval MetadataFilter(source_document='...') to eliminate cross-document interference."
+        }
+      ]
+    },
+    "two_stage_rerank": {
+      "mode": "two_stage_rerank",
+      "summary_metrics": {
+        "total_queries": 10,
+        "mean_mrr": 0.87,
+        "metrics_by_k": {
+          "k=1": {
+            "mean_recall": 0.75,
+            "mean_precision": 0.8,
+            "mean_hit_rate": 0.8,
+            "mean_f1": 0.7667,
+            "mean_ndcg": 0.8
+          },
+          "k=2": {
+            "mean_recall": 0.8,
+            "mean_precision": 0.45,
+            "mean_hit_rate": 0.9,
+            "mean_f1": 0.5667,
+            "mean_ndcg": 0.6918
+          },
+          "k=3": {
+            "mean_recall": 0.8,
+            "mean_precision": 0.3,
+            "mean_hit_rate": 0.9,
+            "mean_f1": 0.43,
+            "mean_ndcg": 0.6857
+          },
+          "k=5": {
+            "mean_recall": 0.85,
+            "mean_precision": 0.2,
+            "mean_hit_rate": 1.0,
+            "mean_f1": 0.319,
+            "mean_ndcg": 0.7422
+          },
+          "k=10": {
+            "mean_recall": 1.0,
+            "mean_precision": 0.13,
+            "mean_hit_rate": 1.0,
+            "mean_f1": 0.2273,
+            "mean_ndcg": 0.7995
+          }
+        }
+      },
+      "query_evaluations": [
+        {
+          "query_id": "eval_q01_pto_rollover",
+          "query": "How many days of paid time off do employees get each year, and can unused PTO be rolled over into the next year?",
+          "domain": "HR & Employee Benefits",
+          "difficulty": "Easy",
+          "relevant_chunk_ids": [
+            "employee_benefits_chunk_001"
+          ],
+          "reciprocal_rank": 1.0,
+          "k_metrics": {
+            "k=1": {
+              "recall": 1.0,
+              "precision": 1.0,
+              "hit_rate": 1,
+              "f1": 1.0,
+              "ndcg": 1.0,
+              "retrieved_chunk_ids": [
+                "employee_benefits_chunk_001"
+              ]
+            },
+            "k=2": {
+              "recall": 1.0,
+              "precision": 0.5,
+              "hit_rate": 1,
+              "f1": 0.6667,
+              "ndcg": 0.8262,
+              "retrieved_chunk_ids": [
+                "employee_benefits_chunk_001",
+                "employee_benefits_chunk_004"
+              ]
+            },
+            "k=3": {
+              "recall": 1.0,
+              "precision": 0.3333,
+              "hit_rate": 1,
+              "f1": 0.5,
+              "ndcg": 0.9639,
+              "retrieved_chunk_ids": [
+                "employee_benefits_chunk_001",
+                "employee_benefits_chunk_004",
+                "employee_benefits_chunk_002"
+              ]
+            },
+            "k=5": {
+              "recall": 1.0,
+              "precision": 0.2,
+              "hit_rate": 1,
+              "f1": 0.3333,
+              "ndcg": 0.9639,
+              "retrieved_chunk_ids": [
+                "employee_benefits_chunk_001",
+                "employee_benefits_chunk_004",
+                "employee_benefits_chunk_002",
+                "remote_work_policy_chunk_003",
+                "remote_work_policy_chunk_002"
+              ]
+            },
+            "k=10": {
+              "recall": 1.0,
+              "precision": 0.1,
+              "hit_rate": 1,
+              "f1": 0.1818,
+              "ndcg": 0.9639,
+              "retrieved_chunk_ids": [
+                "employee_benefits_chunk_001",
+                "employee_benefits_chunk_004",
+                "employee_benefits_chunk_002",
+                "remote_work_policy_chunk_003",
+                "remote_work_policy_chunk_002",
+                "it_security_policy_chunk_005",
+                "remote_work_policy_chunk_006",
+                "employee_benefits_chunk_003",
+                "guide_chunk_002",
+                "page_chunk_003"
+              ]
+            }
+          },
+          "has_failure_diagnostic": false,
+          "diagnostic_summary": "Optimal (Rank #1)"
+        },
+        {
+          "query_id": "eval_q02_sick_leave_policy",
+          "query": "What is the policy for taking sick leave and when is a medical certificate required from a doctor?",
+          "domain": "HR & Employee Benefits",
+          "difficulty": "Easy",
+          "relevant_chunk_ids": [
+            "employee_benefits_chunk_002"
+          ],
+          "reciprocal_rank": 1.0,
+          "k_metrics": {
+            "k=1": {
+              "recall": 1.0,
+              "precision": 1.0,
+              "hit_rate": 1,
+              "f1": 1.0,
+              "ndcg": 1.0,
+              "retrieved_chunk_ids": [
+                "employee_benefits_chunk_002"
+              ]
+            },
+            "k=2": {
+              "recall": 1.0,
+              "precision": 0.5,
+              "hit_rate": 1,
+              "f1": 0.6667,
+              "ndcg": 0.8262,
+              "retrieved_chunk_ids": [
+                "employee_benefits_chunk_002",
+                "remote_work_policy_chunk_005"
+              ]
+            },
+            "k=3": {
+              "recall": 1.0,
+              "precision": 0.3333,
+              "hit_rate": 1,
+              "f1": 0.5,
+              "ndcg": 0.8262,
+              "retrieved_chunk_ids": [
+                "employee_benefits_chunk_002",
+                "remote_work_policy_chunk_005",
+                "it_security_policy_chunk_005"
+              ]
+            },
+            "k=5": {
+              "recall": 1.0,
+              "precision": 0.2,
+              "hit_rate": 1,
+              "f1": 0.3333,
+              "ndcg": 0.8262,
+              "retrieved_chunk_ids": [
+                "employee_benefits_chunk_002",
+                "remote_work_policy_chunk_005",
+                "it_security_policy_chunk_005",
+                "remote_work_policy_chunk_004",
+                "remote_work_policy_chunk_001"
+              ]
+            },
+            "k=10": {
+              "recall": 1.0,
+              "precision": 0.1,
+              "hit_rate": 1,
+              "f1": 0.1818,
+              "ndcg": 0.8262,
+              "retrieved_chunk_ids": [
+                "employee_benefits_chunk_002",
+                "remote_work_policy_chunk_005",
+                "it_security_policy_chunk_005",
+                "remote_work_policy_chunk_004",
+                "remote_work_policy_chunk_001",
+                "it_security_policy_chunk_002",
+                "remote_work_policy_chunk_003",
+                "employee_benefits_chunk_003",
+                "it_security_policy_chunk_001",
+                "it_security_policy_chunk_003"
+              ]
+            }
+          },
+          "has_failure_diagnostic": false,
+          "diagnostic_summary": "Optimal (Rank #1)"
+        },
+        {
+          "query_id": "eval_q03_parental_leave",
+          "query": "How many weeks of fully paid parental leave are new parents entitled to and can the leave be split?",
+          "domain": "HR & Employee Benefits",
+          "difficulty": "Easy",
+          "relevant_chunk_ids": [
+            "employee_benefits_chunk_003"
+          ],
+          "reciprocal_rank": 1.0,
+          "k_metrics": {
+            "k=1": {
+              "recall": 1.0,
+              "precision": 1.0,
+              "hit_rate": 1,
+              "f1": 1.0,
+              "ndcg": 1.0,
+              "retrieved_chunk_ids": [
+                "employee_benefits_chunk_003"
+              ]
+            },
+            "k=2": {
+              "recall": 1.0,
+              "precision": 0.5,
+              "hit_rate": 1,
+              "f1": 0.6667,
+              "ndcg": 0.8262,
+              "retrieved_chunk_ids": [
+                "employee_benefits_chunk_003",
+                "remote_work_policy_chunk_005"
+              ]
+            },
+            "k=3": {
+              "recall": 1.0,
+              "precision": 0.3333,
+              "hit_rate": 1,
+              "f1": 0.5,
+              "ndcg": 0.8262,
+              "retrieved_chunk_ids": [
+                "employee_benefits_chunk_003",
+                "remote_work_policy_chunk_005",
+                "employee_benefits_chunk_002"
+              ]
+            },
+            "k=5": {
+              "recall": 1.0,
+              "precision": 0.2,
+              "hit_rate": 1,
+              "f1": 0.3333,
+              "ndcg": 0.8262,
+              "retrieved_chunk_ids": [
+                "employee_benefits_chunk_003",
+                "remote_work_policy_chunk_005",
+                "employee_benefits_chunk_002",
+                "remote_work_policy_chunk_002",
+                "it_security_policy_chunk_005"
+              ]
+            },
+            "k=10": {
+              "recall": 1.0,
+              "precision": 0.1,
+              "hit_rate": 1,
+              "f1": 0.1818,
+              "ndcg": 0.9131,
+              "retrieved_chunk_ids": [
+                "employee_benefits_chunk_003",
+                "remote_work_policy_chunk_005",
+                "employee_benefits_chunk_002",
+                "remote_work_policy_chunk_002",
+                "it_security_policy_chunk_005",
+                "employee_benefits_chunk_001",
+                "it_security_policy_chunk_001",
+                "employee_benefits_chunk_004",
+                "remote_work_policy_chunk_006",
+                "page_chunk_003"
+              ]
+            }
+          },
+          "has_failure_diagnostic": false,
+          "diagnostic_summary": "Optimal (Rank #1)"
+        },
+        {
+          "query_id": "eval_q04_incident_reporting_hotline",
+          "query": "What is the step-by-step procedure for reporting a suspected malware infection, phishing, or active security breach?",
+          "domain": "IT Security & Compliance",
+          "difficulty": "Medium",
+          "relevant_chunk_ids": [
+            "it_security_policy_chunk_005",
+            "it_security_policy_chunk_003"
+          ],
+          "reciprocal_rank": 0.5,
+          "k_metrics": {
+            "k=1": {
+              "recall": 0.0,
+              "precision": 0.0,
+              "hit_rate": 0,
+              "f1": 0.0,
+              "ndcg": 0.0,
+              "retrieved_chunk_ids": [
+                "remote_work_policy_chunk_005"
+              ]
+            },
+            "k=2": {
+              "recall": 0.5,
+              "precision": 0.5,
+              "hit_rate": 1,
+              "f1": 0.5,
+              "ndcg": 0.5213,
+              "retrieved_chunk_ids": [
+                "remote_work_policy_chunk_005",
+                "it_security_policy_chunk_005"
+              ]
+            },
+            "k=3": {
+              "recall": 0.5,
+              "precision": 0.3333,
+              "hit_rate": 1,
+              "f1": 0.4,
+              "ndcg": 0.4582,
+              "retrieved_chunk_ids": [
+                "remote_work_policy_chunk_005",
+                "it_security_policy_chunk_005",
+                "remote_work_policy_chunk_002"
+              ]
+            },
+            "k=5": {
+              "recall": 0.5,
+              "precision": 0.2,
+              "hit_rate": 1,
+              "f1": 0.2857,
+              "ndcg": 0.4582,
+              "retrieved_chunk_ids": [
+                "remote_work_policy_chunk_005",
+                "it_security_policy_chunk_005",
+                "remote_work_policy_chunk_002",
+                "it_security_policy_chunk_002",
+                "remote_work_policy_chunk_003"
+              ]
+            },
+            "k=10": {
+              "recall": 1.0,
+              "precision": 0.2,
+              "hit_rate": 1,
+              "f1": 0.3333,
+              "ndcg": 0.5444,
+              "retrieved_chunk_ids": [
+                "remote_work_policy_chunk_005",
+                "it_security_policy_chunk_005",
+                "remote_work_policy_chunk_002",
+                "it_security_policy_chunk_002",
+                "remote_work_policy_chunk_003",
+                "it_security_policy_chunk_003",
+                "it_security_policy_chunk_001",
+                "employee_benefits_chunk_003",
+                "remote_work_policy_chunk_004",
+                "remote_work_policy_chunk_001"
+              ]
+            }
+          },
+          "has_failure_diagnostic": true,
+          "diagnostic_summary": "Borderline Rank Inversion (Rank #2 or #3)"
+        },
+        {
+          "query_id": "eval_q05_password_mfa_rules",
+          "query": "What are the corporate password complexity rules, minimum character length, and MFA authenticator requirements?",
+          "domain": "IT Security & Compliance",
+          "difficulty": "Easy",
+          "relevant_chunk_ids": [
+            "it_security_policy_chunk_001"
+          ],
+          "reciprocal_rank": 1.0,
+          "k_metrics": {
+            "k=1": {
+              "recall": 1.0,
+              "precision": 1.0,
+              "hit_rate": 1,
+              "f1": 1.0,
+              "ndcg": 1.0,
+              "retrieved_chunk_ids": [
+                "it_security_policy_chunk_001"
+              ]
+            },
+            "k=2": {
+              "recall": 1.0,
+              "precision": 0.5,
+              "hit_rate": 1,
+              "f1": 0.6667,
+              "ndcg": 0.8262,
+              "retrieved_chunk_ids": [
+                "it_security_policy_chunk_001",
+                "remote_work_policy_chunk_002"
+              ]
+            },
+            "k=3": {
+              "recall": 1.0,
+              "precision": 0.3333,
+              "hit_rate": 1,
+              "f1": 0.5,
+              "ndcg": 0.8262,
+              "retrieved_chunk_ids": [
+                "it_security_policy_chunk_001",
+                "remote_work_policy_chunk_002",
+                "remote_work_policy_chunk_004"
+              ]
+            },
+            "k=5": {
+              "recall": 1.0,
+              "precision": 0.2,
+              "hit_rate": 1,
+              "f1": 0.3333,
+              "ndcg": 0.9448,
+              "retrieved_chunk_ids": [
+                "it_security_policy_chunk_001",
+                "remote_work_policy_chunk_002",
+                "remote_work_policy_chunk_004",
+                "it_security_policy_chunk_002",
+                "employee_benefits_chunk_002"
+              ]
+            },
+            "k=10": {
+              "recall": 1.0,
+              "precision": 0.1,
+              "hit_rate": 1,
+              "f1": 0.1818,
+              "ndcg": 0.9448,
+              "retrieved_chunk_ids": [
+                "it_security_policy_chunk_001",
+                "remote_work_policy_chunk_002",
+                "remote_work_policy_chunk_004",
+                "it_security_policy_chunk_002",
+                "employee_benefits_chunk_002",
+                "it_security_policy_chunk_005",
+                "remote_work_policy_chunk_003",
+                "employee_benefits_chunk_003",
+                "remote_work_policy_chunk_001",
+                "page_chunk_003"
+              ]
+            }
+          },
+          "has_failure_diagnostic": false,
+          "diagnostic_summary": "Optimal (Rank #1)"
+        },
+        {
+          "query_id": "eval_q06_remote_vpn_encryption",
+          "query": "What network encryption and VPN tunnel protocols are required when connecting remotely to corporate infrastructure?",
+          "domain": "Remote Work Policy",
+          "difficulty": "Medium",
+          "relevant_chunk_ids": [
+            "remote_work_policy_chunk_005"
+          ],
+          "reciprocal_rank": 1.0,
+          "k_metrics": {
+            "k=1": {
+              "recall": 1.0,
+              "precision": 1.0,
+              "hit_rate": 1,
+              "f1": 1.0,
+              "ndcg": 1.0,
+              "retrieved_chunk_ids": [
+                "remote_work_policy_chunk_005"
+              ]
+            },
+            "k=2": {
+              "recall": 1.0,
+              "precision": 0.5,
+              "hit_rate": 1,
+              "f1": 0.6667,
+              "ndcg": 0.8262,
+              "retrieved_chunk_ids": [
+                "remote_work_policy_chunk_005",
+                "remote_work_policy_chunk_003"
+              ]
+            },
+            "k=3": {
+              "recall": 1.0,
+              "precision": 0.3333,
+              "hit_rate": 1,
+              "f1": 0.5,
+              "ndcg": 0.7262,
+              "retrieved_chunk_ids": [
+                "remote_work_policy_chunk_005",
+                "remote_work_policy_chunk_003",
+                "it_security_policy_chunk_005"
+              ]
+            },
+            "k=5": {
+              "recall": 1.0,
+              "precision": 0.2,
+              "hit_rate": 1,
+              "f1": 0.3333,
+              "ndcg": 0.8199,
+              "retrieved_chunk_ids": [
+                "remote_work_policy_chunk_005",
+                "remote_work_policy_chunk_003",
+                "it_security_policy_chunk_005",
+                "remote_work_policy_chunk_002",
+                "it_security_policy_chunk_002"
+              ]
+            },
+            "k=10": {
+              "recall": 1.0,
+              "precision": 0.1,
+              "hit_rate": 1,
+              "f1": 0.1818,
+              "ndcg": 0.8962,
+              "retrieved_chunk_ids": [
+                "remote_work_policy_chunk_005",
+                "remote_work_policy_chunk_003",
+                "it_security_policy_chunk_005",
+                "remote_work_policy_chunk_002",
+                "it_security_policy_chunk_002",
+                "remote_work_policy_chunk_004",
+                "it_security_policy_chunk_001",
+                "remote_work_policy_chunk_001",
+                "it_security_policy_chunk_003",
+                "remote_work_policy_chunk_006"
+              ]
+            }
+          },
+          "has_failure_diagnostic": false,
+          "diagnostic_summary": "Optimal (Rank #1)"
+        },
+        {
+          "query_id": "eval_q07_remote_work_eligibility",
+          "query": "What are the eligibility requirements and minimum tenure before an employee can request regular remote work?",
+          "domain": "Remote Work Policy",
+          "difficulty": "Easy",
+          "relevant_chunk_ids": [
+            "remote_work_policy_chunk_002"
+          ],
+          "reciprocal_rank": 1.0,
+          "k_metrics": {
+            "k=1": {
+              "recall": 1.0,
+              "precision": 1.0,
+              "hit_rate": 1,
+              "f1": 1.0,
+              "ndcg": 1.0,
+              "retrieved_chunk_ids": [
+                "remote_work_policy_chunk_002"
+              ]
+            },
+            "k=2": {
+              "recall": 1.0,
+              "precision": 0.5,
+              "hit_rate": 1,
+              "f1": 0.6667,
+              "ndcg": 0.8262,
+              "retrieved_chunk_ids": [
+                "remote_work_policy_chunk_002",
+                "remote_work_policy_chunk_005"
+              ]
+            },
+            "k=3": {
+              "recall": 1.0,
+              "precision": 0.3333,
+              "hit_rate": 1,
+              "f1": 0.5,
+              "ndcg": 0.8473,
+              "retrieved_chunk_ids": [
+                "remote_work_policy_chunk_002",
+                "remote_work_policy_chunk_005",
+                "remote_work_policy_chunk_003"
+              ]
+            },
+            "k=5": {
+              "recall": 1.0,
+              "precision": 0.2,
+              "hit_rate": 1,
+              "f1": 0.3333,
+              "ndcg": 0.8473,
+              "retrieved_chunk_ids": [
+                "remote_work_policy_chunk_002",
+                "remote_work_policy_chunk_005",
+                "remote_work_policy_chunk_003",
+                "employee_benefits_chunk_002",
+                "remote_work_policy_chunk_004"
+              ]
+            },
+            "k=10": {
+              "recall": 1.0,
+              "precision": 0.1,
+              "hit_rate": 1,
+              "f1": 0.1818,
+              "ndcg": 0.9236,
+              "retrieved_chunk_ids": [
+                "remote_work_policy_chunk_002",
+                "remote_work_policy_chunk_005",
+                "remote_work_policy_chunk_003",
+                "employee_benefits_chunk_002",
+                "remote_work_policy_chunk_004",
+                "employee_benefits_chunk_004",
+                "it_security_policy_chunk_001",
+                "remote_work_policy_chunk_001",
+                "remote_work_policy_chunk_006",
+                "it_security_policy_chunk_004"
+              ]
+            }
+          },
+          "has_failure_diagnostic": false,
+          "diagnostic_summary": "Optimal (Rank #1)"
+        },
+        {
+          "query_id": "eval_q08_rag_system_loader",
+          "query": "How does the RAG document loader module ingest multi-format files and format page-by-page text extraction?",
+          "domain": "Engineering & Architecture",
+          "difficulty": "Medium",
+          "relevant_chunk_ids": [
+            "document_chunk_001",
+            "guide_chunk_001"
+          ],
+          "reciprocal_rank": 1.0,
+          "k_metrics": {
+            "k=1": {
+              "recall": 0.5,
+              "precision": 1.0,
+              "hit_rate": 1,
+              "f1": 0.6667,
+              "ndcg": 1.0,
+              "retrieved_chunk_ids": [
+                "document_chunk_001"
+              ]
+            },
+            "k=2": {
+              "recall": 0.5,
+              "precision": 0.5,
+              "hit_rate": 1,
+              "f1": 0.5,
+              "ndcg": 0.6131,
+              "retrieved_chunk_ids": [
+                "document_chunk_001",
+                "remote_work_policy_chunk_005"
+              ]
+            },
+            "k=3": {
+              "recall": 0.5,
+              "precision": 0.3333,
+              "hit_rate": 1,
+              "f1": 0.4,
+              "ndcg": 0.5563,
+              "retrieved_chunk_ids": [
+                "document_chunk_001",
+                "remote_work_policy_chunk_005",
+                "hello_chunk_001"
+              ]
+            },
+            "k=5": {
+              "recall": 0.5,
+              "precision": 0.2,
+              "hit_rate": 1,
+              "f1": 0.2857,
+              "ndcg": 0.628,
+              "retrieved_chunk_ids": [
+                "document_chunk_001",
+                "remote_work_policy_chunk_005",
+                "hello_chunk_001",
+                "remote_work_policy_chunk_003",
+                "guide_chunk_002"
+              ]
+            },
+            "k=10": {
+              "recall": 1.0,
+              "precision": 0.2,
+              "hit_rate": 1,
+              "f1": 0.3333,
+              "ndcg": 0.7955,
+              "retrieved_chunk_ids": [
+                "document_chunk_001",
+                "remote_work_policy_chunk_005",
+                "hello_chunk_001",
+                "remote_work_policy_chunk_003",
+                "guide_chunk_002",
+                "it_security_policy_chunk_002",
+                "employee_benefits_chunk_002",
+                "page_chunk_001",
+                "guide_chunk_001",
+                "page_chunk_004"
+              ]
+            }
+          },
+          "has_failure_diagnostic": true,
+          "diagnostic_summary": "Multi-Chunk Recall Dilution at Small K"
+        },
+        {
+          "query_id": "eval_q09_borderline_incident_slas",
+          "query": "What are the notification SLAs and response times for Severity 1 critical security incidents?",
+          "domain": "IT Security & Compliance",
+          "difficulty": "Hard/Borderline",
+          "relevant_chunk_ids": [
+            "it_security_policy_chunk_003"
+          ],
+          "reciprocal_rank": 1.0,
+          "k_metrics": {
+            "k=1": {
+              "recall": 1.0,
+              "precision": 1.0,
+              "hit_rate": 1,
+              "f1": 1.0,
+              "ndcg": 1.0,
+              "retrieved_chunk_ids": [
+                "it_security_policy_chunk_003"
+              ]
+            },
+            "k=2": {
+              "recall": 1.0,
+              "precision": 0.5,
+              "hit_rate": 1,
+              "f1": 0.6667,
+              "ndcg": 0.8262,
+              "retrieved_chunk_ids": [
+                "it_security_policy_chunk_003",
+                "remote_work_policy_chunk_005"
+              ]
+            },
+            "k=3": {
+              "recall": 1.0,
+              "precision": 0.3333,
+              "hit_rate": 1,
+              "f1": 0.5,
+              "ndcg": 0.8262,
+              "retrieved_chunk_ids": [
+                "it_security_policy_chunk_003",
+                "remote_work_policy_chunk_005",
+                "remote_work_policy_chunk_002"
+              ]
+            },
+            "k=5": {
+              "recall": 1.0,
+              "precision": 0.2,
+              "hit_rate": 1,
+              "f1": 0.3333,
+              "ndcg": 0.8262,
+              "retrieved_chunk_ids": [
+                "it_security_policy_chunk_003",
+                "remote_work_policy_chunk_005",
+                "remote_work_policy_chunk_002",
+                "it_security_policy_chunk_005",
+                "it_security_policy_chunk_002"
+              ]
+            },
+            "k=10": {
+              "recall": 1.0,
+              "precision": 0.1,
+              "hit_rate": 1,
+              "f1": 0.1818,
+              "ndcg": 0.8262,
+              "retrieved_chunk_ids": [
+                "it_security_policy_chunk_003",
+                "remote_work_policy_chunk_005",
+                "remote_work_policy_chunk_002",
+                "it_security_policy_chunk_005",
+                "it_security_policy_chunk_002",
+                "remote_work_policy_chunk_003",
+                "employee_benefits_chunk_002",
+                "it_security_policy_chunk_001",
+                "remote_work_policy_chunk_004",
+                "remote_work_policy_chunk_001"
+              ]
+            }
+          },
+          "has_failure_diagnostic": false,
+          "diagnostic_summary": "Optimal (Rank #1)"
+        },
+        {
+          "query_id": "eval_q10_cross_domain_distractor",
+          "query": "Can employees take leave for wellness or gym activities while working remotely from home?",
+          "domain": "Cross-Domain Synthesis",
+          "difficulty": "Hard/Borderline",
+          "relevant_chunk_ids": [
+            "employee_benefits_chunk_004",
+            "remote_work_policy_chunk_001"
+          ],
+          "reciprocal_rank": 0.2,
+          "k_metrics": {
+            "k=1": {
+              "recall": 0.0,
+              "precision": 0.0,
+              "hit_rate": 0,
+              "f1": 0.0,
+              "ndcg": 0.0,
+              "retrieved_chunk_ids": [
+                "employee_benefits_chunk_002"
+              ]
+            },
+            "k=2": {
+              "recall": 0.0,
+              "precision": 0.0,
+              "hit_rate": 0,
+              "f1": 0.0,
+              "ndcg": 0.0,
+              "retrieved_chunk_ids": [
+                "employee_benefits_chunk_002",
+                "remote_work_policy_chunk_005"
+              ]
+            },
+            "k=3": {
+              "recall": 0.0,
+              "precision": 0.0,
+              "hit_rate": 0,
+              "f1": 0.0,
+              "ndcg": 0.0,
+              "retrieved_chunk_ids": [
+                "employee_benefits_chunk_002",
+                "remote_work_policy_chunk_005",
+                "remote_work_policy_chunk_004"
+              ]
+            },
+            "k=5": {
+              "recall": 0.5,
+              "precision": 0.2,
+              "hit_rate": 1,
+              "f1": 0.2857,
+              "ndcg": 0.2809,
+              "retrieved_chunk_ids": [
+                "employee_benefits_chunk_002",
+                "remote_work_policy_chunk_005",
+                "remote_work_policy_chunk_004",
+                "remote_work_policy_chunk_002",
+                "employee_benefits_chunk_004"
+              ]
+            },
+            "k=10": {
+              "recall": 1.0,
+              "precision": 0.2,
+              "hit_rate": 1,
+              "f1": 0.3333,
+              "ndcg": 0.3616,
+              "retrieved_chunk_ids": [
+                "employee_benefits_chunk_002",
+                "remote_work_policy_chunk_005",
+                "remote_work_policy_chunk_004",
+                "remote_work_policy_chunk_002",
+                "employee_benefits_chunk_004",
+                "remote_work_policy_chunk_003",
+                "remote_work_policy_chunk_001",
+                "employee_benefits_chunk_003",
+                "remote_work_policy_chunk_006",
+                "it_security_policy_chunk_004"
+              ]
+            }
+          },
+          "has_failure_diagnostic": true,
+          "diagnostic_summary": "Cross-Domain Semantic Distractor Pull"
+        }
+      ],
+      "failure_diagnostics": [
+        {
+          "query_id": "eval_q04_incident_reporting_hotline",
+          "query": "What is the step-by-step procedure for reporting a suspected malware infection, phishing, or active security breach?",
+          "first_relevant_rank": 2,
+          "top_retrieved_chunk_id": "remote_work_policy_chunk_005",
+          "top_retrieved_doc": "remote_work_policy.md",
+          "expected_relevant_ids": [
+            "it_security_policy_chunk_005",
+            "it_security_policy_chunk_003"
+          ],
+          "root_cause_category": "Borderline Rank Inversion (Rank #2 or #3)",
+          "detailed_explanation": "The target chunk `it_security_policy_chunk_005` was retrieved in top-3, but ranked #2 behind general overview chunk `remote_work_policy_chunk_005` from `remote_work_policy.md`.",
+          "recommended_mitigation": "Use Two-Stage Re-ranking (Cross-Encoder / SemanticRelevanceReranker) to boost deep semantic alignment over broad surface similarity."
+        },
+        {
+          "query_id": "eval_q08_rag_system_loader",
+          "query": "How does the RAG document loader module ingest multi-format files and format page-by-page text extraction?",
+          "first_relevant_rank": 1,
+          "top_retrieved_chunk_id": "document_chunk_001",
+          "top_retrieved_doc": "document.pdf",
+          "expected_relevant_ids": [
+            "document_chunk_001",
+            "guide_chunk_001"
+          ],
+          "root_cause_category": "Multi-Chunk Recall Dilution at Small K",
+          "detailed_explanation": "Query requires 2 supporting chunks (['document_chunk_001', 'guide_chunk_001']), but at k=3 only 1 chunk(s) were captured.",
+          "recommended_mitigation": "Increase retrieval budget to k=5 or implement sub-query expansion."
+        },
+        {
+          "query_id": "eval_q10_cross_domain_distractor",
+          "query": "Can employees take leave for wellness or gym activities while working remotely from home?",
+          "first_relevant_rank": 5,
+          "top_retrieved_chunk_id": "employee_benefits_chunk_002",
+          "top_retrieved_doc": "employee_benefits.md",
+          "expected_relevant_ids": [
+            "employee_benefits_chunk_004",
+            "remote_work_policy_chunk_001"
+          ],
+          "root_cause_category": "Cross-Domain Semantic Distractor Pull",
+          "detailed_explanation": "Dense embeddings for query 'Can employees take leave for wellness or gym ...' overlapped with adjacent policy files (`employee_benefits.md`), pulling irrelevant distractor `employee_benefits_chunk_002` to Rank #1.",
+          "recommended_mitigation": "Apply pre-retrieval MetadataFilter(source_document='...') to eliminate cross-document interference."
+        }
+      ]
+    }
+  }
+}
