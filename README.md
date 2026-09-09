@@ -1,4 +1,4 @@
-# Staff RAG Assistant - Ingestion, Embeddings, Similarity Search, Filtering, Re-ranking, Evaluation, Grounded Answers & Conversational RAG
+# Staff RAG Assistant - Ingestion, Embeddings, Similarity Search, Filtering, Re-ranking, Evaluation, Grounded Answers, Conversational RAG & Runtime Document Upload
 
 This repository implements tools, benchmark reports, and system prompt architectures for an internal Staff RAG Assistant.
 
@@ -6,7 +6,14 @@ This repository implements tools, benchmark reports, and system prompt architect
 
 ## 📋 Features & Tasks Implemented
 
-### 1. Conversational RAG & Multi-Turn History Tracking (`ConversationalRAG` Branch)
+### 1. Runtime Document Upload & Dynamic Vector Indexing (`DocumentUpload` Branch)
+- **Task 1 — Upload Endpoint**: REST `POST /api/upload` endpoint accepting `.md`, `.pdf`, `.txt`, `.html` files; safe filename sanitisation (path traversal & null-byte prevention) and storage in `data/uploads/`.
+- **Task 2 — Ingest, Embed & Index Pipeline**: Structure-aware cleaning → header breadcrumb chunking → 1536-D vector embedding → live in-memory registration in `retriever.chunks_data` → atomic JSON persistence to `data/embedded_chunks.json`. Zero restart required.
+- **Task 3 — Runtime Searchability**: Newly uploaded documents are immediately searchable at Rank #1 through `POST /api/query` with 100% grounded answer generation — demonstrated in the benchmark suite.
+- **Task 4 — Upload Error Handling**: HTTP `400` empty file · `413` oversized (> 10 MB) · `415` unsupported type · `422` malformed/corrupted file; all with structured JSON error bodies.
+- **Task 5 — Benchmark Exports**: Structured results exported to `data/document_upload_results.json` and Markdown report to `data/document_upload_report.md`.
+
+### 2. Conversational RAG & Multi-Turn History Tracking (`ConversationalRAG` Branch)
 - **Task 1 — Multi-Turn History Tracking**: Structured `ConversationHistory` and `ConversationTurn` manager recording multi-turn dialogues, user queries, assistant responses, rewritten search queries, retrieved chunks, and token usage with sliding-window capacity pruning.
 - **Task 2 — Query Rewriting & Anaphora Resolution**: Contextual query reformulation engine (`QueryRewriter`) resolving pronouns (*it, them, that, these*) and conversational ellipses into self-contained standalone search queries suitable for vector retrieval.
 - **Task 3 — Standalone Vector Retrieval & Score Lift**: Multi-stage retrieval evaluating raw vs. rewritten queries, achieving an average similarity score lift of **$+0.0946$** (up to $+0.35$ on ambiguous follow-ups) and ensuring target policy chunks rank #1.
@@ -97,12 +104,13 @@ This repository implements tools, benchmark reports, and system prompt architect
 ```text
 .
 ├── src/
+│   ├── document_uploader.py   # Tasks 1-5: RuntimeDocumentUploader, RAG REST API & upload pipeline
 │   ├── grounded_generator.py  # Tasks 1-5: Grounded generation, source accuracy audit, fallbacks & comparisons
 │   ├── retrieval_evaluator.py # Tasks 1-5: Labelled queries, Recall@k, Precision@k, MRR, NDCG & diagnostics
 │   ├── filtered_retrieval.py  # Tasks 1-5: Metadata filtering, lexical/hybrid scoring & precision analysis
 │   ├── similarity_search.py   # Tasks 1-5: Top-k vector database similarity search & retrieval
 │   ├── reranker.py            # Tasks 1-5: Two-stage retrieval & semantic re-ranking pipeline
-│   ├── retriever.py           # Public retrieve_top_k and retrieve_filtered interfaces
+│   ├── retriever.py           # Public retrieve_top_k, retrieve_filtered, DenseSemanticEmbedder interfaces
 │   ├── sanity_test.py         # Tasks 1-5: Retrieval sanity tests & ground-truth verification
 │   ├── similarity_ranking.py  # Tasks 1-5: Query-to-chunk similarity ranking & retrieval
 │   ├── embedding_demo.py      # Tasks 1-5: Text embedding generation, dimensionality & similarity
@@ -114,6 +122,9 @@ This repository implements tools, benchmark reports, and system prompt architect
 │   ├── compare_prompts.py     # Prompt engineering benchmark runner
 │   └── structured_output.py   # JSON response format mode & Pydantic validation
 ├── data/
+│   ├── document_upload_results.json  # Serialized upload benchmark: indexing summary, runtime search proof
+│   ├── document_upload_report.md     # Markdown report: upload pipeline, error handling & searchability demo
+│   ├── uploads/                      # Runtime-uploaded documents stored at upload time
 │   ├── grounded_generation_results.json # Serialized grounded answers, audits, fallbacks & comparisons
 │   ├── grounded_generation_report.md    # Markdown audit report on source accuracy & with/without retrieval
 │   ├── retrieval_evaluation_results.json # Serialized evaluation metrics across 10 labelled queries
@@ -122,7 +133,7 @@ This repository implements tools, benchmark reports, and system prompt architect
 │   ├── filtered_search_report.md    # Markdown technical report on metadata filtering & precision
 │   ├── similarity_search_results.json # Serialized query retrieval runs for k=1, 3, 5
 │   ├── similarity_search_report.md    # Markdown similarity search report with changing k
-│   ├── embedded_chunks.json   # Vector store with 1536-D embeddings & metadata
+│   ├── embedded_chunks.json   # Vector store with 1536-D embeddings & metadata (grows at runtime)
 │   ├── sanity_report.md       # Markdown summary of sanity test passes, margins & diagnostics
 │   ├── sanity_test_results.json # Full JSON dataset of sanity test runs and scores
 │   ├── similarity_ranking_report.md # Markdown report of top-k and bottom-k chunk rankings
@@ -159,6 +170,7 @@ This repository implements tools, benchmark reports, and system prompt architect
 │   ├── test_retriever.py           # Unit tests for retriever interface
 │   ├── test_ingestion_pipeline.py  # Unit tests for ingestion and reconciliation
 │   └── test_chunker.py             # Unit tests for chunking strategies
+├── document_upload.py         # Root CLI entry point: --server, --upload, --query, --demo, --export-dir
 ├── generate_grounded_answer.py# Root CLI entry point for grounded answer generation & audits
 ├── evaluate_retrieval.py      # Root CLI entry point for systematic retrieval quality evaluation
 ├── filtered_retrieval.py      # Root CLI entry point for metadata-filtered retrieval
@@ -239,10 +251,25 @@ python src/token_counter.py
 python filtered_retrieval.py
 ```
 
-### 8. Run All Test Suites
-### 5. Run Unit Test Suites
+### 6. Runtime Document Upload & Dynamic Indexing
 ```bash
-python -m unittest discover -s tests -p "*.py" -v
+# Run full demo: upload a new doc, index it, query it without restart
+python document_upload.py --demo
+
+# Start REST API server (port 8765 by default)
+python document_upload.py --server
+
+# Upload a specific file via CLI
+python document_upload.py --upload data/corpus/employee_benefits.md
+
+# Query the live index
+python document_upload.py --query "What are the parental leave entitlements?"
+```
+
+### 7. Run All Unit Test Suites
+```bash
+python -m unittest discover -s tests -p "test_*.py" -v
+python -m unittest tests/test_document_upload.py -v
 python -m unittest tests/test_grounded_generator.py -v
 ```
 

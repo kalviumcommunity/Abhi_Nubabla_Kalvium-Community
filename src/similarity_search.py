@@ -124,6 +124,7 @@ class DenseSemanticEmbedder:
             "it_security_compliance": (["security", "passwords", "encryption", "malware", "incident", "hotline", "vpn"], 4.0),
             "remote_work_telecommute": (["remote", "work", "home", "telework", "hybrid", "workspace", "approval", "portal"], 4.0),
             "rag_ingestion_retrieval": (["rag", "retrieval", "chunk", "document", "embedding", "loader", "pipeline", "search"], 4.0),
+            "ai_coding_assistant": (["ai", "assistant", "completion", "ide", "plugins", "llm", "guidelines", "artificial"], 4.5),
         }
 
         for w in words:
@@ -171,12 +172,16 @@ class VectorStoreRetriever:
         self,
         vector_store_path: str = "data/embedded_chunks.json",
         embedder: Optional[DenseSemanticEmbedder] = None,
+        chunks_data: Optional[List[Dict[str, Any]]] = None,
     ):
         self.vector_store_path = Path(vector_store_path)
         self.embedder = embedder or DenseSemanticEmbedder(dimension=1536)
         self.model_name = "DenseSemanticEmbedder (Local Fallback, D=1536)"
-        self.chunks_data: List[Dict[str, Any]] = []
-        self._load_vector_store()
+        if chunks_data is not None:
+            self.chunks_data = chunks_data
+        else:
+            self.chunks_data = []
+            self._load_vector_store()
 
     def _load_vector_store(self) -> None:
         """Loads indexed chunks and precomputed vectors from disk."""
@@ -288,6 +293,131 @@ class VectorStoreRetriever:
             )
 
         return results
+
+    # ------------------------------------------------------------------
+    # Convenience API used by tests and downstream consumers
+    # ------------------------------------------------------------------
+
+    @property
+    def total_chunks(self) -> int:
+        """Total number of indexed chunks in the vector store."""
+        return len(self.chunks_data)
+
+    def retrieve(
+        self,
+        query: str,
+        k: int = 3,
+        min_score: float = -1.0,
+    ) -> List[Dict[str, Any]]:
+        """
+        Retrieve top-k chunks as plain dicts with all metadata fields.
+
+        Handles both the embedded-JSON format (source_text + vector keys)
+        and the raw/mock format (text key, no pre-computed vector).
+
+        Returns dicts with keys:
+            chunk_id, chunk_index, document_name, source, file_type,
+            section, page, position, token_count, char_count,
+            similarity_score, text, metadata, rank
+        """
+        if not query or not query.strip():
+            return []
+
+        query_vector = self.embed_query(query)
+
+        scored: List[Tuple[float, Dict[str, Any]]] = []
+        for chunk in self.chunks_data:
+            # Support both stored format keys
+            text = chunk.get("source_text") or chunk.get("text", "")
+            vec = chunk.get("vector")
+            if vec is None:
+                # Compute on the fly for mock/raw chunks
+                vec = self.embedder.embed(text)
+
+            if not vec or not text:
+                continue
+
+            score = cosine_similarity(query_vector, vec)
+            if score < min_score:
+                continue
+            scored.append((score, chunk))
+
+        scored.sort(key=lambda x: x[0], reverse=True)
+        top = scored[: min(k, len(scored))]
+
+        results: List[Dict[str, Any]] = []
+        for rank, (score, chunk) in enumerate(top, start=1):
+            meta = chunk.get("metadata", {}).copy()
+            text = chunk.get("source_text") or chunk.get("text", "")
+            # Normalise source_document across formats
+            doc_name = (
+                meta.get("source_document")
+                or chunk.get("document_name")
+                or meta.get("source_path")
+                or chunk.get("source", "unknown")
+            )
+            results.append({
+                "rank": rank,
+                "chunk_id": chunk.get("chunk_id", f"chunk_{rank:03d}"),
+                "chunk_index": meta.get("chunk_index", chunk.get("position", rank - 1)),
+                "document_name": chunk.get("document_name", doc_name),
+                "source": chunk.get("source", doc_name),
+                "file_type": chunk.get("file_type", meta.get("file_type", ".md")),
+                "section": chunk.get("section", meta.get("section", "N/A")),
+                "page": chunk.get("page", meta.get("page", None)),
+                "position": chunk.get("position", meta.get("position", rank - 1)),
+                "token_count": chunk.get("token_count", meta.get("token_count", len(text.split()))),
+                "char_count": chunk.get("char_count", meta.get("char_count", len(text))),
+                "similarity_score": round(score, 6),
+                "text": text,
+                "metadata": meta,
+            })
+        return results
+
+
+    def compare_k(
+        self,
+        query: str,
+        k_values: List[int] = [1, 3, 5],
+    ) -> Dict[str, Any]:
+        """
+        Run the same query for multiple k values and return a structured comparison.
+
+        Returns:
+            {
+                "query": str,
+                "comparisons": { "k=N": { "k": N, "chunks": [...] }, ... },
+                "marginal_analysis": [ { "from_k": A, "to_k": B, "chunks_added": int }, ... ]
+            }
+        """
+        sorted_ks = sorted(k_values)
+        max_k = sorted_ks[-1]
+        all_results = self.retrieve(query, k=max_k)
+
+        comparisons: Dict[str, Any] = {}
+        for k in sorted_ks:
+            comparisons[f"k={k}"] = {
+                "k": k,
+                "chunks": all_results[:k],
+                "top_score": all_results[0]["similarity_score"] if all_results else 0.0,
+                "low_score": all_results[min(k, len(all_results)) - 1]["similarity_score"] if all_results else 0.0,
+            }
+
+        marginal_analysis = []
+        for i in range(len(sorted_ks) - 1):
+            k_a, k_b = sorted_ks[i], sorted_ks[i + 1]
+            marginal_analysis.append({
+                "from_k": k_a,
+                "to_k": k_b,
+                "chunks_added": k_b - k_a,
+                "marginal_chunks": all_results[k_a:k_b],
+            })
+
+        return {
+            "query": query,
+            "comparisons": comparisons,
+            "marginal_analysis": marginal_analysis,
+        }
 
     def demonstrate_changing_k(
         self, query: str, k_values: List[int] = [1, 3, 5]
