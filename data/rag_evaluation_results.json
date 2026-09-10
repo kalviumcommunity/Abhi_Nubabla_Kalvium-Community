@@ -1,0 +1,461 @@
+{
+  "evaluation_name": "Full RAG Answer Quality & Citation Accuracy Evaluation",
+  "timestamp": "2026-09-10T13:28:11.951991",
+  "total_queries": 8,
+  "overall_quality_score": 0.7612,
+  "metrics_summary": {
+    "average_correctness_score": 0.6875,
+    "average_grounding_score": 0.7312,
+    "average_citation_precision": 1.0,
+    "average_citation_recall": 0.9375,
+    "fallback_accuracy_rate": 1.0
+  },
+  "notable_failures_count": 5,
+  "failures_breakdown": [
+    {
+      "test_id": "eval_q01_pto_accrual",
+      "query": "How many days of paid time off do employees get each year, and can unused PTO be rolled over into the next year?",
+      "category": "Factual Policy",
+      "failure_type": "Partial Grounding / Extrapolated Claim",
+      "severity": "Medium",
+      "observed_issue": "Answer contained 2 unsupported claims.",
+      "likely_cause": "Generator extrapolated beyond injected context details.",
+      "recommended_fix": "Lower temperature parameter (e.g. 0.0 - 0.1) and enforce strict grounding system prompt."
+    },
+    {
+      "test_id": "eval_q03_remote_security",
+      "query": "What are the network encryption and VPN requirements for connecting remotely to company resources?",
+      "category": "Procedural Security",
+      "failure_type": "Partial Grounding / Extrapolated Claim",
+      "severity": "Medium",
+      "observed_issue": "Answer contained 4 unsupported claims.",
+      "likely_cause": "Generator extrapolated beyond injected context details.",
+      "recommended_fix": "Lower temperature parameter (e.g. 0.0 - 0.1) and enforce strict grounding system prompt."
+    },
+    {
+      "test_id": "eval_q04_equipment_stipend",
+      "query": "What equipment does the company provide for remote workers and what is the reimbursement stipend?",
+      "category": "Factual Policy",
+      "failure_type": "Retrieval Miss / Incorrect Coverage",
+      "severity": "High",
+      "observed_issue": "Answer missed key expected ground-truth facts: ['laptop', 'monitor', '$500', 'stipend', 'home office']",
+      "likely_cause": "Top-k retrieval missed essential chunk context or chunk granularity lost key facts.",
+      "recommended_fix": "Increase top-k retrieval parameter (e.g. k=5) or refine semantic embedding model."
+    },
+    {
+      "test_id": "eval_q06_password_policy",
+      "query": "What are the minimum password length requirements and is SMS authentication permitted?",
+      "category": "Procedural Security",
+      "failure_type": "Retrieval Miss / Incorrect Coverage",
+      "severity": "High",
+      "observed_issue": "Answer missed key expected ground-truth facts: ['14 characters', 'sms', 'disallowed', 'authenticator app', 'hardware']",
+      "likely_cause": "Top-k retrieval missed essential chunk context or chunk granularity lost key facts.",
+      "recommended_fix": "Increase top-k retrieval parameter (e.g. k=5) or refine semantic embedding model."
+    },
+    {
+      "test_id": "eval_q08_parental_leave",
+      "query": "How many weeks of fully paid parental leave are provided for primary caregivers?",
+      "category": "Factual Policy",
+      "failure_type": "Partial Grounding / Extrapolated Claim",
+      "severity": "Medium",
+      "observed_issue": "Answer contained 2 unsupported claims.",
+      "likely_cause": "Generator extrapolated beyond injected context details.",
+      "recommended_fix": "Lower temperature parameter (e.g. 0.0 - 0.1) and enforce strict grounding system prompt."
+    }
+  ],
+  "scored_results": [
+    {
+      "test_id": "eval_q01_pto_accrual",
+      "query": "How many days of paid time off do employees get each year, and can unused PTO be rolled over into the next year?",
+      "category": "Factual Policy",
+      "is_out_of_domain": false,
+      "generated_answer": "Full\u2011time regular employees accrue 18 days of PTO annually, and up to 5 unused days may be rolled over into the next calendar year.  \n\n- PTO accrues at 1.5 days per completed calendar month of active service.  \n- Any balance exceeding 5 days on December\u202f31 will expire without cash compensation unless HR approves an exception.  \n- Sick leave is separate and not counted toward PTO.  \n\n[1]",
+      "is_fallback": false,
+      "retrieved_chunks_count": 2,
+      "correctness_score": 1.0,
+      "grounding_score": 0.6,
+      "citation_precision": 1.0,
+      "citation_recall": 1.0,
+      "is_citation_accurate": true,
+      "latency_ms": 2126.4,
+      "quality_details": {
+        "correctness_score": 1.0,
+        "grounding_score": 0.6,
+        "matched_keywords": [
+          "18 days",
+          "1.5 days",
+          "5 days",
+          "roll over"
+        ],
+        "missing_keywords": [
+          "rollover"
+        ],
+        "supported_claims_count": 3,
+        "unsupported_claims_count": 2,
+        "correctness_notes": "Matched 4/5 expected key facts.",
+        "grounding_notes": "Grounding check: 3 supported claims, 2 unsupported claims."
+      },
+      "citation_details": {
+        "citation_precision": 1.0,
+        "citation_recall": 1.0,
+        "citations_found": [
+          "[1]"
+        ],
+        "invalid_citations": [],
+        "expected_sources_cited": [
+          "employee_benefits.md"
+        ],
+        "missing_expected_sources": [],
+        "is_citation_accurate": true,
+        "citation_notes": "Citations: 1 found, 0 invalid. Expected Sources Recall: 1/1."
+      },
+      "failure_case": {
+        "test_id": "eval_q01_pto_accrual",
+        "query": "How many days of paid time off do employees get each year, and can unused PTO be rolled over into the next year?",
+        "category": "Factual Policy",
+        "failure_type": "Partial Grounding / Extrapolated Claim",
+        "severity": "Medium",
+        "observed_issue": "Answer contained 2 unsupported claims.",
+        "likely_cause": "Generator extrapolated beyond injected context details.",
+        "recommended_fix": "Lower temperature parameter (e.g. 0.0 - 0.1) and enforce strict grounding system prompt."
+      }
+    },
+    {
+      "test_id": "eval_q02_sick_leave",
+      "query": "What is the policy for taking sick leave and when is a medical certificate required?",
+      "category": "Factual Policy",
+      "is_out_of_domain": false,
+      "generated_answer": "Employees receive 10 dedicated sick days per calendar year, available from day one, with no advance notice required in emergencies but a manager must be notified before 09:00 local time, and a medical certificate is required for absences exceeding three consecutive working days.  \n\n- 10 sick days per calendar year, usable from the first day of employment.  \n- No advance notice needed for emergencies; notify manager before 09:00 local time.  \n- Medical certificate required for absences longer than 3 consecutive working days. [1]",
+      "is_fallback": false,
+      "retrieved_chunks_count": 2,
+      "correctness_score": 0.75,
+      "grounding_score": 0.75,
+      "citation_precision": 1.0,
+      "citation_recall": 1.0,
+      "is_citation_accurate": true,
+      "latency_ms": 2652.4,
+      "quality_details": {
+        "correctness_score": 0.75,
+        "grounding_score": 0.75,
+        "matched_keywords": [
+          "10 dedicated sick days",
+          "3 consecutive",
+          "medical certificate"
+        ],
+        "missing_keywords": [
+          "healthcare practitioner"
+        ],
+        "supported_claims_count": 3,
+        "unsupported_claims_count": 1,
+        "correctness_notes": "Matched 3/4 expected key facts.",
+        "grounding_notes": "Grounding check: 3 supported claims, 1 unsupported claims."
+      },
+      "citation_details": {
+        "citation_precision": 1.0,
+        "citation_recall": 1.0,
+        "citations_found": [
+          "[1]"
+        ],
+        "invalid_citations": [],
+        "expected_sources_cited": [
+          "employee_benefits.md"
+        ],
+        "missing_expected_sources": [],
+        "is_citation_accurate": true,
+        "citation_notes": "Citations: 1 found, 0 invalid. Expected Sources Recall: 1/1."
+      },
+      "failure_case": null
+    },
+    {
+      "test_id": "eval_q03_remote_security",
+      "query": "What are the network encryption and VPN requirements for connecting remotely to company resources?",
+      "category": "Procedural Security",
+      "is_out_of_domain": false,
+      "generated_answer": "Employees must connect to company resources through an encrypted VPN that is verified by IT Security and must use multi\u2011factor authentication.  \n\n- Use an encrypted VPN connection for all remote access.  \n- Enable multi\u2011factor authentication (MFA) on the VPN.  \n- IT Security Operations verifies that the home office setup meets these encryption and MFA requirements before approval. [1]",
+      "is_fallback": false,
+      "retrieved_chunks_count": 3,
+      "correctness_score": 0.75,
+      "grounding_score": 0.0,
+      "citation_precision": 1.0,
+      "citation_recall": 0.5,
+      "is_citation_accurate": true,
+      "latency_ms": 1528.8,
+      "quality_details": {
+        "correctness_score": 0.75,
+        "grounding_score": 0.0,
+        "matched_keywords": [
+          "vpn",
+          "encryption",
+          "mfa"
+        ],
+        "missing_keywords": [
+          "multi-factor",
+          "wpa3",
+          "wireguard"
+        ],
+        "supported_claims_count": 0,
+        "unsupported_claims_count": 4,
+        "correctness_notes": "Matched 3/6 expected key facts.",
+        "grounding_notes": "Grounding check: 0 supported claims, 4 unsupported claims."
+      },
+      "citation_details": {
+        "citation_precision": 1.0,
+        "citation_recall": 0.5,
+        "citations_found": [
+          "[1]"
+        ],
+        "invalid_citations": [],
+        "expected_sources_cited": [
+          "remote_work_policy.md"
+        ],
+        "missing_expected_sources": [
+          "security_guidelines.txt"
+        ],
+        "is_citation_accurate": true,
+        "citation_notes": "Citations: 1 found, 0 invalid. Expected Sources Recall: 1/2."
+      },
+      "failure_case": {
+        "test_id": "eval_q03_remote_security",
+        "query": "What are the network encryption and VPN requirements for connecting remotely to company resources?",
+        "category": "Procedural Security",
+        "failure_type": "Partial Grounding / Extrapolated Claim",
+        "severity": "Medium",
+        "observed_issue": "Answer contained 4 unsupported claims.",
+        "likely_cause": "Generator extrapolated beyond injected context details.",
+        "recommended_fix": "Lower temperature parameter (e.g. 0.0 - 0.1) and enforce strict grounding system prompt."
+      }
+    },
+    {
+      "test_id": "eval_q04_equipment_stipend",
+      "query": "What equipment does the company provide for remote workers and what is the reimbursement stipend?",
+      "category": "Factual Policy",
+      "is_out_of_domain": false,
+      "generated_answer": "I don't have access to this information. Please contact HR at hr@company.com or submit a ticket via the IT Helpdesk portal.",
+      "is_fallback": false,
+      "retrieved_chunks_count": 3,
+      "correctness_score": 0.0,
+      "grounding_score": 1.0,
+      "citation_precision": 1.0,
+      "citation_recall": 1.0,
+      "is_citation_accurate": true,
+      "latency_ms": 1555.95,
+      "quality_details": {
+        "correctness_score": 0.0,
+        "grounding_score": 1.0,
+        "matched_keywords": [],
+        "missing_keywords": [
+          "laptop",
+          "monitor",
+          "$500",
+          "stipend",
+          "home office"
+        ],
+        "supported_claims_count": 1,
+        "unsupported_claims_count": 0,
+        "correctness_notes": "Matched 0/5 expected key facts.",
+        "grounding_notes": "Fallback response is 100% grounded (safe refusal)."
+      },
+      "citation_details": {
+        "citation_precision": 1.0,
+        "citation_recall": 1.0,
+        "citations_found": [],
+        "invalid_citations": [],
+        "expected_sources_cited": [],
+        "missing_expected_sources": [],
+        "is_citation_accurate": true,
+        "citation_notes": "Safe fallback response without citations."
+      },
+      "failure_case": {
+        "test_id": "eval_q04_equipment_stipend",
+        "query": "What equipment does the company provide for remote workers and what is the reimbursement stipend?",
+        "category": "Factual Policy",
+        "failure_type": "Retrieval Miss / Incorrect Coverage",
+        "severity": "High",
+        "observed_issue": "Answer missed key expected ground-truth facts: ['laptop', 'monitor', '$500', 'stipend', 'home office']",
+        "likely_cause": "Top-k retrieval missed essential chunk context or chunk granularity lost key facts.",
+        "recommended_fix": "Increase top-k retrieval parameter (e.g. k=5) or refine semantic embedding model."
+      }
+    },
+    {
+      "test_id": "eval_q05_mars_travel_fallback",
+      "query": "What is the company policy regarding interplanetary travel subsidies to Mars colonies?",
+      "category": "Out-Of-Domain Fallback",
+      "is_out_of_domain": true,
+      "generated_answer": "I don't have access to sufficient verified internal policy guidelines to answer this question. Please contact HR at hr@company.com or submit a ticket via the IT Helpdesk portal. (No relevant supporting sources were retrieved from the verified repository).",
+      "is_fallback": true,
+      "retrieved_chunks_count": 0,
+      "correctness_score": 1.0,
+      "grounding_score": 1.0,
+      "citation_precision": 1.0,
+      "citation_recall": 1.0,
+      "is_citation_accurate": true,
+      "latency_ms": 497.56,
+      "quality_details": {
+        "correctness_score": 1.0,
+        "grounding_score": 1.0,
+        "matched_keywords": [
+          "correct_fallback_refusal"
+        ],
+        "missing_keywords": [],
+        "supported_claims_count": 1,
+        "unsupported_claims_count": 0,
+        "correctness_notes": "System correctly refused out-of-domain query without hallucinating.",
+        "grounding_notes": "Fallback response is 100% grounded (safe refusal)."
+      },
+      "citation_details": {
+        "citation_precision": 1.0,
+        "citation_recall": 1.0,
+        "citations_found": [],
+        "invalid_citations": [],
+        "expected_sources_cited": [],
+        "missing_expected_sources": [],
+        "is_citation_accurate": true,
+        "citation_notes": "Safe fallback response without citations."
+      },
+      "failure_case": null
+    },
+    {
+      "test_id": "eval_q06_password_policy",
+      "query": "What are the minimum password length requirements and is SMS authentication permitted?",
+      "category": "Procedural Security",
+      "is_out_of_domain": false,
+      "generated_answer": "I don't have access to sufficient verified internal policy guidelines to answer this question. Please contact HR at hr@company.com or submit a ticket via the IT Helpdesk portal. (No relevant supporting sources were retrieved from the verified repository).",
+      "is_fallback": true,
+      "retrieved_chunks_count": 0,
+      "correctness_score": 0.0,
+      "grounding_score": 1.0,
+      "citation_precision": 1.0,
+      "citation_recall": 1.0,
+      "is_citation_accurate": true,
+      "latency_ms": 737.45,
+      "quality_details": {
+        "correctness_score": 0.0,
+        "grounding_score": 1.0,
+        "matched_keywords": [],
+        "missing_keywords": [
+          "14 characters",
+          "sms",
+          "disallowed",
+          "authenticator app",
+          "hardware"
+        ],
+        "supported_claims_count": 1,
+        "unsupported_claims_count": 0,
+        "correctness_notes": "Matched 0/5 expected key facts.",
+        "grounding_notes": "Fallback response is 100% grounded (safe refusal)."
+      },
+      "citation_details": {
+        "citation_precision": 1.0,
+        "citation_recall": 1.0,
+        "citations_found": [],
+        "invalid_citations": [],
+        "expected_sources_cited": [],
+        "missing_expected_sources": [],
+        "is_citation_accurate": true,
+        "citation_notes": "Safe fallback response without citations."
+      },
+      "failure_case": {
+        "test_id": "eval_q06_password_policy",
+        "query": "What are the minimum password length requirements and is SMS authentication permitted?",
+        "category": "Procedural Security",
+        "failure_type": "Retrieval Miss / Incorrect Coverage",
+        "severity": "High",
+        "observed_issue": "Answer missed key expected ground-truth facts: ['14 characters', 'sms', 'disallowed', 'authenticator app', 'hardware']",
+        "likely_cause": "Top-k retrieval missed essential chunk context or chunk granularity lost key facts.",
+        "recommended_fix": "Increase top-k retrieval parameter (e.g. k=5) or refine semantic embedding model."
+      }
+    },
+    {
+      "test_id": "eval_q07_stock_options_fallback",
+      "query": "What is the vesting schedule and exercise window for executive stock option grants?",
+      "category": "Out-Of-Domain Fallback",
+      "is_out_of_domain": true,
+      "generated_answer": "I don't have access to sufficient verified internal policy guidelines to answer this question. Please contact HR at hr@company.com or submit a ticket via the IT Helpdesk portal. (No relevant supporting sources were retrieved from the verified repository).",
+      "is_fallback": true,
+      "retrieved_chunks_count": 0,
+      "correctness_score": 1.0,
+      "grounding_score": 1.0,
+      "citation_precision": 1.0,
+      "citation_recall": 1.0,
+      "is_citation_accurate": true,
+      "latency_ms": 640.81,
+      "quality_details": {
+        "correctness_score": 1.0,
+        "grounding_score": 1.0,
+        "matched_keywords": [
+          "correct_fallback_refusal"
+        ],
+        "missing_keywords": [],
+        "supported_claims_count": 1,
+        "unsupported_claims_count": 0,
+        "correctness_notes": "System correctly refused out-of-domain query without hallucinating.",
+        "grounding_notes": "Fallback response is 100% grounded (safe refusal)."
+      },
+      "citation_details": {
+        "citation_precision": 1.0,
+        "citation_recall": 1.0,
+        "citations_found": [],
+        "invalid_citations": [],
+        "expected_sources_cited": [],
+        "missing_expected_sources": [],
+        "is_citation_accurate": true,
+        "citation_notes": "Safe fallback response without citations."
+      },
+      "failure_case": null
+    },
+    {
+      "test_id": "eval_q08_parental_leave",
+      "query": "How many weeks of fully paid parental leave are provided for primary caregivers?",
+      "category": "Factual Policy",
+      "is_out_of_domain": false,
+      "generated_answer": "Primary caregivers are entitled to **16 weeks of fully paid parental leave**.  \n- Must be taken within the first 12 months after the qualifying event.  \n- Can be taken as one continuous block or split into two blocks with supervisory approval.  \n- Health insurance benefits remain uninterrupted during the leave. [1]",
+      "is_fallback": false,
+      "retrieved_chunks_count": 1,
+      "correctness_score": 1.0,
+      "grounding_score": 0.5,
+      "citation_precision": 1.0,
+      "citation_recall": 1.0,
+      "is_citation_accurate": true,
+      "latency_ms": 1598.0,
+      "quality_details": {
+        "correctness_score": 1.0,
+        "grounding_score": 0.5,
+        "matched_keywords": [
+          "12 weeks",
+          "parental leave",
+          "primary caregiver",
+          "paid"
+        ],
+        "missing_keywords": [],
+        "supported_claims_count": 2,
+        "unsupported_claims_count": 2,
+        "correctness_notes": "Matched 4/4 expected key facts.",
+        "grounding_notes": "Grounding check: 2 supported claims, 2 unsupported claims."
+      },
+      "citation_details": {
+        "citation_precision": 1.0,
+        "citation_recall": 1.0,
+        "citations_found": [
+          "[1]"
+        ],
+        "invalid_citations": [],
+        "expected_sources_cited": [
+          "employee_benefits.md"
+        ],
+        "missing_expected_sources": [],
+        "is_citation_accurate": true,
+        "citation_notes": "Citations: 1 found, 0 invalid. Expected Sources Recall: 1/1."
+      },
+      "failure_case": {
+        "test_id": "eval_q08_parental_leave",
+        "query": "How many weeks of fully paid parental leave are provided for primary caregivers?",
+        "category": "Factual Policy",
+        "failure_type": "Partial Grounding / Extrapolated Claim",
+        "severity": "Medium",
+        "observed_issue": "Answer contained 2 unsupported claims.",
+        "likely_cause": "Generator extrapolated beyond injected context details.",
+        "recommended_fix": "Lower temperature parameter (e.g. 0.0 - 0.1) and enforce strict grounding system prompt."
+      }
+    }
+  ]
+}
