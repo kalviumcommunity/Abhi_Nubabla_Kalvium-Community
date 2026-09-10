@@ -1,278 +1,221 @@
 #!/usr/bin/env python3
 """
-RAG Streaming & Citations Demo Script
+Streaming Response & Citation Demonstration
 
-This script demonstrates the streaming response and citation features
-of the RAG Pipeline API by making requests to the /query/stream endpoint
-and displaying the results in real-time.
+This script demonstrates the streaming endpoint with progressive answer display
+and citation markers. Run this to see the streaming RAG in action.
 
 Usage:
     python streaming_demo.py
     
-Prerequisites:
-    1. Ensure API is running: python -m src.api
-    2. Ensure OPENAI_API_KEY is set in .env
-    3. Ensure vector store exists at data/embedded_chunks.json
+Requirements:
+    - Backend API running on http://localhost:8000
+    - Vector store initialized at data/embedded_chunks.json
 """
 
-import asyncio
+import requests
 import json
 import sys
+from typing import Dict, Any
+from datetime import datetime
 import time
-from pathlib import Path
-from typing import AsyncGenerator
-
-try:
-    import httpx
-    from rich.console import Console
-    from rich.table import Table
-    from rich.panel import Panel
-    from rich.markdown import Markdown
-    from rich.progress import Progress
-    RICH_AVAILABLE = True
-except ImportError:
-    RICH_AVAILABLE = False
-    print("Warning: Rich library not found. Install with: pip install rich httpx")
-
-# Configuration
-API_BASE_URL = "http://localhost:8000"
-DEMO_QUERIES = [
-    "What are the password requirements for company systems?",
-    "What is the remote work policy?",
-    "How do I report a security incident?"
-]
 
 
-async def stream_query(query: str, api_url: str = API_BASE_URL) -> dict:
-    """
-    Stream a query to the RAG API and collect results.
+class StreamingDemo:
+    """Demonstrates streaming responses with citations."""
     
-    Returns:
-        Dictionary with:
-        - answer: The complete answer text
-        - citations: List of citation metadata
-        - status: Final status
-        - metadata: Request metadata
-    """
-    result = {
-        "answer": "",
-        "citations": {},
-        "status": "pending",
-        "metadata": {},
-        "events": []
-    }
+    def __init__(self, api_base: str = "http://localhost:8000"):
+        self.api_base = api_base
+        self.session = requests.Session()
     
-    if not RICH_AVAILABLE:
-        print(f"\n📤 Sending query: {query}")
-        return result
-    
-    console = Console()
-    
-    try:
-        async with httpx.AsyncClient(timeout=60.0) as client:
-            console.print(f"\n🚀 [bold cyan]Streaming query:[/bold cyan] {query}", style="bold")
+    def stream_query(self, question: str, k: int = 3) -> Dict[str, Any]:
+        """
+        Send a streaming query and capture the response.
+        
+        Args:
+            question: User question
+            k: Number of chunks to retrieve
             
-            async with client.stream(
-                "POST",
-                f"{api_url}/query/stream",
-                json={
-                    "question": query,
-                    "k": 3,
-                    "score_threshold": 0.0,
-                    "metadata_filter": None
-                }
-            ) as response:
-                if response.status_code != 200:
-                    console.print(f"[red]Error: HTTP {response.status_code}[/red]")
-                    result["status"] = "error"
-                    return result
-                
-                # Process SSE stream
-                buffer = ""
-                async for line in response.aiter_lines():
-                    if line.startswith("data: "):
-                        try:
-                            data = json.loads(line[6:])
-                            result["events"].append(data)
-                            
-                            event_type = data.get("type")
-                            
-                            if event_type == "metadata":
-                                result["metadata"] = data
-                                console.print(f"[dim]Request ID: {data.get('request_id')}[/dim]")
-                            
-                            elif event_type == "status":
-                                console.print(f"⏳ {data.get('message')}")
-                            
-                            elif event_type == "answer_chunk":
-                                chunk = data.get("chunk", "")
-                                result["answer"] += chunk
-                                # Print without newline for progressive display
-                                console.print(chunk, end="", highlight=False)
-                            
-                            elif event_type == "citation":
-                                tag = data.get("tag")
-                                metadata = data.get("metadata", {})
-                                result["citations"][tag] = metadata
-                                console.print()  # Newline after answer
-                                console.print(f"📌 {tag} Added to sources")
-                            
-                            elif event_type == "complete":
-                                result["status"] = "success"
-                                console.print(f"\n✅ [green]Response complete[/green]")
-                            
-                            elif event_type == "error":
-                                result["status"] = "error"
-                                console.print(f"\n❌ [red]Error: {data.get('message')}[/red]")
-                        
-                        except json.JSONDecodeError as e:
-                            console.print(f"[yellow]Warning: Could not parse event[/yellow]")
-    
-    except httpx.ConnectError:
-        console.print(f"[red]❌ Connection error: Cannot reach {api_url}[/red]")
-        console.print("[yellow]💡 Make sure the API is running: python -m src.api[/yellow]")
-        result["status"] = "error"
-    except Exception as e:
-        if RICH_AVAILABLE:
-            console.print(f"[red]Error: {str(e)}[/red]")
-        else:
-            print(f"Error: {str(e)}")
-        result["status"] = "error"
-    
-    return result
-
-
-def display_results(results: list):
-    """Display comprehensive results of the streaming demo."""
-    if not RICH_AVAILABLE:
-        print("\n=== Demo Results ===")
-        for i, result in enumerate(results, 1):
-            print(f"\nQuery {i}:")
-            print(f"Status: {result['status']}")
-            print(f"Answer length: {len(result['answer'])} characters")
-            print(f"Citations count: {len(result['citations'])}")
-        return
-    
-    console = Console()
-    
-    console.print("\n" + "="*80)
-    console.print("[bold cyan]📊 STREAMING DEMO RESULTS[/bold cyan]", justify="center")
-    console.print("="*80)
-    
-    for idx, result in enumerate(results, 1):
-        query = result.get("metadata", {}).get("query", f"Query {idx}")
-        status = result.get("status", "unknown")
+        Returns:
+            Dictionary containing full answer, sources, and metadata
+        """
+        url = f"{self.api_base}/query/stream"
         
-        status_icon = "✅" if status == "success" else "❌"
-        status_color = "green" if status == "success" else "red"
+        payload = {
+            "question": question,
+            "k": k,
+            "score_threshold": 0.0
+        }
         
-        console.print(f"\n[bold]{idx}. {query}[/bold]")
-        console.print(f"{status_icon} Status: [bold {status_color}]{status}[/bold {status_color}]")
+        print(f"\n{'='*80}")
+        print(f"STREAMING QUERY")
+        print(f"{'='*80}")
+        print(f"Question: {question}")
+        print(f"Timestamp: {datetime.now().isoformat()}")
+        print(f"{'='*80}\n")
         
-        answer = result.get("answer", "")
-        if answer:
-            console.print(f"\n[bold cyan]Answer:[/bold cyan]")
-            console.print(f"{answer[:300]}{'...' if len(answer) > 300 else ''}")
-        
-        citations = result.get("citations", {})
-        if citations:
-            console.print(f"\n[bold yellow]📚 Sources ({len(citations)}):[/bold yellow]")
+        try:
+            response = self.session.post(url, json=payload, stream=True)
+            response.raise_for_status()
             
-            for tag, metadata in citations.items():
-                table = Table(show_header=False, box=None, padding=(0, 1))
-                
-                doc_name = metadata.get("source_document", "Unknown")
-                section = metadata.get("section", "N/A")
-                score = metadata.get("similarity_score", 0)
-                
-                table.add_row(f"[bold]{tag}[/bold]", f"{doc_name}")
-                table.add_row("", f"📄 Section: {section}")
-                table.add_row("", f"🎯 Relevance: {score*100:.2f}%")
-                
-                if metadata.get("page"):
-                    table.add_row("", f"📖 Page: {metadata.get('page')}")
-                
-                console.print(table)
+            result = {
+                "answer_tokens": [],
+                "citations": [],
+                "sources": [],
+                "events": [],
+                "errors": []
+            }
+            
+            # Process streaming events
+            for line in response.iter_lines():
+                if line.startswith(b"data: "):
+                    try:
+                        event_json = json.loads(line[6:].decode('utf-8'))
+                        event = self._process_event(event_json, result)
+                        result["events"].append(event)
+                    except json.JSONDecodeError as e:
+                        print(f"Error parsing event: {e}")
+            
+            return result
+            
+        except requests.exceptions.RequestException as e:
+            print(f"❌ Request failed: {e}")
+            return {"error": str(e)}
+    
+    def _process_event(self, event_data: Dict[str, Any], result: Dict) -> Dict:
+        """Process a single streaming event."""
+        event_type = event_data.get("type")
+        data = event_data.get("data", {})
+        timestamp = event_data.get("timestamp", "")
         
-        # Show event types received
-        events = result.get("events", [])
-        event_types = {}
-        for event in events:
-            etype = event.get("type", "unknown")
-            event_types[etype] = event_types.get(etype, 0) + 1
+        event_info = {
+            "type": event_type,
+            "timestamp": timestamp,
+            "data": data
+        }
         
-        if event_types:
-            console.print(f"\n[dim]Events streamed: {', '.join(f'{t}({c})' for t, c in event_types.items())}[/dim]")
-
-
-async def run_demo():
-    """Run the streaming demonstration."""
-    if not RICH_AVAILABLE:
-        print("RAG Streaming Demo")
-        print("=" * 50)
-        print("Note: Install 'rich' for better formatting")
-        print("Running simplified demo...\n")
+        if event_type == "start":
+            print(f"⏱️  START: {data.get('message', 'Processing...')}")
         
-        for query in DEMO_QUERIES[:1]:  # Run just one query for basic demo
-            await stream_query(query)
-        return
-    
-    console = Console()
-    
-    # Header
-    console.print("\n" + "="*80)
-    console.print("[bold cyan]🤖 RAG PIPELINE - STREAMING & CITATIONS DEMO[/bold cyan]", justify="center")
-    console.print("="*80)
-    
-    console.print("""
-[bold]This demonstration shows:[/bold]
-
-1. ✅ Progressive answer streaming (word-by-word)
-2. ✅ Citation metadata streamed after answer
-3. ✅ Real-time source tracking with relevance scores
-4. ✅ Status updates during retrieval and generation
-5. ✅ Error handling for network/backend issues
-
-[dim]Making requests to: http://localhost:8000/query/stream[/dim]
-""")
-    
-    results = []
-    
-    for query in DEMO_QUERIES:
-        result = await stream_query(query)
-        results.append(result)
+        elif event_type == "sources":
+            print(f"\n📚 SOURCES RETRIEVED:")
+            sources = data.get("sources", [])
+            for src in sources:
+                print(f"   [{src.get('rank')}] {src.get('source_document')} - {src.get('section')}")
+                print(f"       Score: {src.get('similarity_score'):.3f} | Tokens: {src.get('token_count')}")
+            result["sources"] = sources
         
-        # Small delay between queries
-        await asyncio.sleep(0.5)
+        elif event_type == "token":
+            token = data.get("token", "")
+            result["answer_tokens"].append(token)
+            sys.stdout.write(token)
+            sys.stdout.flush()
+        
+        elif event_type == "citation":
+            marker = data.get("marker", "")
+            source = data.get("source", {})
+            result["citations"].append({
+                "marker": marker,
+                "source": source
+            })
+            # Citations are printed with tokens
+        
+        elif event_type == "complete":
+            print(f"\n\n✅ COMPLETE")
+            print(f"   Latency: {data.get('latency_ms', 'N/A')}ms")
+            print(f"   Citations: {len(data.get('citations', []))}")
+            print(f"   Sources used: {data.get('retrieval_count', 0)}")
+            
+            result["complete_data"] = data
+        
+        elif event_type == "error":
+            error_msg = f"{data.get('error', 'Unknown')}: {data.get('message', 'No message')}"
+            print(f"\n❌ ERROR: {error_msg}")
+            result["errors"].append(error_msg)
+        
+        return event_info
     
-    # Display results
-    display_results(results)
-    
-    # Summary
-    console.print("\n" + "="*80)
-    successful = sum(1 for r in results if r.get("status") == "success")
-    console.print(f"\n[bold cyan]Summary:[/bold cyan]")
-    console.print(f"  • Queries processed: {len(results)}")
-    console.print(f"  • Successful: {successful}")
-    console.print(f"  • Failed: {len(results) - successful}")
-    console.print("\n[dim]💡 Tip: Open chat_ui.html in your browser for interactive UI[/dim]")
-    console.print("="*80 + "\n")
+    def print_results_summary(self, result: Dict) -> None:
+        """Print a summary of the streaming results."""
+        print(f"\n{'='*80}")
+        print(f"RESULTS SUMMARY")
+        print(f"{'='*80}")
+        
+        if "error" in result:
+            print(f"❌ Failed: {result['error']}")
+            return
+        
+        answer_text = "".join(result.get("answer_tokens", []))
+        print(f"\n📝 FULL ANSWER ({len(answer_text)} chars):")
+        print(f"{'-'*80}")
+        print(answer_text[:500] + ("..." if len(answer_text) > 500 else ""))
+        print(f"{'-'*80}")
+        
+        sources = result.get("sources", [])
+        if sources:
+            print(f"\n🔗 CITATIONS ({len(sources)} sources):")
+            for src in sources:
+                print(f"   • [{src.get('rank')}] {src.get('source_document')}")
+                print(f"      Section: {src.get('section')}")
+                print(f"      Chunk ID: {src.get('chunk_id')}")
+                print(f"      Relevance: {src.get('similarity_score'):.3f}")
+        
+        errors = result.get("errors", [])
+        if errors:
+            print(f"\n⚠️  ERRORS ({len(errors)}):")
+            for err in errors:
+                print(f"   • {err}")
+        
+        metrics = result.get("complete_data", {})
+        if metrics:
+            print(f"\n⏱️  METRICS:")
+            print(f"   • Latency: {metrics.get('latency_ms', 'N/A')}ms")
+            print(f"   • Retrieved chunks: {metrics.get('retrieval_count', 0)}")
+        
+        print(f"\n{'='*80}")
 
 
 def main():
-    """Main entry point."""
-    if sys.platform == "win32":
-        # Handle Windows asyncio event loop
-        asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
+    """Run the streaming demo."""
+    demo = StreamingDemo()
     
+    # Sample questions to demonstrate streaming
+    sample_questions = [
+        "What is the company's PTO policy?",
+        "How should I report a security incident?",
+        "What VPN requirements do we have?"
+    ]
+    
+    print("""
+    ╔════════════════════════════════════════════════════════════════════════════╗
+    ║                  RAG STREAMING & CITATION DEMO                             ║
+    ║                                                                            ║
+    ║  This demo shows progressive answer streaming with inline citations.      ║
+    ║  Watch as the answer appears token-by-token with [n] citation markers.    ║
+    ║  Click on citations in the UI to view source documents.                   ║
+    ╚════════════════════════════════════════════════════════════════════════════╝
+    """)
+    
+    # Check API health
     try:
-        asyncio.run(run_demo())
-    except KeyboardInterrupt:
-        print("\n\n✋ Demo interrupted by user")
-        sys.exit(0)
+        health = demo.session.get(f"{demo.api_base}/health", timeout=2).json()
+        print(f"✅ API Status: {health.get('status')}")
+        print(f"   Service: {health.get('service')}")
+        print(f"   Version: {health.get('version')}\n")
     except Exception as e:
-        print(f"\n❌ Error running demo: {e}", file=sys.stderr)
+        print(f"❌ Cannot connect to API at {demo.api_base}")
+        print(f"   Make sure the API is running: uvicorn src.api:app --reload")
         sys.exit(1)
+    
+    # Run demos
+    for i, question in enumerate(sample_questions, 1):
+        result = demo.stream_query(question)
+        demo.print_results_summary(result)
+        
+        if i < len(sample_questions):
+            print("\n" + "="*80)
+            print("Press Enter to continue to next question...")
+            input()
 
 
 if __name__ == "__main__":

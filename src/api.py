@@ -29,11 +29,10 @@ from pydantic import BaseModel, Field, field_validator
 from fastapi import FastAPI, HTTPException, status
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse, StreamingResponse
-import asyncio
-import uuid as uuid_module
 
 from src.rag_pipeline import run_rag_pipeline
 from src.similarity_search import VectorStoreRetriever
+from src.streaming_generator import StreamingAnswerGenerator
 
 # ============================================================================
 # Configuration Loading from Environment Variables
@@ -410,159 +409,41 @@ async def query_rag_pipeline(request: QueryRequest) -> QueryResponse:
 
 
 # ============================================================================
-# Streaming Answer Generation Helper
-# ============================================================================
-
-def stream_answer_with_citations(
-    answer_text: str,
-    sources: List[Dict[str, Any]],
-    request_id: str
-) -> tuple:
-    """
-    Process answer text to extract citations and prepare for streaming.
-    Returns tuple of (cleaned_answer, citation_map)
-    
-    The answer may contain source markers like [1], [2], etc.
-    Extract these and map them to source metadata.
-    """
-    citation_map = {}
-    for idx, source in enumerate(sources, start=1):
-        citation_map[f"[{idx}]"] = {
-            "index": idx,
-            "source_document": source.get("source_document", "Unknown"),
-            "section": source.get("section", "N/A"),
-            "page": source.get("page"),
-            "similarity_score": source.get("similarity_score", 0),
-            "chunk_id": source.get("chunk_id", ""),
-            "token_count": source.get("token_count", 0)
-        }
-    
-    return answer_text, citation_map
-
-
-async def generate_streaming_response(
-    query: str,
-    request_id: str,
-    retriever: VectorStoreRetriever,
-    k: int = 3,
-    score_threshold: float = 0.0,
-    metadata_filter: Optional[Dict[str, Any]] = None
-):
-    """
-    Generator function that yields Server-Sent Events with streaming answer and citation data.
-    Formats: "data: <JSON>\n\n" for SSE protocol.
-    """
-    import time
-    from src.rag_pipeline import stage_retrieve_chunks, stage_assemble_context, stage_generate_answer
-    
-    try:
-        # Yield initial status
-        yield f"data: {json.dumps({'type': 'status', 'message': 'Retrieving context...', 'status': 'processing'})}\n\n"
-        
-        # Stage 1 & 2: Retrieve chunks
-        retrieved_chunks = stage_retrieve_chunks(
-            query=query,
-            k=k,
-            score_threshold=score_threshold,
-            metadata_filter=metadata_filter,
-            retriever=retriever
-        )
-        
-        # Stage 3: Assemble context
-        context_text, sources = stage_assemble_context(chunks=retrieved_chunks)
-        
-        yield f"data: {json.dumps({'type': 'status', 'message': f'Retrieved {len(sources)} relevant sources', 'status': 'generating'})}\n\n"
-        
-        # Stage 4: Generate answer
-        result = stage_generate_answer(
-            query=query,
-            context=context_text,
-            sources=sources
-        )
-        
-        answer_text = result.get("answer", "")
-        
-        # Stream answer progressively, word by word
-        words = answer_text.split()
-        accumulated_answer = ""
-        
-        for word in words:
-            accumulated_answer += word + " "
-            
-            # Detect if this word ends a citation marker pattern
-            if word.endswith("]") and "[" in accumulated_answer:
-                # Extract citation markers from the accumulated text
-                import re
-                citations_in_text = re.findall(r'\[\d+\]', accumulated_answer)
-            
-            # Yield streaming chunk
-            yield f"data: {json.dumps({'type': 'answer_chunk', 'chunk': word + ' '})}\n\n"
-            
-            # Small delay to simulate realistic streaming (optional)
-            await asyncio.sleep(0.01)
-        
-        # Send complete answer text with sources and full source text
-        citation_map = {}
-        for idx, (source, chunk) in enumerate(zip(sources, retrieved_chunks), start=1):
-            citation_map[f"[{idx}]"] = {
-                "index": idx,
-                "source_document": source.get("source_document", "Unknown"),
-                "section": source.get("section", "N/A"),
-                "page": source.get("page"),
-                "similarity_score": round(source.get("similarity_score", 0), 4),
-                "chunk_id": source.get("chunk_id", ""),
-                "token_count": source.get("token_count", 0),
-                "full_source_text": chunk.source_text  # Include full source text
-            }
-        
-        # Yield citations
-        for citation_tag, citation_data in citation_map.items():
-            yield f"data: {json.dumps({'type': 'citation', 'tag': citation_tag, 'metadata': citation_data})}\n\n"
-        
-        # Yield completion
-        yield f"data: {json.dumps({'type': 'complete', 'status': 'success', 'request_id': request_id})}\n\n"
-        
-    except Exception as e:
-        error_msg = str(e)
-        logger.error(f"[{request_id}] Streaming error: {error_msg}", exc_info=True)
-        yield f"data: {json.dumps({'type': 'error', 'message': error_msg, 'error_code': 'STREAM_ERROR', 'status': 'failed'})}\n\n"
-
-
-# ============================================================================
 # Streaming Query Endpoint
 # ============================================================================
 
 @app.post("/query/stream", tags=["Query"], status_code=200)
-async def query_rag_pipeline_stream(request: QueryRequest) -> StreamingResponse:
+async def stream_query_rag_pipeline(request: QueryRequest):
     """
-    Stream a RAG pipeline query response with progressive answer and citations.
+    Stream a grounded RAG answer with progressive tokens and citations.
     
-    Returns Server-Sent Events (SSE) with:
-    - Status updates during retrieval/generation
-    - Answer chunks streamed progressively
-    - Citation metadata after answer completion
-    - Success/error status
+    Returns Server-Sent Events (SSE) stream with:
+    - start: Initial event with query metadata
+    - sources: Retrieved document sources and metadata
+    - token: Individual answer tokens as they're generated
+    - citation: Citation marker events with source metadata
+    - complete: Final answer with all citations and metrics
+    - error: Error event if processing fails
     
     Args:
         request: QueryRequest with question and optional retrieval parameters
         
     Returns:
-        StreamingResponse with SSE formatted data
+        StreamingResponse with SSE events
     """
-    request_id = str(uuid_module.uuid4())
+    import uuid
+    
+    request_id = str(uuid.uuid4())
     timestamp = datetime.utcnow().isoformat()
     
-    # Send initial metadata event
-    async def event_generator():
+    logger.info(f"[{request_id}] Received streaming query: {request.question[:100]}...")
+    
+    def event_generator():
+        """Generator function that yields SSE events."""
         try:
             # Validate configuration
             if not APIConfig.openai_api_key:
                 logger.warning(f"[{request_id}] No OpenAI API key configured")
-            
-            logger.info(f"[{request_id}] Received streaming query: {request.question[:100]}...")
-            
-            # Send request metadata
-            yield f"data: {json.dumps({'type': 'metadata', 'request_id': request_id, 'timestamp': timestamp, 'query': request.question})}\n\n"
             
             # Get retriever instance
             retriever = get_retriever()
@@ -571,30 +452,59 @@ async def query_rag_pipeline_stream(request: QueryRequest) -> StreamingResponse:
             vector_store_path = Path(APIConfig.vector_store_path)
             if not vector_store_path.exists():
                 logger.error(f"[{request_id}] Vector store not found: {APIConfig.vector_store_path}")
-                yield f"data: {json.dumps({'type': 'error', 'message': 'Vector store not initialized', 'error_code': 'VECTOR_STORE_NOT_FOUND', 'status': 'failed'})}\n\n"
+                error_data = json.dumps({
+                    "type": "error",
+                    "data": {
+                        "error": "VECTOR_STORE_NOT_FOUND",
+                        "message": "Vector store not initialized. Please run indexing pipeline first.",
+                        "timestamp": timestamp,
+                        "request_id": request_id
+                    },
+                    "timestamp": timestamp
+                })
+                yield f"data: {error_data}\n\n"
                 return
             
-            # Generate and stream response
-            async for event in generate_streaming_response(
-                query=request.question,
-                request_id=request_id,
+            # Create streaming generator
+            streaming_gen = StreamingAnswerGenerator(
                 retriever=retriever,
-                k=request.k,
-                score_threshold=request.score_threshold,
-                metadata_filter=request.metadata_filter
+                min_similarity_threshold=request.score_threshold or 0.0,
+                min_relevant_chunks=1
+            )
+            
+            # Stream events from the generator
+            for event in streaming_gen.stream_grounded_answer(
+                query=request.question,
+                k=request.k or 3,
+                score_threshold=request.score_threshold or 0.0
             ):
-                yield event
+                # Enhance event with request metadata
+                event.data["request_id"] = request_id
+                yield event.to_sse()
                 
+            logger.info(f"[{request_id}] Streaming completed successfully")
+            
         except Exception as e:
-            logger.error(f"[{request_id}] Streaming pipeline error: {str(e)}", exc_info=True)
-            yield f"data: {json.dumps({'type': 'error', 'message': str(e), 'error_code': 'PIPELINE_ERROR', 'status': 'failed'})}\n\n"
+            logger.error(f"[{request_id}] Streaming error: {str(e)}", exc_info=True)
+            error_data = json.dumps({
+                "type": "error",
+                "data": {
+                    "error": type(e).__name__,
+                    "message": str(e),
+                    "timestamp": timestamp,
+                    "request_id": request_id
+                },
+                "timestamp": timestamp
+            })
+            yield f"data: {error_data}\n\n"
     
     return StreamingResponse(
         event_generator(),
         media_type="text/event-stream",
         headers={
             "Cache-Control": "no-cache",
-            "X-Accel-Buffering": "no"
+            "X-Accel-Buffering": "no",
+            "Content-Type": "text/event-stream; charset=utf-8",
         }
     )
 
@@ -652,6 +562,7 @@ async def root():
             "health": "/health",
             "config": "/config",
             "query": "/query",
+            "stream": "/query/stream",
             "docs": "/docs",
             "redoc": "/redoc"
         }
