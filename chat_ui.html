@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RAG Chat UI - Streaming & Citations</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 900px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            display: flex;
+            flex-direction: column;
+            height: 85vh;
+            max-height: 800px;
+        }
+
+        .header {
+            padding: 24px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 12px 12px 0 0;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .header h1 {
+            font-size: 24px;
+            margin-bottom: 8px;
+        }
+
+        .header p {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        .chat-area {
+            flex: 1;
+            overflow-y: auto;
+            padding: 24px;
+            background: #f8f9fa;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .message {
+            margin-bottom: 24px;
+            animation: slideIn 0.3s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .message.user {
+            text-align: right;
+        }
+
+        .message.user .content {
+            background: #667eea;
+            color: white;
+            border-radius: 12px 12px 0 12px;
+            padding: 12px 16px;
+            max-width: 70%;
+            margin-left: auto;
+        }
+
+        .message.assistant .content {
+            background: white;
+            border: 1px solid #e0e0e0;
+            border-radius: 12px 12px 12px 0;
+            padding: 16px;
+            max-width: 85%;
+        }
+
+        .answer-text {
+            line-height: 1.6;
+            color: #333;
+            margin-bottom: 16px;
+        }
+
+        .citation-marker {
+            background: #fff3cd;
+            color: #856404;
+            padding: 2px 6px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+
+        .citation-marker:hover {
+            background: #ffc107;
+            box-shadow: 0 2px 8px rgba(255, 193, 7, 0.3);
+        }
+
+        .citations-section {
+            margin-top: 16px;
+            padding-top: 16px;
+            border-top: 1px solid #e0e0e0;
+        }
+
+        .citations-title {
+            font-size: 12px;
+            font-weight: 600;
+            color: #666;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+        }
+
+        .citation-item {
+            background: #f0f4ff;
+            border-left: 3px solid #667eea;
+            padding: 12px;
+            margin-bottom: 8px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .citation-item:hover {
+            background: #e8ecff;
+            box-shadow: 0 2px 8px rgba(102, 126, 234, 0.1);
+        }
+
+        .citation-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .citation-tag {
+            background: #667eea;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-weight: 600;
+            font-size: 12px;
+        }
+
+        .citation-document {
+            font-weight: 600;
+            color: #333;
+            font-size: 14px;
+        }
+
+        .citation-meta {
+            font-size: 12px;
+            color: #666;
+            margin-top: 6px;
+        }
+
+        .citation-meta span {
+            margin-right: 12px;
+        }
+
+        .source-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .source-modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            max-width: 600px;
+            width: 100%;
+            max-height: 70vh;
+            overflow-y: auto;
+            position: relative;
+            animation: modalSlideIn 0.3s ease-out;
+        }
+
+        @keyframes modalSlideIn {
+            from {
+                transform: scale(0.95);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .modal-header h2 {
+            font-size: 18px;
+            margin: 0;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: #666;
+        }
+
+        .close-btn:hover {
+            color: #333;
+        }
+
+        .modal-meta {
+            background: #f0f4ff;
+            padding: 12px;
+            border-radius: 6px;
+            margin-bottom: 16px;
+            font-size: 12px;
+            color: #666;
+        }
+
+        .modal-text {
+            line-height: 1.7;
+            color: #333;
+            font-size: 14px;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+
+        .input-area {
+            padding: 20px;
+            background: white;
+            border-top: 1px solid #e0e0e0;
+            border-radius: 0 0 12px 12px;
+            display: flex;
+            gap: 12px;
+        }
+
+        .input-group {
+            flex: 1;
+            display: flex;
+            gap: 12px;
+        }
+
+        #questionInput {
+            flex: 1;
+            padding: 12px 16px;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 14px;
+            font-family: inherit;
+            transition: all 0.2s;
+        }
+
+        #questionInput:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .submit-btn {
+            padding: 12px 24px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 14px;
+            transition: all 0.2s;
+            min-width: 100px;
+        }
+
+        .submit-btn:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(102, 126, 234, 0.4);
+        }
+
+        .submit-btn:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+        }
+
+        .status-message {
+            font-size: 12px;
+            color: #667eea;
+            font-weight: 500;
+            text-align: center;
+            padding: 8px;
+            animation: pulse 1s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.6; }
+        }
+
+        .error-message {
+            background: #f8d7da;
+            color: #721c24;
+            padding: 12px 16px;
+            border-radius: 8px;
+            margin-bottom: 16px;
+            border-left: 4px solid #f5c6cb;
+        }
+
+        .loading-spinner {
+            display: inline-block;
+            width: 14px;
+            height: 14px;
+            border: 2px solid rgba(102, 126, 234, 0.3);
+            border-top-color: #667eea;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            margin-right: 8px;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .empty-state {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            color: #999;
+        }
+
+        .empty-state-icon {
+            font-size: 48px;
+            margin-bottom: 16px;
+            opacity: 0.5;
+        }
+
+        .config-display {
+            font-size: 12px;
+            color: #666;
+            margin-top: 16px;
+            padding: 12px;
+            background: #f5f5f5;
+            border-radius: 6px;
+            max-height: 80px;
+            overflow-y: auto;
+        }
+
+        .timestamp {
+            font-size: 11px;
+            color: #999;
+            margin-top: 8px;
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            .container {
+                height: 100vh;
+                max-height: 100vh;
+                border-radius: 0;
+            }
+
+            .header {
+                border-radius: 0;
+            }
+
+            .message.user .content {
+                max-width: 85%;
+            }
+
+            .message.assistant .content {
+                max-width: 100%;
+            }
+
+            .modal-content {
+                border-radius: 8px 8px 0 0;
+                max-height: 90vh;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🤖 RAG Assistant - Live Streaming</h1>
+            <p>Ask questions and watch answers stream in real-time with verified citations</p>
+        </div>
+
+        <div class="chat-area" id="chatArea">
+            <div class="empty-state">
+                <div class="empty-state-icon">💬</div>
+                <p>Start by asking a question about company policies</p>
+                <p class="config-display" id="configDisplay"></p>
+            </div>
+        </div>
+
+        <div class="input-area">
+            <div class="input-group">
+                <input
+                    type="text"
+                    id="questionInput"
+                    placeholder="Ask a question... (e.g., 'What are the password requirements?')"
+                    autocomplete="off"
+                />
+                <button class="submit-btn" id="submitBtn" onclick="sendQuery()">
+                    Send
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Source Content Modal -->
+    <div class="source-modal" id="sourceModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalTitle">Source Information</h2>
+                <button class="close-btn" onclick="closeModal()">×</button>
+            </div>
+            <div class="modal-meta" id="modalMeta"></div>
+            <div class="modal-text" id="modalText"></div>
+        </div>
+    </div>
+
+    <script>
+        const API_BASE_URL = 'http://localhost:8000';
+        let currentCitations = {};
+        let isStreaming = false;
+
+        // Initialize: Load config and display it
+        async function initializeUI() {
+            try {
+                const response = await fetch(`${API_BASE_URL}/config`);
+                const config = await response.json();
+                
+                const configHtml = `
+                    <strong>API Configuration:</strong><br>
+                    Model: ${config.openai_model}<br>
+                    Retrieval K: ${config.retrieval_k}<br>
+                    API Key: ${config.api_key_configured ? '✓ Configured' : '✗ Not configured'}
+                `;
+                document.getElementById('configDisplay').innerHTML = configHtml;
+            } catch (error) {
+                console.log('Could not load config:', error);
+            }
+        }
+
+        // Clear chat and prepare for new query
+        function clearChat() {
+            const chatArea = document.getElementById('chatArea');
+            if (chatArea.querySelector('.empty-state')) {
+                chatArea.innerHTML = '';
+            }
+        }
+
+        // Add user message to chat
+        function addUserMessage(text) {
+            const chatArea = document.getElementById('chatArea');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'message user';
+            messageDiv.innerHTML = `<div class="content">${escapeHtml(text)}</div>`;
+            chatArea.appendChild(messageDiv);
+            chatArea.scrollTop = chatArea.scrollHeight;
+        }
+
+        // Create assistant message container
+        function createAssistantMessage() {
+            const chatArea = document.getElementById('chatArea');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'message assistant';
+            messageDiv.id = 'currentMessage';
+            messageDiv.innerHTML = `
+                <div class="content">
+                    <div class="answer-text" id="answerText"></div>
+                    <div class="citations-section" id="citationsSection" style="display: none;">
+                        <div class="citations-title">Sources</div>
+                        <div id="citationsList"></div>
+                    </div>
+                    <div class="timestamp" id="timestamp"></div>
+                </div>
+            `;
+            chatArea.appendChild(messageDiv);
+            return messageDiv;
+        }
+
+        // Stream query to the backend
+        async function sendQuery() {
+            const question = document.getElementById('questionInput').value.trim();
+            
+            if (!question) {
+                alert('Please enter a question');
+                return;
+            }
+
+            if (isStreaming) {
+                alert('A response is already streaming. Please wait.');
+                return;
+            }
+
+            // UI updates
+            clearChat();
+            document.getElementById('questionInput').value = '';
+            document.getElementById('submitBtn').disabled = true;
+            isStreaming = true;
+            currentCitations = {};
+
+            // Add user message
+            addUserMessage(question);
+
+            // Create assistant message container
+            createAssistantMessage();
+
+            try {
+                const response = await fetch(`${API_BASE_URL}/query/stream`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        question: question,
+                        k: 3,
+                        score_threshold: 0.0,
+                        metadata_filter: null
+                    })
+                });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+
+                // Process Server-Sent Events
+                const reader = response.body.getReader();
+                const decoder = new TextDecoder();
+                let buffer = '';
+
+                while (true) {
+                    const { done, value } = await reader.read();
+                    
+                    if (done) break;
+                    
+                    buffer += decoder.decode(value, { stream: true });
+                    const lines = buffer.split('\n');
+                    
+                    // Keep the last incomplete line in the buffer
+                    buffer = lines[lines.length - 1];
+                    
+                    for (let i = 0; i < lines.length - 1; i++) {
+                        const line = lines[i];
+                        
+                        if (line.startsWith('data: ')) {
+                            const data = line.substring(6);
+                            try {
+                                const event = JSON.parse(data);
+                                processStreamEvent(event);
+                            } catch (e) {
+                                console.error('Error parsing event:', e, data);
+                            }
+                        }
+                    }
+                }
+
+                isStreaming = false;
+                document.getElementById('submitBtn').disabled = false;
+
+            } catch (error) {
+                console.error('Stream error:', error);
+                const answerText = document.getElementById('answerText');
+                answerText.innerHTML = `<div class="error-message">❌ Error: ${escapeHtml(error.message)}</div>`;
+                isStreaming = false;
+                document.getElementById('submitBtn').disabled = false;
+            }
+        }
+
+        // Process individual stream events
+        function processStreamEvent(event) {
+            const answerText = document.getElementById('answerText');
+            const citationsSection = document.getElementById('citationsSection');
+            const citationsList = document.getElementById('citationsList');
+            const chatArea = document.getElementById('chatArea');
+
+            switch (event.type) {
+                case 'metadata':
+                    console.log('Request ID:', event.request_id);
+                    break;
+
+                case 'status':
+                    // Update or create status message
+                    let statusEl = answerText.querySelector('.status-message');
+                    if (!statusEl) {
+                        statusEl = document.createElement('div');
+                        statusEl.className = 'status-message';
+                        answerText.appendChild(statusEl);
+                    }
+                    statusEl.innerHTML = `<span class="loading-spinner"></span>${escapeHtml(event.message)}`;
+                    break;
+
+                case 'answer_chunk':
+                    // Remove status message if it exists
+                    const statusMsg = answerText.querySelector('.status-message');
+                    if (statusMsg) statusMsg.remove();
+                    
+                    // Append to answer text
+                    answerText.innerHTML += escapeHtml(event.chunk);
+                    chatArea.scrollTop = chatArea.scrollHeight;
+                    break;
+
+                case 'citation':
+                    // Store citation metadata
+                    currentCitations[event.tag] = event.metadata;
+                    
+                    // Add citation item to list
+                    const citationItem = document.createElement('div');
+                    citationItem.className = 'citation-item';
+                    citationItem.onclick = () => showSourceModal(event.tag, event.metadata);
+                    
+                    citationItem.innerHTML = `
+                        <div class="citation-header">
+                            <span class="citation-tag">${escapeHtml(event.tag)}</span>
+                            <span class="citation-document">${escapeHtml(event.metadata.source_document)}</span>
+                        </div>
+                        <div class="citation-meta">
+                            <span>📄 Section: ${escapeHtml(event.metadata.section)}</span>
+                            ${event.metadata.page ? `<span>📖 Page: ${event.metadata.page}</span>` : ''}
+                            <span>🎯 Relevance: ${(event.metadata.similarity_score * 100).toFixed(1)}%</span>
+                        </div>
+                    `;
+                    
+                    citationsList.appendChild(citationItem);
+                    citationsSection.style.display = 'block';
+                    break;
+
+                case 'complete':
+                    console.log('Stream completed');
+                    // Add timestamp
+                    const timestamp = document.getElementById('timestamp');
+                    if (timestamp) {
+                        timestamp.textContent = `✓ Response completed at ${new Date().toLocaleTimeString()}`;
+                    }
+                    break;
+
+                case 'error':
+                    const errorDiv = document.createElement('div');
+                    errorDiv.className = 'error-message';
+                    errorDiv.textContent = `❌ Error: ${escapeHtml(event.message)}`;
+                    answerText.appendChild(errorDiv);
+                    console.error('Stream error:', event);
+                    break;
+
+                default:
+                    console.log('Unknown event type:', event.type);
+            }
+        }
+
+        // Show source content in modal
+        function showSourceModal(tag, metadata) {
+            document.getElementById('modalTitle').textContent = `Source ${tag}`;
+            
+            const metaHtml = `
+                <strong>Document:</strong> ${escapeHtml(metadata.source_document)}<br>
+                <strong>Section:</strong> ${escapeHtml(metadata.section)}<br>
+                ${metadata.page ? `<strong>Page:</strong> ${metadata.page}<br>` : ''}
+                <strong>Relevance Score:</strong> ${(metadata.similarity_score * 100).toFixed(2)}%<br>
+                <strong>Chunk ID:</strong> <code>${escapeHtml(metadata.chunk_id)}</code>
+            `;
+            document.getElementById('modalMeta').innerHTML = metaHtml;
+            
+            // Display the full source text
+            const sourceText = metadata.full_source_text || '[Source text not available]';
+            document.getElementById('modalText').textContent = sourceText;
+            
+            document.getElementById('sourceModal').classList.add('active');
+        }
+
+        // Close modal
+        function closeModal() {
+            document.getElementById('sourceModal').classList.remove('active');
+        }
+
+        // Close modal on outside click
+        document.addEventListener('click', (e) => {
+            const modal = document.getElementById('sourceModal');
+            if (e.target === modal) {
+                closeModal();
+            }
+        });
+
+        // Handle Enter key in input
+        document.getElementById('questionInput').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter' && !isStreaming) {
+                sendQuery();
+            }
+        });
+
+        // Utility: Escape HTML
+        function escapeHtml(text) {
+            const map = {
+                '&': '&amp;',
+                '<': '&lt;',
+                '>': '&gt;',
+                '"': '&quot;',
+                "'": '&#039;'
+            };
+            return text.replace(/[&<>"']/g, m => map[m]);
+        }
+
+        // Initialize on page load
+        window.addEventListener('load', initializeUI);
+    </script>
+</body>
+</html>
