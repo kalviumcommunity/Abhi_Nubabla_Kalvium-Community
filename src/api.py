@@ -17,7 +17,7 @@ import json
 import logging
 from pathlib import Path
 from typing import Optional, List, Dict, Any
-from datetime import datetime
+from datetime import datetime, timezone
 
 # Add project root to sys.path
 WORKSPACE_ROOT = Path(__file__).resolve().parent.parent
@@ -28,7 +28,7 @@ from dotenv import load_dotenv
 from pydantic import BaseModel, Field, field_validator
 from fastapi import FastAPI, HTTPException, status
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import JSONResponse, StreamingResponse
+from fastapi.responses import JSONResponse, StreamingResponse, FileResponse
 
 from src.rag_pipeline import run_rag_pipeline
 from src.similarity_search import VectorStoreRetriever
@@ -273,7 +273,7 @@ async def health_check():
     """Health check endpoint to verify API is running."""
     return {
         "status": "healthy",
-        "timestamp": datetime.utcnow().isoformat(),
+        "timestamp": datetime.now(timezone.utc).isoformat(),
         "service": "RAG Pipeline API",
         "version": "1.0.0"
     }
@@ -321,7 +321,7 @@ async def query_rag_pipeline(request: QueryRequest) -> QueryResponse:
     import uuid
     
     request_id = str(uuid.uuid4())
-    timestamp = datetime.utcnow().isoformat()
+    timestamp = datetime.now(timezone.utc).isoformat()
     
     try:
         # Validate configuration
@@ -434,7 +434,7 @@ async def stream_query_rag_pipeline(request: QueryRequest):
     import uuid
     
     request_id = str(uuid.uuid4())
-    timestamp = datetime.utcnow().isoformat()
+    timestamp = datetime.now(timezone.utc).isoformat()
     
     logger.info(f"[{request_id}] Received streaming query: {request.question[:100]}...")
     
@@ -527,7 +527,7 @@ async def http_exception_handler(request, exc):
             "status": "error",
             "message": exc.detail,
             "error_code": "HTTP_ERROR",
-            "timestamp": datetime.utcnow().isoformat()
+            "timestamp": datetime.now(timezone.utc).isoformat()
         }
     )
 
@@ -542,7 +542,7 @@ async def general_exception_handler(request, exc):
             "status": "error",
             "message": "An unexpected error occurred",
             "error_code": "INTERNAL_SERVER_ERROR",
-            "timestamp": datetime.utcnow().isoformat()
+            "timestamp": datetime.now(timezone.utc).isoformat()
         }
     )
 
@@ -563,10 +563,20 @@ async def root():
             "config": "/config",
             "query": "/query",
             "stream": "/query/stream",
+            "ui": "/ui",
             "docs": "/docs",
             "redoc": "/redoc"
         }
     }
+
+
+@app.get("/ui", tags=["UI"], include_in_schema=False)
+async def serve_ui():
+    """Serve the interactive RAG Streaming Chat UI."""
+    ui_path = WORKSPACE_ROOT / "ui.html"
+    if ui_path.exists():
+        return FileResponse(str(ui_path), media_type="text/html")
+    raise HTTPException(status_code=404, detail="ui.html not found")
 
 
 # ============================================================================
