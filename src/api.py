@@ -17,7 +17,7 @@ import json
 import logging
 from pathlib import Path
 from typing import Optional, List, Dict, Any
-from datetime import datetime
+from datetime import datetime, timezone
 
 # Add project root to sys.path
 WORKSPACE_ROOT = Path(__file__).resolve().parent.parent
@@ -28,10 +28,11 @@ from dotenv import load_dotenv
 from pydantic import BaseModel, Field, field_validator
 from fastapi import FastAPI, HTTPException, status
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import JSONResponse
+from fastapi.responses import JSONResponse, StreamingResponse, FileResponse
 
 from src.rag_pipeline import run_rag_pipeline
 from src.similarity_search import VectorStoreRetriever
+from src.streaming_generator import StreamingAnswerGenerator
 
 # ============================================================================
 # Configuration Loading from Environment Variables
@@ -272,7 +273,7 @@ async def health_check():
     """Health check endpoint to verify API is running."""
     return {
         "status": "healthy",
-        "timestamp": datetime.utcnow().isoformat(),
+        "timestamp": datetime.now(timezone.utc).isoformat(),
         "service": "RAG Pipeline API",
         "version": "1.0.0"
     }
@@ -320,7 +321,7 @@ async def query_rag_pipeline(request: QueryRequest) -> QueryResponse:
     import uuid
     
     request_id = str(uuid.uuid4())
-    timestamp = datetime.utcnow().isoformat()
+    timestamp = datetime.now(timezone.utc).isoformat()
     
     try:
         # Validate configuration
@@ -408,6 +409,107 @@ async def query_rag_pipeline(request: QueryRequest) -> QueryResponse:
 
 
 # ============================================================================
+# Streaming Query Endpoint
+# ============================================================================
+
+@app.post("/query/stream", tags=["Query"], status_code=200)
+async def stream_query_rag_pipeline(request: QueryRequest):
+    """
+    Stream a grounded RAG answer with progressive tokens and citations.
+    
+    Returns Server-Sent Events (SSE) stream with:
+    - start: Initial event with query metadata
+    - sources: Retrieved document sources and metadata
+    - token: Individual answer tokens as they're generated
+    - citation: Citation marker events with source metadata
+    - complete: Final answer with all citations and metrics
+    - error: Error event if processing fails
+    
+    Args:
+        request: QueryRequest with question and optional retrieval parameters
+        
+    Returns:
+        StreamingResponse with SSE events
+    """
+    import uuid
+    
+    request_id = str(uuid.uuid4())
+    timestamp = datetime.now(timezone.utc).isoformat()
+    
+    logger.info(f"[{request_id}] Received streaming query: {request.question[:100]}...")
+    
+    def event_generator():
+        """Generator function that yields SSE events."""
+        try:
+            # Validate configuration
+            if not APIConfig.openai_api_key:
+                logger.warning(f"[{request_id}] No OpenAI API key configured")
+            
+            # Get retriever instance
+            retriever = get_retriever()
+            
+            # Validate vector store exists
+            vector_store_path = Path(APIConfig.vector_store_path)
+            if not vector_store_path.exists():
+                logger.error(f"[{request_id}] Vector store not found: {APIConfig.vector_store_path}")
+                error_data = json.dumps({
+                    "type": "error",
+                    "data": {
+                        "error": "VECTOR_STORE_NOT_FOUND",
+                        "message": "Vector store not initialized. Please run indexing pipeline first.",
+                        "timestamp": timestamp,
+                        "request_id": request_id
+                    },
+                    "timestamp": timestamp
+                })
+                yield f"data: {error_data}\n\n"
+                return
+            
+            # Create streaming generator
+            streaming_gen = StreamingAnswerGenerator(
+                retriever=retriever,
+                min_similarity_threshold=request.score_threshold or 0.0,
+                min_relevant_chunks=1
+            )
+            
+            # Stream events from the generator
+            for event in streaming_gen.stream_grounded_answer(
+                query=request.question,
+                k=request.k or 3,
+                score_threshold=request.score_threshold or 0.0
+            ):
+                # Enhance event with request metadata
+                event.data["request_id"] = request_id
+                yield event.to_sse()
+                
+            logger.info(f"[{request_id}] Streaming completed successfully")
+            
+        except Exception as e:
+            logger.error(f"[{request_id}] Streaming error: {str(e)}", exc_info=True)
+            error_data = json.dumps({
+                "type": "error",
+                "data": {
+                    "error": type(e).__name__,
+                    "message": str(e),
+                    "timestamp": timestamp,
+                    "request_id": request_id
+                },
+                "timestamp": timestamp
+            })
+            yield f"data: {error_data}\n\n"
+    
+    return StreamingResponse(
+        event_generator(),
+        media_type="text/event-stream",
+        headers={
+            "Cache-Control": "no-cache",
+            "X-Accel-Buffering": "no",
+            "Content-Type": "text/event-stream; charset=utf-8",
+        }
+    )
+
+
+# ============================================================================
 # Error Handlers
 # ============================================================================
 
@@ -425,7 +527,7 @@ async def http_exception_handler(request, exc):
             "status": "error",
             "message": exc.detail,
             "error_code": "HTTP_ERROR",
-            "timestamp": datetime.utcnow().isoformat()
+            "timestamp": datetime.now(timezone.utc).isoformat()
         }
     )
 
@@ -440,7 +542,7 @@ async def general_exception_handler(request, exc):
             "status": "error",
             "message": "An unexpected error occurred",
             "error_code": "INTERNAL_SERVER_ERROR",
-            "timestamp": datetime.utcnow().isoformat()
+            "timestamp": datetime.now(timezone.utc).isoformat()
         }
     )
 
@@ -460,10 +562,21 @@ async def root():
             "health": "/health",
             "config": "/config",
             "query": "/query",
+            "stream": "/query/stream",
+            "ui": "/ui",
             "docs": "/docs",
             "redoc": "/redoc"
         }
     }
+
+
+@app.get("/ui", tags=["UI"], include_in_schema=False)
+async def serve_ui():
+    """Serve the interactive RAG Streaming Chat UI."""
+    ui_path = WORKSPACE_ROOT / "ui.html"
+    if ui_path.exists():
+        return FileResponse(str(ui_path), media_type="text/html")
+    raise HTTPException(status_code=404, detail="ui.html not found")
 
 
 # ============================================================================
