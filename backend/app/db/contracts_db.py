@@ -30,6 +30,7 @@ class ContractsDBManager:
         self.contracts: List[Dict[str, Any]] = []
         self.activities: List[Dict[str, Any]] = []
         self.suppliers: List[Dict[str, Any]] = []
+        self.ai_query_logs: List[Dict[str, Any]] = []
         self._load_data()
 
     def _load_data(self):
@@ -41,6 +42,7 @@ class ContractsDBManager:
                     self.contracts = data.get("contracts", INITIAL_CONTRACTS)
                     self.activities = data.get("activities", INITIAL_ACTIVITIES)
                     self.suppliers = data.get("suppliers", INITIAL_SUPPLIERS)
+                    self.ai_query_logs = data.get("ai_query_logs", [])
                     logger.info(f"Loaded {len(self.contracts)} contracts and {len(self.activities)} activities from database.")
                     return
             except Exception as e:
@@ -50,6 +52,7 @@ class ContractsDBManager:
         self.contracts = list(INITIAL_CONTRACTS)
         self.activities = list(INITIAL_ACTIVITIES)
         self.suppliers = list(INITIAL_SUPPLIERS)
+        self.ai_query_logs = []
         self._save_data()
 
     def _save_data(self):
@@ -59,7 +62,8 @@ class ContractsDBManager:
             data = {
                 "contracts": self.contracts,
                 "activities": self.activities,
-                "suppliers": self.suppliers
+                "suppliers": self.suppliers,
+                "ai_query_logs": self.ai_query_logs
             }
             with open(self.storage_path, "w", encoding="utf-8") as f:
                 json.dump(data, f, indent=2, ensure_ascii=False)
@@ -205,6 +209,28 @@ class ContractsDBManager:
         # Keep recent 20 activities
         self.activities = self.activities[:20]
         self._save_data()
+
+    def log_ai_query(self, question: str, answer: str, sources_count: int, query_type: str = "AI Q&A"):
+        """Logs AI question/search and generated answer for admin tracking."""
+        now = datetime.datetime.now(datetime.timezone.utc)
+        log_entry = {
+            "id": f"qlog-{uuid.uuid4().hex[:6]}",
+            "query_type": query_type,
+            "question": question,
+            "answer": answer,
+            "sources_count": sources_count,
+            "initiated_by": "Enterprise User",
+            "date": now.strftime("%b %d, %Y - %I:%M %p"),
+            "timestamp": now.isoformat()
+        }
+        self.ai_query_logs.insert(0, log_entry)
+        # Keep up to 100 recent AI query logs
+        self.ai_query_logs = self.ai_query_logs[:100]
+        self._save_data()
+
+    def get_ai_query_logs(self) -> List[Dict[str, Any]]:
+        """Retrieves all logged AI questions and answers."""
+        return list(self.ai_query_logs)
 
     def get_overview_metrics(self) -> Dict[str, Any]:
         """Calculates dynamic overview metrics for Dashboard Overview Page."""

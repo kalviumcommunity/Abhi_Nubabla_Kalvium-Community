@@ -1,10 +1,20 @@
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useAuth } from "@/context/AuthContext";
 import { LogIn, UserPlus, ShieldCheck, ArrowRight, Database } from "lucide-react";
 
 export default function Home() {
+  const router = useRouter();
+  const { user, loading } = useAuth();
+
+  useEffect(() => {
+    if (!loading && user) {
+      router.push("/overview");
+    }
+  }, [user, loading, router]);
   return (
     <div className="relative min-h-screen flex flex-col items-center justify-center bg-[#f8fafc] px-4 py-16 overflow-hidden">
       {/* Dot Grid Background */}
@@ -50,7 +60,7 @@ export default function Home() {
               </div>
               <h2 className="text-xl font-bold text-slate-900 mb-2">User Sign In</h2>
               <p className="text-slate-500 text-sm leading-relaxed mb-6">
-                Access your standard user workspace and personal dashboard.
+                Access your standard user workspace and Overview page.
               </p>
             </div>
             <Link

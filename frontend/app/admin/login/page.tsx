@@ -29,7 +29,7 @@ export default function AdminLoginPage() {
     setSubmitting(true);
     try {
       await adminLogin(email, password);
-      router.push("/admin/dashboard");
+      router.push("/overview");
     } catch (err: any) {
       setError(err.message || "Admin login failed. Please verify credentials and admin status.");
     } finally {

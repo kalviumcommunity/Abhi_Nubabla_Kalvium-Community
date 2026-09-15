@@ -50,9 +50,8 @@ export default function Sidebar() {
     <aside
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      className={`bg-white border-r border-slate-200/80 flex flex-col justify-between shrink-0 h-screen transition-all duration-300 ease-in-out ${
-        isHovered ? "w-64" : "w-16"
-      }`}
+      className={`bg-white border-r border-slate-200/80 flex flex-col justify-between shrink-0 h-screen transition-all duration-300 ease-in-out ${isHovered ? "w-64" : "w-16"
+        }`}
     >
       <div>
         {/* Brand Header */}
@@ -80,13 +79,11 @@ export default function Sidebar() {
                 key={item.name}
                 href={item.href}
                 title={!isHovered ? item.name : undefined}
-                className={`flex items-center ${
-                  isHovered ? "gap-3 px-3.5" : "justify-center px-0"
-                } py-2.5 rounded-xl font-medium text-sm transition-all duration-200 ${
-                  isActive
+                className={`flex items-center ${isHovered ? "gap-3 px-3.5" : "justify-center px-0"
+                  } py-2.5 rounded-xl font-medium text-sm transition-all duration-200 ${isActive
                     ? "bg-blue-50 text-blue-600 font-semibold shadow-xs"
                     : "text-slate-600 hover:text-slate-900 hover:bg-slate-100/70"
-                }`}
+                  }`}
               >
                 <Icon className={`w-5 h-5 shrink-0 ${isActive ? "text-blue-600" : "text-slate-400"}`} />
                 {isHovered && (
@@ -110,9 +107,8 @@ export default function Sidebar() {
                 key={item.name}
                 href={item.href}
                 title={!isHovered ? item.name : undefined}
-                className={`flex items-center ${
-                  isHovered ? "gap-3 px-3.5" : "justify-center px-0"
-                } py-2.5 rounded-xl text-slate-600 hover:text-slate-900 hover:bg-slate-100/70 font-medium text-sm transition-all`}
+                className={`flex items-center ${isHovered ? "gap-3 px-3.5" : "justify-center px-0"
+                  } py-2.5 rounded-xl text-slate-600 hover:text-slate-900 hover:bg-slate-100/70 font-medium text-sm transition-all`}
               >
                 <Icon className="w-5 h-5 text-slate-400 shrink-0" />
                 {isHovered && (

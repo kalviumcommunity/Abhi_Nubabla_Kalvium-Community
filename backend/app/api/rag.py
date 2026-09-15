@@ -85,6 +85,12 @@ async def query_contracts(req: ContractQueryRequest):
             contract_id=req.contract_id,
             score_threshold=req.score_threshold or 0.0
         )
+        contracts_db.log_ai_query(
+            question=req.question,
+            answer=res["answer"],
+            sources_count=len(res.get("sources", [])),
+            query_type="AI Q&A"
+        )
         return ContractQueryResponse(
             answer=res["answer"],
             sources=[CitationSource(**s) for s in res["sources"]],
@@ -269,6 +275,14 @@ async def search_contracts_intelligent(
         "Medium Match (70-90%)": len([r for r in results_list if 70 <= r.confidence_percentage <= 90]),
         "Low Match (<70%)": len([r for r in results_list if r.confidence_percentage < 70])
     }
+
+    if query_str:
+        contracts_db.log_ai_query(
+            question=query_str,
+            answer=f"AI Intelligent Search executed. {len(results_list)} matching passage(s) retrieved across contract portfolio.",
+            sources_count=len(results_list),
+            query_type="AI Intelligent Search"
+        )
 
     return SearchResponse(
         query=query_str,

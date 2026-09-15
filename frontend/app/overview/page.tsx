@@ -79,13 +79,13 @@ export default function OverviewPage() {
   };
 
   return (
-    <div className="flex h-screen overflow-hidden bg-[#f8fafc]">
+    <div className="flex min-h-screen bg-[#f8fafc]">
       <Sidebar />
 
-      <div className="flex-1 flex flex-col min-w-0 h-screen overflow-hidden">
+      <div className="flex-1 flex flex-col min-w-0 overflow-y-auto">
         <Header title="Overview" />
 
-        <main className="p-4 sm:p-5 space-y-3 sm:space-y-4 max-w-7xl mx-auto w-full flex-1 flex flex-col justify-between min-h-0 overflow-hidden">
+        <main className="p-6 sm:p-8 space-y-6 sm:space-y-8 max-w-7xl mx-auto w-full flex-1">
           {/* Welcome Header */}
           <div className="shrink-0">
             <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">

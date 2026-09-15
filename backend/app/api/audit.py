@@ -28,3 +28,15 @@ async def run_compliance_audit():
         "message": f"Portfolio compliance audit executed successfully. Current score: {score_str}.",
         "compliance_score": score_str
     }
+
+
+@router.get("/ai-logs")
+async def get_ai_query_logs():
+    """
+    Retrieves all AI searches, questions asked, generated answers, and matched source counts for admin logs.
+    """
+    logs = contracts_db.get_ai_query_logs()
+    return {
+        "total": len(logs),
+        "logs": logs
+    }

@@ -62,5 +62,27 @@
       "category": "Master Agreement",
       "vetted": true
     }
+  ],
+  "ai_query_logs": [
+    {
+      "id": "qlog-2cb553",
+      "query_type": "AI Q&A",
+      "question": "what is the payment tearms on test",
+      "answer": "**Payment Terms (Software Development & Services Agreement – RAG‑TEST‑CONTRACT‑2026‑001)**  \n\n| Milestone | Percentage of Total Fee | Timing | Invoice Payable |\n|-----------|------------------------|--------|-----------------|\n| Project commencement | 20 % | Upon commencement | Within 15 calendar days of receipt |\n| Delivery of ingestion & indexing modules | 30 % | Upon delivery of the ingestion and indexing modules | Within 15 calendar days of receipt |\n| Delivery of RAG interface | 30 % | Upon delivery of the RAG question‑answering interface | Within 15 calendar days of receipt |\n| Final acceptance | 20 % | Upon final acceptance of the project | Within 15 calendar days of receipt |\n\n- **Total project fee:** INR 8,40,000 (exclusive of applicable taxes).  \n- **Invoices** are payable within 15 calendar days of receipt.  \n\n*Source: Contract‑00468f79cfad‑chunk‑1 (Section 4 – Fees and Payment).*",
+      "sources_count": 7,
+      "initiated_by": "Enterprise User",
+      "date": "Sep 15, 2026 - 08:13 AM",
+      "timestamp": "2026-09-15T08:13:25.729797+00:00"
+    },
+    {
+      "id": "qlog-cedf13",
+      "query_type": "AI Q&A",
+      "question": "what is the payment tearms on test",
+      "answer": "**Payment terms in the test contract (Software Development and Services Agreement – RAG‑TEST‑CONTRACT‑2026‑001)**  \n\n| Milestone | Percentage",
+      "sources_count": 7,
+      "initiated_by": "Enterprise User",
+      "date": "Sep 15, 2026 - 08:13 AM",
+      "timestamp": "2026-09-15T08:13:12.539791+00:00"
+    }
   ]
 }

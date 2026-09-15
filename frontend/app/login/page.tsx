@@ -28,7 +28,7 @@ export default function LoginPage() {
     setSubmitting(true);
     try {
       await login(email, password);
-      router.push("/dashboard");
+      router.push("/overview");
     } catch (err: any) {
       setError(err.message || "Failed to sign in. Please check your credentials.");
     } finally {

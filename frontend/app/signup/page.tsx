@@ -43,7 +43,7 @@ export default function SignupPage() {
     setSubmitting(true);
     try {
       await signup(fullName, email, password);
-      router.push("/dashboard");
+      router.push("/overview");
     } catch (err: any) {
       setError(err.message || "Registration failed. Please try again.");
     } finally {
