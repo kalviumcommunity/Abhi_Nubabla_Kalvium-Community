@@ -10,7 +10,7 @@ import uuid
 import hashlib
 import secrets
 from datetime import datetime, timedelta, timezone
-from typing import Optional, Dict, Any
+from typing import Optional, Dict, Any, List
 import httpx
 import jwt
 
@@ -231,6 +231,60 @@ class SupabaseClient:
             "full_name": full_name,
             "role": role,
         }
+
+    async def add_user_history_entry(self, email: str, entry: Dict[str, Any]) -> bool:
+        """Appends a new Q&A entry to the user profile JSONB history field in Supabase public.users / public.profiles."""
+        if not self.is_configured() or not email:
+            return False
+
+        headers = self.get_headers(use_service_role=True)
+        async with httpx.AsyncClient() as client:
+            for table in ("users", "profiles"):
+                get_url = f"{self.url}/rest/v1/{table}?email=eq.{email}&select=id,history"
+                try:
+                    resp = await client.get(get_url, headers=headers)
+                    if resp.status_code == 200 and resp.json():
+                        row = resp.json()[0]
+                        user_id = row.get("id")
+                        current_history = row.get("history") or []
+                        if not isinstance(current_history, list):
+                            current_history = []
+
+                        updated_history = [entry] + current_history
+                        updated_history = updated_history[:50]
+
+                        patch_url = f"{self.url}/rest/v1/{table}?id=eq.{user_id}"
+                        patch_resp = await client.patch(
+                            patch_url,
+                            json={"history": updated_history, "updated_at": datetime.now(timezone.utc).isoformat()},
+                            headers=headers
+                        )
+                        if patch_resp.status_code in (200, 204):
+                            logger.info(f"Successfully stored history entry in Supabase '{table}' table for {email}")
+                            return True
+                except Exception as e:
+                    logger.error(f"Error saving user history to Supabase table '{table}': {e}")
+        return False
+
+    async def get_user_history(self, email: str) -> List[Dict[str, Any]]:
+        """Retrieves past Q&A history list from user profile JSONB history field in Supabase."""
+        if not self.is_configured() or not email:
+            return []
+
+        headers = self.get_headers(use_service_role=True)
+        async with httpx.AsyncClient() as client:
+            for table in ("users", "profiles"):
+                get_url = f"{self.url}/rest/v1/{table}?email=eq.{email}&select=history"
+                try:
+                    resp = await client.get(get_url, headers=headers)
+                    if resp.status_code == 200 and resp.json():
+                        row = resp.json()[0]
+                        history = row.get("history")
+                        if isinstance(history, list) and history:
+                            return history
+                except Exception as e:
+                    logger.error(f"Error fetching user history from Supabase table '{table}': {e}")
+        return []
 
 
 supabase_db = SupabaseClient()

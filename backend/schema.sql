@@ -16,9 +16,13 @@ CREATE TABLE IF NOT EXISTS public.users (
     password_hash TEXT NOT NULL,
     full_name TEXT,
     role user_role NOT NULL DEFAULT 'user',
+    history JSONB DEFAULT '[]'::jsonb,
     created_at TIMESTAMPTZ DEFAULT NOW(),
     updated_at TIMESTAMPTZ DEFAULT NOW()
 );
+
+-- Ensure history column exists on existing public.users tables
+ALTER TABLE public.users ADD COLUMN IF NOT EXISTS history JSONB DEFAULT '[]'::jsonb;
 
 -- 3. Enable Row Level Security (RLS) on public.users
 ALTER TABLE public.users ENABLE ROW LEVEL SECURITY;

@@ -224,11 +224,11 @@ export async function searchIntelligentContracts(params: {
   return data;
 }
 
-export async function askContractAI(question: string, contractId?: string): Promise<any> {
+export async function askContractAI(question: string, contractId?: string, userEmail?: string): Promise<any> {
   const response = await fetch(`${API_BASE_URL}/api/query`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ question, contract_id: contractId }),
+    body: JSON.stringify({ question, contract_id: contractId, user_email: userEmail }),
   });
   const data = await response.json();
   if (!response.ok) throw new Error(data.detail || "AI query failed.");
@@ -289,5 +289,20 @@ export async function fetchAiQueryLogsApi(): Promise<{ total: number; logs: AiQu
       if (response.ok) return await response.json();
     } catch (_) {}
     return { total: 0, logs: [] };
+  }
+}
+
+export async function fetchUserQueryHistoryApi(userEmail?: string): Promise<{ total: number; history: AiQueryLogItem[] }> {
+  try {
+    const query = userEmail ? `?user_email=${encodeURIComponent(userEmail)}` : "";
+    const response = await fetch(`${API_BASE_URL}/api/query/user-history${query}`);
+    if (!response.ok) {
+      const data = await response.json().catch(() => ({}));
+      throw new Error(data.detail || "Failed to fetch user query history.");
+    }
+    return await response.json();
+  } catch (err) {
+    console.warn("User query history API connection warning:", err);
+    return { total: 0, history: [] };
   }
 }

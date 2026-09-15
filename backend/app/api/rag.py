@@ -13,6 +13,7 @@ from pydantic import BaseModel, Field
 from app.rag.generator import contract_qa_generator, get_openrouter_embedding_client
 from app.vector_store.pinecone_store import vector_store
 from app.db.contracts_db import contracts_db
+from app.db.supabase import supabase_db
 from app.config import setup_logger
 
 logger = setup_logger("rag_api")
@@ -30,6 +31,7 @@ class ContractQueryRequest(BaseModel):
     contract_id: Optional[str] = Field(default=None, description="Optional target contract ID filter.")
     k: Optional[int] = Field(default=8, ge=1, le=20, description="Top-k chunks to retrieve.")
     score_threshold: Optional[float] = Field(default=0.0, ge=0.0, le=1.0, description="Similarity score cutoff.")
+    user_email: Optional[str] = Field(default=None, description="Email of user asking question.")
 
 
 class CitationSource(BaseModel):
@@ -89,8 +91,31 @@ async def query_contracts(req: ContractQueryRequest):
             question=req.question,
             answer=res["answer"],
             sources_count=len(res.get("sources", [])),
-            query_type="AI Q&A"
+            sources=res.get("sources", []),
+            query_type="AI Q&A",
+            user_email=req.user_email
         )
+
+        if req.user_email and supabase_db.is_configured():
+            import uuid, datetime
+            now = datetime.datetime.now(datetime.timezone.utc)
+            history_entry = {
+                "id": f"qlog-{uuid.uuid4().hex[:6]}",
+                "query_type": "AI Q&A",
+                "question": req.question,
+                "answer": res["answer"],
+                "sources_count": len(res.get("sources", [])),
+                "sources": res.get("sources", []),
+                "user_email": req.user_email,
+                "initiated_by": req.user_email,
+                "date": now.strftime("%b %d, %Y - %I:%M %p"),
+                "timestamp": now.isoformat()
+            }
+            try:
+                await supabase_db.add_user_history_entry(req.user_email, history_entry)
+            except Exception as se:
+                logger.error(f"Failed to log user history entry in Supabase: {se}")
+
         return ContractQueryResponse(
             answer=res["answer"],
             sources=[CitationSource(**s) for s in res["sources"]],
@@ -304,3 +329,24 @@ async def stream_contract_query(req: ContractQueryRequest):
         contract_id=req.contract_id
     )
     return StreamingResponse(generator, media_type="text/event-stream")
+
+
+@router.get("/user-history")
+async def get_user_query_history(user_email: Optional[str] = Query(None)):
+    """
+    Retrieves history of questions asked and answers generated for the current user.
+    Fetches from Supabase user profile history field when available, with fallback to local db.
+    """
+    if user_email and supabase_db.is_configured():
+        sp_history = await supabase_db.get_user_history(user_email)
+        if sp_history:
+            return {
+                "total": len(sp_history),
+                "history": sp_history
+            }
+
+    logs = contracts_db.get_ai_query_logs(user_email=user_email)
+    return {
+        "total": len(logs),
+        "history": logs
+    }

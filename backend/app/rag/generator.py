@@ -33,6 +33,44 @@ def get_openrouter_embedding_client() -> OpenAI:
     )
 
 
+OFF_TOPIC_PATTERNS = [
+    "capital of", "recipe", "how to cook", "weather in", "tell me a joke",
+    "who is the president", "who won", "movie", "song lyrics", "football",
+    "cricket", "basketball", "write code for", "solve math", "translate this"
+]
+
+CONTRACT_KEYWORDS = [
+    "contract", "agreement", "supplier", "vendor", "payment", "term",
+    "expire", "renewal", "sow", "nda", "sla", "liability", "termination",
+    "clause", "discount", "audit", "pricing", "effective", "date", "commitment",
+    "value", "legal", "fee", "notice", "service", "party", "parties", "compliance",
+    "warrant", "governing", "jurisdiction", "indemnification", "breach"
+]
+
+GUARDRAIL_MESSAGE = (
+    "I am your Enterprise Contract Intelligence Assistant. I am designed specifically "
+    "to answer questions about your corporate contracts, procurement terms, vendor agreements, "
+    "and compliance portfolio. I cannot assist with general knowledge or off-topic questions. "
+    "Please ask a question related to your contracts or suppliers!"
+)
+
+
+def check_guardrails(question: str, retrieved_chunks: list) -> Optional[str]:
+    """Evaluates question against strict corporate contract guardrails."""
+    q_lower = question.lower().strip()
+    
+    # 1. Explicit off-topic pattern match
+    if any(pattern in q_lower for pattern in OFF_TOPIC_PATTERNS):
+        return GUARDRAIL_MESSAGE
+
+    # 2. If no chunks matched and query contains zero contract/procurement domain keywords
+    has_contract_kw = any(kw in q_lower for kw in CONTRACT_KEYWORDS)
+    if not retrieved_chunks and not has_contract_kw:
+        return GUARDRAIL_MESSAGE
+
+    return None
+
+
 class ContractQAGenerator:
     """
     Orchestrates Retrieval-Augmented Generation (RAG) over stored corporate contracts.
@@ -78,8 +116,9 @@ class ContractQAGenerator:
         """
         Executes end-to-end contract RAG pipeline:
         1. Embeds query via OpenRouter embedding client & retrieves matching chunks from Pinecone.
-        2. Formats strict context system prompt.
-        3. Calls Groq LLM to synthesize answer with citations.
+        2. Evaluates guardrails for off-topic questions.
+        3. Formats strict context system prompt.
+        4. Calls Groq LLM to synthesize answer with citations.
         """
         groq_client = get_groq_client()
         embedding_client = get_openrouter_embedding_client()
@@ -93,7 +132,16 @@ class ContractQAGenerator:
             contract_id=contract_id
         )
 
-        # 2. Render prompt with retrieved context
+        # 2. Check Guardrails
+        guardrail_response = check_guardrails(question, retrieved_chunks)
+        if guardrail_response:
+            return {
+                "answer": guardrail_response,
+                "sources": [],
+                "chunks_retrieved": 0
+            }
+
+        # 3. Render prompt with retrieved context
         system_prompt, formatted_context = render_contract_rag_prompt(question, retrieved_chunks)
 
         # 3. Assemble chat payload
@@ -189,6 +237,14 @@ class ContractQAGenerator:
             k=k,
             contract_id=contract_id
         )
+
+        guardrail_response = check_guardrails(question, retrieved_chunks)
+        if guardrail_response:
+            evt = json.dumps({"event": "token", "content": guardrail_response})
+            yield f"data: {evt}\n\n"
+            yield f"data: {json.dumps({'event': 'done'})}\n\n"
+            return
+
         system_prompt, _ = render_contract_rag_prompt(question, retrieved_chunks)
 
         messages = [

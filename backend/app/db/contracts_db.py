@@ -210,8 +210,16 @@ class ContractsDBManager:
         self.activities = self.activities[:20]
         self._save_data()
 
-    def log_ai_query(self, question: str, answer: str, sources_count: int, query_type: str = "AI Q&A"):
-        """Logs AI question/search and generated answer for admin tracking."""
+    def log_ai_query(
+        self,
+        question: str,
+        answer: str,
+        sources_count: int,
+        query_type: str = "AI Q&A",
+        user_email: Optional[str] = None,
+        sources: Optional[List[Dict[str, Any]]] = None
+    ):
+        """Logs AI question/search and generated answer for user history & admin tracking."""
         now = datetime.datetime.now(datetime.timezone.utc)
         log_entry = {
             "id": f"qlog-{uuid.uuid4().hex[:6]}",
@@ -219,7 +227,9 @@ class ContractsDBManager:
             "question": question,
             "answer": answer,
             "sources_count": sources_count,
-            "initiated_by": "Enterprise User",
+            "sources": sources or [],
+            "user_email": user_email or None,
+            "initiated_by": user_email or "Enterprise User",
             "date": now.strftime("%b %d, %Y - %I:%M %p"),
             "timestamp": now.isoformat()
         }
@@ -228,8 +238,11 @@ class ContractsDBManager:
         self.ai_query_logs = self.ai_query_logs[:100]
         self._save_data()
 
-    def get_ai_query_logs(self) -> List[Dict[str, Any]]:
-        """Retrieves all logged AI questions and answers."""
+    def get_ai_query_logs(self, user_email: Optional[str] = None) -> List[Dict[str, Any]]:
+        """Retrieves logged AI questions and answers strictly filtered by user_email."""
+        if user_email:
+            # Return ONLY logs matching this user's email
+            return [l for l in self.ai_query_logs if l.get("user_email") == user_email]
         return list(self.ai_query_logs)
 
     def get_overview_metrics(self) -> Dict[str, Any]:
