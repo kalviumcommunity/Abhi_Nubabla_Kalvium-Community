@@ -1,352 +1,126 @@
-import os
+#!/usr/bin/env python3
+"""
+Enterprise Contract Storage & RAG Backend Entry Point.
+
+Usage:
+    python main.py
+    python main.py --cli
+"""
+
 import sys
-import logging
+import os
 import argparse
-import openai
-from openai import OpenAI
-from dotenv import load_dotenv
+import uvicorn
+from pathlib import Path
 
-import history_manager
-from prompt.templates import render_rag_request, STAFF_ASSISTANT_SYSTEM_PROMPT
+# Add backend directory to sys.path to allow clean imports
+BACKEND_DIR = Path(__file__).resolve().parent
+if str(BACKEND_DIR) not in sys.path:
+    sys.path.insert(0, str(BACKEND_DIR))
 
-# Reconfigure stdout/stderr to use UTF-8 to prevent encoding issues on Windows
-if hasattr(sys.stdout, "reconfigure"):
-    try:
-        sys.stdout.reconfigure(encoding="utf-8", errors="backslashreplace")
-    except Exception:
-        pass
-if hasattr(sys.stderr, "reconfigure"):
-    try:
-        sys.stderr.reconfigure(encoding="utf-8", errors="backslashreplace")
-    except Exception:
-        pass
+from app.config import AppConfig, setup_logger
+from app.db.supabase import supabase_db
+from app.vector_store.pinecone_store import vector_store
+from app.rag.generator import contract_qa_generator, get_groq_client, get_openrouter_embedding_client
+from app.ingestion.contract_processor import contract_processor
 
-# Set up logging to stdout
-logging.basicConfig(
-    level=logging.INFO,
-    format="%(levelname)s - %(message)s",
-    handlers=[logging.StreamHandler(sys.stdout)]
-)
-logger = logging.getLogger(__name__)
+logger = setup_logger("main_entry")
 
 
-def load_config() -> dict:
-    """
-    Loads configuration from environment variables.
-    
-    Validates that the required variables are present. If any are missing,
-    raises a ValueError.
-    """
-    load_dotenv()
-    
-    config = {
-        "api_key": os.getenv("OPENAI_API_KEY"),
-        "base_url": os.getenv("OPENAI_BASE_URL"),
-        "model": os.getenv("OPENAI_MODEL"),
-        "max_history_tokens": int(os.getenv("MAX_HISTORY_TOKENS", "1000")),
-        "history_trim_threshold": float(os.getenv("HISTORY_TRIM_THRESHOLD", "0.80")),
-        "max_response_tokens": int(os.getenv("MAX_RESPONSE_TOKENS", "200"))
-    }
-    
-    missing_vars = [k for k, v in list(config.items())[:3] if not v or v.strip() == ""]
-    if missing_vars:
-        env_mapping = {
-            "api_key": "OPENAI_API_KEY",
-            "base_url": "OPENAI_BASE_URL",
-            "model": "OPENAI_MODEL"
-        }
-        missing_env_names = [env_mapping[var] for var in missing_vars]
-        raise ValueError(
-            f"Configuration error: Missing required environment variable(s): "
-            f"{', '.join(missing_env_names)} in .env file."
-        )
-        
-    if config["api_key"] in ["your_grok_api_key_here", "your_api_key_here"]:
-        raise ValueError("A real xAI API key is not configured in .env. Add a new valid key locally and rerun the script.")
-        
-    return config
+def run_cli_interactive():
+    """Interactive command-line client for corporate contract storage and RAG Q&A."""
+    print("\n=======================================================")
+    print("      Enterprise Contract RAG Terminal Client          ")
+    print("=======================================================\n")
+    print("Commands:")
+    print("  upload <path_to_contract_file>  - Ingest PDF/DOCX/TXT contract")
+    print("  list                             - List indexed corporate contracts")
+    print("  ask <your question>              - Ask question regarding stored contracts")
+    print("  exit                             - Quit terminal client\n")
 
+    embedding_client = get_openrouter_embedding_client()
 
-def create_client(config: dict) -> OpenAI:
-    """
-    Initializes and returns the OpenAI client.
-    """
-    return OpenAI(
-        api_key=config["api_key"],
-        base_url=config["base_url"]
-    )
-
-
-def log_response(response) -> None:
-    """
-    Logs the response metadata and token usage (if available).
-    """
-    try:
-        if hasattr(response, "model_dump"):
-            logger.info(f"Response payload: {response.model_dump()}")
-        else:
-            logger.info(f"Response payload: {str(response)}")
-    except Exception as e:
-        logger.warning(f"Could not serialize response payload: {e}")
-
-    try:
-        usage = getattr(response, "usage", None)
-        if usage:
-            prompt_tokens = getattr(usage, "prompt_tokens", None)
-            completion_tokens = getattr(usage, "completion_tokens", None)
-            total_tokens = getattr(usage, "total_tokens", None)
-            
-            if prompt_tokens is not None or completion_tokens is not None or total_tokens is not None:
-                logger.info(
-                    f"API token usage: Prompt/Input: {prompt_tokens}, "
-                    f"Completion/Output: {completion_tokens}, "
-                    f"Total: {total_tokens}"
-                )
-            else:
-                logger.info("API token usage: Not available")
-        else:
-            logger.info("API token usage: Not available")
-    except Exception as e:
-        logger.warning(f"Error reading token usage from API: {e}")
-
-
-def execute_turn(client: OpenAI, config: dict, history: list, user_content: str, turn_num: int) -> tuple:
-    """
-    Executes a single turn in the chat.
-    Appends the user message, calculates token count, performs trimming if threshold is met,
-    makes the API call, logs usage, and updates the history.
-    """
-    logger.info(f"--- Turn {turn_num} ---")
-    
-    # 1. Add current user message to temp history to check total tokens
-    history.append({"role": "user", "content": user_content})
-    
-    # 2. Count tokens before management
-    tokens_before = history_manager.count_tokens(history, config["model"])
-    logger.info(f"History tokens before management: {tokens_before}")
-    logger.info(f"History budget: {config['max_history_tokens']} (Threshold: {int(config['max_history_tokens'] * config['history_trim_threshold'])})")
-    
-    # 3. Trim history if necessary
-    trimmed_history, tokens_after, trimmed_occurred = history_manager.trim_history(
-        history,
-        config["max_history_tokens"],
-        config["history_trim_threshold"],
-        config["model"]
-    )
-    
-    if trimmed_occurred:
-        # Update our active history to the trimmed version
-        history = trimmed_history
-    else:
-        logger.info("No trimming required.")
-        
-    # 4. Make the API request
-    logger.info("Sending chat completion request...")
-    logger.info(f"Request messages: {history}")
-    
-    response = client.chat.completions.create(
-        model=config["model"],
-        messages=history,
-        max_tokens=config["max_response_tokens"]
-    )
-    
-    logger.info("Response received successfully.")
-    log_response(response)
-    
-    assistant_content = response.choices[0].message.content
-    print(f"Assistant: {assistant_content}")
-    
-    # 5. Append assistant reply to history
-    history.append({"role": "assistant", "content": assistant_content})
-    
-    return history
-
-
-def run_demo(client: OpenAI, config: dict):
-    """
-    Runs a deterministic demonstration to trigger history trimming.
-    """
-    import time
-    print("\n=== History Management Demo ===\n")
-    print(f"Configured history budget: {config['max_history_tokens']} tokens")
-    print(f"Trim threshold: {int(config['history_trim_threshold'] * 100)}% ({int(config['max_history_tokens'] * config['history_trim_threshold'])} tokens)\n")
-    
-    # Predefined turns with long prompts to force budget overflow
-    demo_turns = [
-        "Explain what Retrieval-Augmented Generation (RAG) is in detail. Please write a long paragraph of at least 120 words covering search query translation, vector retrieval, and contextual generation.",
-        "Explain why document chunking is critical in RAG pipelines. Provide a comprehensive bulleted list detailing semantic chunk boundaries, overlap ratio, token limits, and retrieve efficiency.",
-        "Compare sparse text retrieval algorithms (like BM25 keyword search) with dense vector retrieval embeddings. Elaborate on hybrid search strategies, re-ranking models, and semantic density.",
-        "Describe the typical challenges associated with parsing complex PDF documents in real-world RAG systems, such as handling structured tables, inline images, and multi-column document layouts.",
-        "Explain evaluation frameworks for RAG systems (like Ragas or TruLens). Detail metrics such as faithfulness, answer relevance, context recall, and semantic similarity."
-    ]
-    
-    history = [{"role": "system", "content": STAFF_ASSISTANT_SYSTEM_PROMPT}]
-    
-    for i, prompt in enumerate(demo_turns, 1):
-        try:
-            if i > 1:
-                logger.info("Sleeping for 15 seconds to respect API rate limits...")
-                time.sleep(15)
-            history = execute_turn(
-                client, config, history, render_rag_request("", prompt), i
-            )
-            print()
-        except Exception as e:
-            logger.error(f"Error in Demo Turn {i}: {e}")
-            raise e
-            
-    # Final sanity check on system message preservation
-    system_preserved = len(history) > 0 and history[0]["role"] == "system"
-    final_tokens = history_manager.count_tokens(history, config["model"])
-    
-    print("\n=== Demo Completed Successfully ===")
-    print(f"System message preserved: {'YES' if system_preserved else 'NO'}")
-    print(f"Final managed history tokens: {final_tokens} / {config['max_history_tokens']}")
-    print("===================================\n")
-
-
-def run_interactive(client: OpenAI, config: dict):
-    """
-    Runs an interactive chat loop in the console.
-    """
-    print("\nRAG Chat — type 'exit' or 'quit' to quit\n")
-    
-    history = [{"role": "system", "content": STAFF_ASSISTANT_SYSTEM_PROMPT}]
-    
-    turn_num = 1
     while True:
         try:
-            user_input = input("You: ").strip()
-            if not user_input:
+            cmd_input = input("Contract-RAG> ").strip()
+            if not cmd_input:
                 continue
-            if user_input.lower() in ["exit", "quit"]:
+            if cmd_input.lower() in ("exit", "quit"):
                 print("Goodbye!")
                 break
-                
-            history = execute_turn(
-                client, config, history, render_rag_request("", user_input), turn_num
-            )
-            turn_num += 1
-            print()
+
+            if cmd_input.lower().startswith("upload "):
+                file_path_str = cmd_input[7:].strip().strip('"').strip("'")
+                fpath = Path(file_path_str)
+                if not fpath.exists():
+                    print(f"Error: File not found at '{fpath}'")
+                    continue
+                print(f"Ingesting contract '{fpath.name}'...")
+                chunks = contract_processor.process_file(fpath)
+                indexed_count = vector_store.add_contract_chunks(chunks, embedding_client)
+                meta = chunks[0]["metadata"]
+                print(f"Successfully processed & indexed {indexed_count} chunks for '{meta.get('contract_title')}' (ID: {meta.get('contract_id')}).\n")
+
+            elif cmd_input.lower() == "list":
+                contracts = vector_store.list_indexed_contracts()
+                if not contracts:
+                    print("No corporate contracts currently indexed in vector store.")
+                else:
+                    print(f"\nFound {len(contracts)} Corporate Contract(s):")
+                    for idx, c in enumerate(contracts, 1):
+                        print(f"  {idx}. [{c['contract_id']}] {c['title']} | Type: {c['contract_type']} | Chunks: {c['total_chunks']}")
+                print()
+
+            elif cmd_input.lower().startswith("ask ") or "?" in cmd_input or len(cmd_input) > 5:
+                query_text = cmd_input[4:].strip() if cmd_input.lower().startswith("ask ") else cmd_input
+                print("\nSearching contracts & synthesizing grounded answer...\n")
+                res = contract_qa_generator.generate_answer(question=query_text)
+                print("--- ANSWER ---")
+                print(res["answer"])
+                print("\n--- SOURCES & CITATIONS ---")
+                if not res["sources"]:
+                    print("No explicit citations retrieved.")
+                for s in res["sources"]:
+                    print(f" • [{s['chunk_id']}] {s['contract_title']} ({s['section_title']}) - Match: {s['score']:.2f}")
+                print()
+
+            else:
+                print("Unknown command. Type 'upload <path>', 'list', 'ask <question>', or 'exit'.")
         except KeyboardInterrupt:
             print("\nGoodbye!")
             break
-        except openai.AuthenticationError:
-            logger.error(
-                "Authentication failed (401). Check that your API key is valid "
-                "and correctly configured in .env."
-            )
-            sys.exit(1)
-        except openai.RateLimitError:
-            logger.error("Rate limit exceeded (429). Please wait and try again later.")
-            sys.exit(1)
-        except openai.APIConnectionError as e:
-            logger.error(f"Connection error: Could not connect to the API server. Details: {e}")
-            sys.exit(1)
-        except openai.APITimeoutError as e:
-            logger.error(f"Timeout error: The request to the API server timed out. Details: {e}")
-            sys.exit(1)
-        except openai.APIStatusError as e:
-            if e.status_code == 401:
-                logger.error(
-                    "Authentication failed (401). Check that your API key is valid "
-                    "and correctly configured in .env."
-                )
-            elif e.status_code == 400:
-                try:
-                    err_data = e.response.json()
-                    if isinstance(err_data, dict):
-                        err_val = err_data.get("error")
-                        if isinstance(err_val, dict):
-                            err_msg = err_val.get("message") or str(err_val)
-                        else:
-                            err_msg = str(err_val) if err_val else str(err_data)
-                    else:
-                        err_msg = str(err_data)
-                except Exception:
-                    err_msg = str(e)
-                logger.error(f"API request failed (400): {err_msg}")
-            elif e.status_code == 429:
-                logger.error("Rate limit exceeded (429). Please wait and try again later.")
-            else:
-                logger.error(f"API status error ({e.status_code}): {e.message}")
-            sys.exit(1)
-        except openai.APIError as e:
-            logger.error(f"API error: {e}")
-            sys.exit(1)
         except Exception as e:
-            logger.error(f"An unexpected error occurred: {e}", exc_info=True)
-            sys.exit(1)
+            print(f"Error: {e}\n")
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Multi-turn conversation history RAG chat client.")
-    parser.add_argument("--demo", action="store_true", help="Run the overflow demonstration mode.")
-    parser.add_argument("--parameters", action="store_true", help="Run the parameter experiments.")
+    parser = argparse.ArgumentParser(description="Enterprise Contract Storage & RAG Backend Server.")
+    parser.add_argument("--host", type=str, default=AppConfig.API_HOST, help="API server host binding.")
+    parser.add_argument("--port", type=int, default=AppConfig.API_PORT, help="API server port number.")
+    parser.add_argument("--cli", action="store_true", help="Launch interactive CLI mode instead of web server.")
     args = parser.parse_args()
-    
-    try:
-        config = load_config()
-    except ValueError as e:
-        logger.error(str(e))
-        sys.exit(1)
-        
-    client = create_client(config)
-    
-    try:
-        if args.parameters:
-            import experiment_runner
-            experiment_runner.run_parameter_experiments(client, config)
-        elif args.demo:
-            run_demo(client, config)
-        else:
-            run_interactive(client, config)
-    except openai.AuthenticationError:
-        logger.error(
-            "Authentication failed (401). Check that your API key is valid "
-            "and correctly configured in .env."
+
+    print("\n=======================================================")
+    print("      Starting Enterprise Contract RAG Backend        ")
+    print("=======================================================")
+    print(f" • Supabase Auth & DB Configured: {supabase_db.is_configured()}")
+    print(f" • Vector Storage Mode:          {'Pinecone Vector Store' if vector_store.use_pinecone else 'Local Persistent Vector Index'}")
+    print(f" • Groq LLM Model:               {AppConfig.GROQ_MODEL}")
+    print(f" • OpenRouter Embedding Model:   {AppConfig.EMBEDDING_MODEL}")
+    print(f" • Embedding Vector Dimension:   {AppConfig.EMBEDDING_DIMENSION}")
+    print("=======================================================\n")
+
+    if args.cli:
+        run_cli_interactive()
+    else:
+        logger.info(f"Launching Uvicorn server on http://{args.host}:{args.port}")
+        uvicorn.run(
+            "app.main_app:app",
+            host=args.host,
+            port=args.port,
+            reload=AppConfig.API_RELOAD,
+            workers=AppConfig.API_WORKERS if not AppConfig.API_RELOAD else 1
         )
-        sys.exit(1)
-    except openai.RateLimitError:
-        logger.error("Rate limit exceeded (429). Please wait and try again later.")
-        sys.exit(1)
-    except openai.APIConnectionError as e:
-        logger.error(f"Connection error: Could not connect to the API server. Details: {e}")
-        sys.exit(1)
-    except openai.APITimeoutError as e:
-        logger.error(f"Timeout error: The request to the API server timed out. Details: {e}")
-        sys.exit(1)
-    except openai.APIStatusError as e:
-        if e.status_code == 401:
-            logger.error(
-                "Authentication failed (401). Check that your API key is valid "
-                "and correctly configured in .env."
-            )
-        elif e.status_code == 400:
-            try:
-                err_data = e.response.json()
-                if isinstance(err_data, dict):
-                    err_val = err_data.get("error")
-                    if isinstance(err_val, dict):
-                        err_msg = err_val.get("message") or str(err_val)
-                    else:
-                        err_msg = str(err_val) if err_val else str(err_data)
-                else:
-                    err_msg = str(err_data)
-            except Exception:
-                err_msg = str(e)
-            logger.error(f"API request failed (400): {err_msg}")
-        elif e.status_code == 429:
-            logger.error("Rate limit exceeded (429). Please wait and try again later.")
-        else:
-            logger.error(f"API status error ({e.status_code}): {e.message}")
-        sys.exit(1)
-    except openai.APIError as e:
-        logger.error(f"API error: {e}")
-        sys.exit(1)
-    except Exception as e:
-        logger.error(f"An unexpected error occurred: {e}", exc_info=True)
-        sys.exit(1)
 
 
 if __name__ == "__main__":

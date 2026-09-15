@@ -1,0 +1,66 @@
+{
+  "contracts": [
+    {
+      "id": "contract-3194869e537f",
+      "contract_name": "rag_testing_sample_contract_2.pdf",
+      "supplier": "supplier",
+      "document_type": "SOW / Order Form",
+      "annual_value": 150000.0,
+      "start_date": "2026-09-15",
+      "end_date": "2027-12-31",
+      "status": "Active",
+      "created_at": "2026-09-15T06:47:54.229981+00:00"
+    },
+    {
+      "id": "contract-00468f79cfad",
+      "contract_name": "rag_testing_sample_contract.pdf",
+      "supplier": "test",
+      "document_type": "Master Agreement",
+      "annual_value": 840000.0,
+      "start_date": "2026-10-01",
+      "end_date": "2027-12-31",
+      "status": "Active",
+      "created_at": "2026-09-15T06:21:08.756121+00:00"
+    }
+  ],
+  "activities": [
+    {
+      "id": "act-a30d41",
+      "document_name": "rag_testing_sample_contract_2.pdf",
+      "action": "Contract details updated",
+      "initiated_by": "User",
+      "date": "Today, 06:55 AM",
+      "timestamp": "2026-09-15T06:55:56.856956+00:00"
+    },
+    {
+      "id": "act-baaae2",
+      "document_name": "rag_testing_sample_contract_2.pdf",
+      "action": "Contract uploaded & intelligence indexed",
+      "initiated_by": "User / AI Engine",
+      "date": "Today, 06:47 AM",
+      "timestamp": "2026-09-15T06:47:54.230074+00:00"
+    },
+    {
+      "id": "act-68029b",
+      "document_name": "rag_testing_sample_contract.pdf",
+      "action": "Contract uploaded & intelligence indexed",
+      "initiated_by": "User / AI Engine",
+      "date": "Today, 06:21 AM",
+      "timestamp": "2026-09-15T06:21:08.756166+00:00"
+    }
+  ],
+  "suppliers": [
+    {
+      "id": "sup-0074b7",
+      "name": "test",
+      "category": "Master Agreement",
+      "vetted": true
+    },
+    {
+      "id": "sup-ced691",
+      "name": "supplier",
+      "category": "Master Agreement",
+      "vetted": true
+    }
+  ]
+}
