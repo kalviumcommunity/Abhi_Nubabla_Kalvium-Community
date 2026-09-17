@@ -79,6 +79,18 @@
   ],
   "ai_query_logs": [
     {
+      "id": "qlog-d3574c",
+      "query_type": "AI Q&A",
+      "question": "hi",
+      "answer": "I am your Enterprise Contract Intelligence Assistant. I am designed specifically to answer questions about your corporate contracts, procurement terms, vendor agreements, and compliance portfolio. I cannot assist with general knowledge or off-topic questions. Please ask a question related to your contracts or suppliers!",
+      "sources_count": 0,
+      "sources": [],
+      "user_email": "ybahvani@gmail.com",
+      "initiated_by": "ybahvani@gmail.com",
+      "date": "Sep 17, 2026 - 05:12 AM",
+      "timestamp": "2026-09-17T05:12:00.833383+00:00"
+    },
+    {
       "id": "qlog-3fc99a",
       "query_type": "AI Q&A",
       "question": "how to cook",

@@ -25,6 +25,7 @@ export interface ActivityItem {
   action: string;
   initiated_by: string;
   date: string;
+  timestamp?: string;
 }
 
 export interface OverviewData {

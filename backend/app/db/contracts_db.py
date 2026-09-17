@@ -202,7 +202,7 @@ class ContractsDBManager:
             "document_name": document_name,
             "action": action,
             "initiated_by": initiated_by,
-            "date": now.strftime("Today, %I:%M %p"),
+            "date": now.strftime("%b %d, %Y - %I:%M %p"),
             "timestamp": now.isoformat()
         }
         self.activities.insert(0, act)

@@ -8,6 +8,7 @@ import Footer from "@/components/Footer";
 import { ShieldAlert, FileText, Sparkles, Search, MessageSquare, ChevronDown, ChevronUp, RefreshCw } from "lucide-react";
 import { fetchOverviewData, fetchAiQueryLogsApi, ActivityItem, AiQueryLogItem } from "@/services/api";
 import { useAuth } from "@/context/AuthContext";
+import { formatFormattedDate } from "@/utils/dateUtils";
 
 export default function AuditLogPage() {
   const router = useRouter();
@@ -174,7 +175,7 @@ export default function AuditLogPage() {
 
                           <div className="flex items-center gap-3 shrink-0">
                             <span className="text-xs text-slate-400 font-medium whitespace-nowrap">
-                              {log.date}
+                              {formatFormattedDate(log.date, log.timestamp)}
                             </span>
                             <div className="text-slate-400">
                               {isExpanded ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
@@ -235,7 +236,7 @@ export default function AuditLogPage() {
                             {log.initiated_by}
                           </span>
                         </td>
-                        <td className="py-3.5 pl-2 text-right text-slate-400 text-xs">{log.date}</td>
+                        <td className="py-3.5 pl-2 text-right text-slate-400 text-xs">{formatFormattedDate(log.date, log.timestamp)}</td>
                       </tr>
                     ))}
                   </tbody>

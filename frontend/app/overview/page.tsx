@@ -30,6 +30,7 @@ import {
   AiQueryLogItem
 } from "@/services/api";
 import { useAuth } from "@/context/AuthContext";
+import { formatFormattedDate } from "@/utils/dateUtils";
 
 export default function OverviewPage() {
   const router = useRouter();
@@ -310,7 +311,7 @@ export default function OverviewPage() {
                       >
                         <div className="flex items-center justify-between text-slate-900 font-bold text-xs">
                           <span className="truncate max-w-[360px]">"{item.question}"</span>
-                          <span className="text-[10px] text-slate-400 font-normal">{item.date}</span>
+                          <span className="text-[10px] text-slate-400 font-normal">{formatFormattedDate(item.date, item.timestamp)}</span>
                         </div>
                         <p className="text-[11px] text-slate-600 line-clamp-2 italic">{item.answer}</p>
                         <button
@@ -424,7 +425,7 @@ export default function OverviewPage() {
                           </span>
                         </td>
                         <td className="py-3.5 pl-2 text-right text-slate-400 text-xs font-medium whitespace-nowrap">
-                          {act.date}
+                          {formatFormattedDate(act.date, act.timestamp)}
                         </td>
                       </tr>
                     ))}
