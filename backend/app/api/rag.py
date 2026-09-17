@@ -350,3 +350,36 @@ async def get_user_query_history(user_email: Optional[str] = Query(None)):
         "total": len(logs),
         "history": logs
     }
+
+
+@router.delete("/user-history")
+async def clear_user_query_history(user_email: Optional[str] = Query(None)):
+    """
+    Clears all AI question history for the current user (or all logs if admin/unfiltered).
+    """
+    if user_email and supabase_db.is_configured():
+        await supabase_db.clear_user_history(user_email)
+    
+    cleared_count = contracts_db.clear_ai_query_logs(user_email=user_email)
+    return {
+        "message": "User query history successfully cleared.",
+        "cleared_count": cleared_count
+    }
+
+
+@router.delete("/user-history/{log_id}")
+async def delete_single_query_history_item(log_id: str, user_email: Optional[str] = Query(None)):
+    """
+    Deletes a single AI question history entry by ID.
+    """
+    if user_email and supabase_db.is_configured():
+        await supabase_db.delete_user_history_entry(user_email, log_id)
+
+    deleted = contracts_db.delete_ai_query_log(log_id, user_email=user_email)
+    if not deleted:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Query history log entry not found.")
+
+    return {
+        "message": f"Log entry '{log_id}' successfully deleted.",
+        "id": log_id
+    }

@@ -286,5 +286,57 @@ class SupabaseClient:
                     logger.error(f"Error fetching user history from Supabase table '{table}': {e}")
         return []
 
+    async def clear_user_history(self, email: str) -> bool:
+        """Clears all Q&A history entries for the given user in Supabase."""
+        if not self.is_configured() or not email:
+            return False
+
+        headers = self.get_headers(use_service_role=True)
+        async with httpx.AsyncClient() as client:
+            for table in ("users", "profiles"):
+                get_url = f"{self.url}/rest/v1/{table}?email=eq.{email}&select=id"
+                try:
+                    resp = await client.get(get_url, headers=headers)
+                    if resp.status_code == 200 and resp.json():
+                        user_id = resp.json()[0].get("id")
+                        patch_url = f"{self.url}/rest/v1/{table}?id=eq.{user_id}"
+                        await client.patch(
+                            patch_url,
+                            json={"history": [], "updated_at": datetime.now(timezone.utc).isoformat()},
+                            headers=headers
+                        )
+                        return True
+                except Exception as e:
+                    logger.error(f"Error clearing user history in Supabase '{table}': {e}")
+        return False
+
+    async def delete_user_history_entry(self, email: str, log_id: str) -> bool:
+        """Deletes a single Q&A history entry by ID for the given user in Supabase."""
+        if not self.is_configured() or not email:
+            return False
+
+        headers = self.get_headers(use_service_role=True)
+        async with httpx.AsyncClient() as client:
+            for table in ("users", "profiles"):
+                get_url = f"{self.url}/rest/v1/{table}?email=eq.{email}&select=id,history"
+                try:
+                    resp = await client.get(get_url, headers=headers)
+                    if resp.status_code == 200 and resp.json():
+                        row = resp.json()[0]
+                        user_id = row.get("id")
+                        current_history = row.get("history") or []
+                        if isinstance(current_history, list):
+                            updated_history = [item for item in current_history if item.get("id") != log_id]
+                            patch_url = f"{self.url}/rest/v1/{table}?id=eq.{user_id}"
+                            await client.patch(
+                                patch_url,
+                                json={"history": updated_history, "updated_at": datetime.now(timezone.utc).isoformat()},
+                                headers=headers
+                            )
+                            return True
+                except Exception as e:
+                    logger.error(f"Error deleting history entry in Supabase '{table}': {e}")
+        return False
+
 
 supabase_db = SupabaseClient()

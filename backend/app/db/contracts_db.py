@@ -245,6 +245,30 @@ class ContractsDBManager:
             return [l for l in self.ai_query_logs if l.get("user_email") == user_email]
         return list(self.ai_query_logs)
 
+    def clear_ai_query_logs(self, user_email: Optional[str] = None) -> int:
+        """Clears AI query logs for a specific user or all logs."""
+        if user_email:
+            initial_count = len(self.ai_query_logs)
+            self.ai_query_logs = [l for l in self.ai_query_logs if l.get("user_email") != user_email]
+            cleared = initial_count - len(self.ai_query_logs)
+        else:
+            cleared = len(self.ai_query_logs)
+            self.ai_query_logs = []
+        self._save_data()
+        return cleared
+
+    def delete_ai_query_log(self, log_id: str, user_email: Optional[str] = None) -> bool:
+        """Deletes a single AI query log entry by ID."""
+        initial_count = len(self.ai_query_logs)
+        if user_email:
+            self.ai_query_logs = [l for l in self.ai_query_logs if not (l.get("id") == log_id and l.get("user_email") == user_email)]
+        else:
+            self.ai_query_logs = [l for l in self.ai_query_logs if l.get("id") != log_id]
+        deleted = len(self.ai_query_logs) < initial_count
+        if deleted:
+            self._save_data()
+        return deleted
+
     def get_overview_metrics(self) -> Dict[str, Any]:
         """Calculates dynamic overview metrics for Dashboard Overview Page."""
         total_contracts = len(self.contracts)

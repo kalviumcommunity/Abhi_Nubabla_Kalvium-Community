@@ -268,6 +268,8 @@ export interface AiQueryLogItem {
   question: string;
   answer: string;
   sources_count: number;
+  sources?: any[];
+  user_email?: string;
   initiated_by: string;
   date: string;
   timestamp: string;
@@ -304,5 +306,39 @@ export async function fetchUserQueryHistoryApi(userEmail?: string): Promise<{ to
   } catch (err) {
     console.warn("User query history API connection warning:", err);
     return { total: 0, history: [] };
+  }
+}
+
+export async function clearUserQueryHistoryApi(userEmail?: string): Promise<{ message: string; cleared_count: number }> {
+  try {
+    const query = userEmail ? `?user_email=${encodeURIComponent(userEmail)}` : "";
+    const response = await fetch(`${API_BASE_URL}/api/query/user-history${query}`, {
+      method: "DELETE"
+    });
+    if (!response.ok) {
+      const data = await response.json().catch(() => ({}));
+      throw new Error(data.detail || "Failed to clear user query history.");
+    }
+    return await response.json();
+  } catch (error: any) {
+    console.warn("Clear query history API error:", error);
+    throw error;
+  }
+}
+
+export async function deleteUserQueryHistoryItemApi(logId: string, userEmail?: string): Promise<{ message: string; id: string }> {
+  try {
+    const query = userEmail ? `?user_email=${encodeURIComponent(userEmail)}` : "";
+    const response = await fetch(`${API_BASE_URL}/api/query/user-history/${encodeURIComponent(logId)}${query}`, {
+      method: "DELETE"
+    });
+    if (!response.ok) {
+      const data = await response.json().catch(() => ({}));
+      throw new Error(data.detail || "Failed to delete query history item.");
+    }
+    return await response.json();
+  } catch (error: any) {
+    console.warn("Delete query history item API error:", error);
+    throw error;
   }
 }

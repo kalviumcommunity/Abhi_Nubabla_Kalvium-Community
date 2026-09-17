@@ -16,13 +16,16 @@ import {
   RefreshCw,
   History,
   Clock,
-  MessageSquare
+  MessageSquare,
+  Trash2
 } from "lucide-react";
 import {
   fetchOverviewData,
   askContractAI,
   runAuditApi,
   fetchUserQueryHistoryApi,
+  clearUserQueryHistoryApi,
+  deleteUserQueryHistoryItemApi,
   OverviewData,
   AiQueryLogItem
 } from "@/services/api";
@@ -77,6 +80,26 @@ export default function OverviewPage() {
     }
   };
 
+  const handleClearHistory = async () => {
+    if (!window.confirm("Are you sure you want to clear your entire question history?")) return;
+    try {
+      await clearUserQueryHistoryApi(user?.email);
+      setUserHistory([]);
+    } catch (err) {
+      console.error("Failed to clear history:", err);
+    }
+  };
+
+  const handleDeleteHistoryItem = async (id: string, e: React.MouseEvent) => {
+    e.stopPropagation();
+    try {
+      await deleteUserQueryHistoryItemApi(id, user?.email);
+      setUserHistory((prev) => prev.filter((item) => item.id !== id));
+    } catch (err) {
+      console.error("Failed to delete history item:", err);
+    }
+  };
+
   useEffect(() => {
     loadOverview();
     loadHistory();
@@ -126,7 +149,7 @@ export default function OverviewPage() {
           {/* Welcome Header */}
           <div className="shrink-0">
             <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
-              Good morning, {userName}
+              Hi {userName}
             </h1>
             <p className="text-slate-500 font-medium text-xs sm:text-sm mt-0.5">
               Search and manage your procurement knowledge with on-demand contract intelligence.
@@ -157,52 +180,60 @@ export default function OverviewPage() {
             </div>
 
             {/* AI Answer Display */}
-            {aiAnswer && (
-              <div className="p-4 sm:p-5 rounded-2xl bg-gradient-to-br from-blue-50/90 via-white to-indigo-50/60 border border-blue-200/80 shadow-sm text-slate-900 space-y-3 animate-in fade-in duration-200 min-h-[140px] max-h-[350px] overflow-y-auto flex flex-col justify-between">
-                <div className="flex items-center justify-between font-extrabold text-blue-950 border-b border-blue-200/60 pb-2.5 sticky -top-4 bg-white/95 backdrop-blur-md z-10 pt-1">
-                  <div className="flex items-center gap-2.5 text-sm sm:text-base">
-                    <Sparkles className="w-5 h-5 text-blue-600 shrink-0" />
-                    <span>Contract Intelligence Synthesis</span>
+            {aiAnswer && (() => {
+              const isGuardrailRefusal =
+                aiAnswer.includes("Enterprise Contract Intelligence Assistant") ||
+                aiAnswer.includes("cannot assist with general knowledge") ||
+                aiAnswer.includes("Please ask a question related to your contracts");
+              const showSources = aiSources.length > 0 && !isGuardrailRefusal;
+
+              return (
+                <div className="p-4 sm:p-5 rounded-2xl bg-gradient-to-br from-blue-50/90 via-white to-indigo-50/60 border border-blue-200/80 shadow-sm text-slate-900 space-y-3 animate-in fade-in duration-200 min-h-[140px] max-h-[350px] overflow-y-auto flex flex-col justify-between">
+                  <div className="flex items-center justify-between font-extrabold text-blue-950 border-b border-blue-200/60 pb-2.5 sticky -top-4 bg-white/95 backdrop-blur-md z-10 pt-1">
+                    <div className="flex items-center gap-2.5 text-sm sm:text-base">
+                      <Sparkles className="w-5 h-5 text-blue-600 shrink-0" />
+                      <span>Contract Intelligence Synthesis</span>
+                    </div>
+                    {showSources && (
+                      <span className="text-xs font-bold text-blue-700 bg-blue-100/90 px-3 py-1 rounded-full shadow-2xs">
+                        {aiSources.length} contract source{aiSources.length > 1 ? "s" : ""} matched
+                      </span>
+                    )}
                   </div>
-                  {aiSources.length > 0 && (
-                    <span className="text-xs font-bold text-blue-700 bg-blue-100/90 px-3 py-1 rounded-full shadow-2xs">
-                      {aiSources.length} contract source{aiSources.length > 1 ? "s" : ""} matched
-                    </span>
+
+                  {/* Complete Answer Text */}
+                  <div className="text-sm sm:text-base text-slate-800 leading-relaxed font-medium whitespace-pre-wrap py-1">
+                    {aiAnswer}
+                  </div>
+
+                  {/* All Cited Sources / Matching Passages */}
+                  {showSources && (
+                    <div className="pt-3 border-t border-blue-200/60 space-y-2.5">
+                      <span className="text-xs font-bold text-blue-900 uppercase tracking-wider block">
+                        Cited Contract Chunks & Sources:
+                      </span>
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        {aiSources.map((source: any, idx: number) => (
+                          <div key={idx} className="p-3 bg-white/90 backdrop-blur-xs rounded-xl border border-blue-100/90 text-xs space-y-1.5 shadow-2xs">
+                            <div className="flex items-center justify-between font-bold text-slate-900 text-xs">
+                              <span className="truncate max-w-[200px]">{source.contract_title || "Contract Document"}</span>
+                              <span className="text-blue-600 font-bold bg-blue-50 px-2 py-0.5 rounded-md">{Math.round((source.score || 0.9) * 100)}% match</span>
+                            </div>
+                            {source.snippet && (
+                              <p className="text-xs text-slate-600 italic leading-snug">"{source.snippet}"</p>
+                            )}
+                            <div className="text-[11px] text-slate-400 flex items-center justify-between pt-1 font-medium">
+                              <span>{source.document_type || "Contract"}</span>
+                              <span>{source.supplier || ""}</span>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
                   )}
                 </div>
-
-                {/* Complete Answer Text */}
-                <div className="text-sm sm:text-base text-slate-800 leading-relaxed font-medium whitespace-pre-wrap py-1">
-                  {aiAnswer}
-                </div>
-
-                {/* All Cited Sources / Matching Passages */}
-                {aiSources.length > 0 && (
-                  <div className="pt-3 border-t border-blue-200/60 space-y-2.5">
-                    <span className="text-xs font-bold text-blue-900 uppercase tracking-wider block">
-                      Cited Contract Chunks & Sources:
-                    </span>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                      {aiSources.map((source: any, idx: number) => (
-                        <div key={idx} className="p-3 bg-white/90 backdrop-blur-xs rounded-xl border border-blue-100/90 text-xs space-y-1.5 shadow-2xs">
-                          <div className="flex items-center justify-between font-bold text-slate-900 text-xs">
-                            <span className="truncate max-w-[200px]">{source.contract_title || "Contract Document"}</span>
-                            <span className="text-blue-600 font-bold bg-blue-50 px-2 py-0.5 rounded-md">{Math.round((source.score || 0.9) * 100)}% match</span>
-                          </div>
-                          {source.snippet && (
-                            <p className="text-xs text-slate-600 italic leading-snug">"{source.snippet}"</p>
-                          )}
-                          <div className="text-[11px] text-slate-400 flex items-center justify-between pt-1 font-medium">
-                            <span>{source.document_type || "Contract"}</span>
-                            <span>{source.supplier || ""}</span>
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                )}
-              </div>
-            )}
+              );
+            })()}
 
             {/* Suggestion Pills & History Toggle */}
             <div className="flex items-center justify-between gap-2 text-xs flex-wrap pt-1">
@@ -246,7 +277,19 @@ export default function OverviewPage() {
                     <Clock className="w-4 h-4 text-blue-600" />
                     <span>My Asked Questions & AI Answers</span>
                   </div>
-                  <span className="text-[10px] text-slate-500 font-medium">Click to reload Q&A</span>
+                  <div className="flex items-center gap-3">
+                    {userHistory.length > 0 && (
+                      <button
+                        onClick={handleClearHistory}
+                        className="flex items-center gap-1 text-[11px] font-semibold text-red-600 hover:text-red-700 hover:bg-red-50 px-2 py-0.5 rounded transition-colors"
+                        title="Clear entire question history"
+                      >
+                        <Trash2 className="w-3 h-3" />
+                        <span>Clear All</span>
+                      </button>
+                    )}
+                    <span className="text-[10px] text-slate-500 font-medium">Click card to reload Q&A</span>
+                  </div>
                 </div>
 
                 {historyLoading ? (
@@ -263,13 +306,20 @@ export default function OverviewPage() {
                           setAiAnswer(item.answer);
                           setAiSources(item.sources || []);
                         }}
-                        className="p-2.5 rounded-lg bg-white border border-slate-200/80 hover:border-blue-300 hover:shadow-2xs cursor-pointer transition-all space-y-1"
+                        className="group relative p-2.5 rounded-lg bg-white border border-slate-200/80 hover:border-blue-300 hover:shadow-2xs cursor-pointer transition-all space-y-1 pr-9"
                       >
                         <div className="flex items-center justify-between text-slate-900 font-bold text-xs">
-                          <span className="truncate max-w-[400px]">"{item.question}"</span>
+                          <span className="truncate max-w-[360px]">"{item.question}"</span>
                           <span className="text-[10px] text-slate-400 font-normal">{item.date}</span>
                         </div>
                         <p className="text-[11px] text-slate-600 line-clamp-2 italic">{item.answer}</p>
+                        <button
+                          onClick={(e) => handleDeleteHistoryItem(item.id, e)}
+                          className="absolute right-2 top-2.5 p-1 rounded-md text-slate-400 hover:text-red-600 hover:bg-red-50 transition-colors opacity-0 group-hover:opacity-100"
+                          title="Delete this question log"
+                        >
+                          <Trash2 className="w-3.5 h-3.5" />
+                        </button>
                       </div>
                     ))}
                   </div>

@@ -79,6 +79,198 @@
   ],
   "ai_query_logs": [
     {
+      "id": "qlog-3fc99a",
+      "query_type": "AI Q&A",
+      "question": "how to cook",
+      "answer": "I am your Enterprise Contract Intelligence Assistant. I am designed specifically to answer questions about your corporate contracts, procurement terms, vendor agreements, and compliance portfolio. I cannot assist with general knowledge or off-topic questions. Please ask a question related to your contracts or suppliers!",
+      "sources_count": 0,
+      "sources": [],
+      "user_email": "ybahvani@gmail.com",
+      "initiated_by": "ybahvani@gmail.com",
+      "date": "Sep 17, 2026 - 04:55 AM",
+      "timestamp": "2026-09-17T04:55:54.393883+00:00"
+    },
+    {
+      "id": "qlog-1c2059",
+      "query_type": "AI Q&A",
+      "question": "hi",
+      "answer": "I am your Enterprise Contract Intelligence Assistant. I am designed specifically to answer questions about your corporate contracts, procurement terms, vendor agreements, and compliance portfolio. I cannot assist with general knowledge or off-topic questions. Please ask a question related to your contracts or suppliers!",
+      "sources_count": 0,
+      "sources": [],
+      "user_email": "ybahvani@gmail.com",
+      "initiated_by": "ybahvani@gmail.com",
+      "date": "Sep 17, 2026 - 04:55 AM",
+      "timestamp": "2026-09-17T04:55:21.416884+00:00"
+    },
+    {
+      "id": "qlog-746ce5",
+      "query_type": "AI Q&A",
+      "question": "what are the payment terms in the contract",
+      "answer": "**Payment Terms**\n\n| Contract | Payment Structure | Key Dates / Conditions | Source |\n|----------|-------------------|------------------------|--------|\n| **Commercial Lease Agreement (CLA‑2026‑047)** | • **Monthly Base Rent**: INR 2,28,000, due on or before the 5th of each month.<br>• **Annual Rent Escalation**: 6 % effective on each anniversary of the lease.<br>• **Security Deposit**: INR 6,84,000 (three months’ base rent), refundable within 30 days after vacating, subject to deductions for unpaid rent, charges, or damage beyond normal wear and tear.<br>• **Maintenance Charge**: INR 18,500/month, payable with the monthly rent. | • Rent and maintenance are payable monthly; security deposit is refundable after lease termination. | [Source 1] |\n| **Software Development & Services Agreement (RAG‑TEST‑CONTRACT‑2026‑001)** | • **Total Project Fee**: INR 8,40,000 (exclusive of taxes).<br>• **Milestone Payments",
+      "sources_count": 7,
+      "sources": [
+        {
+          "chunk_id": "contract-3194869e537f-chunk-1",
+          "contract_title": "--- [Page 1] ---",
+          "section_title": "Preamble / General Provisions",
+          "score": 0.5247,
+          "snippet": "--- [Page 1] ---\nPage 1\nCOMMERCIAL LEASE AGREEMENT\nSynthetic sample document — intended for RAG testing and evaluation\nAgreement Number: CLA-2026-047    Execution Date: 15 September 2026\n1. PARTIES\nTh"
+        },
+        {
+          "chunk_id": "contract-00468f79cfad-chunk-1",
+          "contract_title": "--- [Page 1] ---",
+          "section_title": "Preamble / General Provisions",
+          "score": 0.5194,
+          "snippet": "--- [Page 1] ---\nPage 1\nSOFTWARE DEVELOPMENT AND SERVICES AGREEMENT\nSynthetic sample document — created solely for RAG testing and evaluation\nAgreement ID: RAG-TEST-CONTRACT-2026-001\nEffective Date: 1"
+        },
+        {
+          "chunk_id": "contract-3194869e537f-chunk-3",
+          "contract_title": "--- [Page 1] ---",
+          "section_title": "Preamble / General Provisions",
+          "score": 0.4304,
+          "snippet": "--- [Page 3] ---\nPage 3\n19. ENTIRE AGREEMENT\nThis Lease, together with its schedules and written amendments signed by both Parties, constitutes the entire\nagreement between the Parties concerning the "
+        },
+        {
+          "chunk_id": "contract-00468f79cfad-chunk-3",
+          "contract_title": "--- [Page 1] ---",
+          "section_title": "Preamble / General Provisions",
+          "score": 0.4239,
+          "snippet": "--- [Page 2] ---\nPage 2\nprovide an agreed service or comply with law.\n\n--- [Page 3] ---\nPage 3\n7. CONFIDENTIALITY\nEach Party shall protect confidential information received from the other Party using "
+        },
+        {
+          "chunk_id": "contract-3194869e537f-chunk-2",
+          "contract_title": "--- [Page 1] ---",
+          "section_title": "Preamble / General Provisions",
+          "score": 0.3731,
+          "snippet": "--- [Page 2] ---\nPage 2\n8. ALTERATIONS\nThe Tenant may install removable office furniture and equipment without prior approval. Any structural alteration,\npartitioning, permanent cabling, signage, or m"
+        },
+        {
+          "chunk_id": "contract-00468f79cfad-chunk-4",
+          "contract_title": "--- [Page 1] ---",
+          "section_title": "Preamble / General Provisions",
+          "score": 0.3279,
+          "snippet": "--- [Page 4] ---\nPage 4\nFormal notices under this Agreement must be delivered in writing to the addresses specified below, or to any\nreplacement address notified in writing by a Party.\nClient\nService "
+        },
+        {
+          "chunk_id": "contract-00468f79cfad-chunk-2",
+          "contract_title": "--- [Page 1] ---",
+          "section_title": "Preamble / General Provisions",
+          "score": 0.1814,
+          "snippet": "--- [Page 2] ---\nPage 2\nprovide an agreed service or comply with law."
+        }
+      ],
+      "user_email": null,
+      "initiated_by": "Enterprise User",
+      "date": "Sep 17, 2026 - 04:54 AM",
+      "timestamp": "2026-09-17T04:54:47.777124+00:00"
+    },
+    {
+      "id": "qlog-62423a",
+      "query_type": "AI Q&A",
+      "question": "what are the payment terms in the contract",
+      "answer": "An error occurred while generating answer from contract context: cannot access local variable 'answer' where it is not associated with a value",
+      "sources_count": 0,
+      "sources": [],
+      "user_email": null,
+      "initiated_by": "Enterprise User",
+      "date": "Sep 17, 2026 - 04:54 AM",
+      "timestamp": "2026-09-17T04:54:17.756601+00:00"
+    },
+    {
+      "id": "qlog-26d1ec",
+      "query_type": "AI Q&A",
+      "question": "hi",
+      "answer": "I am your Enterprise Contract Intelligence Assistant. I am designed specifically to answer questions about your corporate contracts, procurement terms, vendor agreements, and compliance portfolio. I cannot assist with general knowledge or off-topic questions. Please ask a question related to your contracts or suppliers!",
+      "sources_count": 0,
+      "sources": [],
+      "user_email": null,
+      "initiated_by": "Enterprise User",
+      "date": "Sep 17, 2026 - 04:54 AM",
+      "timestamp": "2026-09-17T04:54:01.228716+00:00"
+    },
+    {
+      "id": "qlog-9a78b1",
+      "query_type": "AI Q&A",
+      "question": "hi",
+      "answer": "I am your Enterprise Contract Intelligence Assistant. I am designed specifically to answer questions about your corporate contracts, procurement terms, vendor agreements, and compliance portfolio. I cannot assist with general knowledge or off-topic questions. Please ask a question related to your contracts or suppliers!",
+      "sources_count": 4,
+      "sources": [
+        {
+          "chunk_id": "contract-00468f79cfad-chunk-2",
+          "contract_title": "--- [Page 1] ---",
+          "section_title": "Preamble / General Provisions",
+          "score": 0.0410134569,
+          "snippet": "--- [Page 2] ---\nPage 2\nprovide an agreed service or comply with law."
+        },
+        {
+          "chunk_id": "contract-00468f79cfad-chunk-1",
+          "contract_title": "--- [Page 1] ---",
+          "section_title": "Preamble / General Provisions",
+          "score": 0.0152062094,
+          "snippet": "--- [Page 1] ---\nPage 1\nSOFTWARE DEVELOPMENT AND SERVICES AGREEMENT\nSynthetic sample document — created solely for RAG testing and evaluation\nAgreement ID: RAG-TEST-CONTRACT-2026-001\nEffective Date: 1"
+        },
+        {
+          "chunk_id": "contract-00468f79cfad-chunk-4",
+          "contract_title": "--- [Page 1] ---",
+          "section_title": "Preamble / General Provisions",
+          "score": 0.0119434278,
+          "snippet": "--- [Page 4] ---\nPage 4\nFormal notices under this Agreement must be delivered in writing to the addresses specified below, or to any\nreplacement address notified in writing by a Party.\nClient\nService "
+        },
+        {
+          "chunk_id": "contract-3194869e537f-chunk-3",
+          "contract_title": "--- [Page 1] ---",
+          "section_title": "Preamble / General Provisions",
+          "score": 0.00584387,
+          "snippet": "--- [Page 3] ---\nPage 3\n19. ENTIRE AGREEMENT\nThis Lease, together with its schedules and written amendments signed by both Parties, constitutes the entire\nagreement between the Parties concerning the "
+        }
+      ],
+      "user_email": "ybahvani@gmail.com",
+      "initiated_by": "ybahvani@gmail.com",
+      "date": "Sep 17, 2026 - 04:51 AM",
+      "timestamp": "2026-09-17T04:51:39.277123+00:00"
+    },
+    {
+      "id": "qlog-b388cf",
+      "query_type": "AI Q&A",
+      "question": "hi",
+      "answer": "I am your Enterprise Contract Intelligence Assistant. I am designed specifically to answer questions about your corporate contracts, procurement terms, vendor agreements, and compliance portfolio. I cannot assist with general knowledge or off-topic questions. Please ask a question related to your contracts or suppliers!",
+      "sources_count": 4,
+      "sources": [
+        {
+          "chunk_id": "contract-00468f79cfad-chunk-2",
+          "contract_title": "--- [Page 1] ---",
+          "section_title": "Preamble / General Provisions",
+          "score": 0.0410134569,
+          "snippet": "--- [Page 2] ---\nPage 2\nprovide an agreed service or comply with law."
+        },
+        {
+          "chunk_id": "contract-00468f79cfad-chunk-1",
+          "contract_title": "--- [Page 1] ---",
+          "section_title": "Preamble / General Provisions",
+          "score": 0.0152062094,
+          "snippet": "--- [Page 1] ---\nPage 1\nSOFTWARE DEVELOPMENT AND SERVICES AGREEMENT\nSynthetic sample document — created solely for RAG testing and evaluation\nAgreement ID: RAG-TEST-CONTRACT-2026-001\nEffective Date: 1"
+        },
+        {
+          "chunk_id": "contract-00468f79cfad-chunk-4",
+          "contract_title": "--- [Page 1] ---",
+          "section_title": "Preamble / General Provisions",
+          "score": 0.0119434278,
+          "snippet": "--- [Page 4] ---\nPage 4\nFormal notices under this Agreement must be delivered in writing to the addresses specified below, or to any\nreplacement address notified in writing by a Party.\nClient\nService "
+        },
+        {
+          "chunk_id": "contract-3194869e537f-chunk-3",
+          "contract_title": "--- [Page 1] ---",
+          "section_title": "Preamble / General Provisions",
+          "score": 0.00584387,
+          "snippet": "--- [Page 3] ---\nPage 3\n19. ENTIRE AGREEMENT\nThis Lease, together with its schedules and written amendments signed by both Parties, constitutes the entire\nagreement between the Parties concerning the "
+        }
+      ],
+      "user_email": "ybahvani@gmail.com",
+      "initiated_by": "ybahvani@gmail.com",
+      "date": "Sep 17, 2026 - 04:47 AM",
+      "timestamp": "2026-09-17T04:47:08.371645+00:00"
+    },
+    {
       "id": "qlog-c8ef06",
       "query_type": "AI Q&A",
       "question": "what are the tearms for the test1 supplier",
@@ -139,47 +331,6 @@
       "initiated_by": "ybahvani@gmail.com",
       "date": "Sep 15, 2026 - 09:35 AM",
       "timestamp": "2026-09-15T09:35:35.171694+00:00"
-    },
-    {
-      "id": "qlog-30a43a",
-      "query_type": "AI Q&A",
-      "question": "hi",
-      "answer": "I am your Enterprise Contract Intelligence Assistant. I am designed specifically to answer questions about your corporate contracts, procurement terms, vendor agreements, and compliance portfolio. I cannot assist with general knowledge or off-topic questions. Please ask a question related to your contracts or suppliers!",
-      "sources_count": 4,
-      "sources": [
-        {
-          "chunk_id": "contract-00468f79cfad-chunk-2",
-          "contract_title": "--- [Page 1] ---",
-          "section_title": "Preamble / General Provisions",
-          "score": 0.0410134569,
-          "snippet": "--- [Page 2] ---\nPage 2\nprovide an agreed service or comply with law."
-        },
-        {
-          "chunk_id": "contract-00468f79cfad-chunk-1",
-          "contract_title": "--- [Page 1] ---",
-          "section_title": "Preamble / General Provisions",
-          "score": 0.0152062094,
-          "snippet": "--- [Page 1] ---\nPage 1\nSOFTWARE DEVELOPMENT AND SERVICES AGREEMENT\nSynthetic sample document — created solely for RAG testing and evaluation\nAgreement ID: RAG-TEST-CONTRACT-2026-001\nEffective Date: 1"
-        },
-        {
-          "chunk_id": "contract-00468f79cfad-chunk-4",
-          "contract_title": "--- [Page 1] ---",
-          "section_title": "Preamble / General Provisions",
-          "score": 0.0119434278,
-          "snippet": "--- [Page 4] ---\nPage 4\nFormal notices under this Agreement must be delivered in writing to the addresses specified below, or to any\nreplacement address notified in writing by a Party.\nClient\nService "
-        },
-        {
-          "chunk_id": "contract-3194869e537f-chunk-3",
-          "contract_title": "--- [Page 1] ---",
-          "section_title": "Preamble / General Provisions",
-          "score": 0.00584387,
-          "snippet": "--- [Page 3] ---\nPage 3\n19. ENTIRE AGREEMENT\nThis Lease, together with its schedules and written amendments signed by both Parties, constitutes the entire\nagreement between the Parties concerning the "
-        }
-      ],
-      "user_email": "ybahvani@gmail.com",
-      "initiated_by": "ybahvani@gmail.com",
-      "date": "Sep 15, 2026 - 09:27 AM",
-      "timestamp": "2026-09-15T09:27:34.042101+00:00"
     },
     {
       "id": "qlog-e18257",
@@ -292,16 +443,6 @@
       "initiated_by": "Enterprise User",
       "date": "Sep 15, 2026 - 08:13 AM",
       "timestamp": "2026-09-15T08:13:25.729797+00:00"
-    },
-    {
-      "id": "qlog-cedf13",
-      "query_type": "AI Q&A",
-      "question": "what is the payment tearms on test",
-      "answer": "**Payment terms in the test contract (Software Development and Services Agreement – RAG‑TEST‑CONTRACT‑2026‑001)**  \n\n| Milestone | Percentage",
-      "sources_count": 7,
-      "initiated_by": "Enterprise User",
-      "date": "Sep 15, 2026 - 08:13 AM",
-      "timestamp": "2026-09-15T08:13:12.539791+00:00"
     }
   ]
 }

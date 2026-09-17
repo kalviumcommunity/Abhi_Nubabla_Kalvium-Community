@@ -39,6 +39,11 @@ OFF_TOPIC_PATTERNS = [
     "cricket", "basketball", "write code for", "solve math", "translate this"
 ]
 
+GREETING_PATTERNS = [
+    "hi", "hello", "hey", "greetings", "good morning", "good afternoon",
+    "good evening", "who are you", "what can you do", "help", "hola"
+]
+
 CONTRACT_KEYWORDS = [
     "contract", "agreement", "supplier", "vendor", "payment", "term",
     "expire", "renewal", "sow", "nda", "sla", "liability", "termination",
@@ -58,14 +63,22 @@ GUARDRAIL_MESSAGE = (
 def check_guardrails(question: str, retrieved_chunks: list) -> Optional[str]:
     """Evaluates question against strict corporate contract guardrails."""
     q_lower = question.lower().strip()
+    words = [w.strip("?,.!") for w in q_lower.split()]
     
-    # 1. Explicit off-topic pattern match
+    # 1. Explicit greetings or short casual phrases
+    if q_lower in GREETING_PATTERNS or (len(words) <= 2 and any(w in GREETING_PATTERNS for w in words)):
+        return GUARDRAIL_MESSAGE
+
+    # 2. Explicit off-topic pattern match
     if any(pattern in q_lower for pattern in OFF_TOPIC_PATTERNS):
         return GUARDRAIL_MESSAGE
 
-    # 2. If no chunks matched and query contains zero contract/procurement domain keywords
+    # 3. Filter retrieved chunks by minimum similarity score threshold (0.15 / 15% relevance match)
+    relevant_chunks = [c for c in retrieved_chunks if c.get("similarity_score", 0.0) >= 0.15]
+
+    # 4. If no relevant chunks meet threshold and query contains zero contract/procurement domain keywords
     has_contract_kw = any(kw in q_lower for kw in CONTRACT_KEYWORDS)
-    if not retrieved_chunks and not has_contract_kw:
+    if not relevant_chunks and not has_contract_kw:
         return GUARDRAIL_MESSAGE
 
     return None
@@ -194,7 +207,20 @@ class ContractQAGenerator:
                 temperature=AppConfig.ANSWER_TEMPERATURE
             )
             answer = response.choices[0].message.content
+            is_guardrail_refusal = (
+                "Enterprise Contract Intelligence Assistant" in answer or
+                "cannot assist with general knowledge" in answer or
+                "Please ask a question related to your contracts" in answer
+            )
 
+            if is_guardrail_refusal:
+                return {
+                    "answer": answer,
+                    "sources": [],
+                    "chunks_retrieved": 0
+                }
+
+            relevant_chunks = [c for c in retrieved_chunks if c.get("similarity_score", 0.0) >= 0.10]
             citations = [
                 {
                     "chunk_id": c["chunk_id"],
@@ -203,20 +229,20 @@ class ContractQAGenerator:
                     "score": c.get("similarity_score", 0.0),
                     "snippet": c["text"][:200]
                 }
-                for c in retrieved_chunks
+                for c in relevant_chunks
             ]
 
             return {
                 "answer": answer,
                 "sources": citations,
-                "chunks_retrieved": len(retrieved_chunks)
+                "chunks_retrieved": len(citations)
             }
         except Exception as e:
             logger.error(f"Groq LLM Answer Generation Error: {e}")
             return {
                 "answer": f"An error occurred while generating answer from contract context: {str(e)}",
                 "sources": [],
-                "chunks_retrieved": len(retrieved_chunks)
+                "chunks_retrieved": 0
             }
 
     def generate_stream(
@@ -252,6 +278,7 @@ class ContractQAGenerator:
             {"role": "user", "content": question}
         ]
 
+        relevant_chunks = [c for c in retrieved_chunks if c.get("similarity_score", 0.0) >= 0.10]
         sources = [
             {
                 "chunk_id": c["chunk_id"],
@@ -259,7 +286,7 @@ class ContractQAGenerator:
                 "section_title": c.get("metadata", {}).get("section_title", "Section"),
                 "score": c.get("similarity_score", 0.0)
             }
-            for c in retrieved_chunks
+            for c in relevant_chunks
         ]
         meta_event = json.dumps({"event": "metadata", "sources": sources})
         yield f"data: {meta_event}\n\n"
